@@ -1,0 +1,12 @@
+bookdown::gitbook:
+  css: style.css
+  config:
+    toc:
+      collapse: section
+      after: null
+    edit:
+      link: https://github.com/pratikunterwegs/tres-tidy-tutorial/edit/master/%s
+      text: "Edit"
+    sharing: no
+  includes:
+#    in_header: ga.html

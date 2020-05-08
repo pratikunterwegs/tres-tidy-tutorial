@@ -1,0 +1,3 @@
+[
+["index.html", "TRES Tidyverse Tutorial Outline", " TRES Tidyverse Tutorial Raphael and Pratik 2020-05-08 Outline This is the readable version of the TRES tidyverse tutorial, with these sections: 1. Reading data and string manipulation with readr, stringr, and glue 2. The new data frames with tibble and wrangling them into shape with tidyr 3. Manipulating data with dplyr. 3. Iteration and functional programming with purrr 4. Plotting with ggplot2 "]
+]
