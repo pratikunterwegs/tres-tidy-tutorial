@@ -16,10 +16,10 @@ This is the source code for the TRES [tidyverse](https://www.tidyverse.org/) tut
 
 | Section   | Whom?                             |
 |:---------:|:----------------------------------|
-| Chapter 1 | Pratik/Raph?                      |
-| Chapter 2 | Pratik/Raph?                      |
-| Chapter 3 | Pratik/Raph?                      |
+| Chapter 1 | Raph (readr) and Pratik (strings) |
+| Chapter 2 | Raph                              |
+| Chapter 3 | Theo?                             |
 | Chapter 4 | Pratik                            |
 | Chapter 5 | Raph                              |
 | Chapter 6 | Pedro / Josh / Theo / Shu / Gio?  |
-| Chapter 7 | Thijs?                            |
+| Chapter 7 | ?                                 |
