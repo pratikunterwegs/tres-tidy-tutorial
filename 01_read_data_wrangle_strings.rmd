@@ -1,0 +1,100 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+# Reading files and string manipulation
+
+```{r load_packages}
+library(readr)
+library(stringr)
+library(glue)
+```
+
+## Section on `readr`
+
+## String manipulation with `stringr`
+
+`stringr` functions begin with `str_`.
+
+### Growing strings
+
+Concatenate two strings with `str_c`, and duplicate strings with `str_dup`.
+
+```{r string_joining, echo=TRUE}
+# str_c works like paste(), choose a separator
+str_c("this string", "this other string", sep = "_")
+
+# str_dup works like rep
+str_dup("this string", times = 3)
+```
+
+### Detecting strings
+
+Count the frequency of a pattern in a string with `str_count`. Returns an int.
+Detect whether a pattern exists in a string with `str_detect`. Returns a logical and can be used as a predicate.
+
+Both are vectorised, i.e, automatically applied to a vector of arguments.
+
+```{r count_matches}
+# there should be 5 a-s here
+str_count(string = "ababababa", pattern = "a")
+
+# vectorise over the input string
+# this should return a vector of length 2, with integers 5 and 3
+str_count(string = c("ababbababa", "banana"), pattern = "a")
+
+# vectorise over the pattern to count both a-s and b-s
+str_count(string = "ababababa", pattern = c("a", "b"))
+```
+
+Vectorising over both string and pattern works as expected.
+
+```{r}
+# vectorise over both string and pattern
+# counts a-s in first input, and b-s in the second
+str_count(string = c("ababababa", "banana"), pattern = c("a", "b"))
+
+# provide a longer pattern vector to search for both a-s and b-s in both inputs
+str_count(string = c("ababababa", "banana"), pattern = c("a", "b", 
+                                                         "b", "a"))
+```
+
+```{r}
+# str_detect detects a sequence in a string
+str_detect(string = "Bananageddon is coming!", pattern = "na")
+
+# str_detect is also vectorised and returns a two-element logical vector
+str_detect(string = "Bananageddon is coming!", pattern = c("na", "don"))
+
+# use any or all to convert a multi-element logical to a single logical
+# here we ask if either of the patterns is detected
+any(str_detect(string = "Bananageddon is coming!", pattern = c("na", "don")))
+```
+
+Detect whether a string starts or ends with a pattern. Also vectorised.
+Both have a `negate` argument, which returns the negative, i.e., returns `FALSE` is a pattern is detected.
+
+```{r}
+# taken straight from the examples, because they suffice
+fruit <- c("apple", "banana", "pear", "pineapple")
+# str_detect looks at the first character
+str_starts(fruit, "p")
+
+# str_ends looks at the last character
+str_ends(fruit, "e")
+
+# an example of negate = TRUE
+str_ends(fruit, "e", negate = TRUE)
+```
+
+### Matching strings
+
+`str_match` returns all positive matches of the patttern in the string.
+
+```{r}
+str_match_all(string = "bananaa99 banana90", pattern = c("[0-9]"))
+
+str_extract_all(string = "bananaa99 banana90", pattern = c("[0-9]+"))
+```
+
