@@ -1,4 +1,4 @@
-# TRES Tidyverse Tutorial
+# [TRES Tidyverse Tutorial](https://pratikunterwegs.github.io/tres-tidy-tutorial/)
 
 This is the source code for the TRES [tidyverse](https://www.tidyverse.org/) tutorial, with these sections:
 1. Reading data and string manipulation with [readr](https://readr.tidyverse.org/), [stringr](https://stringr.tidyverse.org/), and [glue](https://github.com/tidyverse/glue)
@@ -23,4 +23,3 @@ This is the source code for the TRES [tidyverse](https://www.tidyverse.org/) tut
 | Chapter 5 | Raph                              |
 | Chapter 6 | Pedro / Josh / Theo / Shu / Gio?  |
 | Chapter 7 | Thijs?                            |
-
