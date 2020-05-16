@@ -4,21 +4,21 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Section 2 Iteration and functional programming with purrr | TRES Tidyverse Tutorial</title>
-  <meta name="description" content="Section 2 Iteration and functional programming with purrr | TRES Tidyverse Tutorial" />
+  <title>Section 2 Iteration and functional programming | TRES Tidyverse Tutorial</title>
+  <meta name="description" content="Section 2 Iteration and functional programming | TRES Tidyverse Tutorial" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Section 2 Iteration and functional programming with purrr | TRES Tidyverse Tutorial" />
+  <meta property="og:title" content="Section 2 Iteration and functional programming | TRES Tidyverse Tutorial" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Section 2 Iteration and functional programming with purrr | TRES Tidyverse Tutorial" />
+  <meta property="og:description" content="Section 2 Iteration and functional programming | TRES Tidyverse Tutorial" />
   <meta name="github-repo" content="pratikunterwegs/tres-tidy-tutorial" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Section 2 Iteration and functional programming with purrr | TRES Tidyverse Tutorial" />
+  <meta name="twitter:title" content="Section 2 Iteration and functional programming | TRES Tidyverse Tutorial" />
   
-  <meta name="twitter:description" content="Section 2 Iteration and functional programming with purrr | TRES Tidyverse Tutorial" />
+  <meta name="twitter:description" content="Section 2 Iteration and functional programming | TRES Tidyverse Tutorial" />
   
 
 <meta name="author" content="Raphael and Pratik" />
@@ -142,10 +142,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2.8" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#padding-and-truncating-strings"><i class="fa fa-check"></i><b>1.2.8</b> Padding and truncating strings</a></li>
 <li class="chapter" data-level="1.2.9" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#stringr-aspects-not-covered-here"><i class="fa fa-check"></i><b>1.2.9</b> Stringr aspects not covered here</a></li>
 </ul></li>
+<li class="chapter" data-level="1.3" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#string-interpolation-with-glue"><i class="fa fa-check"></i><b>1.3</b> String interpolation with <code>glue</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="iteration-and-functional-programming-with-purrr.html"><a href="iteration-and-functional-programming-with-purrr.html"><i class="fa fa-check"></i><b>2</b> Iteration and functional programming with <code>purrr</code></a><ul>
-<li class="chapter" data-level="2.1" data-path="iteration-and-functional-programming-with-purrr.html"><a href="iteration-and-functional-programming-with-purrr.html#iteration-with-map-and-variants"><i class="fa fa-check"></i><b>2.1</b> Iteration with <code>map</code> and variants</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="iteration-and-functional-programming-with-purrr.html"><a href="iteration-and-functional-programming-with-purrr.html#map-basic-use"><i class="fa fa-check"></i><b>2.1.1</b> <code>map</code> basic use</a></li>
+<li class="chapter" data-level="2" data-path="iteration-and-functional-programming.html"><a href="iteration-and-functional-programming.html"><i class="fa fa-check"></i><b>2</b> Iteration and functional programming</a><ul>
+<li class="chapter" data-level="2.1" data-path="iteration-and-functional-programming.html"><a href="iteration-and-functional-programming.html#iteration-with-map-and-variants"><i class="fa fa-check"></i><b>2.1</b> Iteration with <code>map</code> and variants</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="iteration-and-functional-programming.html"><a href="iteration-and-functional-programming.html#map-basic-use"><i class="fa fa-check"></i><b>2.1.1</b> <code>map</code> basic use</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -165,18 +166,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="iteration-and-functional-programming-with-purrr" class="section level1">
-<h1><span class="header-section-number">Section 2</span> Iteration and functional programming with <code>purrr</code></h1>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" title="1"><span class="co"># load the tidyverse</span></a>
-<a class="sourceLine" id="cb80-2" title="2"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
-<pre><code>## ── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
-<pre><code>## ✓ ggplot2 3.3.0     ✓ purrr   0.3.4
-## ✓ tibble  3.0.1     ✓ dplyr   0.8.5
-## ✓ tidyr   1.0.2     ✓ forcats 0.5.0</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::collapse() masks glue::collapse()
-## x dplyr::filter()   masks stats::filter()
-## x dplyr::lag()      masks stats::lag()</code></pre>
+<div id="iteration-and-functional-programming" class="section level1">
+<h1><span class="header-section-number">Section 2</span> Iteration and functional programming</h1>
+<p><img src="opening-image.png" /></p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1"><span class="co"># load the tidyverse</span></a>
+<a class="sourceLine" id="cb86-2" title="2"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
 <div id="iteration-with-map-and-variants" class="section level2">
 <h2><span class="header-section-number">2.1</span> Iteration with <code>map</code> and variants</h2>
 <p>Iteration in base <code>R</code> is commonly done with <code>for</code> and <code>while</code> loops.
@@ -187,7 +181,7 @@ However, the functionality of <code>for</code> loops is spread over the <code>ma
 <div id="map-basic-use" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> <code>map</code> basic use</h3>
 <p>Consider a case in which multiple files must be read in.</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" title="1">files_to_read =<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&quot;&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1">files_to_read =<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&quot;&quot;</span>)</a></code></pre></div>
 
 </div>
 </div>

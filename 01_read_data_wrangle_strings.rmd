@@ -5,6 +5,8 @@ editor_options:
 
 # Reading files and string manipulation
 
+![](opening-image.png)
+
 ```{r load_packages}
 library(readr)
 library(stringr)
@@ -14,6 +16,8 @@ library(glue)
 ## Section on `readr`
 
 ## String manipulation with `stringr`
+
+`stringr` is the tidyverse package for string manipulation, and exists in an interesting symbiosis with the `stringi` package. For the most part, stringr is a wrapper around stringi, and is almost always more than sufficient for day-to-day needs.
 
 `stringr` functions begin with `str_`.
 
@@ -330,10 +334,44 @@ str_trunc(string = c("bananas are great and wonderful
 
 Some `stringr` functions are not covered here. These include: 
  - `str_wrap` (of dubious use), 
- - `str_interp`, `str_glue*` (better to use `glue`), 
+ - `str_interp`, `str_glue*` (better to use `glue`; see below), 
  - `str_sort`, `str_order` (used in sorting a character vector),
  - `str_to_case*` (case conversion), and 
  - `str_view*` (a graphical view of search pattern matches). 
  
 [`stringi`](https://cran.r-project.org/web/packages/stringi/), of which `stringr` is a wrapper, offers a lot more flexibility and control.
 
+## String interpolation with `glue`
+
+The idea behind string interpolation is to procedurally generate new complex strings from pre-existing data.
+
+`glue` is as simple as the example shown.
+
+```{r}
+# print that each car name is a car model
+cars = rownames(head(mtcars))
+glue('The {cars} is a car model')
+```
+
+This creates and prints a vector of car names stating each is a car model.
+
+The related `glue_data` is even more useful in printing from a dataframe.
+In this example, it can quickly generate command line arguments or filenames.
+
+```{r}
+# use dataframes for now
+parameter_combinations = data.frame(param1 = letters[1:5],
+                                    param2 = 1:5)
+
+# for command line arguments or to start multiple job scripts on the cluster
+glue_data(parameter_combinations,
+          'simulation-name {param1} {param2}')
+
+# for filenames
+glue_data(parameter_combinations,
+          'sim_data_param1_{param1}_param2_{param2}.ext')
+```
+
+Finally, the convenient `glue_sql` and `glue_data_sql` are used to safely write SQL queries where variables from data are appropriately quoted. This is not covered here, but it is good to know it exists.
+
+`glue` has some more functions --- `glue_safe`, `glue_collapse`, and `glue_col`, but these are infrequently used. Their functionality can be found on the `glue` github page.
