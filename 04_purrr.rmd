@@ -3,7 +3,9 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Iteration and functional programming with `purrr`
+# Iteration and functional programming
+
+![](opening-image.png)
 
 ```{r}
 # load the tidyverse
