@@ -333,11 +333,11 @@ str_trunc(string = c("bananas are great and wonderful
 ### Stringr aspects not covered here
 
 Some `stringr` functions are not covered here. These include: 
- - `str_wrap` (of dubious use), 
- - `str_interp`, `str_glue*` (better to use `glue`; see below), 
- - `str_sort`, `str_order` (used in sorting a character vector),
- - `str_to_case*` (case conversion), and 
- - `str_view*` (a graphical view of search pattern matches). 
+ - `str_wrap` (of dubious use),  
+ - `str_interp`, `str_glue*` (better to use `glue`; see below),  
+ - `str_sort`, `str_order` (used in sorting a character vector),  
+ - `str_to_case*` (case conversion), and  
+ - `str_view*` (a graphical view of search pattern matches).
  
 [`stringi`](https://cran.r-project.org/web/packages/stringi/), of which `stringr` is a wrapper, offers a lot more flexibility and control.
 

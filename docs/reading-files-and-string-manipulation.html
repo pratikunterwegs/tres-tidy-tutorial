@@ -370,7 +370,8 @@ In the above date-time example, when reading filenames from a path, or when work
 <a class="sourceLine" id="cb58-2" title="2"><span class="kw">str_split</span>(filename,</a>
 <a class="sourceLine" id="cb58-3" title="3">          <span class="dt">pattern =</span> <span class="st">&quot;sim_&quot;</span>)</a></code></pre></div>
 <pre><code>## [[1]]
-## [1] &quot;&quot;                                        &quot;param1_0.01_param2_0.05_param3_0.01.ext&quot;</code></pre>
+## [1] &quot;&quot;                                       
+## [2] &quot;param1_0.01_param2_0.05_param3_0.01.ext&quot;</code></pre>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1"><span class="co"># getting there but still needs work</span></a>
 <a class="sourceLine" id="cb60-2" title="2"><span class="kw">str_split</span>(filename,</a>
 <a class="sourceLine" id="cb60-3" title="3">          <span class="dt">pattern =</span> <span class="st">&quot;(sim_)|_*param</span><span class="ch">\\</span><span class="st">d{1}_|(.ext)&quot;</span>)</a></code></pre></div>
@@ -457,10 +458,10 @@ In the above date-time example, when reading filenames from a path, or when work
 <div id="stringr-aspects-not-covered-here" class="section level3">
 <h3><span class="header-section-number">1.2.9</span> Stringr aspects not covered here</h3>
 <p>Some <code>stringr</code> functions are not covered here. These include:
-- <code>str_wrap</code> (of dubious use),
-- <code>str_interp</code>, <code>str_glue*</code> (better to use <code>glue</code>; see below),
-- <code>str_sort</code>, <code>str_order</code> (used in sorting a character vector),
-- <code>str_to_case*</code> (case conversion), and
+- <code>str_wrap</code> (of dubious use),<br />
+- <code>str_interp</code>, <code>str_glue*</code> (better to use <code>glue</code>; see below),<br />
+- <code>str_sort</code>, <code>str_order</code> (used in sorting a character vector),<br />
+- <code>str_to_case*</code> (case conversion), and<br />
 - <code>str_view*</code> (a graphical view of search pattern matches).</p>
 <p><a href="https://cran.r-project.org/web/packages/stringi/"><code>stringi</code></a>, of which <code>stringr</code> is a wrapper, offers a lot more flexibility and control.</p>
 </div>
