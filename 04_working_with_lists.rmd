@@ -1,0 +1,139 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+# Working with lists using `purrr`
+
+![](opening-image.png)
+
+```{r}
+# load the tidyverse
+library(tidyverse)
+```
+
+## Basic iteration with `map`
+
+Iteration in base `R` is commonly done with `for` and `while` loops.
+There is no readymade alternative to `while` loops in the tidyverse.
+However, the functionality of `for` loops is spread over the `map` family of functions.
+
+`purrr` functions are _functionals_, i.e., functions that take another function as an argument.
+The closest equivalent in `R` is the `*apply` family of functions: `apply`, `lapply`, `vapply` and so on.
+
+A good reason to use `purrr` functions instead of base `R` functions is their consistent and clear naming, which always indicates how they should be used. 
+This is explained in the examples below.
+
+These reasons, as well as how `map` is different from `for` and `lapply` are best explained in the [Advanced R book](https://adv-r.hadley.nz/functionals.html).
+
+### `map` basic use
+
+`map` works on any list-like object, which includes vectors, and always returns a list. `map` takes two arguments, the object on which to operate, and the function to apply to each element.
+
+```{r}
+# get the square root of each integer 1 - 10
+some_numbers = 1:10
+map(some_numbers, sqrt)
+```
+
+### `map` variants returning vectors
+
+Though `map` always returns a list, it has variants named `map_*` where the suffix indicates the return type. 
+`map_chr`, `map_dbl`, `map_int`, and `map_lgl` return character, double (numeric), integer, and logical vectors.
+
+```{r}
+# use map_dbl to get a vector of square roots
+some_numbers = 1:10
+map_dbl(some_numbers, sqrt)
+
+# map_chr will convert the output to a character
+map_chr(some_numbers, sqrt)
+
+# map_int will NOT round the output to an integer
+
+# map_lgl returns TRUE/FALSE values
+some_numbers = c(NA, 1:3, NA, NaN, Inf, -Inf)
+map_lgl(some_numbers, is.na)
+```
+
+### Integrating `map` and `tidyr::nest` {-}
+
+The example show how each map variant can be used. This integrates `tidyr::nest` with `map`, and the two are especially complementary.
+
+```{r}
+# nest mtcars into a list of dataframes based on number of cylinders
+some_data = as_tibble(mtcars, rownames = "car_name") %>% 
+  group_by(cyl) %>% 
+  nest()
+
+# get the number of rows per dataframe
+# the mean mileage
+# and the first car
+some_data = some_data %>% 
+  mutate(n_rows = map_int(data, nrow),
+         mean_mpg = map_dbl(data, ~mean(.$mpg)),
+         first_car = map_chr(data, ~first(.$car_name)))
+
+some_data
+```
+
+`map` accepts multiple functions that are applied in sequence to the input list-like object, but this is confusing to the reader and ill advised.
+
+### `map` variants returning dataframes
+
+`map_df` returns data frames, and by default binds dataframes by rows, while `map_dfr` does this explicitly, and `map_dfc` does returns a dataframe bound by column.
+
+```{r}
+# split mtcars into 3 dataframes, one per cylinder number
+some_list = split(mtcars, mtcars$cyl)
+
+# get the first two rows of each dataframe
+map_df(some_list, head, n = 2)
+```
+
+`map` accepts arguments to the function being mapped, such as in the example above, where `head()` accepts the argument `n = 2`.
+
+`map_dfr` behaves the same as `map_df`.
+
+```{r}
+# the same as above but with a pipe
+some_list %>% 
+  map_dfr(head, n = 2)
+```
+
+`map_dfc` binds the resulting 3 data frames of two rows each by column, and automatically repairs the column names, adding a suffix to each duplicate.
+
+```{r}
+some_list %>% 
+  map_dfc(head, n = 2)
+```
+
+### Selective mapping
+
+- `map_at` and `map_if`
+
+## More `map` variants 
+
+### `map2`
+
+`imap` here
+
+### `pmap`
+
+### `walk`
+
+`walk2` and `pwalk`
+
+## Modification in place
+
+`modify`
+
+## Working with lists
+
+### Filtering lists
+
+### Summarising lists
+
+### Reduction and accumulation
+
+### Miscellaneous operation
