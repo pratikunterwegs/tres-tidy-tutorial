@@ -3,7 +3,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Working with lists using `purrr`
+# Working with lists and iteration
 
 ![](opening-image.png)
 
