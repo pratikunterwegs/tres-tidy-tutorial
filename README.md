@@ -2,7 +2,7 @@
 
 This is the source code for the TRES [tidyverse](https://www.tidyverse.org/) tutorial.
 
-Topic|Package|Instructor|Date[^1]
+Topic|Package|Instructor|Date*
 ---|---|---|---
 Reading data and string manipulation|[readr](https://readr.tidyverse.org/), [stringr](https://stringr.tidyverse.org/), [glue](https://github.com/tidyverse/glue)|Raphael + Pratik|29/05/20
 Data and reshaping|[tibble](https://tibble.tidyverse.org/), [tidyr](https://tidyr.tidyverse.org/)|Raphael|05/06/20
@@ -15,4 +15,4 @@ Plotting|[ggplot2](https://ggplot2.tidyverse.org/)|Raphael|26/06/20
 - Reproducibility and package-making (with e.g. [usethis](https://usethis.r-lib.org/))  
 - Embedding C++ code with [Rcpp](http://adv-r.had.co.nz/Rcpp.html)
 
-[^1]: More or less certain; depends on us being available.
+*Tentative dates.
