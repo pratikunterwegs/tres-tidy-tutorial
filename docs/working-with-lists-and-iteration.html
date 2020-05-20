@@ -24,7 +24,7 @@
 <meta name="author" content="Raphael and Pratik" />
 
 
-<meta name="date" content="2020-05-18" />
+<meta name="date" content="2020-05-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -115,7 +115,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -132,7 +131,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html"><i class="fa fa-check"></i><b>1</b> Reading files and string manipulation</a><ul>
 <li class="chapter" data-level="1.1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#section-on-readr"><i class="fa fa-check"></i><b>1.1</b> Section on <code>readr</code></a></li>
 <li class="chapter" data-level="1.2" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#string-manipulation-with-stringr"><i class="fa fa-check"></i><b>1.2</b> String manipulation with <code>stringr</code></a><ul>
-<li class="chapter" data-level="1.2.1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#puting-strings-together"><i class="fa fa-check"></i><b>1.2.1</b> Puting strings together</a></li>
+<li class="chapter" data-level="1.2.1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#putting-strings-together"><i class="fa fa-check"></i><b>1.2.1</b> Putting strings together</a></li>
 <li class="chapter" data-level="1.2.2" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#detecting-strings"><i class="fa fa-check"></i><b>1.2.2</b> Detecting strings</a></li>
 <li class="chapter" data-level="1.2.3" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#matching-strings"><i class="fa fa-check"></i><b>1.2.3</b> Matching strings</a></li>
 <li class="chapter" data-level="1.2.4" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#simpler-pattern-extraction"><i class="fa fa-check"></i><b>1.2.4</b> Simpler pattern extraction</a></li>
@@ -390,16 +389,22 @@ This is explained in the examples below.</p>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": false,
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
 "fontsettings": {
 "theme": "white",
 "family": "sans",
 "size": 2
 },
-"edit": {
-"link": "https://github.com/pratikunterwegs/tres-tidy-tutorial/edit/master/04_working_with_lists.rmd",
-"text": "Edit"
-},
+"edit": null,
 "history": {
 "link": null,
 "text": null
@@ -410,8 +415,14 @@ gitbook.start({
 },
 "download": null,
 "toc": {
-"collapse": "section"
-}
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true,
+"info": true
 });
 });
 </script>
