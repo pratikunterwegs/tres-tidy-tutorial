@@ -58,7 +58,7 @@ Both are vectorised, i.e, automatically applied to a vector of arguments.
 str_count(string = "ababababa", pattern = "a")
 
 # vectorise over the input string
-# this should return a vector of length 2, with integers 5 and 3
+# should return a vector of length 2, with integers 5 and 3
 str_count(string = c("ababbababa", "banana"), pattern = "a")
 
 # vectorise over the pattern to count both a-s and b-s
@@ -70,11 +70,14 @@ Vectorising over both string and pattern works as expected.
 ```{r}
 # vectorise over both string and pattern
 # counts a-s in first input, and b-s in the second
-str_count(string = c("ababababa", "banana"), pattern = c("a", "b"))
+str_count(string = c("ababababa", "banana"), 
+          pattern = c("a", "b"))
 
-# provide a longer pattern vector to search for both a-s and b-s in both inputs
-str_count(string = c("ababababa", "banana"), pattern = c("a", "b", 
-                                                         "b", "a"))
+# provide a longer pattern vector to search for both a-s 
+# and b-s in both inputs
+str_count(string = c("ababababa", "banana"), 
+         pattern = c("a", "b", 
+                    "b", "a"))
 ```
 
 `str_locate` locates the search pattern in a string, and returns the start and end as a two column matrix.
@@ -88,14 +91,17 @@ str_locate(string = "banana", pattern = "ana")
 
 ```{r}
 # str_detect detects a sequence in a string
-str_detect(string = "Bananageddon is coming!", pattern = "na")
+str_detect(string = "Bananageddon is coming!", 
+           pattern = "na")
 
 # str_detect is also vectorised and returns a two-element logical vector
-str_detect(string = "Bananageddon is coming!", pattern = c("na", "don"))
+str_detect(string = "Bananageddon is coming!", 
+           pattern = c("na", "don"))
 
 # use any or all to convert a multi-element logical to a single logical
 # here we ask if either of the patterns is detected
-any(str_detect(string = "Bananageddon is coming!", pattern = c("na", "don")))
+any(str_detect(string = "Bananageddon is coming!", 
+               pattern = c("na", "don")))
 ```
 
 Detect whether a string starts or ends with a pattern. Also vectorised.
