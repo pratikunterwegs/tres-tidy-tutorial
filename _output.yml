@@ -8,7 +8,7 @@ bookdown::gitbook:
     toolbar:
       position: fixed
     edit : null
-    download: null
+    download: ["pdf"]
     search: yes
     fontsettings:
       theme: white
