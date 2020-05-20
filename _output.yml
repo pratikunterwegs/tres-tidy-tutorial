@@ -24,3 +24,13 @@ bookdown::gitbook:
       vk: no
       all: ['facebook', 'twitter', 'linkedin', 'weibo', 'instapaper']
     info: yes
+bookdown::pdf_book:
+  keep_tex: true
+  papersize: a4
+  latex_engine: xelatex
+  highlight: pygments
+  includes:
+    in_header: latex/preamble.tex
+    before_body: latex/before-body.tex
+    # after_body: latex/after_body.tex
+    
