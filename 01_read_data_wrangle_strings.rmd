@@ -21,7 +21,7 @@ library(glue)
 
 `stringr` functions begin with `str_`.
 
-### Puting strings together
+### Putting strings together
 
 Concatenate two strings with `str_c`, and duplicate strings with `str_dup`. Flatten a list or vector of strings using `str_flatten`.
 
