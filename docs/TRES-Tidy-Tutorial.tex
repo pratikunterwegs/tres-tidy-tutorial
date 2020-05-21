@@ -105,9 +105,9 @@
 
 
 \usepackage{fontspec}
-
-\IfFontExistsTF{IBM Plex Serif}{\setmainfont[]{IBM Plex Serif}}{}
-\IfFontExistsTF{Inconsolata}{\setmonofont[]{Inconsolata}}{}
+% use nice fonts if available else use boring defaults
+\IfFontExistsTF{IBM Plex Serif}{\setmainfont[]{IBM Plex Serif}}{} 
+\IfFontExistsTF{Hack}{\setmonofont[]{Hack}}{}
 
 \usepackage{lineno}
 
