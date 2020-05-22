@@ -1,12 +1,36 @@
 bookdown::gitbook:
-  css: style.css
   config:
     toc:
-      collapse: section
+      collapse: subsection
+      scroll_highlight: yes
+      before: null
       after: null
-    edit:
-      link: https://github.com/pratikunterwegs/tres-tidy-tutorial/edit/master/%s
-      text: "Edit"
-    sharing: no
+    toolbar:
+      position: fixed
+    edit : null
+    download: ["pdf"]
+    search: yes
+    fontsettings:
+      theme: white
+      family: sans
+      size: 2
+    sharing:
+      facebook: yes
+      github: no
+      twitter: yes
+      linkedin: no
+      weibo: no
+      instapaper: no
+      vk: no
+      all: ['facebook', 'twitter', 'linkedin', 'weibo', 'instapaper']
+    info: yes
+bookdown::pdf_book:
+  keep_tex: true
+  papersize: a4
+  latex_engine: xelatex
+  highlight: pygments
   includes:
-#    in_header: ga.html
+    in_header: latex/preamble.tex
+    before_body: latex/before-body.tex
+    # after_body: latex/after_body.tex
+    

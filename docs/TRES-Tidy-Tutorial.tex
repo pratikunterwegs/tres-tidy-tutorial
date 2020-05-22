@@ -1,0 +1,1161 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{book}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={TRES Tidyverse Tutorial},
+            pdfauthor={Raphael and Pratik},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\usepackage{fontspec}
+% use nice fonts if available else use boring defaults
+\IfFontExistsTF{IBM Plex Serif}{\setmainfont[]{IBM Plex Serif}}{} 
+\IfFontExistsTF{Hack}{\setmonofont[]{Hack}}{}
+
+\usepackage{lineno}
+
+\title{TRES Tidyverse Tutorial}
+\author{Raphael and Pratik}
+\date{2020-05-20}
+
+\begin{document}
+\maketitle
+
+
+\linenumbers
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{outline}{%
+\chapter*{Outline}\label{outline}}
+\addcontentsline{toc}{chapter}{Outline}
+
+This is the readable version of the TRES \href{https://www.tidyverse.org/}{tidyverse} tutorial, with these sections:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Reading data and string manipulation with \href{https://readr.tidyverse.org/}{readr}, \href{https://stringr.tidyverse.org/}{stringr}, and \href{https://github.com/tidyverse/glue}{glue}\\
+\item
+  The new data frames with \href{https://tibble.tidyverse.org/}{tibble} and wrangling them into shape with \href{https://tidyr.tidyverse.org/}{tidyr}\\
+\item
+  Manipulating data with \href{https://dplyr.tidyverse.org/}{dplyr}\\
+\item
+  Iteration and functional programming with \href{https://purrr.tidyverse.org/}{purrr}\\
+\item
+  Plotting with \href{https://ggplot2.tidyverse.org/}{ggplot2}
+\end{enumerate}
+
+\hypertarget{reading-files-and-string-manipulation}{%
+\chapter{Reading files and string manipulation}\label{reading-files-and-string-manipulation}}
+
+\includegraphics{opening-image.png}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(readr)}
+\KeywordTok{library}\NormalTok{(stringr)}
+\KeywordTok{library}\NormalTok{(glue)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{section-on-readr}{%
+\section{\texorpdfstring{Section on \texttt{readr}}{Section on readr}}\label{section-on-readr}}
+
+\hypertarget{string-manipulation-with-stringr}{%
+\section{\texorpdfstring{String manipulation with \texttt{stringr}}{String manipulation with stringr}}\label{string-manipulation-with-stringr}}
+
+\texttt{stringr} is the tidyverse package for string manipulation, and exists in an interesting symbiosis with the \texttt{stringi} package. For the most part, stringr is a wrapper around stringi, and is almost always more than sufficient for day-to-day needs.
+
+\texttt{stringr} functions begin with \texttt{str\_}.
+
+\hypertarget{putting-strings-together}{%
+\subsection{Putting strings together}\label{putting-strings-together}}
+
+Concatenate two strings with \texttt{str\_c}, and duplicate strings with \texttt{str\_dup}. Flatten a list or vector of strings using \texttt{str\_flatten}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# str_c works like paste(), choose a separator}
+\KeywordTok{str_c}\NormalTok{(}\StringTok{"this string"}\NormalTok{, }\StringTok{"this other string"}\NormalTok{, }\DataTypeTok{sep =} \StringTok{"_"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "this string_this other string"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# str_dup works like rep}
+\KeywordTok{str_dup}\NormalTok{(}\StringTok{"this string"}\NormalTok{, }\DataTypeTok{times =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "this stringthis stringthis string"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# str_flatten works on lists and vectors}
+\KeywordTok{str_flatten}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{as.list}\NormalTok{(letters), }\DataTypeTok{collapse =} \StringTok{"_"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str_flatten}\NormalTok{(}\DataTypeTok{string =}\NormalTok{ letters, }\DataTypeTok{collapse =} \StringTok{"-"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "a-b-c-d-e-f-g-h-i-j-k-l-m-n-o-p-q-r-s-t-u-v-w-x-y-z"
+\end{verbatim}
+
+\texttt{str\_flatten} is especially useful when displaying the type of an object that returns a list when \texttt{class} is called on it.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# get the class of a tibble and display it as a single string}
+\NormalTok{class_tibble =}\StringTok{ }\KeywordTok{class}\NormalTok{(tibble}\OperatorTok{::}\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{a =} \DecValTok{1}\NormalTok{))}
+\KeywordTok{str_flatten}\NormalTok{(}\DataTypeTok{string =}\NormalTok{ class_tibble, }\DataTypeTok{collapse =} \StringTok{", "}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "tbl_df, tbl, data.frame"
+\end{verbatim}
+
+\hypertarget{detecting-strings}{%
+\subsection{Detecting strings}\label{detecting-strings}}
+
+Count the frequency of a pattern in a string with \texttt{str\_count}. Returns an inteegr.
+Detect whether a pattern exists in a string with \texttt{str\_detect}. Returns a logical and can be used as a predicate.
+
+Both are vectorised, i.e, automatically applied to a vector of arguments.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# there should be 5 a-s here}
+\KeywordTok{str_count}\NormalTok{(}\DataTypeTok{string =} \StringTok{"ababababa"}\NormalTok{, }\DataTypeTok{pattern =} \StringTok{"a"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# vectorise over the input string}
+\CommentTok{# should return a vector of length 2, with integers 5 and 3}
+\KeywordTok{str_count}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"ababbababa"}\NormalTok{, }\StringTok{"banana"}\NormalTok{), }\DataTypeTok{pattern =} \StringTok{"a"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# vectorise over the pattern to count both a-s and b-s}
+\KeywordTok{str_count}\NormalTok{(}\DataTypeTok{string =} \StringTok{"ababababa"}\NormalTok{, }\DataTypeTok{pattern =} \KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5 4
+\end{verbatim}
+
+Vectorising over both string and pattern works as expected.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# vectorise over both string and pattern}
+\CommentTok{# counts a-s in first input, and b-s in the second}
+\KeywordTok{str_count}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"ababababa"}\NormalTok{, }\StringTok{"banana"}\NormalTok{), }
+          \DataTypeTok{pattern =} \KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# provide a longer pattern vector to search for both a-s }
+\CommentTok{# and b-s in both inputs}
+\KeywordTok{str_count}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"ababababa"}\NormalTok{, }\StringTok{"banana"}\NormalTok{), }
+         \DataTypeTok{pattern =} \KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }
+                    \StringTok{"b"}\NormalTok{, }\StringTok{"a"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5 1 4 3
+\end{verbatim}
+
+\texttt{str\_locate} locates the search pattern in a string, and returns the start and end as a two column matrix.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# the behaviour of both str_locate and str_locate_all is }
+\CommentTok{# to find the first match by default}
+\KeywordTok{str_locate}\NormalTok{(}\DataTypeTok{string =} \StringTok{"banana"}\NormalTok{, }\DataTypeTok{pattern =} \StringTok{"ana"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      start end
+## [1,]     2   4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# str_detect detects a sequence in a string}
+\KeywordTok{str_detect}\NormalTok{(}\DataTypeTok{string =} \StringTok{"Bananageddon is coming!"}\NormalTok{, }
+           \DataTypeTok{pattern =} \StringTok{"na"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# str_detect is also vectorised and returns a two-element logical vector}
+\KeywordTok{str_detect}\NormalTok{(}\DataTypeTok{string =} \StringTok{"Bananageddon is coming!"}\NormalTok{, }
+           \DataTypeTok{pattern =} \KeywordTok{c}\NormalTok{(}\StringTok{"na"}\NormalTok{, }\StringTok{"don"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# use any or all to convert a multi-element logical to a single logical}
+\CommentTok{# here we ask if either of the patterns is detected}
+\KeywordTok{any}\NormalTok{(}\KeywordTok{str_detect}\NormalTok{(}\DataTypeTok{string =} \StringTok{"Bananageddon is coming!"}\NormalTok{, }
+               \DataTypeTok{pattern =} \KeywordTok{c}\NormalTok{(}\StringTok{"na"}\NormalTok{, }\StringTok{"don"}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+Detect whether a string starts or ends with a pattern. Also vectorised.
+Both have a \texttt{negate} argument, which returns the negative, i.e., returns \texttt{FALSE} if the search pattern is detected.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# taken straight from the examples, because they suffice}
+\NormalTok{fruit <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"apple"}\NormalTok{, }\StringTok{"banana"}\NormalTok{, }\StringTok{"pear"}\NormalTok{, }\StringTok{"pineapple"}\NormalTok{)}
+\CommentTok{# str_detect looks at the first character}
+\KeywordTok{str_starts}\NormalTok{(fruit, }\StringTok{"p"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE FALSE  TRUE  TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# str_ends looks at the last character}
+\KeywordTok{str_ends}\NormalTok{(fruit, }\StringTok{"e"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  TRUE FALSE FALSE  TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# an example of negate = TRUE}
+\KeywordTok{str_ends}\NormalTok{(fruit, }\StringTok{"e"}\NormalTok{, }\DataTypeTok{negate =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE  TRUE  TRUE FALSE
+\end{verbatim}
+
+\texttt{str\_subset} {[}WHICH IS NOT RELATED TO \texttt{str\_sub}{]} helps with subsetting a character vector based on a \texttt{str\_detect} predicate.
+In the example, all elements containing ``banana'' are subset.
+
+\texttt{str\_which} has the same logic except that it returns the vector position and not the elements.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# should return a subset vector containing the first two elements}
+\KeywordTok{str_subset}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"banana"}\NormalTok{,}
+             \StringTok{"bananageddon is coming"}\NormalTok{,}
+             \StringTok{"applegeddon is not real"}\NormalTok{),}
+           \DataTypeTok{pattern =} \StringTok{"banana"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "banana"                 "bananageddon is coming"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# returns an integer vector}
+\KeywordTok{str_which}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"banana"}\NormalTok{,}
+             \StringTok{"bananageddon is coming"}\NormalTok{,}
+             \StringTok{"applegeddon is not real"}\NormalTok{),}
+           \DataTypeTok{pattern =} \StringTok{"banana"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 2
+\end{verbatim}
+
+\hypertarget{matching-strings}{%
+\subsection{Matching strings}\label{matching-strings}}
+
+\texttt{str\_match} returns all positive matches of the patttern in the string.
+The return type is a \texttt{list}, with one element per search pattern.
+
+A simple case is shown below where the search pattern is the phrase ``banana''.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str_match}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"banana"}\NormalTok{,}
+                     \StringTok{"bananageddon"}\NormalTok{,}
+                     \StringTok{"bananas are bad"}\NormalTok{),}
+          \DataTypeTok{pattern =} \StringTok{"banana"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1]    
+## [1,] "banana"
+## [2,] "banana"
+## [3,] "banana"
+\end{verbatim}
+
+The search pattern can be extended to look for multiple subsets of the search pattern. Consider searching for dates and times.
+
+Here, the search pattern is a \texttt{regex} pattern that looks for a set of four digits (\texttt{\textbackslash{}\textbackslash{}d\{4\}}) and a month name \texttt{(\textbackslash{}\textbackslash{}w+)} seperated by a hyphen. There's much more to be explored in dealing with dates and times in \texttt{{[}lubridate{]}(https://lubridate.tidyverse.org/)}, another \texttt{tidyverse} package.
+
+The return type is a list, each element is a character matrix where the first column is the string subset matching the full search pattern, and then as many columns as there are parts to the search pattern. The parts of interest in the search pattern are indicated by wrapping them in parentheses. For example, in the case below, wrapping \texttt{{[}-.{]}} in parentheses will turn it into a distinct part of the search pattern.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# first with [-.] treated simply as a separator}
+\KeywordTok{str_match}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01"}\NormalTok{,}
+                     \StringTok{"1990-anothermonth-01"}\NormalTok{,}
+                     \StringTok{"2010-thismonth-01"}\NormalTok{), }
+          \DataTypeTok{pattern =} \StringTok{"(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\})[-.](}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{w+)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1]                [,2]   [,3]          
+## [1,] "1970-somemonth"    "1970" "somemonth"   
+## [2,] "1990-anothermonth" "1990" "anothermonth"
+## [3,] "2010-thismonth"    "2010" "thismonth"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# then with [-.] actively searched for}
+\KeywordTok{str_match}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01"}\NormalTok{,}
+                     \StringTok{"1990-anothermonth-01"}\NormalTok{,}
+                     \StringTok{"2010-thismonth-01"}\NormalTok{), }
+          \DataTypeTok{pattern =} \StringTok{"(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\})([-.])(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{w+)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1]                [,2]   [,3] [,4]          
+## [1,] "1970-somemonth"    "1970" "-"  "somemonth"   
+## [2,] "1990-anothermonth" "1990" "-"  "anothermonth"
+## [3,] "2010-thismonth"    "2010" "-"  "thismonth"
+\end{verbatim}
+
+Multiple possible matches are dealt with using \texttt{str\_match\_all}. An example case is uncertainty in date-time in raw data, where the date has been entered as \texttt{1970-somemonth-01\ or\ 1970/anothermonth/01}.
+
+The return type is a list, with one element per input string. Each element is a character matrix, where each row is one possible match, and each column after the first (the full match) corresponds to the parts of the search pattern.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# first with a single date entry}
+\KeywordTok{str_match_all}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01 or maybe 1990/anothermonth/01"}\NormalTok{),}
+          \DataTypeTok{pattern =} \StringTok{"(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\})[}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{/]([a-z]+)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+##      [,1]                [,2]   [,3]          
+## [1,] "1970-somemonth"    "1970" "somemonth"   
+## [2,] "1990/anothermonth" "1990" "anothermonth"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# then with multiple date entries}
+\KeywordTok{str_match_all}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01 or maybe 1990/anothermonth/01"}\NormalTok{,}
+                         \StringTok{"1990-somemonth-01 or maybe 2001/anothermonth/01"}\NormalTok{),}
+          \DataTypeTok{pattern =} \StringTok{"(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\})[}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{/]([a-z]+)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+##      [,1]                [,2]   [,3]          
+## [1,] "1970-somemonth"    "1970" "somemonth"   
+## [2,] "1990/anothermonth" "1990" "anothermonth"
+## 
+## [[2]]
+##      [,1]                [,2]   [,3]          
+## [1,] "1990-somemonth"    "1990" "somemonth"   
+## [2,] "2001/anothermonth" "2001" "anothermonth"
+\end{verbatim}
+
+\hypertarget{simpler-pattern-extraction}{%
+\subsection{Simpler pattern extraction}\label{simpler-pattern-extraction}}
+
+The full functionality of \texttt{str\_match\_*} can be boiled down to the most common use case, extracting one or more full matches of the search pattern using \texttt{str\_extract} and \texttt{str\_extract\_all} respectively.
+
+\texttt{str\_extract} returns a character vector with the same length as the input string vector, while \texttt{str\_extract\_all} returns a list, with a character vector whose elements are the matches.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# extracting the first full match using str_extract}
+\KeywordTok{str_extract}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01 or maybe 1990/anothermonth/01"}\NormalTok{,}
+                       \StringTok{"1990-somemonth-01 or maybe 2001/anothermonth/01"}\NormalTok{),}
+          \DataTypeTok{pattern =} \StringTok{"(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\})[}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{/]([a-z]+)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "1970-somemonth" "1990-somemonth"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# extracting all full matches using str_extract all}
+\KeywordTok{str_extract_all}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01 or maybe 1990/anothermonth/01"}\NormalTok{,}
+                       \StringTok{"1990-somemonth-01 or maybe 2001/anothermonth/01"}\NormalTok{),}
+          \DataTypeTok{pattern =} \StringTok{"(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\})[}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{/]([a-z]+)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] "1970-somemonth"    "1990/anothermonth"
+## 
+## [[2]]
+## [1] "1990-somemonth"    "2001/anothermonth"
+\end{verbatim}
+
+\hypertarget{breaking-strings-apart}{%
+\subsection{Breaking strings apart}\label{breaking-strings-apart}}
+
+\texttt{str\_split}, str\_sub,
+In the above date-time example, when reading filenames from a path, or when working sequences separated by a known pattern generally, \texttt{str\_split} can help separate elements of interest.
+
+The return type is a list similar to \texttt{str\_match}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# split on either a hyphen or a forward slash}
+\KeywordTok{str_split}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01"}\NormalTok{,}
+            \StringTok{"1990/anothermonth/01"}\NormalTok{), }
+          \DataTypeTok{pattern =} \StringTok{"[}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{/]"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] "1970"      "somemonth" "01"       
+## 
+## [[2]]
+## [1] "1990"         "anothermonth" "01"
+\end{verbatim}
+
+This can be useful in recovering simulation parameters from a filename, but may require some knowledge of \texttt{regex}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# assume a simulation output file}
+\NormalTok{filename =}\StringTok{ "sim_param1_0.01_param2_0.05_param3_0.01.ext"}
+
+\CommentTok{# not quite there}
+\KeywordTok{str_split}\NormalTok{(filename, }\DataTypeTok{pattern =} \StringTok{"_"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] "sim"      "param1"   "0.01"     "param2"   "0.05"     "param3"   "0.01.ext"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# not really}
+\KeywordTok{str_split}\NormalTok{(filename,}
+          \DataTypeTok{pattern =} \StringTok{"sim_"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] ""                                       
+## [2] "param1_0.01_param2_0.05_param3_0.01.ext"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# getting there but still needs work}
+\KeywordTok{str_split}\NormalTok{(filename,}
+          \DataTypeTok{pattern =} \StringTok{"(sim_)|_*param}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{1\}_|(.ext)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] ""     ""     "0.01" "0.05" "0.01" ""
+\end{verbatim}
+
+\texttt{str\_split\_fixed} split the string into as many pieces as specified, and can be especially useful dealing with filepaths.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# split on either a hyphen or a forward slash}
+\KeywordTok{str_split_fixed}\NormalTok{(}\DataTypeTok{string =} \StringTok{"dir_level_1/dir_level_2/file.ext"}\NormalTok{, }
+          \DataTypeTok{pattern =} \StringTok{"/"}\NormalTok{,}
+          \DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1]          [,2]                  
+## [1,] "dir_level_1" "dir_level_2/file.ext"
+\end{verbatim}
+
+\hypertarget{replacing-string-elements}{%
+\subsection{Replacing string elements}\label{replacing-string-elements}}
+
+\texttt{str\_replace} is intended to replace the search pattern, and can be co-opted into the task of recovering simulation parameters or other data from regularly named files. \texttt{str\_replace\_all} works the same way but replaces all matches of the search pattern.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# replace all unwanted characters from this hypothetical filename with spaces}
+\NormalTok{filename =}\StringTok{ "sim_param1_0.01_param2_0.05_param3_0.01.ext"}
+\KeywordTok{str_replace_all}\NormalTok{(filename,}
+            \DataTypeTok{pattern =} \StringTok{"(sim_)|_*param}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{1\}_|(.ext)"}\NormalTok{,}
+            \DataTypeTok{replacement =} \StringTok{" "}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "  0.01 0.05 0.01 "
+\end{verbatim}
+
+\texttt{str\_remove} is a wrapper around \texttt{str\_replace} where the replacement is set to \texttt{""}. This is not covered here.
+
+Having replaced unwanted characters in the filename with spaces, \texttt{str\_trim} offers a way to remove leading and trailing whitespaces.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# trim whitespaces from this filename after replacing unwanted text}
+\NormalTok{filename =}\StringTok{ "sim_param1_0.01_param2_0.05_param3_0.01.ext"}
+\NormalTok{filename_with_spaces =}\StringTok{ }\KeywordTok{str_replace_all}\NormalTok{(filename,}
+                                       \DataTypeTok{pattern =} \StringTok{"(sim_)|_*param}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{1\}_|(.ext)"}\NormalTok{,}
+                                       \DataTypeTok{replacement =} \StringTok{" "}\NormalTok{)}
+\NormalTok{filename_without_spaces =}\StringTok{ }\KeywordTok{str_trim}\NormalTok{(filename_with_spaces)}
+\NormalTok{filename_without_spaces}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "0.01 0.05 0.01"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# the result can be split on whitespaces to return useful data}
+\KeywordTok{str_split}\NormalTok{(filename_without_spaces, }\StringTok{" "}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] "0.01" "0.05" "0.01"
+\end{verbatim}
+
+\hypertarget{subsetting-within-strings}{%
+\subsection{Subsetting within strings}\label{subsetting-within-strings}}
+
+When strings are highly regular, useful data can be extracted from a string using \texttt{str\_sub}. In the date-time example, the year is always represented by the first four characters.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# get the year as characters 1 - 4}
+\KeywordTok{str_sub}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01"}\NormalTok{,}
+                     \StringTok{"1990-anothermonth-01"}\NormalTok{,}
+                     \StringTok{"2010-thismonth-01"}\NormalTok{), }
+        \DataTypeTok{start =} \DecValTok{1}\NormalTok{, }\DataTypeTok{end =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "1970" "1990" "2010"
+\end{verbatim}
+
+Similarly, it's possible to extract the last few characters using negative indices.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# get the day as characters -2 to -1}
+\KeywordTok{str_sub}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01"}\NormalTok{,}
+                     \StringTok{"1990-anothermonth-21"}\NormalTok{,}
+                     \StringTok{"2010-thismonth-31"}\NormalTok{), }
+        \DataTypeTok{start =} \DecValTok{-2}\NormalTok{, }\DataTypeTok{end =} \DecValTok{-1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "01" "21" "31"
+\end{verbatim}
+
+Finally, it's also possible to replace characters within a string based on the position. This requires using the assignment operator \texttt{\textless{}-}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# replace all days in these dates to 01}
+\NormalTok{date_times =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-25"}\NormalTok{,}
+                     \StringTok{"1990-anothermonth-21"}\NormalTok{,}
+                     \StringTok{"2010-thismonth-31"}\NormalTok{)}
+
+\CommentTok{# a strictly necessary use of the assignment operator}
+\KeywordTok{str_sub}\NormalTok{(date_times, }
+        \DataTypeTok{start =} \DecValTok{-2}\NormalTok{, }\DataTypeTok{end =} \DecValTok{-1}\NormalTok{) <-}\StringTok{ "01"}
+
+\NormalTok{date_times}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "1970-somemonth-01"    "1990-anothermonth-01" "2010-thismonth-01"
+\end{verbatim}
+
+\hypertarget{padding-and-truncating-strings}{%
+\subsection{Padding and truncating strings}\label{padding-and-truncating-strings}}
+
+Strings included in filenames or plots are often of unequal lengths, especially when they represent numbers. \texttt{str\_pad} can pad strings with suitable characters to maintain equal length filenames, with which it is easier to work.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# pad so all values have three digits}
+\KeywordTok{str_pad}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1"}\NormalTok{, }\StringTok{"10"}\NormalTok{, }\StringTok{"100"}\NormalTok{), }
+        \DataTypeTok{width =} \DecValTok{3}\NormalTok{,}
+        \DataTypeTok{side =} \StringTok{"left"}\NormalTok{,}
+        \DataTypeTok{pad =} \StringTok{"0"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "001" "010" "100"
+\end{verbatim}
+
+Strings can also be truncated if they are too long.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str_trunc}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"bananas are great and wonderful }
+\StringTok{                     and more stuff about bananas and }
+\StringTok{                     it really goes on about bananas"}\NormalTok{),}
+          \DataTypeTok{width =} \DecValTok{27}\NormalTok{,}
+          \DataTypeTok{side =} \StringTok{"right"}\NormalTok{, }\DataTypeTok{ellipsis =} \StringTok{"etc. etc."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "bananas are great etc. etc."
+\end{verbatim}
+
+\hypertarget{stringr-aspects-not-covered-here}{%
+\subsection{Stringr aspects not covered here}\label{stringr-aspects-not-covered-here}}
+
+Some \texttt{stringr} functions are not covered here. These include:\\
+- \texttt{str\_wrap} (of dubious use),\\
+- \texttt{str\_interp}, \texttt{str\_glue*} (better to use \texttt{glue}; see below),\\
+- \texttt{str\_sort}, \texttt{str\_order} (used in sorting a character vector),\\
+- \texttt{str\_to\_case*} (case conversion), and\\
+- \texttt{str\_view*} (a graphical view of search pattern matches).
+
+\href{https://cran.r-project.org/web/packages/stringi/}{\texttt{stringi}}, of which \texttt{stringr} is a wrapper, offers a lot more flexibility and control.
+
+\hypertarget{string-interpolation-with-glue}{%
+\section{\texorpdfstring{String interpolation with \texttt{glue}}{String interpolation with glue}}\label{string-interpolation-with-glue}}
+
+The idea behind string interpolation is to procedurally generate new complex strings from pre-existing data.
+
+\texttt{glue} is as simple as the example shown.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# print that each car name is a car model}
+\NormalTok{cars =}\StringTok{ }\KeywordTok{rownames}\NormalTok{(}\KeywordTok{head}\NormalTok{(mtcars))}
+\KeywordTok{glue}\NormalTok{(}\StringTok{'The \{cars\} is a car model'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## The Mazda RX4 is a car model
+## The Mazda RX4 Wag is a car model
+## The Datsun 710 is a car model
+## The Hornet 4 Drive is a car model
+## The Hornet Sportabout is a car model
+## The Valiant is a car model
+\end{verbatim}
+
+This creates and prints a vector of car names stating each is a car model.
+
+The related \texttt{glue\_data} is even more useful in printing from a dataframe.
+In this example, it can quickly generate command line arguments or filenames.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# use dataframes for now}
+\NormalTok{parameter_combinations =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{param1 =}\NormalTok{ letters[}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{],}
+                                    \DataTypeTok{param2 =} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
+
+\CommentTok{# for command line arguments or to start multiple job scripts on the cluster}
+\KeywordTok{glue_data}\NormalTok{(parameter_combinations,}
+          \StringTok{'simulation-name \{param1\} \{param2\}'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## simulation-name a 1
+## simulation-name b 2
+## simulation-name c 3
+## simulation-name d 4
+## simulation-name e 5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# for filenames}
+\KeywordTok{glue_data}\NormalTok{(parameter_combinations,}
+          \StringTok{'sim_data_param1_\{param1\}_param2_\{param2\}.ext'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## sim_data_param1_a_param2_1.ext
+## sim_data_param1_b_param2_2.ext
+## sim_data_param1_c_param2_3.ext
+## sim_data_param1_d_param2_4.ext
+## sim_data_param1_e_param2_5.ext
+\end{verbatim}
+
+Finally, the convenient \texttt{glue\_sql} and \texttt{glue\_data\_sql} are used to safely write SQL queries where variables from data are appropriately quoted. This is not covered here, but it is good to know it exists.
+
+\texttt{glue} has some more functions --- \texttt{glue\_safe}, \texttt{glue\_collapse}, and \texttt{glue\_col}, but these are infrequently used. Their functionality can be found on the \texttt{glue} github page.
+
+\hypertarget{working-with-lists-and-iteration}{%
+\chapter{Working with lists and iteration}\label{working-with-lists-and-iteration}}
+
+\includegraphics{opening-image.png}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# load the tidyverse}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.0     v purrr   0.3.4
+## v tibble  3.0.1     v dplyr   0.8.5
+## v tidyr   1.0.2     v forcats 0.5.0
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::collapse() masks glue::collapse()
+## x dplyr::filter()   masks stats::filter()
+## x dplyr::lag()      masks stats::lag()
+\end{verbatim}
+
+\hypertarget{basic-iteration-with-map}{%
+\section{\texorpdfstring{Basic iteration with \texttt{map}}{Basic iteration with map}}\label{basic-iteration-with-map}}
+
+Iteration in base \texttt{R} is commonly done with \texttt{for} and \texttt{while} loops.
+There is no readymade alternative to \texttt{while} loops in the tidyverse.
+However, the functionality of \texttt{for} loops is spread over the \texttt{map} family of functions.
+
+\texttt{purrr} functions are \emph{functionals}, i.e., functions that take another function as an argument.
+The closest equivalent in \texttt{R} is the \texttt{*apply} family of functions: \texttt{apply}, \texttt{lapply}, \texttt{vapply} and so on.
+
+A good reason to use \texttt{purrr} functions instead of base \texttt{R} functions is their consistent and clear naming, which always indicates how they should be used.
+This is explained in the examples below.
+
+These reasons, as well as how \texttt{map} is different from \texttt{for} and \texttt{lapply} are best explained in the \href{https://adv-r.hadley.nz/functionals.html}{Advanced R book}.
+
+\hypertarget{map-basic-use}{%
+\subsection{\texorpdfstring{\texttt{map} basic use}{map basic use}}\label{map-basic-use}}
+
+\texttt{map} works on any list-like object, which includes vectors, and always returns a list. \texttt{map} takes two arguments, the object on which to operate, and the function to apply to each element.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# get the square root of each integer 1 - 10}
+\NormalTok{some_numbers =}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{10}
+\KeywordTok{map}\NormalTok{(some_numbers, sqrt)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] 1
+## 
+## [[2]]
+## [1] 1.414214
+## 
+## [[3]]
+## [1] 1.732051
+## 
+## [[4]]
+## [1] 2
+## 
+## [[5]]
+## [1] 2.236068
+## 
+## [[6]]
+## [1] 2.44949
+## 
+## [[7]]
+## [1] 2.645751
+## 
+## [[8]]
+## [1] 2.828427
+## 
+## [[9]]
+## [1] 3
+## 
+## [[10]]
+## [1] 3.162278
+\end{verbatim}
+
+\hypertarget{map-variants-returning-vectors}{%
+\subsection{\texorpdfstring{\texttt{map} variants returning vectors}{map variants returning vectors}}\label{map-variants-returning-vectors}}
+
+Though \texttt{map} always returns a list, it has variants named \texttt{map\_*} where the suffix indicates the return type.
+\texttt{map\_chr}, \texttt{map\_dbl}, \texttt{map\_int}, and \texttt{map\_lgl} return character, double (numeric), integer, and logical vectors.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# use map_dbl to get a vector of square roots}
+\NormalTok{some_numbers =}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{10}
+\KeywordTok{map_dbl}\NormalTok{(some_numbers, sqrt)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490 2.645751 2.828427
+##  [9] 3.000000 3.162278
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# map_chr will convert the output to a character}
+\KeywordTok{map_chr}\NormalTok{(some_numbers, sqrt)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "1.000000" "1.414214" "1.732051" "2.000000" "2.236068" "2.449490"
+##  [7] "2.645751" "2.828427" "3.000000" "3.162278"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# map_int will NOT round the output to an integer}
+
+\CommentTok{# map_lgl returns TRUE/FALSE values}
+\NormalTok{some_numbers =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NaN}\NormalTok{, }\OtherTok{Inf}\NormalTok{, }\OperatorTok{-}\OtherTok{Inf}\NormalTok{)}
+\KeywordTok{map_lgl}\NormalTok{(some_numbers, is.na)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE
+\end{verbatim}
+
+\hypertarget{integrating-map-and-tidyrnest}{%
+\subsection*{\texorpdfstring{Integrating \texttt{map} and \texttt{tidyr::nest}}{Integrating map and tidyr::nest}}\label{integrating-map-and-tidyrnest}}
+\addcontentsline{toc}{subsection}{Integrating \texttt{map} and \texttt{tidyr::nest}}
+
+The example show how each map variant can be used. This integrates \texttt{tidyr::nest} with \texttt{map}, and the two are especially complementary.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# nest mtcars into a list of dataframes based on number of cylinders}
+\NormalTok{some_data =}\StringTok{ }\KeywordTok{as_tibble}\NormalTok{(mtcars, }\DataTypeTok{rownames =} \StringTok{"car_name"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(cyl) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{nest}\NormalTok{()}
+
+\CommentTok{# get the number of rows per dataframe}
+\CommentTok{# the mean mileage}
+\CommentTok{# and the first car}
+\NormalTok{some_data =}\StringTok{ }\NormalTok{some_data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{n_rows =} \KeywordTok{map_int}\NormalTok{(data, nrow),}
+         \DataTypeTok{mean_mpg =} \KeywordTok{map_dbl}\NormalTok{(data, }\OperatorTok{~}\KeywordTok{mean}\NormalTok{(.}\OperatorTok{$}\NormalTok{mpg)),}
+         \DataTypeTok{first_car =} \KeywordTok{map_chr}\NormalTok{(data, }\OperatorTok{~}\KeywordTok{first}\NormalTok{(.}\OperatorTok{$}\NormalTok{car_name)))}
+
+\NormalTok{some_data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 5
+## # Groups:   cyl [3]
+##     cyl data               n_rows mean_mpg first_car        
+##   <dbl> <list>              <int>    <dbl> <chr>            
+## 1     6 <tibble [7 x 11]>       7     19.7 Mazda RX4        
+## 2     4 <tibble [11 x 11]>     11     26.7 Datsun 710       
+## 3     8 <tibble [14 x 11]>     14     15.1 Hornet Sportabout
+\end{verbatim}
+
+\texttt{map} accepts multiple functions that are applied in sequence to the input list-like object, but this is confusing to the reader and ill advised.
+
+\hypertarget{map-variants-returning-dataframes}{%
+\subsection{\texorpdfstring{\texttt{map} variants returning dataframes}{map variants returning dataframes}}\label{map-variants-returning-dataframes}}
+
+\texttt{map\_df} returns data frames, and by default binds dataframes by rows, while \texttt{map\_dfr} does this explicitly, and \texttt{map\_dfc} does returns a dataframe bound by column.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# split mtcars into 3 dataframes, one per cylinder number}
+\NormalTok{some_list =}\StringTok{ }\KeywordTok{split}\NormalTok{(mtcars, mtcars}\OperatorTok{$}\NormalTok{cyl)}
+
+\CommentTok{# get the first two rows of each dataframe}
+\KeywordTok{map_df}\NormalTok{(some_list, head, }\DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## 1 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## 2 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## 3 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## 4 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## 5 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## 6 14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+\end{verbatim}
+
+\texttt{map} accepts arguments to the function being mapped, such as in the example above, where \texttt{head()} accepts the argument \texttt{n\ =\ 2}.
+
+\texttt{map\_dfr} behaves the same as \texttt{map\_df}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# the same as above but with a pipe}
+\NormalTok{some_list }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{map_dfr}\NormalTok{(head, }\DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## 1 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## 2 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## 3 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## 4 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## 5 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## 6 14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+\end{verbatim}
+
+\texttt{map\_dfc} binds the resulting 3 data frames of two rows each by column, and automatically repairs the column names, adding a suffix to each duplicate.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{some_list }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{map_dfc}\NormalTok{(head, }\DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    mpg cyl  disp hp drat   wt  qsec vs am gear carb mpg1 cyl1 disp1 hp1 drat1
+## 1 22.8   4 108.0 93 3.85 2.32 18.61  1  1    4    1   21    6   160 110   3.9
+## 2 24.4   4 146.7 62 3.69 3.19 20.00  1  0    4    2   21    6   160 110   3.9
+##     wt1 qsec1 vs1 am1 gear1 carb1 mpg2 cyl2 disp2 hp2 drat2  wt2 qsec2 vs2 am2
+## 1 2.620 16.46   0   1     4     4 18.7    8   360 175  3.15 3.44 17.02   0   0
+## 2 2.875 17.02   0   1     4     4 14.3    8   360 245  3.21 3.57 15.84   0   0
+##   gear2 carb2
+## 1     3     2
+## 2     3     4
+\end{verbatim}
+
+\hypertarget{selective-mapping}{%
+\subsection{Selective mapping}\label{selective-mapping}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{map\_at} and \texttt{map\_if}
+\end{itemize}
+
+\hypertarget{more-map-variants}{%
+\section{\texorpdfstring{More \texttt{map} variants}{More map variants}}\label{more-map-variants}}
+
+\hypertarget{map2}{%
+\subsection{\texorpdfstring{\texttt{map2}}{map2}}\label{map2}}
+
+\texttt{imap} here
+
+\hypertarget{pmap}{%
+\subsection{\texorpdfstring{\texttt{pmap}}{pmap}}\label{pmap}}
+
+\hypertarget{walk}{%
+\subsection{\texorpdfstring{\texttt{walk}}{walk}}\label{walk}}
+
+\texttt{walk2} and \texttt{pwalk}
+
+\hypertarget{modification-in-place}{%
+\section{Modification in place}\label{modification-in-place}}
+
+\texttt{modify}
+
+\hypertarget{working-with-lists}{%
+\section{Working with lists}\label{working-with-lists}}
+
+\hypertarget{filtering-lists}{%
+\subsection{Filtering lists}\label{filtering-lists}}
+
+\hypertarget{summarising-lists}{%
+\subsection{Summarising lists}\label{summarising-lists}}
+
+\hypertarget{reduction-and-accumulation}{%
+\subsection{Reduction and accumulation}\label{reduction-and-accumulation}}
+
+\hypertarget{miscellaneous-operation}{%
+\subsection{Miscellaneous operation}\label{miscellaneous-operation}}
+
+\end{document}
