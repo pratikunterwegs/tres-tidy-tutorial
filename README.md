@@ -31,3 +31,13 @@ Plotting|[ggplot2](https://ggplot2.tidyverse.org/)|Raphael|26/06/20
 Join the Slack [by clicking this link (Slack account required)](https://join.slack.com/t/trestidytorial/shared_invite/zt-ejgr3tow-3zisGwPg1JDeTJD33DWb2A).
 
 *Tentative dates.
+
+## Additional resources
+
+Here are links to external resources to dig deeper in making efficient use of R in data analysis:
+
+- The tidyverse [website](https://www.tidyverse.org/)
+- The [R for Data Dcience](https://r4ds.had.co.nz/) book
+- The [Advanced R](http://adv-r.had.co.nz/) book
+- To learn about making your own packages, the [R Packages](http://r-pkgs.had.co.nz/) book
+- [Datacamp](https://www.datacamp.com/tidyverse-tutorials/) has a bunch of tutorials too
