@@ -1,0 +1,59 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+# Data manipulation with `dplyr`
+
+
+```{r}
+# load the tidyverse
+library(tidyverse)
+```
+
+## Introduction
+
+Reminders from last weeks: pipe operator, tidy tables, ggplot
+
+Why dplyr ? dplyr vs base R
+
+## Example data of the day
+
+```{r}
+tbl <- readr::read_csv("data/phylacine_traits.csv")
+tbl
+```
+## Select variables with `select()`
+
+
+## Rename variables with `rename()`
+
+
+## Select observations with `filter()`
+
+## Create new variables with `mutate()`
+can also edit existing ones
+
+drop existing variables with `transmute()`
+
+## Grouped results with `group_by()` and `summarise()`
+
+## Scoped variables
+
+```{r}
+data(mtcars)
+mtcars %>% select_all(toupper)
+
+is_whole <- function(x) all(floor(x) == x)
+mtcars %>% select_if() # select integers only
+
+mtcars %>% select_at(vars(-contains("ar")))
+mtcars %>% select_at(vars(-contains("ar"), starts_with("c")))
+
+```
+
+
+## More !
+variables values -> dplyr::distinct() eq. to base::unique()
+sample()
+slice()
