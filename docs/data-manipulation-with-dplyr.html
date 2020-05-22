@@ -24,7 +24,7 @@
 <meta name="author" content="Raphael and Pratik" />
 
 
-<meta name="date" content="2020-05-20" />
+<meta name="date" content="2020-05-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -165,7 +165,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html"><i class="fa fa-check"></i><b>3</b> Data manipulation with <code>dplyr</code></a><ul>
-<li class="chapter" data-level="3.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#data-input"><i class="fa fa-check"></i><b>3.1</b> Data input</a></li>
+<li class="chapter" data-level="3.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#example-data-of-the-day"><i class="fa fa-check"></i><b>3.2</b> Example data of the day</a></li>
+<li class="chapter" data-level="3.3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#select-variables-with-select"><i class="fa fa-check"></i><b>3.3</b> Select variables with <code>select()</code></a></li>
+<li class="chapter" data-level="3.4" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#select-observations-with-filter"><i class="fa fa-check"></i><b>3.4</b> Select observations with <code>filter()</code></a></li>
+<li class="chapter" data-level="3.5" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#create-new-variables-with-mutate"><i class="fa fa-check"></i><b>3.5</b> Create new variables with <code>mutate()</code></a></li>
+<li class="chapter" data-level="3.6" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#grouped-results-with-group_by-and-summarise"><i class="fa fa-check"></i><b>3.6</b> Grouped results with <code>group_by()</code> and <code>summarise()</code></a></li>
+<li class="chapter" data-level="3.7" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#scoped-variables"><i class="fa fa-check"></i><b>3.7</b> Scoped variables</a></li>
+<li class="chapter" data-level="3.8" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#more"><i class="fa fa-check"></i><b>3.8</b> More !</a></li>
 </ul></li>
 </ul>
 
@@ -188,31 +195,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Section 3</span> Data manipulation with <code>dplyr</code></h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># load the tidyverse</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
-<pre><code>## ── Attaching packages ─────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ── Attaching packages ───────────────── tidyverse 1.3.0 ──</code></pre>
 <pre><code>## ✓ ggplot2 3.3.0     ✓ purrr   0.3.4
 ## ✓ tibble  3.0.1     ✓ dplyr   0.8.5
 ## ✓ tidyr   1.0.2     ✓ stringr 1.4.0
 ## ✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ──────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
-<div id="data-input" class="section level2">
-<h2><span class="header-section-number">3.1</span> Data input</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">tbl &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;data/phylacine_traits.csv&quot;</span>)</a></code></pre></div>
-<pre><code>## Parsed with column specification:
-## cols(
-##   .default = col_character(),
-##   Terrestrial = col_double(),
-##   Marine = col_double(),
-##   Freshwater = col_double(),
-##   Aerial = col_double(),
-##   Mass.g = col_double(),
-##   Diet.Plant = col_double(),
-##   Diet.Vertebrate = col_double(),
-##   Diet.Invertebrate = col_double()
-## )</code></pre>
-<pre><code>## See spec(...) for full column specifications.</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">tbl</a></code></pre></div>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">3.1</span> Introduction</h2>
+<p>Reminders from last weeks: pipe operator, tidy tables, ggplot</p>
+<p>Why dplyr ? dplyr vs base R</p>
+</div>
+<div id="example-data-of-the-day" class="section level2">
+<h2><span class="header-section-number">3.2</span> Example data of the day</h2>
+<p>Through this tutorial, we will be using mammal trait data from the <a href="https://megapast2future.github.io/PHYLACINE_1.2/">Phylacine</a> database. The dataset contains information on mass, diet, life habit, etc, for more than all living species of mammals. Let’s have a look.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">phylacine &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;data/phylacine_traits.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">phylacine</a></code></pre></div>
 <pre><code>## # A tibble: 5,831 x 24
 ##    Binomial.1.2 Order.1.2 Family.1.2 Genus.1.2 Species.1.2 Terrestrial Marine
 ##    &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt;
@@ -233,6 +233,103 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   IUCN.Status.1.2 &lt;chr&gt;, Added.IUCN.Status.1.2 &lt;chr&gt;, Diet.Plant &lt;dbl&gt;,
 ## #   Diet.Vertebrate &lt;dbl&gt;, Diet.Invertebrate &lt;dbl&gt;, Diet.Method &lt;chr&gt;,
 ## #   Diet.Source &lt;chr&gt;</code></pre>
+<p>Note the friendly output given by the <code>tibble</code> (as opposed to a <code>data.frame</code>). <code>readr</code> automatically stores the content it reads in a <code>tibble</code>, tidyverse oblige. You should know however that <code>dplyr</code> doesn’t require your data to be in a tibble, a regular <code>data.frame</code> will work just as fine.</p>
+<p>Most of the <code>dplyr</code> verbs covered in the next sections assume your data is <em>tidy</em>: wide format, variables as column, 1 observation per row. Not that tehy won’t work if your data isn’t tidy, but the results could be very different from what I’m going to show here. Fortunately, the phylacine trait dataset appears to be tidy: there is one unique entry for each species.</p>
+<p>The first operation I’m going to run on this table is changing the names with
+<code>rename()</code>. Some people prefer their tea without sugar, and I <a href="https://style.tidyverse.org/syntax.html#object-names">prefer</a> my
+variable names without uppercase characters, dots or (if possible) numbers.
+This will give me the opportunity to introduce the trivial syntax
+of <code>dplyr</code> verbs.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">phylacine &lt;-<span class="st"> </span>phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">    <span class="st">&quot;binomial&quot;</span> =<span class="st"> </span>Binomial.<span class="fl">1.2</span>,</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">    <span class="st">&quot;order&quot;</span> =<span class="st"> </span>Order.<span class="fl">1.2</span>,</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="st">&quot;family&quot;</span> =<span class="st"> </span>Family.<span class="fl">1.2</span>,</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">    <span class="st">&quot;genus&quot;</span> =<span class="st"> </span>Genus.<span class="fl">1.2</span>,</a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">    <span class="st">&quot;species&quot;</span> =<span class="st"> </span>Species.<span class="fl">1.2</span>,</a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">    <span class="st">&quot;terrestrial&quot;</span> =<span class="st"> </span>Terrestrial,</a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">    <span class="st">&quot;marine&quot;</span> =<span class="st"> </span>Marine,</a>
+<a class="sourceLine" id="cb7-10" data-line-number="10">    <span class="st">&quot;freshwater&quot;</span> =<span class="st"> </span>Freshwater,</a>
+<a class="sourceLine" id="cb7-11" data-line-number="11">    <span class="st">&quot;aerial&quot;</span> =<span class="st"> </span>Aerial,</a>
+<a class="sourceLine" id="cb7-12" data-line-number="12">    <span class="st">&quot;life_habit_method&quot;</span> =<span class="st"> </span>Life.Habit.Method,</a>
+<a class="sourceLine" id="cb7-13" data-line-number="13">    <span class="st">&quot;life_habit_source&quot;</span> =<span class="st"> </span>Life.Habit.Source,</a>
+<a class="sourceLine" id="cb7-14" data-line-number="14">    <span class="st">&quot;mass_g&quot;</span> =<span class="st"> </span>Mass.g,</a>
+<a class="sourceLine" id="cb7-15" data-line-number="15">    <span class="st">&quot;mass_method&quot;</span> =<span class="st"> </span>Mass.Method,</a>
+<a class="sourceLine" id="cb7-16" data-line-number="16">    <span class="st">&quot;mass_source&quot;</span> =<span class="st"> </span>Mass.Source,</a>
+<a class="sourceLine" id="cb7-17" data-line-number="17">    <span class="st">&quot;mass_comparison&quot;</span> =<span class="st"> </span>Mass.Comparison,</a>
+<a class="sourceLine" id="cb7-18" data-line-number="18">    <span class="st">&quot;mass_comparison_source&quot;</span> =<span class="st"> </span>Mass.Comparison.Source,</a>
+<a class="sourceLine" id="cb7-19" data-line-number="19">    <span class="st">&quot;island_endemicity&quot;</span> =<span class="st"> </span>Island.Endemicity,</a>
+<a class="sourceLine" id="cb7-20" data-line-number="20">    <span class="st">&quot;iucn_status&quot;</span> =<span class="st"> </span>IUCN.Status.<span class="fl">1.2</span>, <span class="co"># not even for acronyms</span></a>
+<a class="sourceLine" id="cb7-21" data-line-number="21">    <span class="st">&quot;added_iucn_status&quot;</span> =<span class="st">  </span>Added.IUCN.Status.<span class="fl">1.2</span>,</a>
+<a class="sourceLine" id="cb7-22" data-line-number="22">    <span class="st">&quot;diet_plant&quot;</span> =<span class="st"> </span>Diet.Plant,</a>
+<a class="sourceLine" id="cb7-23" data-line-number="23">    <span class="st">&quot;diet_vertebrate&quot;</span> =<span class="st"> </span>Diet.Vertebrate,</a>
+<a class="sourceLine" id="cb7-24" data-line-number="24">    <span class="st">&quot;diet_invertebrate&quot;</span> =<span class="st"> </span>Diet.Invertebrate,</a>
+<a class="sourceLine" id="cb7-25" data-line-number="25">    <span class="st">&quot;diet_method&quot;</span> =<span class="st"> </span>Diet.Method,</a>
+<a class="sourceLine" id="cb7-26" data-line-number="26">    <span class="st">&quot;diet_source&quot;</span> =<span class="st"> </span>Diet.Source</a>
+<a class="sourceLine" id="cb7-27" data-line-number="27">  )</a></code></pre></div>
+<p>For convenience, I’m going to use the pipe operator (<code>%&gt;%</code>) that we’ve seen
+before, through this chapter. All <code>dplyr</code> functions are built to work with the
+pipe (i.e, their firstargument is always <code>data</code>), but again, this is not
+compulsory. I could do</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">phylacine &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">rename</span>(</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">  <span class="dt">data =</span> phylacine,</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">  <span class="st">&quot;binomial&quot;</span> =<span class="st"> </span>Binomial.<span class="fl">1.2</span>,</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">  <span class="co"># ...</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">)</a></code></pre></div>
+<p>Note how columns are referred to. Once the data as been passed as an argument,
+no need to refer to it anymore, <code>dplyr</code> understands that you’re dealing with
+variables inside that data frame. So drop that <code>data$var</code>, <code>data[, &quot;var&quot;]</code>,
+and, if you’ve read <em>The R book</em>, forget the very existence of <code>attach()</code>.</p>
+<p>Finally, I should mention that you can refer to variables names either with strings or directly as objects, whether you’re reading or creating them:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">phylacine2 &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;data/phylacine_traits.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">phylacine2 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">    <span class="co"># this works</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">    <span class="dt">binomial =</span> Binomial.<span class="fl">1.2</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">  )</a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">phylacine2 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(</a>
+<a class="sourceLine" id="cb9-10" data-line-number="10">    <span class="co"># this works too!</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11">    <span class="dt">binomial =</span> <span class="st">&quot;Binomial.1.2&quot;</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12">  )</a>
+<a class="sourceLine" id="cb9-13" data-line-number="13">phylacine2 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(</a>
+<a class="sourceLine" id="cb9-15" data-line-number="15">    <span class="co"># guess what</span></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16">    <span class="st">&quot;binomial&quot;</span> =<span class="st"> &quot;Binomial.1.2&quot;</span></a>
+<a class="sourceLine" id="cb9-17" data-line-number="17">  )</a></code></pre></div>
+</div>
+<div id="select-variables-with-select" class="section level2">
+<h2><span class="header-section-number">3.3</span> Select variables with <code>select()</code></h2>
+</div>
+<div id="select-observations-with-filter" class="section level2">
+<h2><span class="header-section-number">3.4</span> Select observations with <code>filter()</code></h2>
+</div>
+<div id="create-new-variables-with-mutate" class="section level2">
+<h2><span class="header-section-number">3.5</span> Create new variables with <code>mutate()</code></h2>
+<p>can also edit existing ones</p>
+<p>drop existing variables with <code>transmute()</code></p>
+</div>
+<div id="grouped-results-with-group_by-and-summarise" class="section level2">
+<h2><span class="header-section-number">3.6</span> Grouped results with <code>group_by()</code> and <code>summarise()</code></h2>
+</div>
+<div id="scoped-variables" class="section level2">
+<h2><span class="header-section-number">3.7</span> Scoped variables</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">data</span>(mtcars)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_all</span>(toupper)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">is_whole &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">all</span>(<span class="kw">floor</span>(x) <span class="op">==</span><span class="st"> </span>x)</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_if</span>() <span class="co"># select integers only</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_at</span>(<span class="kw">vars</span>(<span class="op">-</span><span class="kw">contains</span>(<span class="st">&quot;ar&quot;</span>)))</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_at</span>(<span class="kw">vars</span>(<span class="op">-</span><span class="kw">contains</span>(<span class="st">&quot;ar&quot;</span>), <span class="kw">starts_with</span>(<span class="st">&quot;c&quot;</span>)))</a></code></pre></div>
+</div>
+<div id="more" class="section level2">
+<h2><span class="header-section-number">3.8</span> More !</h2>
+<p>dolla sign x point operator
+variables values -&gt; dplyr::distinct() eq. to base::unique()
+sample()
+slice()</p>
 
 </div>
 </div>
@@ -281,7 +378,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["TRES Tidy Tutorial.pdf"],
+"download": ["TRES_Tidy_Tutorial.pdf"],
 "toc": {
 "collapse": "subsection",
 "scroll_highlight": true
