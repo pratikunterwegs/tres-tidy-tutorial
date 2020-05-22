@@ -26,6 +26,7 @@ bookdown::gitbook:
     info: yes
 bookdown::pdf_book:
   keep_tex: true
+  documentclass: scrreprt
   papersize: a4
   latex_engine: xelatex
   highlight: pygments
