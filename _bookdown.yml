@@ -1,4 +1,4 @@
-book_filename: "TRES Tidy Tutorial"
+book_filename: "TRES_Tidy_Tutorial"
 output: 
   html_document: 
     fig_caption: yes
