@@ -113,7 +113,7 @@
 
 \title{TRES Tidyverse Tutorial}
 \author{Raphael and Pratik}
-\date{2020-05-20}
+\date{2020-05-23}
 
 \begin{document}
 \maketitle
@@ -129,22 +129,102 @@
 \chapter*{Outline}\label{outline}}
 \addcontentsline{toc}{chapter}{Outline}
 
-This is the readable version of the TRES \href{https://www.tidyverse.org/}{tidyverse} tutorial, with these sections:
+This is the readable version of the TRES \href{https://www.tidyverse.org/}{tidyverse} tutorial.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
+\hypertarget{about}{%
+\section*{About}\label{about}}
+\addcontentsline{toc}{section}{About}
+
+The TRES tidyverse tutorial is an online workshop on how to use the tidyverse, a set of packages in the R computing language designed at making data handling and plotting easier.
+
+This tutorial will take the form of a one hour per week video stream via Google Meet, every Friday morning at 10.00 (Groningen time) starting from the 29th of May, 2020 and lasting for a couple of weeks (depending on the number of topics we want to cover, but there should be at least 5).
+
+\textbf{PhD students from outside our department are welcome to attend.}
+
+\hypertarget{schedule}{%
+\section*{Schedule}\label{schedule}}
+\addcontentsline{toc}{section}{Schedule}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+\begin{minipage}[b]{0.22\columnwidth}\raggedright
+Topic\strut
+\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\raggedright
+Package\strut
+\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\raggedright
+Instructor\strut
+\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\raggedright
+Date*\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+Reading data and string manipulation\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+\href{https://readr.tidyverse.org/}{readr}, \href{https://stringr.tidyverse.org/}{stringr}, \href{https://github.com/tidyverse/glue}{glue}\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+Raphael + Pratik\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+29/05/20\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+Data and reshaping\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+\href{https://tibble.tidyverse.org/}{tibble}, \href{https://tidyr.tidyverse.org/}{tidyr}\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+Raphael\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+05/06/20\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+Manipulating data\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+\href{https://dplyr.tidyverse.org/}{dplyr}\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+Theo\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+12/06/20\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+Working with lists and iteration\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+\href{https://purrr.tidyverse.org/}{purrr}\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+Pratik\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+19/06/20\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.22\columnwidth}\raggedright
+Plotting\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+\href{https://ggplot2.tidyverse.org/}{ggplot2}\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+Raphael\strut
+\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
+26/06/20\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{possible-extras}{%
+\section*{Possible extras}\label{possible-extras}}
+\addcontentsline{toc}{section}{Possible extras}
+
+\begin{itemize}
 \tightlist
 \item
-  Reading data and string manipulation with \href{https://readr.tidyverse.org/}{readr}, \href{https://stringr.tidyverse.org/}{stringr}, and \href{https://github.com/tidyverse/glue}{glue}\\
+  Reproducibility and package-making (with e.g.~\href{https://usethis.r-lib.org/}{usethis})\\
 \item
-  The new data frames with \href{https://tibble.tidyverse.org/}{tibble} and wrangling them into shape with \href{https://tidyr.tidyverse.org/}{tidyr}\\
-\item
-  Manipulating data with \href{https://dplyr.tidyverse.org/}{dplyr}\\
-\item
-  Iteration and functional programming with \href{https://purrr.tidyverse.org/}{purrr}\\
-\item
-  Plotting with \href{https://ggplot2.tidyverse.org/}{ggplot2}
-\end{enumerate}
+  Embedding C++ code with \href{http://adv-r.had.co.nz/Rcpp.html}{Rcpp}
+\end{itemize}
+
+\hypertarget{join}{%
+\section*{Join}\label{join}}
+\addcontentsline{toc}{section}{Join}
+
+Join the Slack \href{https://join.slack.com/t/trestidytorial/shared_invite/zt-ejgr3tow-3zisGwPg1JDeTJD33DWb2A}{by clicking this link (Slack account required)}.
+
+*Tentative dates.
 
 \hypertarget{reading-files-and-string-manipulation}{%
 \chapter{Reading files and string manipulation}\label{reading-files-and-string-manipulation}}
@@ -159,8 +239,154 @@ This is the readable version of the TRES \href{https://www.tidyverse.org/}{tidyv
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{section-on-readr}{%
-\section{\texorpdfstring{Section on \texttt{readr}}{Section on readr}}\label{section-on-readr}}
+\hypertarget{data-import-and-export-with-readr}{%
+\section{\texorpdfstring{Data import and export with \texttt{readr}}{Data import and export with readr}}\label{data-import-and-export-with-readr}}
+
+Data in the wild with which ecologists and evolutionary biologists deal is most often in the form of a text file, usually with the extensions \texttt{.csv} or \texttt{.txt}. Often, such data has to be written to file from within \texttt{R}. \texttt{readr} contains a number of functions to help with reading and writing text files.
+
+\hypertarget{reading-data}{%
+\subsection{Reading data}\label{reading-data}}
+
+Reading in a csv file with \texttt{readr} is done with the \texttt{read\_csv} function, a faster alternative to the base R \texttt{read.csv}. Here, \texttt{read\_csv} is applied to the \texttt{mtcars} example.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# get the filepath of the example}
+\NormalTok{some_example =}\StringTok{ }\KeywordTok{readr_example}\NormalTok{(}\StringTok{"mtcars.csv"}\NormalTok{)}
+
+\CommentTok{# read the file in}
+\NormalTok{some_example =}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(some_example)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   mpg = col_double(),
+##   cyl = col_double(),
+##   disp = col_double(),
+##   hp = col_double(),
+##   drat = col_double(),
+##   wt = col_double(),
+##   qsec = col_double(),
+##   vs = col_double(),
+##   am = col_double(),
+##   gear = col_double(),
+##   carb = col_double()
+## )
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(some_example)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 11
+##     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+## 1  21       6   160   110  3.9   2.62  16.5     0     1     4     4
+## 2  21       6   160   110  3.9   2.88  17.0     0     1     4     4
+## 3  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1
+## 4  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1
+## 5  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2
+## 6  18.1     6   225   105  2.76  3.46  20.2     1     0     3     1
+\end{verbatim}
+
+The \texttt{read\_csv2} function is useful when dealing with files where the separator between columns is a semicolon \texttt{;}, and where the decimal point is represented by a comma \texttt{,}.
+
+Other variants include:
+
+\begin{itemize}
+\item
+  \texttt{read\_tsv} for tab-separated files, and
+\item
+  \texttt{read\_delim}, a general case which allows the separator to be specified manually.
+\end{itemize}
+
+\texttt{readr} import function will attempt to guess the column type from the first \emph{N} lines in the data. This \emph{N} can be set using the function argument \texttt{guess\_max}. The \texttt{n\_max} argument sets the number of rows to read, while the \texttt{skip} argument sets the number of rows to be skipped before reading data.
+
+By default, the column names are taken from the first row of the data, but they can be manually specified by passing a character vector to \texttt{col\_names}.
+
+There are some other arguments to the data import functions, but the defaults usually \emph{just work}.
+
+\hypertarget{writing-data}{%
+\subsection{Writing data}\label{writing-data}}
+
+Writing data uses the \texttt{write\_*} family of functions, with implementations for \texttt{csv}, \texttt{csv2} etc. (represented by the asterisk), mirroring the import functions discussed above. \texttt{write\_*} functions offer the \texttt{append} argument, which allow a data frame to be added to an existing file.
+
+These functions are not covered here.
+
+\hypertarget{reading-and-writing-lines}{%
+\subsection{Reading and writing lines}\label{reading-and-writing-lines}}
+
+Sometimes, there is text output generated in \texttt{R} which needs to be written to file, but is not in the form of a dataframe. A good example is model outputs. It is good practice to save model output as a text file, and add it to version control.
+Similarly, it may be necessary to import such text, either for display to screen, or to extract data.
+
+This can be done using the \texttt{readr} functions \texttt{read\_lines} and \texttt{write\_lines}. Consider the model summary from a simple linear model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# get the model}
+\NormalTok{model =}\StringTok{ }\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{wt, }\DataTypeTok{data =}\NormalTok{ mtcars)}
+\end{Highlighting}
+\end{Shaded}
+
+The model summary can be written to file. When writing lines to file, BE AWARE OF THE DIFFERENCES BETWEEN UNIX AND WINODWS line separators. Usually, this causes no trouble.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# capture the model summary output}
+\NormalTok{model_output =}\StringTok{ }\KeywordTok{capture.output}\NormalTok{(}\KeywordTok{summary}\NormalTok{(model))}
+
+\CommentTok{# save it to file}
+\KeywordTok{write_lines}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ model_output,}
+  \DataTypeTok{path =} \StringTok{"model_output.txt"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+This model output can be read back in for display, and each line of the model output is an element in a character vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# read in the model output and display}
+\NormalTok{model_output =}\StringTok{ }\KeywordTok{read_lines}\NormalTok{(}\StringTok{"model_output.txt"}\NormalTok{)}
+
+\CommentTok{# use cat to show the model output as it would be on screen}
+\KeywordTok{cat}\NormalTok{(model_output, }\DataTypeTok{sep =} \StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = mpg ~ wt, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5432 -2.3647 -0.1252  1.4096  6.8727 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  37.2851     1.8776  19.858  < 2e-16 ***
+## wt           -5.3445     0.5591  -9.559 1.29e-10 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.046 on 30 degrees of freedom
+## Multiple R-squared:  0.7528, Adjusted R-squared:  0.7446 
+## F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10
+\end{verbatim}
+
+These few functions demonstrate the most common uses of \texttt{readr}, but most other use cases for text data can be handled using different function arguments, including reading data off the web, unzipping
+compressed files before reading, and specifying the column types to control for type conversion errors.
+
+\hypertarget{excel-files}{%
+\subsection*{Excel files}\label{excel-files}}
+\addcontentsline{toc}{subsection}{Excel files}
+
+Finally, data is often shared or stored by well meaning people in the form of Microsoft Excel sheets. Indeed, Excel (especially when synced regularly to remote storage) is a good way of noting down observational data in the field. The \texttt{readxl} package allows importing from Excel files, including reading in specific sheets.
 
 \hypertarget{string-manipulation-with-stringr}{%
 \section{\texorpdfstring{String manipulation with \texttt{stringr}}{String manipulation with stringr}}\label{string-manipulation-with-stringr}}
@@ -279,7 +505,7 @@ Vectorising over both string and pattern works as expected.
 \begin{Highlighting}[]
 \CommentTok{# vectorise over both string and pattern}
 \CommentTok{# counts a-s in first input, and b-s in the second}
-\KeywordTok{str_count}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"ababababa"}\NormalTok{, }\StringTok{"banana"}\NormalTok{), }
+\KeywordTok{str_count}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"ababababa"}\NormalTok{, }\StringTok{"banana"}\NormalTok{),}
           \DataTypeTok{pattern =} \KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
@@ -290,11 +516,11 @@ Vectorising over both string and pattern works as expected.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# provide a longer pattern vector to search for both a-s }
+\CommentTok{# provide a longer pattern vector to search for both a-s}
 \CommentTok{# and b-s in both inputs}
-\KeywordTok{str_count}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"ababababa"}\NormalTok{, }\StringTok{"banana"}\NormalTok{), }
-         \DataTypeTok{pattern =} \KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }
-                    \StringTok{"b"}\NormalTok{, }\StringTok{"a"}\NormalTok{))}
+\KeywordTok{str_count}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"ababababa"}\NormalTok{, }\StringTok{"banana"}\NormalTok{),}
+          \DataTypeTok{pattern =} \KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{,}
+                      \StringTok{"b"}\NormalTok{, }\StringTok{"a"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -306,7 +532,7 @@ Vectorising over both string and pattern works as expected.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# the behaviour of both str_locate and str_locate_all is }
+\CommentTok{# the behaviour of both str_locate and str_locate_all is}
 \CommentTok{# to find the first match by default}
 \KeywordTok{str_locate}\NormalTok{(}\DataTypeTok{string =} \StringTok{"banana"}\NormalTok{, }\DataTypeTok{pattern =} \StringTok{"ana"}\NormalTok{)}
 \end{Highlighting}
@@ -320,7 +546,7 @@ Vectorising over both string and pattern works as expected.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# str_detect detects a sequence in a string}
-\KeywordTok{str_detect}\NormalTok{(}\DataTypeTok{string =} \StringTok{"Bananageddon is coming!"}\NormalTok{, }
+\KeywordTok{str_detect}\NormalTok{(}\DataTypeTok{string =} \StringTok{"Bananageddon is coming!"}\NormalTok{,}
            \DataTypeTok{pattern =} \StringTok{"na"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -332,7 +558,7 @@ Vectorising over both string and pattern works as expected.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# str_detect is also vectorised and returns a two-element logical vector}
-\KeywordTok{str_detect}\NormalTok{(}\DataTypeTok{string =} \StringTok{"Bananageddon is coming!"}\NormalTok{, }
+\KeywordTok{str_detect}\NormalTok{(}\DataTypeTok{string =} \StringTok{"Bananageddon is coming!"}\NormalTok{,}
            \DataTypeTok{pattern =} \KeywordTok{c}\NormalTok{(}\StringTok{"na"}\NormalTok{, }\StringTok{"don"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
@@ -345,7 +571,7 @@ Vectorising over both string and pattern works as expected.
 \begin{Highlighting}[]
 \CommentTok{# use any or all to convert a multi-element logical to a single logical}
 \CommentTok{# here we ask if either of the patterns is detected}
-\KeywordTok{any}\NormalTok{(}\KeywordTok{str_detect}\NormalTok{(}\DataTypeTok{string =} \StringTok{"Bananageddon is coming!"}\NormalTok{, }
+\KeywordTok{any}\NormalTok{(}\KeywordTok{str_detect}\NormalTok{(}\DataTypeTok{string =} \StringTok{"Bananageddon is coming!"}\NormalTok{,}
                \DataTypeTok{pattern =} \KeywordTok{c}\NormalTok{(}\StringTok{"na"}\NormalTok{, }\StringTok{"don"}\NormalTok{)))}
 \end{Highlighting}
 \end{Shaded}
@@ -415,9 +641,9 @@ In the example, all elements containing ``banana'' are subset.
 \begin{Highlighting}[]
 \CommentTok{# returns an integer vector}
 \KeywordTok{str_which}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"banana"}\NormalTok{,}
-             \StringTok{"bananageddon is coming"}\NormalTok{,}
-             \StringTok{"applegeddon is not real"}\NormalTok{),}
-           \DataTypeTok{pattern =} \StringTok{"banana"}\NormalTok{)}
+            \StringTok{"bananageddon is coming"}\NormalTok{,}
+            \StringTok{"applegeddon is not real"}\NormalTok{),}
+          \DataTypeTok{pattern =} \StringTok{"banana"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -451,7 +677,7 @@ A simple case is shown below where the search pattern is the phrase ``banana''.
 
 The search pattern can be extended to look for multiple subsets of the search pattern. Consider searching for dates and times.
 
-Here, the search pattern is a \texttt{regex} pattern that looks for a set of four digits (\texttt{\textbackslash{}\textbackslash{}d\{4\}}) and a month name \texttt{(\textbackslash{}\textbackslash{}w+)} seperated by a hyphen. There's much more to be explored in dealing with dates and times in \texttt{{[}lubridate{]}(https://lubridate.tidyverse.org/)}, another \texttt{tidyverse} package.
+Here, the search pattern is a \texttt{regex} pattern that looks for a set of four digits (\texttt{\textbackslash{}\textbackslash{}d\{4\}}) and a month name \texttt{(\textbackslash{}\textbackslash{}w+)} seperated by a hyphen. There's much more to be explored in dealing with dates and times in \href{https://lubridate.tidyverse.org/}{\texttt{lubridate}}, another \texttt{tidyverse} package.
 
 The return type is a list, each element is a character matrix where the first column is the string subset matching the full search pattern, and then as many columns as there are parts to the search pattern. The parts of interest in the search pattern are indicated by wrapping them in parentheses. For example, in the case below, wrapping \texttt{{[}-.{]}} in parentheses will turn it into a distinct part of the search pattern.
 
@@ -460,7 +686,7 @@ The return type is a list, each element is a character matrix where the first co
 \CommentTok{# first with [-.] treated simply as a separator}
 \KeywordTok{str_match}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01"}\NormalTok{,}
                      \StringTok{"1990-anothermonth-01"}\NormalTok{,}
-                     \StringTok{"2010-thismonth-01"}\NormalTok{), }
+                     \StringTok{"2010-thismonth-01"}\NormalTok{),}
           \DataTypeTok{pattern =} \StringTok{"(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\})[-.](}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{w+)"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -477,7 +703,7 @@ The return type is a list, each element is a character matrix where the first co
 \CommentTok{# then with [-.] actively searched for}
 \KeywordTok{str_match}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01"}\NormalTok{,}
                      \StringTok{"1990-anothermonth-01"}\NormalTok{,}
-                     \StringTok{"2010-thismonth-01"}\NormalTok{), }
+                     \StringTok{"2010-thismonth-01"}\NormalTok{),}
           \DataTypeTok{pattern =} \StringTok{"(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\})([-.])(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{w+)"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -497,7 +723,7 @@ The return type is a list, with one element per input string. Each element is a 
 \begin{Highlighting}[]
 \CommentTok{# first with a single date entry}
 \KeywordTok{str_match_all}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01 or maybe 1990/anothermonth/01"}\NormalTok{),}
-          \DataTypeTok{pattern =} \StringTok{"(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\})[}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{/]([a-z]+)"}\NormalTok{)}
+              \DataTypeTok{pattern =} \StringTok{"(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\})[}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{/]([a-z]+)"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -513,7 +739,7 @@ The return type is a list, with one element per input string. Each element is a 
 \CommentTok{# then with multiple date entries}
 \KeywordTok{str_match_all}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01 or maybe 1990/anothermonth/01"}\NormalTok{,}
                          \StringTok{"1990-somemonth-01 or maybe 2001/anothermonth/01"}\NormalTok{),}
-          \DataTypeTok{pattern =} \StringTok{"(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\})[}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{/]([a-z]+)"}\NormalTok{)}
+              \DataTypeTok{pattern =} \StringTok{"(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\})[}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{/]([a-z]+)"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -541,7 +767,7 @@ The full functionality of \texttt{str\_match\_*} can be boiled down to the most 
 \CommentTok{# extracting the first full match using str_extract}
 \KeywordTok{str_extract}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01 or maybe 1990/anothermonth/01"}\NormalTok{,}
                        \StringTok{"1990-somemonth-01 or maybe 2001/anothermonth/01"}\NormalTok{),}
-          \DataTypeTok{pattern =} \StringTok{"(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\})[}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{/]([a-z]+)"}\NormalTok{)}
+            \DataTypeTok{pattern =} \StringTok{"(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\})[}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{/]([a-z]+)"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -553,8 +779,8 @@ The full functionality of \texttt{str\_match\_*} can be boiled down to the most 
 \begin{Highlighting}[]
 \CommentTok{# extracting all full matches using str_extract all}
 \KeywordTok{str_extract_all}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01 or maybe 1990/anothermonth/01"}\NormalTok{,}
-                       \StringTok{"1990-somemonth-01 or maybe 2001/anothermonth/01"}\NormalTok{),}
-          \DataTypeTok{pattern =} \StringTok{"(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\})[}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{/]([a-z]+)"}\NormalTok{)}
+                           \StringTok{"1990-somemonth-01 or maybe 2001/anothermonth/01"}\NormalTok{),}
+                \DataTypeTok{pattern =} \StringTok{"(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{4\})[}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{/]([a-z]+)"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -578,7 +804,7 @@ The return type is a list similar to \texttt{str\_match}.
 \begin{Highlighting}[]
 \CommentTok{# split on either a hyphen or a forward slash}
 \KeywordTok{str_split}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01"}\NormalTok{,}
-            \StringTok{"1990/anothermonth/01"}\NormalTok{), }
+                     \StringTok{"1990/anothermonth/01"}\NormalTok{),}
           \DataTypeTok{pattern =} \StringTok{"[}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{-}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{/]"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -640,9 +866,9 @@ This can be useful in recovering simulation parameters from a filename, but may 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# split on either a hyphen or a forward slash}
-\KeywordTok{str_split_fixed}\NormalTok{(}\DataTypeTok{string =} \StringTok{"dir_level_1/dir_level_2/file.ext"}\NormalTok{, }
-          \DataTypeTok{pattern =} \StringTok{"/"}\NormalTok{,}
-          \DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{str_split_fixed}\NormalTok{(}\DataTypeTok{string =} \StringTok{"dir_level_1/dir_level_2/file.ext"}\NormalTok{,}
+                \DataTypeTok{pattern =} \StringTok{"/"}\NormalTok{,}
+                \DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -661,8 +887,8 @@ This can be useful in recovering simulation parameters from a filename, but may 
 \CommentTok{# replace all unwanted characters from this hypothetical filename with spaces}
 \NormalTok{filename =}\StringTok{ "sim_param1_0.01_param2_0.05_param3_0.01.ext"}
 \KeywordTok{str_replace_all}\NormalTok{(filename,}
-            \DataTypeTok{pattern =} \StringTok{"(sim_)|_*param}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{1\}_|(.ext)"}\NormalTok{,}
-            \DataTypeTok{replacement =} \StringTok{" "}\NormalTok{)}
+                \DataTypeTok{pattern =} \StringTok{"(sim_)|_*param}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{1\}_|(.ext)"}\NormalTok{,}
+                \DataTypeTok{replacement =} \StringTok{" "}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -711,8 +937,8 @@ When strings are highly regular, useful data can be extracted from a string usin
 \begin{Highlighting}[]
 \CommentTok{# get the year as characters 1 - 4}
 \KeywordTok{str_sub}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01"}\NormalTok{,}
-                     \StringTok{"1990-anothermonth-01"}\NormalTok{,}
-                     \StringTok{"2010-thismonth-01"}\NormalTok{), }
+                   \StringTok{"1990-anothermonth-01"}\NormalTok{,}
+                   \StringTok{"2010-thismonth-01"}\NormalTok{),}
         \DataTypeTok{start =} \DecValTok{1}\NormalTok{, }\DataTypeTok{end =} \DecValTok{4}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -727,8 +953,8 @@ Similarly, it's possible to extract the last few characters using negative indic
 \begin{Highlighting}[]
 \CommentTok{# get the day as characters -2 to -1}
 \KeywordTok{str_sub}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-01"}\NormalTok{,}
-                     \StringTok{"1990-anothermonth-21"}\NormalTok{,}
-                     \StringTok{"2010-thismonth-31"}\NormalTok{), }
+                   \StringTok{"1990-anothermonth-21"}\NormalTok{,}
+                   \StringTok{"2010-thismonth-31"}\NormalTok{),}
         \DataTypeTok{start =} \DecValTok{-2}\NormalTok{, }\DataTypeTok{end =} \DecValTok{-1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -743,11 +969,11 @@ Finally, it's also possible to replace characters within a string based on the p
 \begin{Highlighting}[]
 \CommentTok{# replace all days in these dates to 01}
 \NormalTok{date_times =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"1970-somemonth-25"}\NormalTok{,}
-                     \StringTok{"1990-anothermonth-21"}\NormalTok{,}
-                     \StringTok{"2010-thismonth-31"}\NormalTok{)}
+               \StringTok{"1990-anothermonth-21"}\NormalTok{,}
+               \StringTok{"2010-thismonth-31"}\NormalTok{)}
 
 \CommentTok{# a strictly necessary use of the assignment operator}
-\KeywordTok{str_sub}\NormalTok{(date_times, }
+\KeywordTok{str_sub}\NormalTok{(date_times,}
         \DataTypeTok{start =} \DecValTok{-2}\NormalTok{, }\DataTypeTok{end =} \DecValTok{-1}\NormalTok{) <-}\StringTok{ "01"}
 
 \NormalTok{date_times}
@@ -766,7 +992,7 @@ Strings included in filenames or plots are often of unequal lengths, especially 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# pad so all values have three digits}
-\KeywordTok{str_pad}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1"}\NormalTok{, }\StringTok{"10"}\NormalTok{, }\StringTok{"100"}\NormalTok{), }
+\KeywordTok{str_pad}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"1"}\NormalTok{, }\StringTok{"10"}\NormalTok{, }\StringTok{"100"}\NormalTok{),}
         \DataTypeTok{width =} \DecValTok{3}\NormalTok{,}
         \DataTypeTok{side =} \StringTok{"left"}\NormalTok{,}
         \DataTypeTok{pad =} \StringTok{"0"}\NormalTok{)}
@@ -781,8 +1007,8 @@ Strings can also be truncated if they are too long.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{str_trunc}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"bananas are great and wonderful }
-\StringTok{                     and more stuff about bananas and }
+\KeywordTok{str_trunc}\NormalTok{(}\DataTypeTok{string =} \KeywordTok{c}\NormalTok{(}\StringTok{"bananas are great and wonderful}
+\StringTok{                     and more stuff about bananas and}
 \StringTok{                     it really goes on about bananas"}\NormalTok{),}
           \DataTypeTok{width =} \DecValTok{27}\NormalTok{,}
           \DataTypeTok{side =} \StringTok{"right"}\NormalTok{, }\DataTypeTok{ellipsis =} \StringTok{"etc. etc."}\NormalTok{)}
@@ -796,12 +1022,22 @@ Strings can also be truncated if they are too long.
 \hypertarget{stringr-aspects-not-covered-here}{%
 \subsection{Stringr aspects not covered here}\label{stringr-aspects-not-covered-here}}
 
-Some \texttt{stringr} functions are not covered here. These include:\\
-- \texttt{str\_wrap} (of dubious use),\\
-- \texttt{str\_interp}, \texttt{str\_glue*} (better to use \texttt{glue}; see below),\\
-- \texttt{str\_sort}, \texttt{str\_order} (used in sorting a character vector),\\
-- \texttt{str\_to\_case*} (case conversion), and\\
-- \texttt{str\_view*} (a graphical view of search pattern matches).
+Some \texttt{stringr} functions are not covered here. These include:
+
+\begin{itemize}
+\item
+  \texttt{str\_wrap} (of dubious use),
+\item
+  \texttt{str\_interp}, \texttt{str\_glue*} (better to use \texttt{glue}; see below),
+\item
+  \texttt{str\_sort}, \texttt{str\_order} (used in sorting a character vector),
+\item
+  \texttt{str\_to\_case*} (case conversion), and
+\item
+  \texttt{str\_view*} (a graphical view of search pattern matches).
+\item
+  \texttt{word}, \texttt{boundary} etc. The use of word is covered below.
+\end{itemize}
 
 \href{https://cran.r-project.org/web/packages/stringi/}{\texttt{stringi}}, of which \texttt{stringr} is a wrapper, offers a lot more flexibility and control.
 
@@ -874,6 +1110,43 @@ Finally, the convenient \texttt{glue\_sql} and \texttt{glue\_data\_sql} are used
 
 \texttt{glue} has some more functions --- \texttt{glue\_safe}, \texttt{glue\_collapse}, and \texttt{glue\_col}, but these are infrequently used. Their functionality can be found on the \texttt{glue} github page.
 
+\hypertarget{strings-in-ggplot}{%
+\section{\texorpdfstring{Strings in \texttt{ggplot}}{Strings in ggplot}}\label{strings-in-ggplot}}
+
+\texttt{ggplot} has two \texttt{geoms} (wait for the \texttt{ggplot} tutorial to understand more about geoms) that work with text: \texttt{geom\_text} and \texttt{geom\_label}. These geoms allow text to be pasted on to the main body of a plot.
+
+Often, these may overlap when the data are closely spaced. The package \texttt{ggrepel} offers another \texttt{geom}, \texttt{geom\_text\_repel} (and the related \texttt{geom\_label\_repel}) that help arrange text on a plot so it doesn't overlap with other features. This is \emph{not perfect}, but it works more often than not.
+
+More examples can be found on the \href{https://github.com/slowkow/ggrepel}{ggrepl website}.
+
+Here, the arguments to \texttt{geom\_text\_repel} are taken both from the mtcars data (position), as well as from the car brands extracted using the \texttt{stringr::word} (labels), which tries to separate strings based on a regular pattern.
+
+The details of \texttt{ggplot} are covered in a later tutorial.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{library}\NormalTok{(ggrepel)}
+
+\CommentTok{# prepare car labels using word function}
+\NormalTok{car_labels =}\StringTok{ }\KeywordTok{word}\NormalTok{(}\KeywordTok{rownames}\NormalTok{(mtcars))}
+
+\KeywordTok{ggplot}\NormalTok{(mtcars,}
+       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wt, }\DataTypeTok{y =}\NormalTok{ mpg,}
+           \DataTypeTok{label =} \KeywordTok{rownames}\NormalTok{(mtcars)))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{colour =} \StringTok{"red"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_text_repel}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{label =}\NormalTok{ car_labels),}
+                  \DataTypeTok{direction =} \StringTok{"x"}\NormalTok{,}
+                  \DataTypeTok{nudge_x =} \FloatTok{0.2}\NormalTok{,}
+                  \DataTypeTok{box.padding =} \FloatTok{0.5}\NormalTok{,}
+                  \DataTypeTok{point.padding =} \FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-27-1.pdf}
+
+This is not a good looking plot, because it breaks other rules of plot design, such as whether this sort of plot should be made at all. Labels and text need to be applied sparingly, for example drawing attention or adding information to outliers.
+
 \hypertarget{working-with-lists-and-iteration}{%
 \chapter{Working with lists and iteration}\label{working-with-lists-and-iteration}}
 
@@ -891,9 +1164,9 @@ Finally, the convenient \texttt{glue\_sql} and \texttt{glue\_data\_sql} are used
 \end{verbatim}
 
 \begin{verbatim}
-## v ggplot2 3.3.0     v purrr   0.3.4
 ## v tibble  3.0.1     v dplyr   0.8.5
 ## v tidyr   1.0.2     v forcats 0.5.0
+## v purrr   0.3.4
 \end{verbatim}
 
 \begin{verbatim}

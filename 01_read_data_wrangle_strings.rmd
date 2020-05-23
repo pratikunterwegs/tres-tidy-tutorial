@@ -1,5 +1,5 @@
 ---
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 
@@ -13,7 +13,83 @@ library(stringr)
 library(glue)
 ```
 
-## Section on `readr`
+## Data import and export with `readr`
+
+Data in the wild with which ecologists and evolutionary biologists deal is most often in the form of a text file, usually with the extensions `.csv` or `.txt`. Often, such data has to be written to file from within `R`. `readr` contains a number of functions to help with reading and writing text files.
+
+### Reading data
+
+Reading in a csv file with `readr` is done with the `read_csv` function, a faster alternative to the base R `read.csv`. Here, `read_csv` is applied to the `mtcars` example.
+
+```{r}
+# get the filepath of the example
+some_example = readr_example("mtcars.csv")
+
+# read the file in
+some_example = read_csv(some_example)
+
+head(some_example)
+```
+
+The `read_csv2` function is useful when dealing with files where the separator between columns is a semicolon `;`, and where the decimal point is represented by a comma `,`.
+
+Other variants include: 
+
+- `read_tsv` for tab-separated files, and 
+
+- `read_delim`, a general case which allows the separator to be specified manually.
+
+`readr` import function will attempt to guess the column type from the first *N* lines in the data. This *N* can be set using the function argument `guess_max`. The `n_max` argument sets the number of rows to read, while the `skip` argument sets the number of rows to be skipped before reading data.
+
+By default, the column names are taken from the first row of the data, but they can be manually specified by passing a character vector to `col_names`.
+
+There are some other arguments to the data import functions, but the defaults usually *just work*.
+
+### Writing data
+
+Writing data uses the `write_*` family of functions, with implementations for `csv`, `csv2` etc. (represented by the asterisk), mirroring the import functions discussed above. `write_*` functions offer the `append` argument, which allow a data frame to be added to an existing file.
+
+These functions are not covered here.
+
+### Reading and writing lines
+
+Sometimes, there is text output generated in `R` which needs to be written to file, but is not in the form of a dataframe. A good example is model outputs. It is good practice to save model output as a text file, and add it to version control.
+Similarly, it may be necessary to import such text, either for display to screen, or to extract data.
+
+This can be done using the `readr` functions `read_lines` and `write_lines`. Consider the model summary from a simple linear model.
+
+```{r}
+# get the model
+model = lm(mpg ~ wt, data = mtcars)
+```
+
+The model summary can be written to file. When writing lines to file, BE AWARE OF THE DIFFERENCES BETWEEN UNIX AND WINODWS line separators. Usually, this causes no trouble.
+
+```{r}
+# capture the model summary output
+model_output = capture.output(summary(model))
+
+# save it to file
+write_lines(x = model_output,
+  path = "model_output.txt")
+```
+
+This model output can be read back in for display, and each line of the model output is an element in a character vector.
+
+```{r}
+# read in the model output and display
+model_output = read_lines("model_output.txt")
+
+# use cat to show the model output as it would be on screen
+cat(model_output, sep = "\n")
+```
+
+These few functions demonstrate the most common uses of `readr`, but most other use cases for text data can be handled using different function arguments, including reading data off the web, unzipping 
+compressed files before reading, and specifying the column types to control for type conversion errors.
+
+### Excel files {-}
+
+Finally, data is often shared or stored by well meaning people in the form of Microsoft Excel sheets. Indeed, Excel (especially when synced regularly to remote storage) is a good way of noting down observational data in the field. The `readxl` package allows importing from Excel files, including reading in specific sheets.
 
 ## String manipulation with `stringr`
 
@@ -45,7 +121,6 @@ class_tibble = class(tibble::tibble(a = 1))
 str_flatten(string = class_tibble, collapse = ", ")
 ```
 
-
 ### Detecting strings
 
 Count the frequency of a pattern in a string with `str_count`. Returns an inteegr.
@@ -70,37 +145,36 @@ Vectorising over both string and pattern works as expected.
 ```{r}
 # vectorise over both string and pattern
 # counts a-s in first input, and b-s in the second
-str_count(string = c("ababababa", "banana"), 
+str_count(string = c("ababababa", "banana"),
           pattern = c("a", "b"))
 
-# provide a longer pattern vector to search for both a-s 
+# provide a longer pattern vector to search for both a-s
 # and b-s in both inputs
-str_count(string = c("ababababa", "banana"), 
-         pattern = c("a", "b", 
-                    "b", "a"))
+str_count(string = c("ababababa", "banana"),
+          pattern = c("a", "b",
+                      "b", "a"))
 ```
 
 `str_locate` locates the search pattern in a string, and returns the start and end as a two column matrix.
 
 ```{r}
-# the behaviour of both str_locate and str_locate_all is 
+# the behaviour of both str_locate and str_locate_all is
 # to find the first match by default
 str_locate(string = "banana", pattern = "ana")
 ```
 
-
 ```{r}
 # str_detect detects a sequence in a string
-str_detect(string = "Bananageddon is coming!", 
+str_detect(string = "Bananageddon is coming!",
            pattern = "na")
 
 # str_detect is also vectorised and returns a two-element logical vector
-str_detect(string = "Bananageddon is coming!", 
+str_detect(string = "Bananageddon is coming!",
            pattern = c("na", "don"))
 
 # use any or all to convert a multi-element logical to a single logical
 # here we ask if either of the patterns is detected
-any(str_detect(string = "Bananageddon is coming!", 
+any(str_detect(string = "Bananageddon is coming!",
                pattern = c("na", "don")))
 ```
 
@@ -134,11 +208,10 @@ str_subset(c("banana",
 
 # returns an integer vector
 str_which(c("banana",
-             "bananageddon is coming",
-             "applegeddon is not real"),
-           pattern = "banana")
+            "bananageddon is coming",
+            "applegeddon is not real"),
+          pattern = "banana")
 ```
-
 
 ### Matching strings
 
@@ -154,9 +227,9 @@ str_match(string = c("banana",
           pattern = "banana")
 ```
 
-The search pattern can be extended to look for multiple subsets of the search pattern. Consider searching for dates and times. 
+The search pattern can be extended to look for multiple subsets of the search pattern. Consider searching for dates and times.
 
-Here, the search pattern is a `regex` pattern that looks for a set of four digits (`\\d{4}`) and a month name `(\\w+)` seperated by a hyphen. There's much more to be explored in dealing with dates and times in `[lubridate](https://lubridate.tidyverse.org/)`, another `tidyverse` package.
+Here, the search pattern is a `regex` pattern that looks for a set of four digits (`\\d{4}`) and a month name `(\\w+)` seperated by a hyphen. There's much more to be explored in dealing with dates and times in [`lubridate`](https://lubridate.tidyverse.org/), another `tidyverse` package.
 
 The return type is a list, each element is a character matrix where the first column is the string subset matching the full search pattern, and then as many columns as there are parts to the search pattern. The parts of interest in the search pattern are indicated by wrapping them in parentheses. For example, in the case below, wrapping `[-.]` in parentheses will turn it into a distinct part of the search pattern.
 
@@ -164,13 +237,13 @@ The return type is a list, each element is a character matrix where the first co
 # first with [-.] treated simply as a separator
 str_match(string = c("1970-somemonth-01",
                      "1990-anothermonth-01",
-                     "2010-thismonth-01"), 
+                     "2010-thismonth-01"),
           pattern = "(\\d{4})[-.](\\w+)")
 
 # then with [-.] actively searched for
 str_match(string = c("1970-somemonth-01",
                      "1990-anothermonth-01",
-                     "2010-thismonth-01"), 
+                     "2010-thismonth-01"),
           pattern = "(\\d{4})([-.])(\\w+)")
 ```
 
@@ -181,12 +254,12 @@ The return type is a list, with one element per input string. Each element is a 
 ```{r}
 # first with a single date entry
 str_match_all(string = c("1970-somemonth-01 or maybe 1990/anothermonth/01"),
-          pattern = "(\\d{4})[\\-\\/]([a-z]+)")
+              pattern = "(\\d{4})[\\-\\/]([a-z]+)")
 
 # then with multiple date entries
 str_match_all(string = c("1970-somemonth-01 or maybe 1990/anothermonth/01",
                          "1990-somemonth-01 or maybe 2001/anothermonth/01"),
-          pattern = "(\\d{4})[\\-\\/]([a-z]+)")
+              pattern = "(\\d{4})[\\-\\/]([a-z]+)")
 ```
 
 ### Simpler pattern extraction
@@ -199,17 +272,17 @@ The full functionality of `str_match_*` can be boiled down to the most common us
 # extracting the first full match using str_extract
 str_extract(string = c("1970-somemonth-01 or maybe 1990/anothermonth/01",
                        "1990-somemonth-01 or maybe 2001/anothermonth/01"),
-          pattern = "(\\d{4})[\\-\\/]([a-z]+)")
+            pattern = "(\\d{4})[\\-\\/]([a-z]+)")
 
 # extracting all full matches using str_extract all
 str_extract_all(string = c("1970-somemonth-01 or maybe 1990/anothermonth/01",
-                       "1990-somemonth-01 or maybe 2001/anothermonth/01"),
-          pattern = "(\\d{4})[\\-\\/]([a-z]+)")
+                           "1990-somemonth-01 or maybe 2001/anothermonth/01"),
+                pattern = "(\\d{4})[\\-\\/]([a-z]+)")
 ```
 
 ### Breaking strings apart
 
-`str_split`, str_sub, 
+`str_split`, str_sub,
 In the above date-time example, when reading filenames from a path, or when working sequences separated by a known pattern generally, `str_split` can help separate elements of interest.
 
 The return type is a list similar to `str_match`.
@@ -217,7 +290,7 @@ The return type is a list similar to `str_match`.
 ```{r}
 # split on either a hyphen or a forward slash
 str_split(string = c("1970-somemonth-01",
-            "1990/anothermonth/01"), 
+                     "1990/anothermonth/01"),
           pattern = "[\\-\\/]")
 ```
 
@@ -243,9 +316,9 @@ str_split(filename,
 
 ```{r}
 # split on either a hyphen or a forward slash
-str_split_fixed(string = "dir_level_1/dir_level_2/file.ext", 
-          pattern = "/",
-          n = 2)
+str_split_fixed(string = "dir_level_1/dir_level_2/file.ext",
+                pattern = "/",
+                n = 2)
 ```
 
 ### Replacing string elements
@@ -256,8 +329,8 @@ str_split_fixed(string = "dir_level_1/dir_level_2/file.ext",
 # replace all unwanted characters from this hypothetical filename with spaces
 filename = "sim_param1_0.01_param2_0.05_param3_0.01.ext"
 str_replace_all(filename,
-            pattern = "(sim_)|_*param\\d{1}_|(.ext)",
-            replacement = " ")
+                pattern = "(sim_)|_*param\\d{1}_|(.ext)",
+                replacement = " ")
 ```
 
 `str_remove` is a wrapper around `str_replace` where the replacement is set to `""`. This is not covered here.
@@ -284,8 +357,8 @@ When strings are highly regular, useful data can be extracted from a string usin
 ```{r}
 # get the year as characters 1 - 4
 str_sub(string = c("1970-somemonth-01",
-                     "1990-anothermonth-01",
-                     "2010-thismonth-01"), 
+                   "1990-anothermonth-01",
+                   "2010-thismonth-01"),
         start = 1, end = 4)
 ```
 
@@ -294,8 +367,8 @@ Similarly, it's possible to extract the last few characters using negative indic
 ```{r}
 # get the day as characters -2 to -1
 str_sub(string = c("1970-somemonth-01",
-                     "1990-anothermonth-21",
-                     "2010-thismonth-31"), 
+                   "1990-anothermonth-21",
+                   "2010-thismonth-31"),
         start = -2, end = -1)
 ```
 
@@ -304,11 +377,11 @@ Finally, it's also possible to replace characters within a string based on the p
 ```{r}
 # replace all days in these dates to 01
 date_times = c("1970-somemonth-25",
-                     "1990-anothermonth-21",
-                     "2010-thismonth-31")
+               "1990-anothermonth-21",
+               "2010-thismonth-31")
 
 # a strictly necessary use of the assignment operator
-str_sub(date_times, 
+str_sub(date_times,
         start = -2, end = -1) <- "01"
 
 date_times
@@ -320,7 +393,7 @@ Strings included in filenames or plots are often of unequal lengths, especially 
 
 ```{r}
 # pad so all values have three digits
-str_pad(string = c("1", "10", "100"), 
+str_pad(string = c("1", "10", "100"),
         width = 3,
         side = "left",
         pad = "0")
@@ -329,8 +402,8 @@ str_pad(string = c("1", "10", "100"),
 Strings can also be truncated if they are too long.
 
 ```{r}
-str_trunc(string = c("bananas are great and wonderful 
-                     and more stuff about bananas and 
+str_trunc(string = c("bananas are great and wonderful
+                     and more stuff about bananas and
                      it really goes on about bananas"),
           width = 27,
           side = "right", ellipsis = "etc. etc.")
@@ -338,13 +411,20 @@ str_trunc(string = c("bananas are great and wonderful
 
 ### Stringr aspects not covered here
 
-Some `stringr` functions are not covered here. These include:  
- - `str_wrap` (of dubious use),  
- - `str_interp`, `str_glue*` (better to use `glue`; see below),  
- - `str_sort`, `str_order` (used in sorting a character vector),  
- - `str_to_case*` (case conversion), and  
- - `str_view*` (a graphical view of search pattern matches).
- 
+Some `stringr` functions are not covered here. These include:
+
+- `str_wrap` (of dubious use),
+
+- `str_interp`, `str_glue*` (better to use `glue`; see below),
+
+- `str_sort`, `str_order` (used in sorting a character vector),
+
+- `str_to_case*` (case conversion), and
+
+- `str_view*` (a graphical view of search pattern matches).
+
+- `word`, `boundary` etc. The use of word is covered below.
+
 [`stringi`](https://cran.r-project.org/web/packages/stringi/), of which `stringr` is a wrapper, offers a lot more flexibility and control.
 
 ## String interpolation with `glue`
@@ -381,3 +461,37 @@ glue_data(parameter_combinations,
 Finally, the convenient `glue_sql` and `glue_data_sql` are used to safely write SQL queries where variables from data are appropriately quoted. This is not covered here, but it is good to know it exists.
 
 `glue` has some more functions --- `glue_safe`, `glue_collapse`, and `glue_col`, but these are infrequently used. Their functionality can be found on the `glue` github page.
+
+## Strings in `ggplot`
+
+`ggplot` has two `geoms` (wait for the `ggplot` tutorial to understand more about geoms) that work with text: `geom_text` and `geom_label`. These geoms allow text to be pasted on to the main body of a plot. 
+
+Often, these may overlap when the data are closely spaced. The package `ggrepel` offers another `geom`, `geom_text_repel` (and the related `geom_label_repel`) that help arrange text on a plot so it doesn't overlap with other features. This is *not perfect*, but it works more often than not.
+
+More examples can be found on the [ggrepl website](https://github.com/slowkow/ggrepel).
+
+Here, the arguments to `geom_text_repel` are taken both from the mtcars data (position), as well as from the car brands extracted using the `stringr::word` (labels), which tries to separate strings based on a regular pattern.
+
+The details of `ggplot` are covered in a later tutorial.
+
+
+```{r}
+library(ggplot2)
+library(ggrepel)
+
+# prepare car labels using word function
+car_labels = word(rownames(mtcars))
+
+ggplot(mtcars,
+       aes(x = wt, y = mpg,
+           label = rownames(mtcars)))+
+  geom_point(colour = "red")+
+  geom_text_repel(aes(label = car_labels),
+                  direction = "x",
+                  nudge_x = 0.2,
+                  box.padding = 0.5,
+                  point.padding = 0.5)
+
+```
+
+This is not a good looking plot, because it breaks other rules of plot design, such as whether this sort of plot should be made at all. Labels and text need to be applied sparingly, for example drawing attention or adding information to outliers.
