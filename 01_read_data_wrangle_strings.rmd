@@ -13,7 +13,83 @@ library(stringr)
 library(glue)
 ```
 
-## Section on `readr`
+## Data import and export with `readr`
+
+Data in the wild with which ecologists and evolutionary biologists deal is most often in the form of a text file, usually with the extensions `.csv` or `.txt`. Often, such data has to be written to file from within `R`. `readr` contains a number of functions to help with reading and writing text files.
+
+### Reading data
+
+Reading in a csv file with `readr` is done with the `read_csv` function, a faster alternative to the base R `read.csv`. Here, `read_csv` is applied to the `mtcars` example.
+
+```{r}
+# get the filepath of the example
+some_example = readr_example("mtcars.csv")
+
+# read the file in
+some_example = read_csv(some_example)
+
+head(some_example)
+```
+
+The `read_csv2` function is useful when dealing with files where the separator between columns is a semicolon `;`, and where the decimal point is represented by a comma `,`.
+
+Other variants include: 
+
+- `read_tsv` for tab-separated files, and 
+
+- `read_delim`, a general case which allows the separator to be specified manually.
+
+`readr` import function will attempt to guess the column type from the first *N* lines in the data. This *N* can be set using the function argument `guess_max`. The `n_max` argument sets the number of rows to read, while the `skip` argument sets the number of rows to be skipped before reading data.
+
+By default, the column names are taken from the first row of the data, but they can be manually specified by passing a character vector to `col_names`.
+
+There are some other arguments to the data import functions, but the defaults usually *just work*.
+
+### Writing data
+
+Writing data uses the `write_*` family of functions, with implementations for `csv`, `csv2` etc. (represented by the asterisk), mirroring the import functions discussed above. `write_*` functions offer the `append` argument, which allow a data frame to be added to an existing file.
+
+These functions are not covered here.
+
+### Reading and writing lines
+
+Sometimes, there is text output generated in `R` which needs to be written to file, but is not in the form of a dataframe. A good example is model outputs. It is good practice to save model output as a text file, and add it to version control.
+Similarly, it may be necessary to import such text, either for display to screen, or to extract data.
+
+This can be done using the `readr` functions `read_lines` and `write_lines`. Consider the model summary from a simple linear model.
+
+```{r}
+# get the model
+model = lm(mpg ~ wt, data = mtcars)
+```
+
+The model summary can be written to file. When writing lines to file, BE AWARE OF THE DIFFERENCES BETWEEN UNIX AND WINODWS line separators. Usually, this causes no trouble.
+
+```{r}
+# capture the model summary output
+model_output = capture.output(summary(model))
+
+# save it to file
+write_lines(x = model_output,
+  path = "model_output.txt")
+```
+
+This model output can be read back in for display, and each line of the model output is an element in a character vector.
+
+```{r}
+# read in the model output and display
+model_output = read_lines("model_output.txt")
+
+# use cat to show the model output as it would be on screen
+cat(model_output, sep = "\n")
+```
+
+These few functions demonstrate the most common uses of `readr`, but most other use cases for text data can be handled using different function arguments, including reading data off the web, unzipping 
+compressed files before reading, and specifying the column types to control for type conversion errors.
+
+### Excel files {-}
+
+Finally, data is often shared or stored by well meaning people in the form of Microsoft Excel sheets. Indeed, Excel (especially when synced regularly to remote storage) is a good way of noting down observational data in the field. The `readxl` package allows importing from Excel files, including reading in specific sheets.
 
 ## String manipulation with `stringr`
 
