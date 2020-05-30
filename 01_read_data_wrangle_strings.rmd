@@ -7,7 +7,9 @@ editor_options:
 
 ![](opening-image.png)
 
-```{r load_packages}
+Load the packages for the day.
+
+```{r load_packages_01}
 library(readr)
 library(stringr)
 library(glue)
