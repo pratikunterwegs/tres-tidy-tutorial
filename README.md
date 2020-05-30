@@ -15,11 +15,13 @@ This tutorial will take the form of a one hour per week video stream via Google 
 
 Topic|Package|Instructor|Date*
 ---|---|---|---
-Reading data and string manipulation|[readr](https://readr.tidyverse.org/), [stringr](https://stringr.tidyverse.org/), [glue](https://github.com/tidyverse/glue)|Raphael + Pratik|29/05/20
+Reading data and string manipulation|[readr](https://readr.tidyverse.org/), [stringr](https://stringr.tidyverse.org/), [glue](https://github.com/tidyverse/glue)|Pratik|29/05/20
 Data and reshaping|[tibble](https://tibble.tidyverse.org/), [tidyr](https://tidyr.tidyverse.org/)|Raphael|05/06/20
 Manipulating data|[dplyr](https://dplyr.tidyverse.org/)|Theo|12/06/20
 Working with lists and iteration|[purrr](https://purrr.tidyverse.org/)|Pratik|19/06/20
 Plotting|[ggplot2](https://ggplot2.tidyverse.org/)|Raphael|26/06/20
+Programming with the tidyverse|[rlang](https://rlang.r-lib.org/)|Pratik|03/07/20
+
 
 ## Possible extras
 

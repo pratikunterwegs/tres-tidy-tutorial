@@ -8,22 +8,12 @@ bookdown::gitbook:
     toolbar:
       position: fixed
     edit : null
-    download: ["pdf"]
+    download: ["TRES-Tidy-Tutorial.pdf"]
     search: yes
     fontsettings:
       theme: white
       family: sans
       size: 2
-    sharing:
-      facebook: yes
-      github: no
-      twitter: yes
-      linkedin: no
-      weibo: no
-      instapaper: no
-      vk: no
-      all: ['facebook', 'twitter', 'linkedin', 'weibo', 'instapaper']
-    info: yes
 bookdown::pdf_book:
   keep_tex: true
   documentclass: scrreprt
