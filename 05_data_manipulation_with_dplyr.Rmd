@@ -1,0 +1,138 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+# Data manipulation with `dplyr`
+
+```{r}
+# load the tidyverse
+library(tidyverse)
+```
+
+## Introduction
+
+Reminders from last weeks: pipe operator, tidy tables, ggplot
+
+Why dplyr ? dplyr vs base R
+
+## Example data of the day
+
+Through this tutorial, we will be using mammal trait data from the [Phylacine](https://megapast2future.github.io/PHYLACINE_1.2/) database. The dataset contains information on mass, diet, life habit, etc, for more than all living species of mammals. Let's have a look.
+
+```{r read_data, message=FALSE}
+phylacine <- readr::read_csv("data/phylacine_traits.csv")
+phylacine
+```
+
+Note the friendly output given by the `tibble` (as opposed to a `data.frame`). `readr` automatically stores the content it reads in a `tibble`, tidyverse oblige. You should know however that `dplyr` doesn't require your data to be in a tibble, a regular `data.frame` will work just as fine.
+
+Most of the `dplyr` verbs covered in the next sections assume your data is *tidy*: wide format, variables as column, 1 observation per row. Not that tehy won't work if your data isn't tidy, but the results could be very different from what I'm going to show here. Fortunately, the phylacine trait dataset appears to be tidy: there is one unique entry for each species.
+
+The first operation I'm going to run on this table is changing the names with
+`rename()`. Some people prefer their tea without sugar, and I [prefer](https://style.tidyverse.org/syntax.html#object-names) my 
+variable names without uppercase characters, dots or (if possible) numbers. 
+This will give me the opportunity to introduce the trivial syntax
+of `dplyr` verbs.
+
+```{r rename}
+phylacine <- phylacine %>% 
+  dplyr::rename(
+    "binomial" = Binomial.1.2,
+    "order" = Order.1.2,
+    "family" = Family.1.2,
+    "genus" = Genus.1.2,
+    "species" = Species.1.2,
+    "terrestrial" = Terrestrial,
+    "marine" = Marine,
+    "freshwater" = Freshwater,
+    "aerial" = Aerial,
+    "life_habit_method" = Life.Habit.Method,
+    "life_habit_source" = Life.Habit.Source,
+    "mass_g" = Mass.g,
+    "mass_method" = Mass.Method,
+    "mass_source" = Mass.Source,
+    "mass_comparison" = Mass.Comparison,
+    "mass_comparison_source" = Mass.Comparison.Source,
+    "island_endemicity" = Island.Endemicity,
+    "iucn_status" = IUCN.Status.1.2, # not even for acronyms
+    "added_iucn_status" =  Added.IUCN.Status.1.2,
+    "diet_plant" = Diet.Plant,
+    "diet_vertebrate" = Diet.Vertebrate,
+    "diet_invertebrate" = Diet.Invertebrate,
+    "diet_method" = Diet.Method,
+    "diet_source" = Diet.Source
+  )
+```
+
+For convenience, I'm going to use the pipe operator (`%>%`) that we've seen 
+before, through this chapter. All `dplyr` functions are built to work with the 
+pipe (i.e, their firstargument is always `data`), but again, this is not 
+compulsory. I could do
+
+```{r no_pipe, eval=FALSE}
+phylacine <- dplyr::rename(
+  data = phylacine,
+  "binomial" = Binomial.1.2,
+  # ...
+)
+```
+Note how columns are referred to. Once the data as been passed as an argument,
+no need to refer to it anymore, `dplyr` understands that you're dealing with
+variables inside that data frame. So drop that `data$var`, `data[, "var"]`,
+and, if you've read *The R book*, forget the very existence of `attach()`. 
+
+Finally, I should mention that you can refer to variables names either with strings or directly as objects, whether you're reading or creating them:
+
+```{r rename2, eval=FALSE}
+phylacine2 <- readr::read_csv("data/phylacine_traits.csv")
+
+phylacine2 %>% 
+  dplyr::rename(
+    # this works
+    binomial = Binomial.1.2
+  )
+phylacine2 %>% 
+  dplyr::rename(
+    # this works too!
+    binomial = "Binomial.1.2"
+  )
+phylacine2 %>% 
+  dplyr::rename(
+    # guess what
+    "binomial" = "Binomial.1.2"
+  )
+
+```
+
+## Select variables with `select()`
+
+## Select observations with `filter()`
+
+## Create new variables with `mutate()`
+can also edit existing ones
+
+drop existing variables with `transmute()`
+
+## Grouped results with `group_by()` and `summarise()`
+
+## Scoped variables
+
+```{r eval=FALSE}
+data(mtcars)
+mtcars %>% select_all(toupper)
+
+is_whole <- function(x) all(floor(x) == x)
+mtcars %>% select_if() # select integers only
+
+mtcars %>% select_at(vars(-contains("ar")))
+mtcars %>% select_at(vars(-contains("ar"), starts_with("c")))
+
+```
+
+
+## More !
+dolla sign x point operator
+variables values -> dplyr::distinct() eq. to base::unique()
+sample()
+slice()
