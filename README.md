@@ -20,7 +20,8 @@ Data and reshaping|[tibble](https://tibble.tidyverse.org/), [tidyr](https://tidy
 Manipulating data|[dplyr](https://dplyr.tidyverse.org/)|Theo|12/06/20
 Working with lists and iteration|[purrr](https://purrr.tidyverse.org/)|Pratik|19/06/20
 Plotting|[ggplot2](https://ggplot2.tidyverse.org/)|Raphael|26/06/20
-Programming with the tidyverse|[rlang](https://rlang.r-lib.org/)|Pratik|03/07/20
+Regular expressions|[regex](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html)|Richel|03/07/20
+Programming with the tidyverse|[rlang](https://rlang.r-lib.org/)|Pratik|10/07/20
 
 
 ## Possible extras
@@ -39,6 +40,7 @@ Join the Slack [by clicking this link (Slack account required)](https://join.sla
 Here are links to external resources to dig deeper in making efficient use of R in data analysis:
 
 - The tidyverse [website](https://www.tidyverse.org/)
+- The RStudio [cheatsheats](https://rstudio.com/resources/cheatsheets/)
 - The [R for Data Dcience](https://r4ds.had.co.nz/) book
 - The [Advanced R](http://adv-r.had.co.nz/) book
 - To learn about making your own packages, the [R Packages](http://r-pkgs.had.co.nz/) book
