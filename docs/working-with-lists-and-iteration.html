@@ -4,24 +4,24 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Section 2 Working with lists and iteration | TRES Tidyverse Tutorial</title>
-  <meta name="description" content="Section 2 Working with lists and iteration | TRES Tidyverse Tutorial" />
+  <title>Section 4 Working with lists and iteration | TRES Tidyverse Tutorial</title>
+  <meta name="description" content="Section 4 Working with lists and iteration | TRES Tidyverse Tutorial" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Section 2 Working with lists and iteration | TRES Tidyverse Tutorial" />
+  <meta property="og:title" content="Section 4 Working with lists and iteration | TRES Tidyverse Tutorial" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Section 2 Working with lists and iteration | TRES Tidyverse Tutorial" />
+  <meta property="og:description" content="Section 4 Working with lists and iteration | TRES Tidyverse Tutorial" />
   <meta name="github-repo" content="pratikunterwegs/tres-tidy-tutorial" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Section 2 Working with lists and iteration | TRES Tidyverse Tutorial" />
+  <meta name="twitter:title" content="Section 4 Working with lists and iteration | TRES Tidyverse Tutorial" />
   
-  <meta name="twitter:description" content="Section 2 Working with lists and iteration | TRES Tidyverse Tutorial" />
+  <meta name="twitter:description" content="Section 4 Working with lists and iteration | TRES Tidyverse Tutorial" />
   
 
-<meta name="author" content="Raphael and Pratik" />
+<meta name="author" content="Raphael, Pratik and Theo" />
 
 
 <meta name="date" content="2020-05-30" />
@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="reading-files-and-string-manipulation.html"/>
+<link rel="prev" href="data-manipulation-with-dplyr.html"/>
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -154,25 +154,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.3" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#string-interpolation-with-glue"><i class="fa fa-check"></i><b>1.3</b> String interpolation with <code>glue</code></a></li>
 <li class="chapter" data-level="1.4" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#strings-in-ggplot"><i class="fa fa-check"></i><b>1.4</b> Strings in <code>ggplot</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html"><i class="fa fa-check"></i><b>2</b> Working with lists and iteration</a><ul>
-<li class="chapter" data-level="2.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#basic-iteration-with-map"><i class="fa fa-check"></i><b>2.1</b> Basic iteration with <code>map</code></a><ul>
-<li class="chapter" data-level="2.1.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-basic-use"><i class="fa fa-check"></i><b>2.1.1</b> <code>map</code> basic use</a></li>
-<li class="chapter" data-level="2.1.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-vectors"><i class="fa fa-check"></i><b>2.1.2</b> <code>map</code> variants returning vectors</a></li>
+<li class="chapter" data-level="2" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html"><i class="fa fa-check"></i><b>2</b> Reshaping data tables in the tidyverse</a><ul>
+<li class="chapter" data-level="2.1" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#the-new-data-frame-tibble"><i class="fa fa-check"></i><b>2.1</b> 1. The new data frame: tibble</a></li>
+<li class="chapter" data-level="2.2" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#the-concept-of-tidy-data"><i class="fa fa-check"></i><b>2.2</b> 2. The concept of tidy data</a></li>
+<li class="chapter" data-level="2.3" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#reshaping-with-tidyr"><i class="fa fa-check"></i><b>2.3</b> 3. Reshaping with <code>tidyr</code></a><ul>
+<li class="chapter" data-level="2.3.1" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#pivoting"><i class="fa fa-check"></i><b>2.3.1</b> 3.1. Pivoting</a></li>
+<li class="chapter" data-level="2.3.2" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#handling-missing-values"><i class="fa fa-check"></i><b>2.3.2</b> 3.2. Handling missing values</a></li>
+<li class="chapter" data-level="2.3.3" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#splitting-and-combining-cells"><i class="fa fa-check"></i><b>2.3.3</b> 3.3. Splitting and combining cells</a></li>
+<li class="chapter" data-level="2.3.4" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#expanding-tables-using-combinations"><i class="fa fa-check"></i><b>2.3.4</b> 3.4. Expanding tables using combinations</a></li>
+<li class="chapter" data-level="2.3.5" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#nesting"><i class="fa fa-check"></i><b>2.3.5</b> 3.5. Nesting</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#extra-factors-and-the-forcats-package"><i class="fa fa-check"></i><b>2.4</b> 4. Extra: factors and the <code>forcats</code> package</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#reordering-a-factor"><i class="fa fa-check"></i><b>2.4.1</b> 4.1. Reordering a factor</a></li>
+<li class="chapter" data-level="2.4.2" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#factor-levels"><i class="fa fa-check"></i><b>2.4.2</b> 4.2. Factor levels</a></li>
+<li class="chapter" data-level="2.4.3" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#bonus-dropping-levels"><i class="fa fa-check"></i><b>2.4.3</b> 4.3. Bonus: dropping levels</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#external-resources"><i class="fa fa-check"></i><b>2.5</b> 5. External resources</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html"><i class="fa fa-check"></i><b>3</b> Data manipulation with <code>dplyr</code></a><ul>
+<li class="chapter" data-level="3.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#example-data-of-the-day"><i class="fa fa-check"></i><b>3.2</b> Example data of the day</a></li>
+<li class="chapter" data-level="3.3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#select-variables-with-select"><i class="fa fa-check"></i><b>3.3</b> Select variables with <code>select()</code></a></li>
+<li class="chapter" data-level="3.4" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#select-observations-with-filter"><i class="fa fa-check"></i><b>3.4</b> Select observations with <code>filter()</code></a></li>
+<li class="chapter" data-level="3.5" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#create-new-variables-with-mutate"><i class="fa fa-check"></i><b>3.5</b> Create new variables with <code>mutate()</code></a></li>
+<li class="chapter" data-level="3.6" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#grouped-results-with-group_by-and-summarise"><i class="fa fa-check"></i><b>3.6</b> Grouped results with <code>group_by()</code> and <code>summarise()</code></a></li>
+<li class="chapter" data-level="3.7" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#scoped-variables"><i class="fa fa-check"></i><b>3.7</b> Scoped variables</a></li>
+<li class="chapter" data-level="3.8" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#more"><i class="fa fa-check"></i><b>3.8</b> More !</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html"><i class="fa fa-check"></i><b>4</b> Working with lists and iteration</a><ul>
+<li class="chapter" data-level="4.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#basic-iteration-with-map"><i class="fa fa-check"></i><b>4.1</b> Basic iteration with <code>map</code></a><ul>
+<li class="chapter" data-level="4.1.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-basic-use"><i class="fa fa-check"></i><b>4.1.1</b> <code>map</code> basic use</a></li>
+<li class="chapter" data-level="4.1.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-vectors"><i class="fa fa-check"></i><b>4.1.2</b> <code>map</code> variants returning vectors</a></li>
 <li><a href="working-with-lists-and-iteration.html#integrating-map-and-tidyrnest">Integrating <code>map</code> and <code>tidyr::nest</code></a></li>
-<li class="chapter" data-level="2.1.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-dataframes"><i class="fa fa-check"></i><b>2.1.3</b> <code>map</code> variants returning dataframes</a></li>
-<li class="chapter" data-level="2.1.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#selective-mapping"><i class="fa fa-check"></i><b>2.1.4</b> Selective mapping</a></li>
+<li class="chapter" data-level="4.1.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-dataframes"><i class="fa fa-check"></i><b>4.1.3</b> <code>map</code> variants returning dataframes</a></li>
+<li class="chapter" data-level="4.1.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#selective-mapping"><i class="fa fa-check"></i><b>4.1.4</b> Selective mapping</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#more-map-variants"><i class="fa fa-check"></i><b>2.2</b> More <code>map</code> variants</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map2"><i class="fa fa-check"></i><b>2.2.1</b> <code>map2</code></a></li>
-<li class="chapter" data-level="2.2.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#pmap"><i class="fa fa-check"></i><b>2.2.2</b> <code>pmap</code></a></li>
-<li class="chapter" data-level="2.2.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#walk"><i class="fa fa-check"></i><b>2.2.3</b> <code>walk</code></a></li>
+<li class="chapter" data-level="4.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#more-map-variants"><i class="fa fa-check"></i><b>4.2</b> More <code>map</code> variants</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map2"><i class="fa fa-check"></i><b>4.2.1</b> <code>map2</code></a></li>
+<li class="chapter" data-level="4.2.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#pmap"><i class="fa fa-check"></i><b>4.2.2</b> <code>pmap</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#walk"><i class="fa fa-check"></i><b>4.2.3</b> <code>walk</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#modification-in-place"><i class="fa fa-check"></i><b>2.3</b> Modification in place</a></li>
-<li class="chapter" data-level="2.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#working-with-lists"><i class="fa fa-check"></i><b>2.4</b> Working with lists</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#filtering-lists"><i class="fa fa-check"></i><b>2.4.1</b> Filtering lists</a></li>
-<li class="chapter" data-level="2.4.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#summarising-lists"><i class="fa fa-check"></i><b>2.4.2</b> Summarising lists</a></li>
-<li class="chapter" data-level="2.4.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#reduction-and-accumulation"><i class="fa fa-check"></i><b>2.4.3</b> Reduction and accumulation</a></li>
-<li class="chapter" data-level="2.4.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#miscellaneous-operation"><i class="fa fa-check"></i><b>2.4.4</b> Miscellaneous operation</a></li>
+<li class="chapter" data-level="4.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#modification-in-place"><i class="fa fa-check"></i><b>4.3</b> Modification in place</a></li>
+<li class="chapter" data-level="4.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#working-with-lists"><i class="fa fa-check"></i><b>4.4</b> Working with lists</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#filtering-lists"><i class="fa fa-check"></i><b>4.4.1</b> Filtering lists</a></li>
+<li class="chapter" data-level="4.4.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#summarising-lists"><i class="fa fa-check"></i><b>4.4.2</b> Summarising lists</a></li>
+<li class="chapter" data-level="4.4.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#reduction-and-accumulation"><i class="fa fa-check"></i><b>4.4.3</b> Reduction and accumulation</a></li>
+<li class="chapter" data-level="4.4.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#miscellaneous-operation"><i class="fa fa-check"></i><b>4.4.4</b> Miscellaneous operation</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -193,20 +220,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="working-with-lists-and-iteration" class="section level1">
-<h1><span class="header-section-number">Section 2</span> Working with lists and iteration</h1>
+<h1><span class="header-section-number">Section 4</span> Working with lists and iteration</h1>
 <p><img src="opening-image.png" /></p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" title="1"><span class="co"># load the tidyverse</span></a>
-<a class="sourceLine" id="cb95-2" title="2"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
-<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
-<pre><code>## ✔ tibble  3.0.1     ✔ dplyr   0.8.5
-## ✔ tidyr   1.0.2     ✔ forcats 0.5.0
-## ✔ purrr   0.3.4</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::collapse() masks glue::collapse()
-## ✖ dplyr::filter()   masks stats::filter()
-## ✖ dplyr::lag()      masks stats::lag()</code></pre>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1"><span class="co"># load the tidyverse</span></a>
+<a class="sourceLine" id="cb179-2" title="2"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
 <div id="basic-iteration-with-map" class="section level2">
-<h2><span class="header-section-number">2.1</span> Basic iteration with <code>map</code></h2>
+<h2><span class="header-section-number">4.1</span> Basic iteration with <code>map</code></h2>
 <p>Iteration in base <code>R</code> is commonly done with <code>for</code> and <code>while</code> loops.
 There is no readymade alternative to <code>while</code> loops in the tidyverse.
 However, the functionality of <code>for</code> loops is spread over the <code>map</code> family of functions.</p>
@@ -216,11 +235,11 @@ The closest equivalent in <code>R</code> is the <code>*apply</code> family of fu
 This is explained in the examples below.</p>
 <p>These reasons, as well as how <code>map</code> is different from <code>for</code> and <code>lapply</code> are best explained in the <a href="https://adv-r.hadley.nz/functionals.html">Advanced R book</a>.</p>
 <div id="map-basic-use" class="section level3">
-<h3><span class="header-section-number">2.1.1</span> <code>map</code> basic use</h3>
+<h3><span class="header-section-number">4.1.1</span> <code>map</code> basic use</h3>
 <p><code>map</code> works on any list-like object, which includes vectors, and always returns a list. <code>map</code> takes two arguments, the object on which to operate, and the function to apply to each element.</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1"><span class="co"># get the square root of each integer 1 - 10</span></a>
-<a class="sourceLine" id="cb99-2" title="2">some_numbers =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb99-3" title="3"><span class="kw">map</span>(some_numbers, sqrt)</a></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" title="1"><span class="co"># get the square root of each integer 1 - 10</span></a>
+<a class="sourceLine" id="cb180-2" title="2">some_numbers =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb180-3" title="3"><span class="kw">map</span>(some_numbers, sqrt)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 1
 ## 
@@ -252,42 +271,42 @@ This is explained in the examples below.</p>
 ## [1] 3.162278</code></pre>
 </div>
 <div id="map-variants-returning-vectors" class="section level3">
-<h3><span class="header-section-number">2.1.2</span> <code>map</code> variants returning vectors</h3>
+<h3><span class="header-section-number">4.1.2</span> <code>map</code> variants returning vectors</h3>
 <p>Though <code>map</code> always returns a list, it has variants named <code>map_*</code> where the suffix indicates the return type.
 <code>map_chr</code>, <code>map_dbl</code>, <code>map_int</code>, and <code>map_lgl</code> return character, double (numeric), integer, and logical vectors.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1"><span class="co"># use map_dbl to get a vector of square roots</span></a>
-<a class="sourceLine" id="cb101-2" title="2">some_numbers =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb101-3" title="3"><span class="kw">map_dbl</span>(some_numbers, sqrt)</a></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1"><span class="co"># use map_dbl to get a vector of square roots</span></a>
+<a class="sourceLine" id="cb182-2" title="2">some_numbers =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb182-3" title="3"><span class="kw">map_dbl</span>(some_numbers, sqrt)</a></code></pre></div>
 <pre><code>##  [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490 2.645751 2.828427
 ##  [9] 3.000000 3.162278</code></pre>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" title="1"><span class="co"># map_chr will convert the output to a character</span></a>
-<a class="sourceLine" id="cb103-2" title="2"><span class="kw">map_chr</span>(some_numbers, sqrt)</a></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" title="1"><span class="co"># map_chr will convert the output to a character</span></a>
+<a class="sourceLine" id="cb184-2" title="2"><span class="kw">map_chr</span>(some_numbers, sqrt)</a></code></pre></div>
 <pre><code>##  [1] &quot;1.000000&quot; &quot;1.414214&quot; &quot;1.732051&quot; &quot;2.000000&quot; &quot;2.236068&quot; &quot;2.449490&quot;
 ##  [7] &quot;2.645751&quot; &quot;2.828427&quot; &quot;3.000000&quot; &quot;3.162278&quot;</code></pre>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" title="1"><span class="co"># map_int will NOT round the output to an integer</span></a>
-<a class="sourceLine" id="cb105-2" title="2"></a>
-<a class="sourceLine" id="cb105-3" title="3"><span class="co"># map_lgl returns TRUE/FALSE values</span></a>
-<a class="sourceLine" id="cb105-4" title="4">some_numbers =<span class="st"> </span><span class="kw">c</span>(<span class="ot">NA</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="ot">NA</span>, <span class="ot">NaN</span>, <span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>)</a>
-<a class="sourceLine" id="cb105-5" title="5"><span class="kw">map_lgl</span>(some_numbers, is.na)</a></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" title="1"><span class="co"># map_int will NOT round the output to an integer</span></a>
+<a class="sourceLine" id="cb186-2" title="2"></a>
+<a class="sourceLine" id="cb186-3" title="3"><span class="co"># map_lgl returns TRUE/FALSE values</span></a>
+<a class="sourceLine" id="cb186-4" title="4">some_numbers =<span class="st"> </span><span class="kw">c</span>(<span class="ot">NA</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="ot">NA</span>, <span class="ot">NaN</span>, <span class="ot">Inf</span>, <span class="op">-</span><span class="ot">Inf</span>)</a>
+<a class="sourceLine" id="cb186-5" title="5"><span class="kw">map_lgl</span>(some_numbers, is.na)</a></code></pre></div>
 <pre><code>## [1]  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE</code></pre>
 </div>
 <div id="integrating-map-and-tidyrnest" class="section level3 unnumbered">
 <h3>Integrating <code>map</code> and <code>tidyr::nest</code></h3>
 <p>The example show how each map variant can be used. This integrates <code>tidyr::nest</code> with <code>map</code>, and the two are especially complementary.</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" title="1"><span class="co"># nest mtcars into a list of dataframes based on number of cylinders</span></a>
-<a class="sourceLine" id="cb107-2" title="2">some_data =<span class="st"> </span><span class="kw">as_tibble</span>(mtcars, <span class="dt">rownames =</span> <span class="st">&quot;car_name&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb107-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(cyl) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb107-4" title="4"><span class="st">  </span><span class="kw">nest</span>()</a>
-<a class="sourceLine" id="cb107-5" title="5"></a>
-<a class="sourceLine" id="cb107-6" title="6"><span class="co"># get the number of rows per dataframe</span></a>
-<a class="sourceLine" id="cb107-7" title="7"><span class="co"># the mean mileage</span></a>
-<a class="sourceLine" id="cb107-8" title="8"><span class="co"># and the first car</span></a>
-<a class="sourceLine" id="cb107-9" title="9">some_data =<span class="st"> </span>some_data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb107-10" title="10"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n_rows =</span> <span class="kw">map_int</span>(data, nrow),</a>
-<a class="sourceLine" id="cb107-11" title="11">         <span class="dt">mean_mpg =</span> <span class="kw">map_dbl</span>(data, <span class="op">~</span><span class="kw">mean</span>(.<span class="op">$</span>mpg)),</a>
-<a class="sourceLine" id="cb107-12" title="12">         <span class="dt">first_car =</span> <span class="kw">map_chr</span>(data, <span class="op">~</span><span class="kw">first</span>(.<span class="op">$</span>car_name)))</a>
-<a class="sourceLine" id="cb107-13" title="13"></a>
-<a class="sourceLine" id="cb107-14" title="14">some_data</a></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" title="1"><span class="co"># nest mtcars into a list of dataframes based on number of cylinders</span></a>
+<a class="sourceLine" id="cb188-2" title="2">some_data =<span class="st"> </span><span class="kw">as_tibble</span>(mtcars, <span class="dt">rownames =</span> <span class="st">&quot;car_name&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb188-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(cyl) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb188-4" title="4"><span class="st">  </span><span class="kw">nest</span>()</a>
+<a class="sourceLine" id="cb188-5" title="5"></a>
+<a class="sourceLine" id="cb188-6" title="6"><span class="co"># get the number of rows per dataframe</span></a>
+<a class="sourceLine" id="cb188-7" title="7"><span class="co"># the mean mileage</span></a>
+<a class="sourceLine" id="cb188-8" title="8"><span class="co"># and the first car</span></a>
+<a class="sourceLine" id="cb188-9" title="9">some_data =<span class="st"> </span>some_data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb188-10" title="10"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n_rows =</span> <span class="kw">map_int</span>(data, nrow),</a>
+<a class="sourceLine" id="cb188-11" title="11">         <span class="dt">mean_mpg =</span> <span class="kw">map_dbl</span>(data, <span class="op">~</span><span class="kw">mean</span>(.<span class="op">$</span>mpg)),</a>
+<a class="sourceLine" id="cb188-12" title="12">         <span class="dt">first_car =</span> <span class="kw">map_chr</span>(data, <span class="op">~</span><span class="kw">first</span>(.<span class="op">$</span>car_name)))</a>
+<a class="sourceLine" id="cb188-13" title="13"></a>
+<a class="sourceLine" id="cb188-14" title="14">some_data</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ## # Groups:   cyl [3]
 ##     cyl data               n_rows mean_mpg first_car        
@@ -298,13 +317,13 @@ This is explained in the examples below.</p>
 <p><code>map</code> accepts multiple functions that are applied in sequence to the input list-like object, but this is confusing to the reader and ill advised.</p>
 </div>
 <div id="map-variants-returning-dataframes" class="section level3">
-<h3><span class="header-section-number">2.1.3</span> <code>map</code> variants returning dataframes</h3>
+<h3><span class="header-section-number">4.1.3</span> <code>map</code> variants returning dataframes</h3>
 <p><code>map_df</code> returns data frames, and by default binds dataframes by rows, while <code>map_dfr</code> does this explicitly, and <code>map_dfc</code> does returns a dataframe bound by column.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" title="1"><span class="co"># split mtcars into 3 dataframes, one per cylinder number</span></a>
-<a class="sourceLine" id="cb109-2" title="2">some_list =<span class="st"> </span><span class="kw">split</span>(mtcars, mtcars<span class="op">$</span>cyl)</a>
-<a class="sourceLine" id="cb109-3" title="3"></a>
-<a class="sourceLine" id="cb109-4" title="4"><span class="co"># get the first two rows of each dataframe</span></a>
-<a class="sourceLine" id="cb109-5" title="5"><span class="kw">map_df</span>(some_list, head, <span class="dt">n =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" title="1"><span class="co"># split mtcars into 3 dataframes, one per cylinder number</span></a>
+<a class="sourceLine" id="cb190-2" title="2">some_list =<span class="st"> </span><span class="kw">split</span>(mtcars, mtcars<span class="op">$</span>cyl)</a>
+<a class="sourceLine" id="cb190-3" title="3"></a>
+<a class="sourceLine" id="cb190-4" title="4"><span class="co"># get the first two rows of each dataframe</span></a>
+<a class="sourceLine" id="cb190-5" title="5"><span class="kw">map_df</span>(some_list, head, <span class="dt">n =</span> <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>##    mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 ## 1 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
 ## 2 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
@@ -314,9 +333,9 @@ This is explained in the examples below.</p>
 ## 6 14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4</code></pre>
 <p><code>map</code> accepts arguments to the function being mapped, such as in the example above, where <code>head()</code> accepts the argument <code>n = 2</code>.</p>
 <p><code>map_dfr</code> behaves the same as <code>map_df</code>.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" title="1"><span class="co"># the same as above but with a pipe</span></a>
-<a class="sourceLine" id="cb111-2" title="2">some_list <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb111-3" title="3"><span class="st">  </span><span class="kw">map_dfr</span>(head, <span class="dt">n =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1"><span class="co"># the same as above but with a pipe</span></a>
+<a class="sourceLine" id="cb192-2" title="2">some_list <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb192-3" title="3"><span class="st">  </span><span class="kw">map_dfr</span>(head, <span class="dt">n =</span> <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>##    mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 ## 1 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
 ## 2 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
@@ -325,8 +344,8 @@ This is explained in the examples below.</p>
 ## 5 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
 ## 6 14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4</code></pre>
 <p><code>map_dfc</code> binds the resulting 3 data frames of two rows each by column, and automatically repairs the column names, adding a suffix to each duplicate.</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" title="1">some_list <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb113-2" title="2"><span class="st">  </span><span class="kw">map_dfc</span>(head, <span class="dt">n =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" title="1">some_list <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb194-2" title="2"><span class="st">  </span><span class="kw">map_dfc</span>(head, <span class="dt">n =</span> <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>##    mpg cyl  disp hp drat   wt  qsec vs am gear carb mpg1 cyl1 disp1 hp1 drat1
 ## 1 22.8   4 108.0 93 3.85 2.32 18.61  1  1    4    1   21    6   160 110   3.9
 ## 2 24.4   4 146.7 62 3.69 3.19 20.00  1  0    4    2   21    6   160 110   3.9
@@ -338,43 +357,43 @@ This is explained in the examples below.</p>
 ## 2     3     4</code></pre>
 </div>
 <div id="selective-mapping" class="section level3">
-<h3><span class="header-section-number">2.1.4</span> Selective mapping</h3>
+<h3><span class="header-section-number">4.1.4</span> Selective mapping</h3>
 <ul>
 <li><code>map_at</code> and <code>map_if</code></li>
 </ul>
 </div>
 </div>
 <div id="more-map-variants" class="section level2">
-<h2><span class="header-section-number">2.2</span> More <code>map</code> variants</h2>
+<h2><span class="header-section-number">4.2</span> More <code>map</code> variants</h2>
 <div id="map2" class="section level3">
-<h3><span class="header-section-number">2.2.1</span> <code>map2</code></h3>
+<h3><span class="header-section-number">4.2.1</span> <code>map2</code></h3>
 <p><code>imap</code> here</p>
 </div>
 <div id="pmap" class="section level3">
-<h3><span class="header-section-number">2.2.2</span> <code>pmap</code></h3>
+<h3><span class="header-section-number">4.2.2</span> <code>pmap</code></h3>
 </div>
 <div id="walk" class="section level3">
-<h3><span class="header-section-number">2.2.3</span> <code>walk</code></h3>
+<h3><span class="header-section-number">4.2.3</span> <code>walk</code></h3>
 <p><code>walk2</code> and <code>pwalk</code></p>
 </div>
 </div>
 <div id="modification-in-place" class="section level2">
-<h2><span class="header-section-number">2.3</span> Modification in place</h2>
+<h2><span class="header-section-number">4.3</span> Modification in place</h2>
 <p><code>modify</code></p>
 </div>
 <div id="working-with-lists" class="section level2">
-<h2><span class="header-section-number">2.4</span> Working with lists</h2>
+<h2><span class="header-section-number">4.4</span> Working with lists</h2>
 <div id="filtering-lists" class="section level3">
-<h3><span class="header-section-number">2.4.1</span> Filtering lists</h3>
+<h3><span class="header-section-number">4.4.1</span> Filtering lists</h3>
 </div>
 <div id="summarising-lists" class="section level3">
-<h3><span class="header-section-number">2.4.2</span> Summarising lists</h3>
+<h3><span class="header-section-number">4.4.2</span> Summarising lists</h3>
 </div>
 <div id="reduction-and-accumulation" class="section level3">
-<h3><span class="header-section-number">2.4.3</span> Reduction and accumulation</h3>
+<h3><span class="header-section-number">4.4.3</span> Reduction and accumulation</h3>
 </div>
 <div id="miscellaneous-operation" class="section level3">
-<h3><span class="header-section-number">2.4.4</span> Miscellaneous operation</h3>
+<h3><span class="header-section-number">4.4.4</span> Miscellaneous operation</h3>
 
 </div>
 </div>
@@ -384,7 +403,7 @@ This is explained in the examples below.</p>
           </div>
         </div>
       </div>
-<a href="reading-files-and-string-manipulation.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-manipulation-with-dplyr.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

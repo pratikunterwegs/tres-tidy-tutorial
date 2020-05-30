@@ -30,7 +30,7 @@
 \usepackage{hyperref}
 \hypersetup{
             pdftitle={TRES Tidyverse Tutorial},
-            pdfauthor={Raphael and Pratik},
+            pdfauthor={Raphael, Pratik and Theo},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
@@ -112,7 +112,7 @@
 \usepackage{lineno}
 
 \title{TRES Tidyverse Tutorial}
-\author{Raphael and Pratik}
+\author{Raphael, Pratik and Theo}
 \date{2020-05-30}
 
 \begin{document}
@@ -147,62 +147,16 @@ This tutorial will take the form of a one hour per week video stream via Google 
 
 \begin{longtable}[]{@{}llll@{}}
 \toprule
-\begin{minipage}[b]{0.22\columnwidth}\raggedright
-Topic\strut
-\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\raggedright
-Package\strut
-\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\raggedright
-Instructor\strut
-\end{minipage} & \begin{minipage}[b]{0.22\columnwidth}\raggedright
-Date*\strut
-\end{minipage}\tabularnewline
+Topic & Package & Instructor & Date*\tabularnewline
 \midrule
 \endhead
-\begin{minipage}[t]{0.22\columnwidth}\raggedright
-Reading data and string manipulation\strut
-\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-\href{https://readr.tidyverse.org/}{readr}, \href{https://stringr.tidyverse.org/}{stringr}, \href{https://github.com/tidyverse/glue}{glue}\strut
-\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-Raphael + Pratik\strut
-\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-29/05/20\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.22\columnwidth}\raggedright
-Data and reshaping\strut
-\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-\href{https://tibble.tidyverse.org/}{tibble}, \href{https://tidyr.tidyverse.org/}{tidyr}\strut
-\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-Raphael\strut
-\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-05/06/20\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.22\columnwidth}\raggedright
-Manipulating data\strut
-\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-\href{https://dplyr.tidyverse.org/}{dplyr}\strut
-\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-Theo\strut
-\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-12/06/20\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.22\columnwidth}\raggedright
-Working with lists and iteration\strut
-\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-\href{https://purrr.tidyverse.org/}{purrr}\strut
-\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-Pratik\strut
-\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-19/06/20\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.22\columnwidth}\raggedright
-Plotting\strut
-\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-\href{https://ggplot2.tidyverse.org/}{ggplot2}\strut
-\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-Raphael\strut
-\end{minipage} & \begin{minipage}[t]{0.22\columnwidth}\raggedright
-26/06/20\strut
-\end{minipage}\tabularnewline
+Reading data and string manipulation & \href{https://readr.tidyverse.org/}{readr}, \href{https://stringr.tidyverse.org/}{stringr}, \href{https://github.com/tidyverse/glue}{glue} & Pratik & 29/05/20\tabularnewline
+Data and reshaping & \href{https://tibble.tidyverse.org/}{tibble}, \href{https://tidyr.tidyverse.org/}{tidyr} & Raphael & 05/06/20\tabularnewline
+Manipulating data & \href{https://dplyr.tidyverse.org/}{dplyr} & Theo & 12/06/20\tabularnewline
+Working with lists and iteration & \href{https://purrr.tidyverse.org/}{purrr} & Pratik & 19/06/20\tabularnewline
+Plotting & \href{https://ggplot2.tidyverse.org/}{ggplot2} & Raphael & 26/06/20\tabularnewline
+Regular expressions & \href{https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html}{regex} & Richel & 03/07/20\tabularnewline
+Programming with the tidyverse & \href{https://rlang.r-lib.org/}{rlang} & Pratik & 10/07/20\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -230,6 +184,8 @@ Join the Slack \href{https://join.slack.com/t/trestidytorial/shared_invite/zt-ej
 \chapter{Reading files and string manipulation}\label{reading-files-and-string-manipulation}}
 
 \includegraphics{opening-image.png}
+
+Load the packages for the day.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1147,10 +1103,859 @@ The details of \texttt{ggplot} are covered in a later tutorial.
 
 This is not a good looking plot, because it breaks other rules of plot design, such as whether this sort of plot should be made at all. Labels and text need to be applied sparingly, for example drawing attention or adding information to outliers.
 
-\hypertarget{working-with-lists-and-iteration}{%
-\chapter{Working with lists and iteration}\label{working-with-lists-and-iteration}}
+\hypertarget{reshaping-data-tables-in-the-tidyverse}{%
+\chapter{Reshaping data tables in the tidyverse}\label{reshaping-data-tables-in-the-tidyverse}}
+
+Raphael Scherrer
 
 \includegraphics{opening-image.png}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tibble)}
+\KeywordTok{library}\NormalTok{(tidyr)}
+\end{Highlighting}
+\end{Shaded}
+
+In this chapter we will learn what \emph{tidy} means in the context of the tidyverse, and how to reshape our data into a tidy format using the \texttt{tidyr} package. But first, let us take a detour and introduce the \texttt{tibble}.
+
+\hypertarget{the-new-data-frame-tibble}{%
+\section{1. The new data frame: tibble}\label{the-new-data-frame-tibble}}
+
+The \texttt{tibble} is the recommended class to use to store tabular data in the tidyverse. Consider it as the operational unit of any data science pipeline. For most practical purposes, a \texttt{tibble} is basically a \texttt{data.frame}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Make a data frame}
+\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{who =} \KeywordTok{c}\NormalTok{(}\StringTok{"Pratik"}\NormalTok{, }\StringTok{"Theo"}\NormalTok{, }\StringTok{"Raph"}\NormalTok{), }\DataTypeTok{chapt =} \KeywordTok{c}\NormalTok{(}\StringTok{"1, 4"}\NormalTok{, }\StringTok{"3"}\NormalTok{, }\StringTok{"2, 5"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      who chapt
+## 1 Pratik  1, 4
+## 2   Theo     3
+## 3   Raph  2, 5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Or an equivalent tibble}
+\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{who =} \KeywordTok{c}\NormalTok{(}\StringTok{"Pratik"}\NormalTok{, }\StringTok{"Theo"}\NormalTok{, }\StringTok{"Raph"}\NormalTok{), }\DataTypeTok{chapt =} \KeywordTok{c}\NormalTok{(}\StringTok{"1, 4"}\NormalTok{, }\StringTok{"3"}\NormalTok{, }\StringTok{"2, 5"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 2
+##   who    chapt
+##   <chr>  <chr>
+## 1 Pratik 1, 4 
+## 2 Theo   3    
+## 3 Raph   2, 5
+\end{verbatim}
+
+The difference between \texttt{tibble} and \texttt{data.frame} is in its display and in the way it is subsetted, among others. Most functions working with \texttt{data.frame} will work with \texttt{tibble} and vice versa. Use the \texttt{as*} family of functions to switch back and forth between the two if needed, using e.g.~\texttt{as.data.frame} or \texttt{as\_tibble}.
+
+In terms of display, the tibble has the advantage of showing the class of each column: \texttt{chr} for \texttt{character}, \texttt{fct} for \texttt{factor}, \texttt{int} for \texttt{integer}, \texttt{dbl} for \texttt{numeric} and \texttt{lgl} for \texttt{logical}, just to name the main atomic classes. This may be more important than you think, because many hard-to-find bugs in R are due to wrong variable types and/or cryptic type conversions. This especially happens with \texttt{factor} and \texttt{character}, which can cause quite some confusion. More about this in the extra section at the end of this chapter!
+
+Note that you can build a tibble by rows rather than by columns with \texttt{tribble}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tribble}\NormalTok{(}
+  \OperatorTok{~}\NormalTok{who, }\OperatorTok{~}\NormalTok{chapt,}
+  \StringTok{"Pratik"}\NormalTok{, }\StringTok{"1, 4"}\NormalTok{,}
+  \StringTok{"Theo"}\NormalTok{, }\StringTok{"3"}\NormalTok{,}
+  \StringTok{"Raph"}\NormalTok{, }\StringTok{"2, 5"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 2
+##   who    chapt
+##   <chr>  <chr>
+## 1 Pratik 1, 4 
+## 2 Theo   3    
+## 3 Raph   2, 5
+\end{verbatim}
+
+As a rule of thumb, try to convert your tables to tibbles whenever you can, especially when the original table is \emph{not} a data frame. For example, the principal component analysis function \texttt{prcomp} outputs a \texttt{matrix} of coordinates in principal component-space.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Perform a PCA on mtcars }
+\NormalTok{pca_scores <-}\StringTok{ }\KeywordTok{prcomp}\NormalTok{(mtcars)}\OperatorTok{$}\NormalTok{x}
+\KeywordTok{head}\NormalTok{(pca_scores) }\CommentTok{# looks like a data frame or a tibble...}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                           PC1       PC2       PC3        PC4        PC5
+## Mazda RX4          -79.596425  2.132241 -2.153336 -2.7073437 -0.7023522
+## Mazda RX4 Wag      -79.598570  2.147487 -2.215124 -2.1782888 -0.8843859
+## Datsun 710        -133.894096 -5.057570 -2.137950  0.3460330  1.1061111
+## Hornet 4 Drive       8.516559 44.985630  1.233763  0.8273631  0.4240145
+## Hornet Sportabout  128.686342 30.817402  3.343421 -0.5211000  0.7365801
+## Valiant            -23.220146 35.106518 -3.259562  1.4005360  0.8029768
+##                           PC6          PC7         PC8        PC9        PC10
+## Mazda RX4         -0.31486106 -0.098695018 -0.07789812 -0.2000092 -0.29008191
+## Mazda RX4 Wag     -0.45343873 -0.003554594 -0.09566630 -0.3533243 -0.19283553
+## Datsun 710         1.17298584  0.005755581  0.13624782 -0.1976423  0.07634353
+## Hornet 4 Drive    -0.05789705 -0.024307168  0.22120800  0.3559844 -0.09057039
+## Hornet Sportabout -0.33290957  0.106304777 -0.05301719  0.1532714 -0.18862217
+## Valiant           -0.08837864  0.238946304  0.42390551  0.1012944 -0.03769010
+##                         PC11
+## Mazda RX4          0.1057706
+## Mazda RX4 Wag      0.1069047
+## Datsun 710         0.2668713
+## Hornet 4 Drive     0.2088354
+## Hornet Sportabout -0.1092563
+## Valiant            0.2757693
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{(pca_scores) }\CommentTok{# but is actually a matrix}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "matrix"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Convert to tibble}
+\KeywordTok{as_tibble}\NormalTok{(pca_scores)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 32 x 11
+##        PC1    PC2    PC3    PC4    PC5     PC6      PC7     PC8    PC9    PC10
+##      <dbl>  <dbl>  <dbl>  <dbl>  <dbl>   <dbl>    <dbl>   <dbl>  <dbl>   <dbl>
+##  1  -79.6    2.13 -2.15  -2.71  -0.702 -0.315  -0.0987  -0.0779 -0.200 -0.290 
+##  2  -79.6    2.15 -2.22  -2.18  -0.884 -0.453  -0.00355 -0.0957 -0.353 -0.193 
+##  3 -134.    -5.06 -2.14   0.346  1.11   1.17    0.00576  0.136  -0.198  0.0763
+##  4    8.52  45.0   1.23   0.827  0.424 -0.0579 -0.0243   0.221   0.356 -0.0906
+##  5  129.    30.8   3.34  -0.521  0.737 -0.333   0.106   -0.0530  0.153 -0.189 
+##  6  -23.2   35.1  -3.26   1.40   0.803 -0.0884  0.239    0.424   0.101 -0.0377
+##  7  159.   -32.3   0.649  0.199  0.786  0.0687 -0.530   -0.0593  0.221 -0.313 
+##  8 -113.    39.7  -0.465  0.338 -1.24   0.280  -0.146    0.320   0.279  0.190 
+##  9 -104.     7.51 -1.59   4.02  -1.14   0.0279  0.595   -0.233  -0.126 -0.349 
+## 10  -67.0   -6.21 -3.61  -0.320 -0.960 -0.529  -0.0174  -0.182   0.543  0.412 
+## # ... with 22 more rows, and 1 more variable: PC11 <dbl>
+\end{verbatim}
+
+This is important because a \texttt{matrix} can contain only one type of values (e.g.~only \texttt{numeric} or \texttt{character}), while \texttt{tibble} (and \texttt{data.frame}) allow you to have columns of different types.
+
+So, in the tidyverse we are going to work with tibbles, got it. But what does ``tidy'' mean exactly?
+
+\hypertarget{the-concept-of-tidy-data}{%
+\section{2. The concept of tidy data}\label{the-concept-of-tidy-data}}
+
+When it comes to putting data into tables, there are many ways one could organize a dataset. The \emph{tidy} format is one such format. According to the formal \href{https://tidyr.tidyverse.org/articles/tidy-data.html}{definition}, a table is tidy if each column is a variable and each row is an observation. In practice, however, I found that this is not a very operational definition, especially in ecology and evolution where we often record multiple variables per individual. So, let's dig in with an example.
+
+Say we have a dataset of several morphometrics measured on Darwin's finches in the Galapagos islands. Let's first get this dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# We first simulate random data}
+\NormalTok{beak_lengths <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{5}\NormalTok{, }\DataTypeTok{sd =} \FloatTok{0.1}\NormalTok{)}
+\NormalTok{beak_widths <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{2}\NormalTok{, }\DataTypeTok{sd =} \FloatTok{0.1}\NormalTok{)}
+\NormalTok{body_weights <-}\StringTok{ }\KeywordTok{rgamma}\NormalTok{(}\DecValTok{100}\NormalTok{, }\DataTypeTok{shape =} \DecValTok{10}\NormalTok{, }\DataTypeTok{rate =} \DecValTok{1}\NormalTok{)}
+\NormalTok{islands <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Isabela"}\NormalTok{, }\StringTok{"Santa Cruz"}\NormalTok{), }\DataTypeTok{each =} \DecValTok{50}\NormalTok{)}
+
+\CommentTok{# Assemble into a tibble}
+\NormalTok{data <-}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
+  \DataTypeTok{id =} \DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{,}
+  \DataTypeTok{beak_length =}\NormalTok{ beak_lengths, }
+  \DataTypeTok{beak_width =}\NormalTok{ beak_widths, }
+  \DataTypeTok{body_weight =}\NormalTok{ body_weights,}
+  \DataTypeTok{island =}\NormalTok{ islands}
+\NormalTok{)}
+
+\CommentTok{# Snapshot}
+\NormalTok{data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 100 x 5
+##       id beak_length beak_width body_weight island 
+##    <int>       <dbl>      <dbl>       <dbl> <chr>  
+##  1     1        4.98       1.99       11.0  Isabela
+##  2     2        4.93       1.83        8.51 Isabela
+##  3     3        5.19       1.79        9.68 Isabela
+##  4     4        4.95       1.96        5.99 Isabela
+##  5     5        5.09       2.01        7.38 Isabela
+##  6     6        4.87       2.26        9.51 Isabela
+##  7     7        4.99       2.13        5.69 Isabela
+##  8     8        4.96       1.96       16.1  Isabela
+##  9     9        4.96       2.01        7.56 Isabela
+## 10    10        4.99       1.97        6.85 Isabela
+## # ... with 90 more rows
+\end{verbatim}
+
+Here, we pretend to have measured \texttt{beak\_length}, \texttt{beak\_width} and \texttt{body\_weight} on 100 birds, 50 of them from Isabela and 50 of them from Santa Cruz. In this tibble, each row is an individual bird. This is probably the way most scientists would record their data in the field. However, a single bird is not an ``observation'' in the sense used in the tidyverse. Our dataset is not tidy but \emph{messy}.
+
+The tidy equivalent of this dataset would be:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data <-}\StringTok{ }\KeywordTok{pivot_longer}\NormalTok{(}
+\NormalTok{  data, }
+  \DataTypeTok{cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"beak_length"}\NormalTok{, }\StringTok{"beak_width"}\NormalTok{, }\StringTok{"body_weight"}\NormalTok{),}
+  \DataTypeTok{names_to =} \StringTok{"variable"}
+\NormalTok{)}
+\NormalTok{data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 300 x 4
+##       id island  variable    value
+##    <int> <chr>   <chr>       <dbl>
+##  1     1 Isabela beak_length  4.98
+##  2     1 Isabela beak_width   1.99
+##  3     1 Isabela body_weight 11.0 
+##  4     2 Isabela beak_length  4.93
+##  5     2 Isabela beak_width   1.83
+##  6     2 Isabela body_weight  8.51
+##  7     3 Isabela beak_length  5.19
+##  8     3 Isabela beak_width   1.79
+##  9     3 Isabela body_weight  9.68
+## 10     4 Isabela beak_length  4.95
+## # ... with 290 more rows
+\end{verbatim}
+
+where each \emph{measurement} (and not each \emph{individual}) is now the unit of observation (the rows). We will come back to the \texttt{pivot\_longer} function later.
+
+As you can see our tibble now has three times as many rows and fewer columns. This format is rather unintuitive and not optimal for display. However, it provides a very standardized and consistent way of organizing data that will be understood (and expected) by pretty much all functions in the tidyverse. This makes the tidyverse tools work well together and reduces the time you would otherwise spend reformatting your data from one tool to the next.
+
+That does not mean that the \emph{messy} format is useless though. There may be use-cases where you need to switch back and forth between formats. For this reason I prefer referring to these formats using their other names: \emph{long} (tidy) versus \emph{wide} (messy). For example, matrix operations work much faster on wide data, and the wide format arguably looks nicer for display. Luckily the \texttt{tidyr} package gives us the tools to reshape our data as needed, as we shall see shortly.
+
+Another common example of wide-or-long dilemma is when dealing with \emph{contingency tables}. This would be our case, for example, if we asked how many observations we have for each morphometric and each island. We use \texttt{table} (from base R) to get the answer:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Make a contingency table}
+\NormalTok{ctg <-}\StringTok{ }\KeywordTok{with}\NormalTok{(data, }\KeywordTok{table}\NormalTok{(island, variable))}
+\NormalTok{ctg}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             variable
+## island       beak_length beak_width body_weight
+##   Isabela             50         50          50
+##   Santa Cruz          50         50          50
+\end{verbatim}
+
+A variety of statistical tests can be used on contingency tables such as Fisher's exact test, the chi-square test or the binomial test. Contingency tables are in the wide format by construction, but they too can be pivoted to the long format, and the tidyverse manipulation tools will expect you to do so. Actually, \texttt{tibble} knows that very well and does it by default if you convert your \texttt{table} into a \texttt{tibble}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Contingency table is pivoted to the long-format automatically}
+\KeywordTok{as_tibble}\NormalTok{(ctg)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+##   island     variable        n
+##   <chr>      <chr>       <int>
+## 1 Isabela    beak_length    50
+## 2 Santa Cruz beak_length    50
+## 3 Isabela    beak_width     50
+## 4 Santa Cruz beak_width     50
+## 5 Isabela    body_weight    50
+## 6 Santa Cruz body_weight    50
+\end{verbatim}
+
+\hypertarget{reshaping-with-tidyr}{%
+\section{\texorpdfstring{3. Reshaping with \texttt{tidyr}}{3. Reshaping with tidyr}}\label{reshaping-with-tidyr}}
+
+The \texttt{tidyr} package implements tools to easily switch between layouts and also perform a few other reshaping operations. Old school R users will be familiar with the \texttt{reshape} and \texttt{reshape2} packages, of which \texttt{tidyr} is the tidyverse equivalent. Beware that \texttt{tidyr} is about playing with the general \emph{layout} of the dataset, while \emph{operations} and \emph{transformations} of the data are within the scope of the \texttt{dplyr} and \texttt{purrr} packages. All these packages work hand-in-hand really well, and analysis pipelines usually involve all of them. But today, we focus on the first member of this holy trinity, which is often the first one you'll need because you will want to reshape your data before doing other things. So, please hold your non-layout-related questions for the next chapters.
+
+\hypertarget{pivoting}{%
+\subsection{3.1. Pivoting}\label{pivoting}}
+
+Pivoting a dataset between the long and wide layout is the main purpose of \texttt{tidyr} (check out the package's logo). We already saw the \texttt{pivot\_longer} function, that converts a table form wide to long format. Similarly, there is a \texttt{pivot\_wider} function that does exactly the opposite and takes you back to the wide format:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{pivot_wider}\NormalTok{(}
+\NormalTok{  data, }
+  \DataTypeTok{names_from =} \StringTok{"variable"}\NormalTok{, }
+  \DataTypeTok{values_from =} \StringTok{"value"}\NormalTok{, }
+  \DataTypeTok{id_cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"id"}\NormalTok{, }\StringTok{"island"}\NormalTok{)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 100 x 5
+##       id island  beak_length beak_width body_weight
+##    <int> <chr>         <dbl>      <dbl>       <dbl>
+##  1     1 Isabela        4.98       1.99       11.0 
+##  2     2 Isabela        4.93       1.83        8.51
+##  3     3 Isabela        5.19       1.79        9.68
+##  4     4 Isabela        4.95       1.96        5.99
+##  5     5 Isabela        5.09       2.01        7.38
+##  6     6 Isabela        4.87       2.26        9.51
+##  7     7 Isabela        4.99       2.13        5.69
+##  8     8 Isabela        4.96       1.96       16.1 
+##  9     9 Isabela        4.96       2.01        7.56
+## 10    10 Isabela        4.99       1.97        6.85
+## # ... with 90 more rows
+\end{verbatim}
+
+The order of the columns is not exactly as it was, but this should not matter in a data analysis pipeline where you should access columns by their names. It is straightforward to change the order of the columns, but this is more within the scope of the \texttt{dplyr} package.
+
+If you are familiar with earlier versions of the tidyverse, \texttt{pivot\_longer} and \texttt{pivot\_wider} are the respective equivalents of \texttt{gather} and \texttt{spread}, which are now deprecated.
+
+There are a few other reshaping operations from \texttt{tidyr} that are worth knowing.
+
+\hypertarget{handling-missing-values}{%
+\subsection{3.2. Handling missing values}\label{handling-missing-values}}
+
+Say we have some missing measurements in the column ``value'' of our finch dataset:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# We replace 100 random observations by NAs}
+\NormalTok{ii <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(data), }\DecValTok{100}\NormalTok{)}
+\NormalTok{data}\OperatorTok{$}\NormalTok{value[ii] <-}\StringTok{ }\OtherTok{NA}
+\NormalTok{data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 300 x 4
+##       id island  variable    value
+##    <int> <chr>   <chr>       <dbl>
+##  1     1 Isabela beak_length NA   
+##  2     1 Isabela beak_width   1.99
+##  3     1 Isabela body_weight NA   
+##  4     2 Isabela beak_length  4.93
+##  5     2 Isabela beak_width  NA   
+##  6     2 Isabela body_weight NA   
+##  7     3 Isabela beak_length  5.19
+##  8     3 Isabela beak_width  NA   
+##  9     3 Isabela body_weight  9.68
+## 10     4 Isabela beak_length  4.95
+## # ... with 290 more rows
+\end{verbatim}
+
+We could get rid of the rows that have missing values using \texttt{drop\_na}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{drop_na}\NormalTok{(data, value)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 200 x 4
+##       id island  variable    value
+##    <int> <chr>   <chr>       <dbl>
+##  1     1 Isabela beak_width   1.99
+##  2     2 Isabela beak_length  4.93
+##  3     3 Isabela beak_length  5.19
+##  4     3 Isabela body_weight  9.68
+##  5     4 Isabela beak_length  4.95
+##  6     4 Isabela body_weight  5.99
+##  7     5 Isabela beak_length  5.09
+##  8     5 Isabela beak_width   2.01
+##  9     5 Isabela body_weight  7.38
+## 10     6 Isabela beak_width   2.26
+## # ... with 190 more rows
+\end{verbatim}
+
+Else, we could replace the NAs with some user-defined value:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{replace_na}\NormalTok{(data, }\DataTypeTok{replace =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{value =} \DecValTok{-999}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 300 x 4
+##       id island  variable      value
+##    <int> <chr>   <chr>         <dbl>
+##  1     1 Isabela beak_length -999   
+##  2     1 Isabela beak_width     1.99
+##  3     1 Isabela body_weight -999   
+##  4     2 Isabela beak_length    4.93
+##  5     2 Isabela beak_width  -999   
+##  6     2 Isabela body_weight -999   
+##  7     3 Isabela beak_length    5.19
+##  8     3 Isabela beak_width  -999   
+##  9     3 Isabela body_weight    9.68
+## 10     4 Isabela beak_length    4.95
+## # ... with 290 more rows
+\end{verbatim}
+
+where the \texttt{replace} argument takes a named list, and the names should refer to the columns to apply the replacement to.
+
+We could also replace NAs with the most recent non-NA values:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fill}\NormalTok{(data, value)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 300 x 4
+##       id island  variable    value
+##    <int> <chr>   <chr>       <dbl>
+##  1     1 Isabela beak_length NA   
+##  2     1 Isabela beak_width   1.99
+##  3     1 Isabela body_weight  1.99
+##  4     2 Isabela beak_length  4.93
+##  5     2 Isabela beak_width   4.93
+##  6     2 Isabela body_weight  4.93
+##  7     3 Isabela beak_length  5.19
+##  8     3 Isabela beak_width   5.19
+##  9     3 Isabela body_weight  9.68
+## 10     4 Isabela beak_length  4.95
+## # ... with 290 more rows
+\end{verbatim}
+
+Note that most functions in the tidyverse take a tibble as their first argument, and columns to which to apply the functions are usually passed as ``objects'' rather than character strings. In the above example, we passed the \texttt{value} column as \texttt{value}, not \texttt{"value"}. These column-objects are called by the tidyverse functions \emph{in the context} of the data (the tibble) they belong to.
+
+\hypertarget{splitting-and-combining-cells}{%
+\subsection{3.3. Splitting and combining cells}\label{splitting-and-combining-cells}}
+
+The \texttt{tidyr} package offers tools to split and combine columns. This is a nice extension to the string manipulations we saw last week in the \texttt{stringr} tutorial.
+
+Say we want to add the specific dates when we took measurements on our birds (we would normally do this using \texttt{dplyr} but for now we will stick to the old way):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Sample random dates for each observation}
+\NormalTok{data}\OperatorTok{$}\NormalTok{day <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{30}\NormalTok{, }\KeywordTok{nrow}\NormalTok{(data), }\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{data}\OperatorTok{$}\NormalTok{month <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{12}\NormalTok{, }\KeywordTok{nrow}\NormalTok{(data), }\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{data}\OperatorTok{$}\NormalTok{year <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{2019}\OperatorTok{:}\DecValTok{2020}\NormalTok{, }\KeywordTok{nrow}\NormalTok{(data), }\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 300 x 7
+##       id island  variable    value   day month  year
+##    <int> <chr>   <chr>       <dbl> <int> <int> <int>
+##  1     1 Isabela beak_length NA       10    12  2020
+##  2     1 Isabela beak_width   1.99     2    10  2019
+##  3     1 Isabela body_weight NA       15     9  2019
+##  4     2 Isabela beak_length  4.93    26     6  2019
+##  5     2 Isabela beak_width  NA       29     9  2020
+##  6     2 Isabela body_weight NA       26     7  2020
+##  7     3 Isabela beak_length  5.19    20     2  2019
+##  8     3 Isabela beak_width  NA        8    10  2019
+##  9     3 Isabela body_weight  9.68    15    11  2020
+## 10     4 Isabela beak_length  4.95    24    10  2019
+## # ... with 290 more rows
+\end{verbatim}
+
+We could combine the \texttt{day}, \texttt{month} and \texttt{year} columns into a single \texttt{date} column, with a dash as a separator, using \texttt{unite}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data <-}\StringTok{ }\KeywordTok{unite}\NormalTok{(data, day, month, year, }\DataTypeTok{col =} \StringTok{"date"}\NormalTok{, }\DataTypeTok{sep =} \StringTok{"-"}\NormalTok{)}
+\NormalTok{data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 300 x 5
+##       id island  variable    value date      
+##    <int> <chr>   <chr>       <dbl> <chr>     
+##  1     1 Isabela beak_length NA    10-12-2020
+##  2     1 Isabela beak_width   1.99 2-10-2019 
+##  3     1 Isabela body_weight NA    15-9-2019 
+##  4     2 Isabela beak_length  4.93 26-6-2019 
+##  5     2 Isabela beak_width  NA    29-9-2020 
+##  6     2 Isabela body_weight NA    26-7-2020 
+##  7     3 Isabela beak_length  5.19 20-2-2019 
+##  8     3 Isabela beak_width  NA    8-10-2019 
+##  9     3 Isabela body_weight  9.68 15-11-2020
+## 10     4 Isabela beak_length  4.95 24-10-2019
+## # ... with 290 more rows
+\end{verbatim}
+
+Of course, we can revert back to the previous dataset by splitting the \texttt{date} column with \texttt{separate}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{separate}\NormalTok{(data, date, }\DataTypeTok{into =} \KeywordTok{c}\NormalTok{(}\StringTok{"day"}\NormalTok{, }\StringTok{"month"}\NormalTok{, }\StringTok{"year"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 300 x 7
+##       id island  variable    value day   month year 
+##    <int> <chr>   <chr>       <dbl> <chr> <chr> <chr>
+##  1     1 Isabela beak_length NA    10    12    2020 
+##  2     1 Isabela beak_width   1.99 2     10    2019 
+##  3     1 Isabela body_weight NA    15    9     2019 
+##  4     2 Isabela beak_length  4.93 26    6     2019 
+##  5     2 Isabela beak_width  NA    29    9     2020 
+##  6     2 Isabela body_weight NA    26    7     2020 
+##  7     3 Isabela beak_length  5.19 20    2     2019 
+##  8     3 Isabela beak_width  NA    8     10    2019 
+##  9     3 Isabela body_weight  9.68 15    11    2020 
+## 10     4 Isabela beak_length  4.95 24    10    2019 
+## # ... with 290 more rows
+\end{verbatim}
+
+But note that the \texttt{day}, \texttt{month} and \texttt{year} columns are now of class \texttt{character} and not \texttt{integer} anymore. This is because they result from the splitting of \texttt{date}, which itself was a \texttt{character} column.
+
+You can also separate a single column into multiple \emph{rows} using \texttt{separate\_rows}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{separate_rows}\NormalTok{(data, date)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 900 x 5
+##       id island  variable    value date 
+##    <int> <chr>   <chr>       <dbl> <chr>
+##  1     1 Isabela beak_length NA    10   
+##  2     1 Isabela beak_length NA    12   
+##  3     1 Isabela beak_length NA    2020 
+##  4     1 Isabela beak_width   1.99 2    
+##  5     1 Isabela beak_width   1.99 10   
+##  6     1 Isabela beak_width   1.99 2019 
+##  7     1 Isabela body_weight NA    15   
+##  8     1 Isabela body_weight NA    9    
+##  9     1 Isabela body_weight NA    2019 
+## 10     2 Isabela beak_length  4.93 26   
+## # ... with 890 more rows
+\end{verbatim}
+
+\hypertarget{expanding-tables-using-combinations}{%
+\subsection{3.4. Expanding tables using combinations}\label{expanding-tables-using-combinations}}
+
+Sometimes one may need to quickly create a table with all combinations of a set of variables. We could generate a tibble with all combinations of island-by-morphometric using \texttt{expand\_grid}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{expand_grid}\NormalTok{(}
+  \DataTypeTok{island =} \KeywordTok{c}\NormalTok{(}\StringTok{"Isabela"}\NormalTok{, }\StringTok{"Santa Cruz"}\NormalTok{), }
+  \DataTypeTok{variable =} \KeywordTok{c}\NormalTok{(}\StringTok{"beak_length"}\NormalTok{, }\StringTok{"beak_width"}\NormalTok{, }\StringTok{"body_weight"}\NormalTok{)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 2
+##   island     variable   
+##   <chr>      <chr>      
+## 1 Isabela    beak_length
+## 2 Isabela    beak_width 
+## 3 Isabela    body_weight
+## 4 Santa Cruz beak_length
+## 5 Santa Cruz beak_width 
+## 6 Santa Cruz body_weight
+\end{verbatim}
+
+If we already have a tibble to work from that contains the variables to combine, we can use \texttt{expand}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{expand}\NormalTok{(data, island, variable)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 2
+##   island     variable   
+##   <chr>      <chr>      
+## 1 Isabela    beak_length
+## 2 Isabela    beak_width 
+## 3 Isabela    body_weight
+## 4 Santa Cruz beak_length
+## 5 Santa Cruz beak_width 
+## 6 Santa Cruz body_weight
+\end{verbatim}
+
+As an extension of this, the function \texttt{complete} can come particularly handy if we need to add missing combinations to our tibble:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{complete}\NormalTok{(data, island, variable)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 300 x 5
+##    island  variable       id value date      
+##    <chr>   <chr>       <int> <dbl> <chr>     
+##  1 Isabela beak_length     1 NA    10-12-2020
+##  2 Isabela beak_length     2  4.93 26-6-2019 
+##  3 Isabela beak_length     3  5.19 20-2-2019 
+##  4 Isabela beak_length     4  4.95 24-10-2019
+##  5 Isabela beak_length     5  5.09 17-2-2019 
+##  6 Isabela beak_length     6 NA    12-6-2019 
+##  7 Isabela beak_length     7  4.99 27-11-2020
+##  8 Isabela beak_length     8  4.96 17-3-2020 
+##  9 Isabela beak_length     9  4.96 24-5-2019 
+## 10 Isabela beak_length    10  4.99 8-3-2020  
+## # ... with 290 more rows
+\end{verbatim}
+
+which does nothing here because we already have all combinations of \texttt{island} and \texttt{variable}.
+
+\hypertarget{nesting}{%
+\subsection{3.5. Nesting}\label{nesting}}
+
+The \texttt{tidyr} package has yet another feature that makes the tidyverse very powerful: the \texttt{nest} function. However, it makes little sense without combining it with the functions in the \texttt{purrr} package, so we will not cover it in this chapter but rather in the \texttt{purrr} chapter.
+
+\hypertarget{extra-factors-and-the-forcats-package}{%
+\section{\texorpdfstring{4. Extra: factors and the \texttt{forcats} package}{4. Extra: factors and the forcats package}}\label{extra-factors-and-the-forcats-package}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(forcats)}
+\end{Highlighting}
+\end{Shaded}
+
+Categorical variables can be stored in R as character strings in \texttt{character} or \texttt{factor} objects. A \texttt{factor} looks like a \texttt{character}, but it actually is an \texttt{integer} vector, where each \texttt{integer} is mapped to a \texttt{character} label. With this respect it is sort of an enhanced version of \texttt{character}. For example,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_char_vec <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Pratik"}\NormalTok{, }\StringTok{"Theo"}\NormalTok{, }\StringTok{"Raph"}\NormalTok{)}
+\NormalTok{my_char_vec}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Pratik" "Theo"   "Raph"
+\end{verbatim}
+
+is a \texttt{character} vector, recognizable to its double quotes, while
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_fact_vec <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(my_char_vec) }\CommentTok{# as.factor would work too}
+\NormalTok{my_fact_vec}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] Pratik Theo   Raph  
+## Levels: Pratik Raph Theo
+\end{verbatim}
+
+is a \texttt{factor}, of which the \emph{labels} are displayed. The \emph{levels} of the factor are the unique values that appear in the vector. If I added an extra occurrence of my name:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{factor}\NormalTok{(}\KeywordTok{c}\NormalTok{(my_char_vec, }\StringTok{"Raph"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] Pratik Theo   Raph   Raph  
+## Levels: Pratik Raph Theo
+\end{verbatim}
+
+we would still have the the same levels. Note that the levels are returned as a \texttt{character} vector in alphabetical order by the \texttt{levels} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{levels}\NormalTok{(my_fact_vec)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Pratik" "Raph"   "Theo"
+\end{verbatim}
+
+Why does it matter? Well, most operations on categorical variables can be performed on \texttt{character} of \texttt{factor} objects, so it does not matter so much which one you use for your own data. However, some functions in R require you to provide categorical variables in one specific format, and others may even implicitely convert your variables. In \texttt{ggplot2} for example, character vectors are converted into factors by default. So, it is always good to remember the differences and what type your variables are.
+
+But this is a tidyverse tutorial, so I would like to introduce here the package \texttt{forcats}, which offers tools to manipulate factors. First of all, most tools from \texttt{stringr} \emph{will work} on factors. The \texttt{forcats} functions expand the string manipulation toolbox with factor-specific utilities. Similar in philosophy to \texttt{stringr} where functions started with \texttt{str\_}, in \texttt{forcats} most functions start with \texttt{fct\_}.
+
+I see two main ways \texttt{forcats} can come handy in the kind of data most people deal with: playing with the order of the levels of a factor and playing with the levels themselves. We will show here a few examples, but the full breadth of factor manipulations can be found online or in the excellent \texttt{forcats} cheatsheet.
+
+\hypertarget{reordering-a-factor}{%
+\subsection{4.1. Reordering a factor}\label{reordering-a-factor}}
+
+Use \texttt{fct\_relevel} to manually change the order of the levels:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fct_relevel}\NormalTok{(my_fact_vec, }\KeywordTok{c}\NormalTok{(}\StringTok{"Pratik"}\NormalTok{, }\StringTok{"Theo"}\NormalTok{, }\StringTok{"Raph"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] Pratik Theo   Raph  
+## Levels: Pratik Theo Raph
+\end{verbatim}
+
+Alternatively, use \texttt{fct\_inorder} to set the order of the levels to the order in which they appear:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fct_inorder}\NormalTok{(my_fact_vec)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] Pratik Theo   Raph  
+## Levels: Pratik Theo Raph
+\end{verbatim}
+
+or \texttt{fct\_rev} to reverse the order of the levels:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fct_rev}\NormalTok{(my_fact_vec)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] Pratik Theo   Raph  
+## Levels: Theo Raph Pratik
+\end{verbatim}
+
+Factor reordering may come useful when plotting categorical variables, for example. Say we want to plot \texttt{beak\_length} against \texttt{island} in our finch dataset:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{ggplot}\NormalTok{(data[data}\OperatorTok{$}\NormalTok{variable }\OperatorTok{==}\StringTok{ "beak_length"}\NormalTok{,], }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ island, }\DataTypeTok{y =}\NormalTok{ value)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_violin}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 29 rows containing non-finite values (stat_ydensity).
+\end{verbatim}
+
+\includegraphics{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-55-1.pdf}
+
+We could use factor reordering to change the order of the violins:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data}\OperatorTok{$}\NormalTok{island <-}\StringTok{ }\KeywordTok{fct_relevel}\NormalTok{(data}\OperatorTok{$}\NormalTok{island, }\KeywordTok{c}\NormalTok{(}\StringTok{"Santa Cruz"}\NormalTok{, }\StringTok{"Isabela"}\NormalTok{))}
+\KeywordTok{ggplot}\NormalTok{(data[data}\OperatorTok{$}\NormalTok{variable }\OperatorTok{==}\StringTok{ "beak_length"}\NormalTok{,], }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ island, }\DataTypeTok{y =}\NormalTok{ value)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_violin}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 29 rows containing non-finite values (stat_ydensity).
+\end{verbatim}
+
+\includegraphics{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-56-1.pdf}
+
+Lots of other variants exist for reordering (e.g.~reordering by association with a variable), which we do not cover here. Please refer to the \href{https://rstudio.com/resources/cheatsheets/}{cheatsheet} or the online documentation for more examples.
+
+\hypertarget{factor-levels}{%
+\subsection{4.2. Factor levels}\label{factor-levels}}
+
+One can change the levels of a factor using \texttt{fct\_recode}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fct_recode}\NormalTok{(}
+\NormalTok{  my_fact_vec, }
+  \StringTok{"Pratik Gupte"}\NormalTok{ =}\StringTok{ "Pratik"}\NormalTok{, }
+  \StringTok{"Theo Pannetier"}\NormalTok{ =}\StringTok{ "Theo"}\NormalTok{, }
+  \StringTok{"Raphael Scherrer"}\NormalTok{ =}\StringTok{ "Raph"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] Pratik Gupte     Theo Pannetier   Raphael Scherrer
+## Levels: Pratik Gupte Raphael Scherrer Theo Pannetier
+\end{verbatim}
+
+or collapse factor levels together using \texttt{fct\_collapse}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fct_collapse}\NormalTok{(my_fact_vec, }\DataTypeTok{EU =} \KeywordTok{c}\NormalTok{(}\StringTok{"Theo"}\NormalTok{, }\StringTok{"Raph"}\NormalTok{), }\DataTypeTok{NonEU =} \StringTok{"Pratik"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NonEU EU    EU   
+## Levels: NonEU EU
+\end{verbatim}
+
+Again, we do not provide an exhaustive list of \texttt{forcats} functions here but the most usual ones, to give a glimpse of many things that one can do with factors. So, if you are dealing with factors, remember that \texttt{forcats} may have handy tools for you.
+
+\hypertarget{bonus-dropping-levels}{%
+\subsection{4.3. Bonus: dropping levels}\label{bonus-dropping-levels}}
+
+If you use factors in your tibble and get rid of one level, for any reason, the factor will usually remember the old levels, which may cause some problems when applying functions to your data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data <-}\StringTok{ }\NormalTok{data[data}\OperatorTok{$}\NormalTok{island }\OperatorTok{==}\StringTok{ "Santa Cruz"}\NormalTok{,]}
+\KeywordTok{unique}\NormalTok{(data}\OperatorTok{$}\NormalTok{island) }\CommentTok{# Isabela is gone from the labels}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] Santa Cruz
+## Levels: Santa Cruz Isabela
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{levels}\NormalTok{(data}\OperatorTok{$}\NormalTok{island) }\CommentTok{# but not from the levels}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Santa Cruz" "Isabela"
+\end{verbatim}
+
+Use \texttt{droplevels} (from base R) to make sure you get rid of levels that are not in your data anymore:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data <-}\StringTok{ }\KeywordTok{droplevels}\NormalTok{(data)}
+\KeywordTok{levels}\NormalTok{(data}\OperatorTok{$}\NormalTok{island)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Santa Cruz"
+\end{verbatim}
+
+Fortunately, most functions within the tidyverse will not complain about missing levels, and will automatically get rid of those inexistant levels for you. But because factors are such common causes of bugs, keep this in mind!
+
+\hypertarget{external-resources}{%
+\section{5. External resources}\label{external-resources}}
+
+Find lots of additional info by looking up the following links:
+
+\begin{itemize}
+\tightlist
+\item
+  The \texttt{readr}/\texttt{tibble}/\texttt{tidyr} and \texttt{forcats} \href{https://rstudio.com/resources/cheatsheets/}{cheatsheets}.
+\item
+  This \href{https://tidyr.tidyverse.org/articles/tidy-data.html}{link} on the concept of tidy data
+\item
+  The \href{https://tibble.tidyverse.org/}{tibble}, \href{https://tidyr.tidyverse.org/}{tidyr} and \href{https://forcats.tidyverse.org/}{forcats} websites
+\end{itemize}
+
+\hypertarget{data-manipulation-with-dplyr}{%
+\chapter{\texorpdfstring{Data manipulation with \texttt{dplyr}}{Data manipulation with dplyr}}\label{data-manipulation-with-dplyr}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1164,9 +1969,7 @@ This is not a good looking plot, because it breaks other rules of plot design, s
 \end{verbatim}
 
 \begin{verbatim}
-## v tibble  3.0.1     v dplyr   0.8.5
-## v tidyr   1.0.2     v forcats 0.5.0
-## v purrr   0.3.4
+## v purrr 0.3.4     v dplyr 0.8.5
 \end{verbatim}
 
 \begin{verbatim}
@@ -1175,6 +1978,186 @@ This is not a good looking plot, because it breaks other rules of plot design, s
 ## x dplyr::filter()   masks stats::filter()
 ## x dplyr::lag()      masks stats::lag()
 \end{verbatim}
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+Reminders from last weeks: pipe operator, tidy tables, ggplot
+
+Why dplyr ? dplyr vs base R
+
+\hypertarget{example-data-of-the-day}{%
+\section{Example data of the day}\label{example-data-of-the-day}}
+
+Through this tutorial, we will be using mammal trait data from the \href{https://megapast2future.github.io/PHYLACINE_1.2/}{Phylacine} database. The dataset contains information on mass, diet, life habit, etc, for more than all living species of mammals. Let's have a look.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{phylacine <-}\StringTok{ }\NormalTok{readr}\OperatorTok{::}\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/phylacine_traits.csv"}\NormalTok{)}
+\NormalTok{phylacine}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5,831 x 24
+##    Binomial.1.2 Order.1.2 Family.1.2 Genus.1.2 Species.1.2 Terrestrial Marine
+##    <chr>        <chr>     <chr>      <chr>     <chr>             <dbl>  <dbl>
+##  1 Abditomys_l~ Rodentia  Muridae    Abditomys latidens              1      0
+##  2 Abeomelomys~ Rodentia  Muridae    Abeomelo~ sevia                 1      0
+##  3 Abrawayaomy~ Rodentia  Cricetidae Abrawaya~ ruschii               1      0
+##  4 Abrocoma_be~ Rodentia  Abrocomid~ Abrocoma  bennettii             1      0
+##  5 Abrocoma_bo~ Rodentia  Abrocomid~ Abrocoma  boliviensis           1      0
+##  6 Abrocoma_bu~ Rodentia  Abrocomid~ Abrocoma  budini                1      0
+##  7 Abrocoma_ci~ Rodentia  Abrocomid~ Abrocoma  cinerea               1      0
+##  8 Abrocoma_fa~ Rodentia  Abrocomid~ Abrocoma  famatina              1      0
+##  9 Abrocoma_sh~ Rodentia  Abrocomid~ Abrocoma  shistacea             1      0
+## 10 Abrocoma_us~ Rodentia  Abrocomid~ Abrocoma  uspallata             1      0
+## # ... with 5,821 more rows, and 17 more variables: Freshwater <dbl>,
+## #   Aerial <dbl>, Life.Habit.Method <chr>, Life.Habit.Source <chr>,
+## #   Mass.g <dbl>, Mass.Method <chr>, Mass.Source <chr>, Mass.Comparison <chr>,
+## #   Mass.Comparison.Source <chr>, Island.Endemicity <chr>,
+## #   IUCN.Status.1.2 <chr>, Added.IUCN.Status.1.2 <chr>, Diet.Plant <dbl>,
+## #   Diet.Vertebrate <dbl>, Diet.Invertebrate <dbl>, Diet.Method <chr>,
+## #   Diet.Source <chr>
+\end{verbatim}
+
+Note the friendly output given by the \texttt{tibble} (as opposed to a \texttt{data.frame}). \texttt{readr} automatically stores the content it reads in a \texttt{tibble}, tidyverse oblige. You should know however that \texttt{dplyr} doesn't require your data to be in a tibble, a regular \texttt{data.frame} will work just as fine.
+
+Most of the \texttt{dplyr} verbs covered in the next sections assume your data is \emph{tidy}: wide format, variables as column, 1 observation per row. Not that tehy won't work if your data isn't tidy, but the results could be very different from what I'm going to show here. Fortunately, the phylacine trait dataset appears to be tidy: there is one unique entry for each species.
+
+The first operation I'm going to run on this table is changing the names with
+\texttt{rename()}. Some people prefer their tea without sugar, and I \href{https://style.tidyverse.org/syntax.html\#object-names}{prefer} my
+variable names without uppercase characters, dots or (if possible) numbers.
+This will give me the opportunity to introduce the trivial syntax
+of \texttt{dplyr} verbs.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{phylacine <-}\StringTok{ }\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{rename}\NormalTok{(}
+    \StringTok{"binomial"}\NormalTok{ =}\StringTok{ }\NormalTok{Binomial.}\FloatTok{1.2}\NormalTok{,}
+    \StringTok{"order"}\NormalTok{ =}\StringTok{ }\NormalTok{Order.}\FloatTok{1.2}\NormalTok{,}
+    \StringTok{"family"}\NormalTok{ =}\StringTok{ }\NormalTok{Family.}\FloatTok{1.2}\NormalTok{,}
+    \StringTok{"genus"}\NormalTok{ =}\StringTok{ }\NormalTok{Genus.}\FloatTok{1.2}\NormalTok{,}
+    \StringTok{"species"}\NormalTok{ =}\StringTok{ }\NormalTok{Species.}\FloatTok{1.2}\NormalTok{,}
+    \StringTok{"terrestrial"}\NormalTok{ =}\StringTok{ }\NormalTok{Terrestrial,}
+    \StringTok{"marine"}\NormalTok{ =}\StringTok{ }\NormalTok{Marine,}
+    \StringTok{"freshwater"}\NormalTok{ =}\StringTok{ }\NormalTok{Freshwater,}
+    \StringTok{"aerial"}\NormalTok{ =}\StringTok{ }\NormalTok{Aerial,}
+    \StringTok{"life_habit_method"}\NormalTok{ =}\StringTok{ }\NormalTok{Life.Habit.Method,}
+    \StringTok{"life_habit_source"}\NormalTok{ =}\StringTok{ }\NormalTok{Life.Habit.Source,}
+    \StringTok{"mass_g"}\NormalTok{ =}\StringTok{ }\NormalTok{Mass.g,}
+    \StringTok{"mass_method"}\NormalTok{ =}\StringTok{ }\NormalTok{Mass.Method,}
+    \StringTok{"mass_source"}\NormalTok{ =}\StringTok{ }\NormalTok{Mass.Source,}
+    \StringTok{"mass_comparison"}\NormalTok{ =}\StringTok{ }\NormalTok{Mass.Comparison,}
+    \StringTok{"mass_comparison_source"}\NormalTok{ =}\StringTok{ }\NormalTok{Mass.Comparison.Source,}
+    \StringTok{"island_endemicity"}\NormalTok{ =}\StringTok{ }\NormalTok{Island.Endemicity,}
+    \StringTok{"iucn_status"}\NormalTok{ =}\StringTok{ }\NormalTok{IUCN.Status.}\FloatTok{1.2}\NormalTok{, }\CommentTok{# not even for acronyms}
+    \StringTok{"added_iucn_status"}\NormalTok{ =}\StringTok{  }\NormalTok{Added.IUCN.Status.}\FloatTok{1.2}\NormalTok{,}
+    \StringTok{"diet_plant"}\NormalTok{ =}\StringTok{ }\NormalTok{Diet.Plant,}
+    \StringTok{"diet_vertebrate"}\NormalTok{ =}\StringTok{ }\NormalTok{Diet.Vertebrate,}
+    \StringTok{"diet_invertebrate"}\NormalTok{ =}\StringTok{ }\NormalTok{Diet.Invertebrate,}
+    \StringTok{"diet_method"}\NormalTok{ =}\StringTok{ }\NormalTok{Diet.Method,}
+    \StringTok{"diet_source"}\NormalTok{ =}\StringTok{ }\NormalTok{Diet.Source}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+For convenience, I'm going to use the pipe operator (\texttt{\%\textgreater{}\%}) that we've seen
+before, through this chapter. All \texttt{dplyr} functions are built to work with the
+pipe (i.e, their firstargument is always \texttt{data}), but again, this is not
+compulsory. I could do
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{phylacine <-}\StringTok{ }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{rename}\NormalTok{(}
+  \DataTypeTok{data =}\NormalTok{ phylacine,}
+  \StringTok{"binomial"}\NormalTok{ =}\StringTok{ }\NormalTok{Binomial.}\FloatTok{1.2}\NormalTok{,}
+  \CommentTok{# ...}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Note how columns are referred to. Once the data as been passed as an argument,
+no need to refer to it anymore, \texttt{dplyr} understands that you're dealing with
+variables inside that data frame. So drop that \texttt{data\$var}, \texttt{data{[},\ "var"{]}},
+and, if you've read \emph{The R book}, forget the very existence of \texttt{attach()}.
+
+Finally, I should mention that you can refer to variables names either with strings or directly as objects, whether you're reading or creating them:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{phylacine2 <-}\StringTok{ }\NormalTok{readr}\OperatorTok{::}\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/phylacine_traits.csv"}\NormalTok{)}
+
+\NormalTok{phylacine2 }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{rename}\NormalTok{(}
+    \CommentTok{# this works}
+    \DataTypeTok{binomial =}\NormalTok{ Binomial.}\FloatTok{1.2}
+\NormalTok{  )}
+\NormalTok{phylacine2 }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{rename}\NormalTok{(}
+    \CommentTok{# this works too!}
+    \DataTypeTok{binomial =} \StringTok{"Binomial.1.2"}
+\NormalTok{  )}
+\NormalTok{phylacine2 }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{rename}\NormalTok{(}
+    \CommentTok{# guess what}
+    \StringTok{"binomial"}\NormalTok{ =}\StringTok{ "Binomial.1.2"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{select-variables-with-select}{%
+\section{\texorpdfstring{Select variables with \texttt{select()}}{Select variables with select()}}\label{select-variables-with-select}}
+
+\hypertarget{select-observations-with-filter}{%
+\section{\texorpdfstring{Select observations with \texttt{filter()}}{Select observations with filter()}}\label{select-observations-with-filter}}
+
+\hypertarget{create-new-variables-with-mutate}{%
+\section{\texorpdfstring{Create new variables with \texttt{mutate()}}{Create new variables with mutate()}}\label{create-new-variables-with-mutate}}
+
+can also edit existing ones
+
+drop existing variables with \texttt{transmute()}
+
+\hypertarget{grouped-results-with-group_by-and-summarise}{%
+\section{\texorpdfstring{Grouped results with \texttt{group\_by()} and \texttt{summarise()}}{Grouped results with group\_by() and summarise()}}\label{grouped-results-with-group_by-and-summarise}}
+
+\hypertarget{scoped-variables}{%
+\section{Scoped variables}\label{scoped-variables}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(mtcars)}
+\NormalTok{mtcars }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select_all}\NormalTok{(toupper)}
+
+\NormalTok{is_whole <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{all}\NormalTok{(}\KeywordTok{floor}\NormalTok{(x) }\OperatorTok{==}\StringTok{ }\NormalTok{x)}
+\NormalTok{mtcars }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select_if}\NormalTok{() }\CommentTok{# select integers only}
+
+\NormalTok{mtcars }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select_at}\NormalTok{(}\KeywordTok{vars}\NormalTok{(}\OperatorTok{-}\KeywordTok{contains}\NormalTok{(}\StringTok{"ar"}\NormalTok{)))}
+\NormalTok{mtcars }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select_at}\NormalTok{(}\KeywordTok{vars}\NormalTok{(}\OperatorTok{-}\KeywordTok{contains}\NormalTok{(}\StringTok{"ar"}\NormalTok{), }\KeywordTok{starts_with}\NormalTok{(}\StringTok{"c"}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{more}{%
+\section{More !}\label{more}}
+
+dolla sign x point operator
+variables values -\textgreater{} dplyr::distinct() eq. to base::unique()
+sample()
+slice()
+
+\hypertarget{working-with-lists-and-iteration}{%
+\chapter{Working with lists and iteration}\label{working-with-lists-and-iteration}}
+
+\includegraphics{opening-image.png}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# load the tidyverse}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{basic-iteration-with-map}{%
 \section{\texorpdfstring{Basic iteration with \texttt{map}}{Basic iteration with map}}\label{basic-iteration-with-map}}

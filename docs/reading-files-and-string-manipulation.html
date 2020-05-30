@@ -21,7 +21,7 @@
   <meta name="twitter:description" content="Section 1 Reading files and string manipulation | TRES Tidyverse Tutorial" />
   
 
-<meta name="author" content="Raphael and Pratik" />
+<meta name="author" content="Raphael, Pratik and Theo" />
 
 
 <meta name="date" content="2020-05-30" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="index.html"/>
-<link rel="next" href="working-with-lists-and-iteration.html"/>
+<link rel="next" href="reshaping-data-tables-in-the-tidyverse.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -154,25 +154,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.3" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#string-interpolation-with-glue"><i class="fa fa-check"></i><b>1.3</b> String interpolation with <code>glue</code></a></li>
 <li class="chapter" data-level="1.4" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#strings-in-ggplot"><i class="fa fa-check"></i><b>1.4</b> Strings in <code>ggplot</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html"><i class="fa fa-check"></i><b>2</b> Working with lists and iteration</a><ul>
-<li class="chapter" data-level="2.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#basic-iteration-with-map"><i class="fa fa-check"></i><b>2.1</b> Basic iteration with <code>map</code></a><ul>
-<li class="chapter" data-level="2.1.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-basic-use"><i class="fa fa-check"></i><b>2.1.1</b> <code>map</code> basic use</a></li>
-<li class="chapter" data-level="2.1.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-vectors"><i class="fa fa-check"></i><b>2.1.2</b> <code>map</code> variants returning vectors</a></li>
+<li class="chapter" data-level="2" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html"><i class="fa fa-check"></i><b>2</b> Reshaping data tables in the tidyverse</a><ul>
+<li class="chapter" data-level="2.1" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#the-new-data-frame-tibble"><i class="fa fa-check"></i><b>2.1</b> 1. The new data frame: tibble</a></li>
+<li class="chapter" data-level="2.2" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#the-concept-of-tidy-data"><i class="fa fa-check"></i><b>2.2</b> 2. The concept of tidy data</a></li>
+<li class="chapter" data-level="2.3" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#reshaping-with-tidyr"><i class="fa fa-check"></i><b>2.3</b> 3. Reshaping with <code>tidyr</code></a><ul>
+<li class="chapter" data-level="2.3.1" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#pivoting"><i class="fa fa-check"></i><b>2.3.1</b> 3.1. Pivoting</a></li>
+<li class="chapter" data-level="2.3.2" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#handling-missing-values"><i class="fa fa-check"></i><b>2.3.2</b> 3.2. Handling missing values</a></li>
+<li class="chapter" data-level="2.3.3" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#splitting-and-combining-cells"><i class="fa fa-check"></i><b>2.3.3</b> 3.3. Splitting and combining cells</a></li>
+<li class="chapter" data-level="2.3.4" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#expanding-tables-using-combinations"><i class="fa fa-check"></i><b>2.3.4</b> 3.4. Expanding tables using combinations</a></li>
+<li class="chapter" data-level="2.3.5" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#nesting"><i class="fa fa-check"></i><b>2.3.5</b> 3.5. Nesting</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#extra-factors-and-the-forcats-package"><i class="fa fa-check"></i><b>2.4</b> 4. Extra: factors and the <code>forcats</code> package</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#reordering-a-factor"><i class="fa fa-check"></i><b>2.4.1</b> 4.1. Reordering a factor</a></li>
+<li class="chapter" data-level="2.4.2" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#factor-levels"><i class="fa fa-check"></i><b>2.4.2</b> 4.2. Factor levels</a></li>
+<li class="chapter" data-level="2.4.3" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#bonus-dropping-levels"><i class="fa fa-check"></i><b>2.4.3</b> 4.3. Bonus: dropping levels</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#external-resources"><i class="fa fa-check"></i><b>2.5</b> 5. External resources</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html"><i class="fa fa-check"></i><b>3</b> Data manipulation with <code>dplyr</code></a><ul>
+<li class="chapter" data-level="3.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#example-data-of-the-day"><i class="fa fa-check"></i><b>3.2</b> Example data of the day</a></li>
+<li class="chapter" data-level="3.3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#select-variables-with-select"><i class="fa fa-check"></i><b>3.3</b> Select variables with <code>select()</code></a></li>
+<li class="chapter" data-level="3.4" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#select-observations-with-filter"><i class="fa fa-check"></i><b>3.4</b> Select observations with <code>filter()</code></a></li>
+<li class="chapter" data-level="3.5" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#create-new-variables-with-mutate"><i class="fa fa-check"></i><b>3.5</b> Create new variables with <code>mutate()</code></a></li>
+<li class="chapter" data-level="3.6" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#grouped-results-with-group_by-and-summarise"><i class="fa fa-check"></i><b>3.6</b> Grouped results with <code>group_by()</code> and <code>summarise()</code></a></li>
+<li class="chapter" data-level="3.7" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#scoped-variables"><i class="fa fa-check"></i><b>3.7</b> Scoped variables</a></li>
+<li class="chapter" data-level="3.8" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#more"><i class="fa fa-check"></i><b>3.8</b> More !</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html"><i class="fa fa-check"></i><b>4</b> Working with lists and iteration</a><ul>
+<li class="chapter" data-level="4.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#basic-iteration-with-map"><i class="fa fa-check"></i><b>4.1</b> Basic iteration with <code>map</code></a><ul>
+<li class="chapter" data-level="4.1.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-basic-use"><i class="fa fa-check"></i><b>4.1.1</b> <code>map</code> basic use</a></li>
+<li class="chapter" data-level="4.1.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-vectors"><i class="fa fa-check"></i><b>4.1.2</b> <code>map</code> variants returning vectors</a></li>
 <li><a href="working-with-lists-and-iteration.html#integrating-map-and-tidyrnest">Integrating <code>map</code> and <code>tidyr::nest</code></a></li>
-<li class="chapter" data-level="2.1.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-dataframes"><i class="fa fa-check"></i><b>2.1.3</b> <code>map</code> variants returning dataframes</a></li>
-<li class="chapter" data-level="2.1.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#selective-mapping"><i class="fa fa-check"></i><b>2.1.4</b> Selective mapping</a></li>
+<li class="chapter" data-level="4.1.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-dataframes"><i class="fa fa-check"></i><b>4.1.3</b> <code>map</code> variants returning dataframes</a></li>
+<li class="chapter" data-level="4.1.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#selective-mapping"><i class="fa fa-check"></i><b>4.1.4</b> Selective mapping</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#more-map-variants"><i class="fa fa-check"></i><b>2.2</b> More <code>map</code> variants</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map2"><i class="fa fa-check"></i><b>2.2.1</b> <code>map2</code></a></li>
-<li class="chapter" data-level="2.2.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#pmap"><i class="fa fa-check"></i><b>2.2.2</b> <code>pmap</code></a></li>
-<li class="chapter" data-level="2.2.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#walk"><i class="fa fa-check"></i><b>2.2.3</b> <code>walk</code></a></li>
+<li class="chapter" data-level="4.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#more-map-variants"><i class="fa fa-check"></i><b>4.2</b> More <code>map</code> variants</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map2"><i class="fa fa-check"></i><b>4.2.1</b> <code>map2</code></a></li>
+<li class="chapter" data-level="4.2.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#pmap"><i class="fa fa-check"></i><b>4.2.2</b> <code>pmap</code></a></li>
+<li class="chapter" data-level="4.2.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#walk"><i class="fa fa-check"></i><b>4.2.3</b> <code>walk</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#modification-in-place"><i class="fa fa-check"></i><b>2.3</b> Modification in place</a></li>
-<li class="chapter" data-level="2.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#working-with-lists"><i class="fa fa-check"></i><b>2.4</b> Working with lists</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#filtering-lists"><i class="fa fa-check"></i><b>2.4.1</b> Filtering lists</a></li>
-<li class="chapter" data-level="2.4.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#summarising-lists"><i class="fa fa-check"></i><b>2.4.2</b> Summarising lists</a></li>
-<li class="chapter" data-level="2.4.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#reduction-and-accumulation"><i class="fa fa-check"></i><b>2.4.3</b> Reduction and accumulation</a></li>
-<li class="chapter" data-level="2.4.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#miscellaneous-operation"><i class="fa fa-check"></i><b>2.4.4</b> Miscellaneous operation</a></li>
+<li class="chapter" data-level="4.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#modification-in-place"><i class="fa fa-check"></i><b>4.3</b> Modification in place</a></li>
+<li class="chapter" data-level="4.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#working-with-lists"><i class="fa fa-check"></i><b>4.4</b> Working with lists</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#filtering-lists"><i class="fa fa-check"></i><b>4.4.1</b> Filtering lists</a></li>
+<li class="chapter" data-level="4.4.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#summarising-lists"><i class="fa fa-check"></i><b>4.4.2</b> Summarising lists</a></li>
+<li class="chapter" data-level="4.4.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#reduction-and-accumulation"><i class="fa fa-check"></i><b>4.4.3</b> Reduction and accumulation</a></li>
+<li class="chapter" data-level="4.4.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#miscellaneous-operation"><i class="fa fa-check"></i><b>4.4.4</b> Miscellaneous operation</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -195,6 +222,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="reading-files-and-string-manipulation" class="section level1">
 <h1><span class="header-section-number">Section 1</span> Reading files and string manipulation</h1>
 <p><img src="opening-image.png" /></p>
+<p>Load the packages for the day.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(readr)</a>
 <a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(stringr)</a>
 <a class="sourceLine" id="cb1-3" title="3"><span class="kw">library</span>(glue)</a></code></pre></div>
@@ -666,7 +694,7 @@ In this example, it can quickly generate command line arguments or filenames.</p
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="working-with-lists-and-iteration.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="reshaping-data-tables-in-the-tidyverse.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
