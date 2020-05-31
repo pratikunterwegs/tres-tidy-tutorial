@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Section 2 Reshaping data tables in the tidyverse | TRES Tidyverse Tutorial</title>
+  <meta name="description" content="Section 2 Reshaping data tables in the tidyverse | TRES Tidyverse Tutorial" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Section 2 Reshaping data tables in the tidyverse | TRES Tidyverse Tutorial" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Section 2 Reshaping data tables in the tidyverse | TRES Tidyverse Tutorial" />
+  <meta name="github-repo" content="pratikunterwegs/tres-tidy-tutorial" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Section 2 Reshaping data tables in the tidyverse | TRES Tidyverse Tutorial" />
+  
+  <meta name="twitter:description" content="Section 2 Reshaping data tables in the tidyverse | TRES Tidyverse Tutorial" />
+  
+
+<meta name="author" content="Raphael, Pratik and Theo" />
+
+
+<meta name="date" content="2020-05-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="reading-files-and-string-manipulation.html"/>
+<link rel="next" href="working-with-lists-and-iteration.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Outline</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about"><i class="fa fa-check"></i>About</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#schedule"><i class="fa fa-check"></i>Schedule</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#possible-extras"><i class="fa fa-check"></i>Possible extras</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#join"><i class="fa fa-check"></i>Join</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html"><i class="fa fa-check"></i><b>1</b> Reading files and string manipulation</a><ul>
+<li class="chapter" data-level="1.1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#data-import-and-export-with-readr"><i class="fa fa-check"></i><b>1.1</b> Data import and export with <code>readr</code></a><ul>
+<li class="chapter" data-level="1.1.1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#reading-data"><i class="fa fa-check"></i><b>1.1.1</b> Reading data</a></li>
+<li class="chapter" data-level="1.1.2" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#writing-data"><i class="fa fa-check"></i><b>1.1.2</b> Writing data</a></li>
+<li class="chapter" data-level="1.1.3" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#reading-and-writing-lines"><i class="fa fa-check"></i><b>1.1.3</b> Reading and writing lines</a></li>
+<li class="chapter" data-level="" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#excel-files"><i class="fa fa-check"></i>Excel files</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#string-manipulation-with-stringr"><i class="fa fa-check"></i><b>1.2</b> String manipulation with <code>stringr</code></a><ul>
+<li class="chapter" data-level="1.2.1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#putting-strings-together"><i class="fa fa-check"></i><b>1.2.1</b> Putting strings together</a></li>
+<li class="chapter" data-level="1.2.2" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#detecting-strings"><i class="fa fa-check"></i><b>1.2.2</b> Detecting strings</a></li>
+<li class="chapter" data-level="1.2.3" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#matching-strings"><i class="fa fa-check"></i><b>1.2.3</b> Matching strings</a></li>
+<li class="chapter" data-level="1.2.4" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#simpler-pattern-extraction"><i class="fa fa-check"></i><b>1.2.4</b> Simpler pattern extraction</a></li>
+<li class="chapter" data-level="1.2.5" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#breaking-strings-apart"><i class="fa fa-check"></i><b>1.2.5</b> Breaking strings apart</a></li>
+<li class="chapter" data-level="1.2.6" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#replacing-string-elements"><i class="fa fa-check"></i><b>1.2.6</b> Replacing string elements</a></li>
+<li class="chapter" data-level="1.2.7" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#subsetting-within-strings"><i class="fa fa-check"></i><b>1.2.7</b> Subsetting within strings</a></li>
+<li class="chapter" data-level="1.2.8" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#padding-and-truncating-strings"><i class="fa fa-check"></i><b>1.2.8</b> Padding and truncating strings</a></li>
+<li class="chapter" data-level="1.2.9" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#stringr-aspects-not-covered-here"><i class="fa fa-check"></i><b>1.2.9</b> Stringr aspects not covered here</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#string-interpolation-with-glue"><i class="fa fa-check"></i><b>1.3</b> String interpolation with <code>glue</code></a></li>
+<li class="chapter" data-level="1.4" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#strings-in-ggplot"><i class="fa fa-check"></i><b>1.4</b> Strings in <code>ggplot</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html"><i class="fa fa-check"></i><b>2</b> Reshaping data tables in the tidyverse</a><ul>
+<li class="chapter" data-level="2.1" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#the-new-data-frame-tibble"><i class="fa fa-check"></i><b>2.1</b> The new data frame: tibble</a></li>
+<li class="chapter" data-level="2.2" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#the-concept-of-tidy-data"><i class="fa fa-check"></i><b>2.2</b> The concept of tidy data</a></li>
+<li class="chapter" data-level="2.3" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#reshaping-with-tidyr"><i class="fa fa-check"></i><b>2.3</b> Reshaping with <code>tidyr</code></a><ul>
+<li class="chapter" data-level="2.3.1" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#pivoting"><i class="fa fa-check"></i><b>2.3.1</b> Pivoting</a></li>
+<li class="chapter" data-level="2.3.2" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#handling-missing-values"><i class="fa fa-check"></i><b>2.3.2</b> Handling missing values</a></li>
+<li class="chapter" data-level="2.3.3" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#splitting-and-combining-cells"><i class="fa fa-check"></i><b>2.3.3</b> Splitting and combining cells</a></li>
+<li class="chapter" data-level="2.3.4" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#expanding-tables-using-combinations"><i class="fa fa-check"></i><b>2.3.4</b> Expanding tables using combinations</a></li>
+<li class="chapter" data-level="2.3.5" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#nesting"><i class="fa fa-check"></i><b>2.3.5</b> Nesting</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#extra-factors-and-the-forcats-package"><i class="fa fa-check"></i><b>2.4</b> Extra: factors and the <code>forcats</code> package</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#reordering-a-factor"><i class="fa fa-check"></i><b>2.4.1</b> Reordering a factor</a></li>
+<li class="chapter" data-level="2.4.2" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#factor-levels"><i class="fa fa-check"></i><b>2.4.2</b> Factor levels</a></li>
+<li class="chapter" data-level="2.4.3" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#bonus-dropping-levels"><i class="fa fa-check"></i><b>2.4.3</b> Bonus: dropping levels</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#external-resources"><i class="fa fa-check"></i><b>2.5</b> External resources</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html"><i class="fa fa-check"></i><b>3</b> Working with lists and iteration</a><ul>
+<li class="chapter" data-level="3.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#basic-iteration-with-map"><i class="fa fa-check"></i><b>3.1</b> Basic iteration with <code>map</code></a><ul>
+<li class="chapter" data-level="3.1.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-basic-use"><i class="fa fa-check"></i><b>3.1.1</b> <code>map</code> basic use</a></li>
+<li class="chapter" data-level="3.1.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-vectors"><i class="fa fa-check"></i><b>3.1.2</b> <code>map</code> variants returning vectors</a></li>
+<li><a href="working-with-lists-and-iteration.html#integrating-map-and-tidyrnest">Integrating <code>map</code> and <code>tidyr::nest</code></a></li>
+<li class="chapter" data-level="3.1.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-dataframes"><i class="fa fa-check"></i><b>3.1.3</b> <code>map</code> variants returning dataframes</a></li>
+<li class="chapter" data-level="3.1.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#selective-mapping"><i class="fa fa-check"></i><b>3.1.4</b> Selective mapping</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#more-map-variants"><i class="fa fa-check"></i><b>3.2</b> More <code>map</code> variants</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map2"><i class="fa fa-check"></i><b>3.2.1</b> <code>map2</code></a></li>
+<li class="chapter" data-level="3.2.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#pmap"><i class="fa fa-check"></i><b>3.2.2</b> <code>pmap</code></a></li>
+<li class="chapter" data-level="3.2.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#walk"><i class="fa fa-check"></i><b>3.2.3</b> <code>walk</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#modification-in-place"><i class="fa fa-check"></i><b>3.3</b> Modification in place</a></li>
+<li class="chapter" data-level="3.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#working-with-lists"><i class="fa fa-check"></i><b>3.4</b> Working with lists</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#filtering-lists"><i class="fa fa-check"></i><b>3.4.1</b> Filtering lists</a></li>
+<li class="chapter" data-level="3.4.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#summarising-lists"><i class="fa fa-check"></i><b>3.4.2</b> Summarising lists</a></li>
+<li class="chapter" data-level="3.4.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#reduction-and-accumulation"><i class="fa fa-check"></i><b>3.4.3</b> Reduction and accumulation</a></li>
+<li class="chapter" data-level="3.4.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#miscellaneous-operation"><i class="fa fa-check"></i><b>3.4.4</b> Miscellaneous operation</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">TRES Tidyverse Tutorial</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="reshaping-data-tables-in-the-tidyverse" class="section level1">
+<h1><span class="header-section-number">Section 2</span> Reshaping data tables in the tidyverse</h1>
+<p>Raphael Scherrer</p>
+<p><img src="opening-image.png" /></p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb95-1"></a><span class="kw">library</span>(tibble)</span>
+<span id="cb95-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb95-2"></a><span class="kw">library</span>(tidyr)</span></code></pre></div>
+<p>In this chapter we will learn what <em>tidy</em> means in the context of the tidyverse, and how to reshape our data into a tidy format using the <code>tidyr</code> package. But first, let us take a detour and introduce the <code>tibble</code>.</p>
+<div id="the-new-data-frame-tibble" class="section level2">
+<h2><span class="header-section-number">2.1</span> The new data frame: tibble</h2>
+<p>The <code>tibble</code> is the recommended class to use to store tabular data in the tidyverse. Consider it as the operational unit of any data science pipeline. For most practical purposes, a <code>tibble</code> is basically a <code>data.frame</code>.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb96-1"></a><span class="co"># Make a data frame</span></span>
+<span id="cb96-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb96-2"></a><span class="kw">data.frame</span>(<span class="dt">who =</span> <span class="kw">c</span>(<span class="st">&quot;Pratik&quot;</span>, <span class="st">&quot;Theo&quot;</span>, <span class="st">&quot;Raph&quot;</span>), <span class="dt">chapt =</span> <span class="kw">c</span>(<span class="st">&quot;1, 4&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;2, 5&quot;</span>))</span></code></pre></div>
+<pre><code>##      who chapt
+## 1 Pratik  1, 4
+## 2   Theo     3
+## 3   Raph  2, 5</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb98-1"></a><span class="co"># Or an equivalent tibble</span></span>
+<span id="cb98-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb98-2"></a><span class="kw">tibble</span>(<span class="dt">who =</span> <span class="kw">c</span>(<span class="st">&quot;Pratik&quot;</span>, <span class="st">&quot;Theo&quot;</span>, <span class="st">&quot;Raph&quot;</span>), <span class="dt">chapt =</span> <span class="kw">c</span>(<span class="st">&quot;1, 4&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;2, 5&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   who    chapt
+##   &lt;chr&gt;  &lt;chr&gt;
+## 1 Pratik 1, 4 
+## 2 Theo   3    
+## 3 Raph   2, 5</code></pre>
+<p>The difference between <code>tibble</code> and <code>data.frame</code> is in its display and in the way it is subsetted, among others. Most functions working with <code>data.frame</code> will work with <code>tibble</code> and vice versa. Use the <code>as*</code> family of functions to switch back and forth between the two if needed, using e.g. <code>as.data.frame</code> or <code>as_tibble</code>.</p>
+<p>In terms of display, the tibble has the advantage of showing the class of each column: <code>chr</code> for <code>character</code>, <code>fct</code> for <code>factor</code>, <code>int</code> for <code>integer</code>, <code>dbl</code> for <code>numeric</code> and <code>lgl</code> for <code>logical</code>, just to name the main atomic classes. This may be more important than you think, because many hard-to-find bugs in R are due to wrong variable types and/or cryptic type conversions. This especially happens with <code>factor</code> and <code>character</code>, which can cause quite some confusion. More about this in the extra section at the end of this chapter!</p>
+<p>Note that you can build a tibble by rows rather than by columns with <code>tribble</code>:</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb100-1"></a><span class="kw">tribble</span>(</span>
+<span id="cb100-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb100-2"></a>  <span class="op">~</span>who, <span class="op">~</span>chapt,</span>
+<span id="cb100-3"><a href="reshaping-data-tables-in-the-tidyverse.html#cb100-3"></a>  <span class="st">&quot;Pratik&quot;</span>, <span class="st">&quot;1, 4&quot;</span>,</span>
+<span id="cb100-4"><a href="reshaping-data-tables-in-the-tidyverse.html#cb100-4"></a>  <span class="st">&quot;Theo&quot;</span>, <span class="st">&quot;3&quot;</span>,</span>
+<span id="cb100-5"><a href="reshaping-data-tables-in-the-tidyverse.html#cb100-5"></a>  <span class="st">&quot;Raph&quot;</span>, <span class="st">&quot;2, 5&quot;</span></span>
+<span id="cb100-6"><a href="reshaping-data-tables-in-the-tidyverse.html#cb100-6"></a>)</span></code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   who    chapt
+##   &lt;chr&gt;  &lt;chr&gt;
+## 1 Pratik 1, 4 
+## 2 Theo   3    
+## 3 Raph   2, 5</code></pre>
+<p>As a rule of thumb, try to convert your tables to tibbles whenever you can, especially when the original table is <em>not</em> a data frame. For example, the principal component analysis function <code>prcomp</code> outputs a <code>matrix</code> of coordinates in principal component-space.</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb102-1"></a><span class="co"># Perform a PCA on mtcars </span></span>
+<span id="cb102-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb102-2"></a>pca_scores &lt;-<span class="st"> </span><span class="kw">prcomp</span>(mtcars)<span class="op">$</span>x</span>
+<span id="cb102-3"><a href="reshaping-data-tables-in-the-tidyverse.html#cb102-3"></a><span class="kw">head</span>(pca_scores) <span class="co"># looks like a data frame or a tibble...</span></span></code></pre></div>
+<pre><code>##                           PC1       PC2       PC3        PC4        PC5
+## Mazda RX4          -79.596425  2.132241 -2.153336 -2.7073437 -0.7023522
+## Mazda RX4 Wag      -79.598570  2.147487 -2.215124 -2.1782888 -0.8843859
+## Datsun 710        -133.894096 -5.057570 -2.137950  0.3460330  1.1061111
+## Hornet 4 Drive       8.516559 44.985630  1.233763  0.8273631  0.4240145
+## Hornet Sportabout  128.686342 30.817402  3.343421 -0.5211000  0.7365801
+## Valiant            -23.220146 35.106518 -3.259562  1.4005360  0.8029768
+##                           PC6          PC7         PC8        PC9        PC10
+## Mazda RX4         -0.31486106 -0.098695018 -0.07789812 -0.2000092 -0.29008191
+## Mazda RX4 Wag     -0.45343873 -0.003554594 -0.09566630 -0.3533243 -0.19283553
+## Datsun 710         1.17298584  0.005755581  0.13624782 -0.1976423  0.07634353
+## Hornet 4 Drive    -0.05789705 -0.024307168  0.22120800  0.3559844 -0.09057039
+## Hornet Sportabout -0.33290957  0.106304777 -0.05301719  0.1532714 -0.18862217
+## Valiant           -0.08837864  0.238946304  0.42390551  0.1012944 -0.03769010
+##                         PC11
+## Mazda RX4          0.1057706
+## Mazda RX4 Wag      0.1069047
+## Datsun 710         0.2668713
+## Hornet 4 Drive     0.2088354
+## Hornet Sportabout -0.1092563
+## Valiant            0.2757693</code></pre>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb104-1"></a><span class="kw">class</span>(pca_scores) <span class="co"># but is actually a matrix</span></span></code></pre></div>
+<pre><code>## [1] &quot;matrix&quot;</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb106-1"></a><span class="co"># Convert to tibble</span></span>
+<span id="cb106-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb106-2"></a><span class="kw">as_tibble</span>(pca_scores)</span></code></pre></div>
+<pre><code>## # A tibble: 32 x 11
+##        PC1    PC2    PC3    PC4    PC5     PC6      PC7     PC8    PC9    PC10
+##      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+##  1  -79.6    2.13 -2.15  -2.71  -0.702 -0.315  -0.0987  -0.0779 -0.200 -0.290 
+##  2  -79.6    2.15 -2.22  -2.18  -0.884 -0.453  -0.00355 -0.0957 -0.353 -0.193 
+##  3 -134.    -5.06 -2.14   0.346  1.11   1.17    0.00576  0.136  -0.198  0.0763
+##  4    8.52  45.0   1.23   0.827  0.424 -0.0579 -0.0243   0.221   0.356 -0.0906
+##  5  129.    30.8   3.34  -0.521  0.737 -0.333   0.106   -0.0530  0.153 -0.189 
+##  6  -23.2   35.1  -3.26   1.40   0.803 -0.0884  0.239    0.424   0.101 -0.0377
+##  7  159.   -32.3   0.649  0.199  0.786  0.0687 -0.530   -0.0593  0.221 -0.313 
+##  8 -113.    39.7  -0.465  0.338 -1.24   0.280  -0.146    0.320   0.279  0.190 
+##  9 -104.     7.51 -1.59   4.02  -1.14   0.0279  0.595   -0.233  -0.126 -0.349 
+## 10  -67.0   -6.21 -3.61  -0.320 -0.960 -0.529  -0.0174  -0.182   0.543  0.412 
+## # … with 22 more rows, and 1 more variable: PC11 &lt;dbl&gt;</code></pre>
+<p>This is important because a <code>matrix</code> can contain only one type of values (e.g. only <code>numeric</code> or <code>character</code>), while <code>tibble</code> (and <code>data.frame</code>) allow you to have columns of different types.</p>
+<p>So, in the tidyverse we are going to work with tibbles, got it. But what does “tidy” mean exactly?</p>
+</div>
+<div id="the-concept-of-tidy-data" class="section level2">
+<h2><span class="header-section-number">2.2</span> The concept of tidy data</h2>
+<p>When it comes to putting data into tables, there are many ways one could organize a dataset. The <em>tidy</em> format is one such format. According to the formal <a href="https://tidyr.tidyverse.org/articles/tidy-data.html">definition</a>, a table is tidy if each column is a variable and each row is an observation. In practice, however, I found that this is not a very operational definition, especially in ecology and evolution where we often record multiple variables per individual. So, let’s dig in with an example.</p>
+<p>Say we have a dataset of several morphometrics measured on Darwin’s finches in the Galapagos islands. Let’s first get this dataset.</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb108-1"></a><span class="co"># We first simulate random data</span></span>
+<span id="cb108-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb108-2"></a>beak_lengths &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dt">mean =</span> <span class="dv">5</span>, <span class="dt">sd =</span> <span class="fl">0.1</span>)</span>
+<span id="cb108-3"><a href="reshaping-data-tables-in-the-tidyverse.html#cb108-3"></a>beak_widths &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dt">mean =</span> <span class="dv">2</span>, <span class="dt">sd =</span> <span class="fl">0.1</span>)</span>
+<span id="cb108-4"><a href="reshaping-data-tables-in-the-tidyverse.html#cb108-4"></a>body_weights &lt;-<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">100</span>, <span class="dt">shape =</span> <span class="dv">10</span>, <span class="dt">rate =</span> <span class="dv">1</span>)</span>
+<span id="cb108-5"><a href="reshaping-data-tables-in-the-tidyverse.html#cb108-5"></a>islands &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;Isabela&quot;</span>, <span class="st">&quot;Santa Cruz&quot;</span>), <span class="dt">each =</span> <span class="dv">50</span>)</span>
+<span id="cb108-6"><a href="reshaping-data-tables-in-the-tidyverse.html#cb108-6"></a></span>
+<span id="cb108-7"><a href="reshaping-data-tables-in-the-tidyverse.html#cb108-7"></a><span class="co"># Assemble into a tibble</span></span>
+<span id="cb108-8"><a href="reshaping-data-tables-in-the-tidyverse.html#cb108-8"></a>data &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
+<span id="cb108-9"><a href="reshaping-data-tables-in-the-tidyverse.html#cb108-9"></a>  <span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>,</span>
+<span id="cb108-10"><a href="reshaping-data-tables-in-the-tidyverse.html#cb108-10"></a>  <span class="dt">beak_length =</span> beak_lengths, </span>
+<span id="cb108-11"><a href="reshaping-data-tables-in-the-tidyverse.html#cb108-11"></a>  <span class="dt">beak_width =</span> beak_widths, </span>
+<span id="cb108-12"><a href="reshaping-data-tables-in-the-tidyverse.html#cb108-12"></a>  <span class="dt">body_weight =</span> body_weights,</span>
+<span id="cb108-13"><a href="reshaping-data-tables-in-the-tidyverse.html#cb108-13"></a>  <span class="dt">island =</span> islands</span>
+<span id="cb108-14"><a href="reshaping-data-tables-in-the-tidyverse.html#cb108-14"></a>)</span>
+<span id="cb108-15"><a href="reshaping-data-tables-in-the-tidyverse.html#cb108-15"></a></span>
+<span id="cb108-16"><a href="reshaping-data-tables-in-the-tidyverse.html#cb108-16"></a><span class="co"># Snapshot</span></span>
+<span id="cb108-17"><a href="reshaping-data-tables-in-the-tidyverse.html#cb108-17"></a>data</span></code></pre></div>
+<pre><code>## # A tibble: 100 x 5
+##       id beak_length beak_width body_weight island 
+##    &lt;int&gt;       &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
+##  1     1        4.84       1.96       10.9  Isabela
+##  2     2        5.11       1.94       11.6  Isabela
+##  3     3        4.75       2.03        8.16 Isabela
+##  4     4        4.89       2.08        8.16 Isabela
+##  5     5        4.81       2.07        6.86 Isabela
+##  6     6        4.90       1.91       19.7  Isabela
+##  7     7        4.93       2.18        7.22 Isabela
+##  8     8        4.88       1.84        6.25 Isabela
+##  9     9        5.14       2.01        6.94 Isabela
+## 10    10        4.99       2.04       14.6  Isabela
+## # … with 90 more rows</code></pre>
+<p>Here, we pretend to have measured <code>beak_length</code>, <code>beak_width</code> and <code>body_weight</code> on 100 birds, 50 of them from Isabela and 50 of them from Santa Cruz. In this tibble, each row is an individual bird. This is probably the way most scientists would record their data in the field. However, a single bird is not an “observation” in the sense used in the tidyverse. Our dataset is not tidy but <em>messy</em>.</p>
+<p>The tidy equivalent of this dataset would be:</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb110-1"></a>data &lt;-<span class="st"> </span><span class="kw">pivot_longer</span>(</span>
+<span id="cb110-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb110-2"></a>  data, </span>
+<span id="cb110-3"><a href="reshaping-data-tables-in-the-tidyverse.html#cb110-3"></a>  <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;beak_length&quot;</span>, <span class="st">&quot;beak_width&quot;</span>, <span class="st">&quot;body_weight&quot;</span>),</span>
+<span id="cb110-4"><a href="reshaping-data-tables-in-the-tidyverse.html#cb110-4"></a>  <span class="dt">names_to =</span> <span class="st">&quot;variable&quot;</span></span>
+<span id="cb110-5"><a href="reshaping-data-tables-in-the-tidyverse.html#cb110-5"></a>)</span>
+<span id="cb110-6"><a href="reshaping-data-tables-in-the-tidyverse.html#cb110-6"></a>data</span></code></pre></div>
+<pre><code>## # A tibble: 300 x 4
+##       id island  variable    value
+##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;
+##  1     1 Isabela beak_length  4.84
+##  2     1 Isabela beak_width   1.96
+##  3     1 Isabela body_weight 10.9 
+##  4     2 Isabela beak_length  5.11
+##  5     2 Isabela beak_width   1.94
+##  6     2 Isabela body_weight 11.6 
+##  7     3 Isabela beak_length  4.75
+##  8     3 Isabela beak_width   2.03
+##  9     3 Isabela body_weight  8.16
+## 10     4 Isabela beak_length  4.89
+## # … with 290 more rows</code></pre>
+<p>where each <em>measurement</em> (and not each <em>individual</em>) is now the unit of observation (the rows). We will come back to the <code>pivot_longer</code> function later.</p>
+<p>As you can see our tibble now has three times as many rows and fewer columns. This format is rather unintuitive and not optimal for display. However, it provides a very standardized and consistent way of organizing data that will be understood (and expected) by pretty much all functions in the tidyverse. This makes the tidyverse tools work well together and reduces the time you would otherwise spend reformatting your data from one tool to the next.</p>
+<p>That does not mean that the <em>messy</em> format is useless though. There may be use-cases where you need to switch back and forth between formats. For this reason I prefer referring to these formats using their other names: <em>long</em> (tidy) versus <em>wide</em> (messy). For example, matrix operations work much faster on wide data, and the wide format arguably looks nicer for display. Luckily the <code>tidyr</code> package gives us the tools to reshape our data as needed, as we shall see shortly.</p>
+<p>Another common example of wide-or-long dilemma is when dealing with <em>contingency tables</em>. This would be our case, for example, if we asked how many observations we have for each morphometric and each island. We use <code>table</code> (from base R) to get the answer:</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb112-1"></a><span class="co"># Make a contingency table</span></span>
+<span id="cb112-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb112-2"></a>ctg &lt;-<span class="st"> </span><span class="kw">with</span>(data, <span class="kw">table</span>(island, variable))</span>
+<span id="cb112-3"><a href="reshaping-data-tables-in-the-tidyverse.html#cb112-3"></a>ctg</span></code></pre></div>
+<pre><code>##             variable
+## island       beak_length beak_width body_weight
+##   Isabela             50         50          50
+##   Santa Cruz          50         50          50</code></pre>
+<p>A variety of statistical tests can be used on contingency tables such as Fisher’s exact test, the chi-square test or the binomial test. Contingency tables are in the wide format by construction, but they too can be pivoted to the long format, and the tidyverse manipulation tools will expect you to do so. Actually, <code>tibble</code> knows that very well and does it by default if you convert your <code>table</code> into a <code>tibble</code>:</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb114-1"></a><span class="co"># Contingency table is pivoted to the long-format automatically</span></span>
+<span id="cb114-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb114-2"></a><span class="kw">as_tibble</span>(ctg)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   island     variable        n
+##   &lt;chr&gt;      &lt;chr&gt;       &lt;int&gt;
+## 1 Isabela    beak_length    50
+## 2 Santa Cruz beak_length    50
+## 3 Isabela    beak_width     50
+## 4 Santa Cruz beak_width     50
+## 5 Isabela    body_weight    50
+## 6 Santa Cruz body_weight    50</code></pre>
+</div>
+<div id="reshaping-with-tidyr" class="section level2">
+<h2><span class="header-section-number">2.3</span> Reshaping with <code>tidyr</code></h2>
+<p>The <code>tidyr</code> package implements tools to easily switch between layouts and also perform a few other reshaping operations. Old school R users will be familiar with the <code>reshape</code> and <code>reshape2</code> packages, of which <code>tidyr</code> is the tidyverse equivalent. Beware that <code>tidyr</code> is about playing with the general <em>layout</em> of the dataset, while <em>operations</em> and <em>transformations</em> of the data are within the scope of the <code>dplyr</code> and <code>purrr</code> packages. All these packages work hand-in-hand really well, and analysis pipelines usually involve all of them. But today, we focus on the first member of this holy trinity, which is often the first one you’ll need because you will want to reshape your data before doing other things. So, please hold your non-layout-related questions for the next chapters.</p>
+<div id="pivoting" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Pivoting</h3>
+<p>Pivoting a dataset between the long and wide layout is the main purpose of <code>tidyr</code> (check out the package’s logo). We already saw the <code>pivot_longer</code> function, that converts a table form wide to long format. Similarly, there is a <code>pivot_wider</code> function that does exactly the opposite and takes you back to the wide format:</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb116-1"></a><span class="kw">pivot_wider</span>(</span>
+<span id="cb116-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb116-2"></a>  data, </span>
+<span id="cb116-3"><a href="reshaping-data-tables-in-the-tidyverse.html#cb116-3"></a>  <span class="dt">names_from =</span> <span class="st">&quot;variable&quot;</span>, </span>
+<span id="cb116-4"><a href="reshaping-data-tables-in-the-tidyverse.html#cb116-4"></a>  <span class="dt">values_from =</span> <span class="st">&quot;value&quot;</span>, </span>
+<span id="cb116-5"><a href="reshaping-data-tables-in-the-tidyverse.html#cb116-5"></a>  <span class="dt">id_cols =</span> <span class="kw">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;island&quot;</span>)</span>
+<span id="cb116-6"><a href="reshaping-data-tables-in-the-tidyverse.html#cb116-6"></a>)</span></code></pre></div>
+<pre><code>## # A tibble: 100 x 5
+##       id island  beak_length beak_width body_weight
+##    &lt;int&gt; &lt;chr&gt;         &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;
+##  1     1 Isabela        4.84       1.96       10.9 
+##  2     2 Isabela        5.11       1.94       11.6 
+##  3     3 Isabela        4.75       2.03        8.16
+##  4     4 Isabela        4.89       2.08        8.16
+##  5     5 Isabela        4.81       2.07        6.86
+##  6     6 Isabela        4.90       1.91       19.7 
+##  7     7 Isabela        4.93       2.18        7.22
+##  8     8 Isabela        4.88       1.84        6.25
+##  9     9 Isabela        5.14       2.01        6.94
+## 10    10 Isabela        4.99       2.04       14.6 
+## # … with 90 more rows</code></pre>
+<p>The order of the columns is not exactly as it was, but this should not matter in a data analysis pipeline where you should access columns by their names. It is straightforward to change the order of the columns, but this is more within the scope of the <code>dplyr</code> package.</p>
+<p>If you are familiar with earlier versions of the tidyverse, <code>pivot_longer</code> and <code>pivot_wider</code> are the respective equivalents of <code>gather</code> and <code>spread</code>, which are now deprecated.</p>
+<p>There are a few other reshaping operations from <code>tidyr</code> that are worth knowing.</p>
+</div>
+<div id="handling-missing-values" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Handling missing values</h3>
+<p>Say we have some missing measurements in the column “value” of our finch dataset:</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb118-1"></a><span class="co"># We replace 100 random observations by NAs</span></span>
+<span id="cb118-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb118-2"></a>ii &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(data), <span class="dv">100</span>)</span>
+<span id="cb118-3"><a href="reshaping-data-tables-in-the-tidyverse.html#cb118-3"></a>data<span class="op">$</span>value[ii] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb118-4"><a href="reshaping-data-tables-in-the-tidyverse.html#cb118-4"></a>data</span></code></pre></div>
+<pre><code>## # A tibble: 300 x 4
+##       id island  variable    value
+##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;
+##  1     1 Isabela beak_length NA   
+##  2     1 Isabela beak_width   1.96
+##  3     1 Isabela body_weight 10.9 
+##  4     2 Isabela beak_length NA   
+##  5     2 Isabela beak_width  NA   
+##  6     2 Isabela body_weight NA   
+##  7     3 Isabela beak_length  4.75
+##  8     3 Isabela beak_width  NA   
+##  9     3 Isabela body_weight NA   
+## 10     4 Isabela beak_length  4.89
+## # … with 290 more rows</code></pre>
+<p>We could get rid of the rows that have missing values using <code>drop_na</code>:</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb120-1"></a><span class="kw">drop_na</span>(data, value)</span></code></pre></div>
+<pre><code>## # A tibble: 200 x 4
+##       id island  variable    value
+##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;
+##  1     1 Isabela beak_width   1.96
+##  2     1 Isabela body_weight 10.9 
+##  3     3 Isabela beak_length  4.75
+##  4     4 Isabela beak_length  4.89
+##  5     4 Isabela body_weight  8.16
+##  6     5 Isabela beak_length  4.81
+##  7     5 Isabela body_weight  6.86
+##  8     6 Isabela beak_length  4.90
+##  9     6 Isabela beak_width   1.91
+## 10     6 Isabela body_weight 19.7 
+## # … with 190 more rows</code></pre>
+<p>Else, we could replace the NAs with some user-defined value:</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb122-1"></a><span class="kw">replace_na</span>(data, <span class="dt">replace =</span> <span class="kw">list</span>(<span class="dt">value =</span> <span class="dv">-999</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 300 x 4
+##       id island  variable      value
+##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;
+##  1     1 Isabela beak_length -999   
+##  2     1 Isabela beak_width     1.96
+##  3     1 Isabela body_weight   10.9 
+##  4     2 Isabela beak_length -999   
+##  5     2 Isabela beak_width  -999   
+##  6     2 Isabela body_weight -999   
+##  7     3 Isabela beak_length    4.75
+##  8     3 Isabela beak_width  -999   
+##  9     3 Isabela body_weight -999   
+## 10     4 Isabela beak_length    4.89
+## # … with 290 more rows</code></pre>
+<p>where the <code>replace</code> argument takes a named list, and the names should refer to the columns to apply the replacement to.</p>
+<p>We could also replace NAs with the most recent non-NA values:</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb124-1"></a><span class="kw">fill</span>(data, value)</span></code></pre></div>
+<pre><code>## # A tibble: 300 x 4
+##       id island  variable    value
+##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;
+##  1     1 Isabela beak_length NA   
+##  2     1 Isabela beak_width   1.96
+##  3     1 Isabela body_weight 10.9 
+##  4     2 Isabela beak_length 10.9 
+##  5     2 Isabela beak_width  10.9 
+##  6     2 Isabela body_weight 10.9 
+##  7     3 Isabela beak_length  4.75
+##  8     3 Isabela beak_width   4.75
+##  9     3 Isabela body_weight  4.75
+## 10     4 Isabela beak_length  4.89
+## # … with 290 more rows</code></pre>
+<p>Note that most functions in the tidyverse take a tibble as their first argument, and columns to which to apply the functions are usually passed as “objects” rather than character strings. In the above example, we passed the <code>value</code> column as <code>value</code>, not <code>"value"</code>. These column-objects are called by the tidyverse functions <em>in the context</em> of the data (the tibble) they belong to.</p>
+</div>
+<div id="splitting-and-combining-cells" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Splitting and combining cells</h3>
+<p>The <code>tidyr</code> package offers tools to split and combine columns. This is a nice extension to the string manipulations we saw last week in the <code>stringr</code> tutorial.</p>
+<p>Say we want to add the specific dates when we took measurements on our birds (we would normally do this using <code>dplyr</code> but for now we will stick to the old way):</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb126-1"></a><span class="co"># Sample random dates for each observation</span></span>
+<span id="cb126-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb126-2"></a>data<span class="op">$</span>day &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">30</span>, <span class="kw">nrow</span>(data), <span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb126-3"><a href="reshaping-data-tables-in-the-tidyverse.html#cb126-3"></a>data<span class="op">$</span>month &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">12</span>, <span class="kw">nrow</span>(data), <span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb126-4"><a href="reshaping-data-tables-in-the-tidyverse.html#cb126-4"></a>data<span class="op">$</span>year &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">2019</span><span class="op">:</span><span class="dv">2020</span>, <span class="kw">nrow</span>(data), <span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb126-5"><a href="reshaping-data-tables-in-the-tidyverse.html#cb126-5"></a>data</span></code></pre></div>
+<pre><code>## # A tibble: 300 x 7
+##       id island  variable    value   day month  year
+##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1     1 Isabela beak_length NA       16    12  2020
+##  2     1 Isabela beak_width   1.96     6    11  2019
+##  3     1 Isabela body_weight 10.9     29    11  2020
+##  4     2 Isabela beak_length NA        7     2  2020
+##  5     2 Isabela beak_width  NA        6     6  2019
+##  6     2 Isabela body_weight NA       23     3  2019
+##  7     3 Isabela beak_length  4.75    12     3  2019
+##  8     3 Isabela beak_width  NA       22     8  2020
+##  9     3 Isabela body_weight NA       20     4  2019
+## 10     4 Isabela beak_length  4.89     6     8  2020
+## # … with 290 more rows</code></pre>
+<p>We could combine the <code>day</code>, <code>month</code> and <code>year</code> columns into a single <code>date</code> column, with a dash as a separator, using <code>unite</code>:</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb128-1"></a>data &lt;-<span class="st"> </span><span class="kw">unite</span>(data, day, month, year, <span class="dt">col =</span> <span class="st">&quot;date&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>)</span>
+<span id="cb128-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb128-2"></a>data</span></code></pre></div>
+<pre><code>## # A tibble: 300 x 5
+##       id island  variable    value date      
+##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     
+##  1     1 Isabela beak_length NA    16-12-2020
+##  2     1 Isabela beak_width   1.96 6-11-2019 
+##  3     1 Isabela body_weight 10.9  29-11-2020
+##  4     2 Isabela beak_length NA    7-2-2020  
+##  5     2 Isabela beak_width  NA    6-6-2019  
+##  6     2 Isabela body_weight NA    23-3-2019 
+##  7     3 Isabela beak_length  4.75 12-3-2019 
+##  8     3 Isabela beak_width  NA    22-8-2020 
+##  9     3 Isabela body_weight NA    20-4-2019 
+## 10     4 Isabela beak_length  4.89 6-8-2020  
+## # … with 290 more rows</code></pre>
+<p>Of course, we can revert back to the previous dataset by splitting the <code>date</code> column with <code>separate</code>.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb130-1"></a><span class="kw">separate</span>(data, date, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;day&quot;</span>, <span class="st">&quot;month&quot;</span>, <span class="st">&quot;year&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 300 x 7
+##       id island  variable    value day   month year 
+##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+##  1     1 Isabela beak_length NA    16    12    2020 
+##  2     1 Isabela beak_width   1.96 6     11    2019 
+##  3     1 Isabela body_weight 10.9  29    11    2020 
+##  4     2 Isabela beak_length NA    7     2     2020 
+##  5     2 Isabela beak_width  NA    6     6     2019 
+##  6     2 Isabela body_weight NA    23    3     2019 
+##  7     3 Isabela beak_length  4.75 12    3     2019 
+##  8     3 Isabela beak_width  NA    22    8     2020 
+##  9     3 Isabela body_weight NA    20    4     2019 
+## 10     4 Isabela beak_length  4.89 6     8     2020 
+## # … with 290 more rows</code></pre>
+<p>But note that the <code>day</code>, <code>month</code> and <code>year</code> columns are now of class <code>character</code> and not <code>integer</code> anymore. This is because they result from the splitting of <code>date</code>, which itself was a <code>character</code> column.</p>
+<p>You can also separate a single column into multiple <em>rows</em> using <code>separate_rows</code>:</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb132-1"></a><span class="kw">separate_rows</span>(data, date)</span></code></pre></div>
+<pre><code>## # A tibble: 900 x 5
+##       id island  variable    value date 
+##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;
+##  1     1 Isabela beak_length NA    16   
+##  2     1 Isabela beak_length NA    12   
+##  3     1 Isabela beak_length NA    2020 
+##  4     1 Isabela beak_width   1.96 6    
+##  5     1 Isabela beak_width   1.96 11   
+##  6     1 Isabela beak_width   1.96 2019 
+##  7     1 Isabela body_weight 10.9  29   
+##  8     1 Isabela body_weight 10.9  11   
+##  9     1 Isabela body_weight 10.9  2020 
+## 10     2 Isabela beak_length NA    7    
+## # … with 890 more rows</code></pre>
+</div>
+<div id="expanding-tables-using-combinations" class="section level3">
+<h3><span class="header-section-number">2.3.4</span> Expanding tables using combinations</h3>
+<p>Sometimes one may need to quickly create a table with all combinations of a set of variables. We could generate a tibble with all combinations of island-by-morphometric using <code>expand_grid</code>:</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb134-1"></a><span class="kw">expand_grid</span>(</span>
+<span id="cb134-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb134-2"></a>  <span class="dt">island =</span> <span class="kw">c</span>(<span class="st">&quot;Isabela&quot;</span>, <span class="st">&quot;Santa Cruz&quot;</span>), </span>
+<span id="cb134-3"><a href="reshaping-data-tables-in-the-tidyverse.html#cb134-3"></a>  <span class="dt">variable =</span> <span class="kw">c</span>(<span class="st">&quot;beak_length&quot;</span>, <span class="st">&quot;beak_width&quot;</span>, <span class="st">&quot;body_weight&quot;</span>)</span>
+<span id="cb134-4"><a href="reshaping-data-tables-in-the-tidyverse.html#cb134-4"></a>)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 2
+##   island     variable   
+##   &lt;chr&gt;      &lt;chr&gt;      
+## 1 Isabela    beak_length
+## 2 Isabela    beak_width 
+## 3 Isabela    body_weight
+## 4 Santa Cruz beak_length
+## 5 Santa Cruz beak_width 
+## 6 Santa Cruz body_weight</code></pre>
+<p>If we already have a tibble to work from that contains the variables to combine, we can use <code>expand</code>:</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb136-1"></a><span class="kw">expand</span>(data, island, variable)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 2
+##   island     variable   
+##   &lt;chr&gt;      &lt;chr&gt;      
+## 1 Isabela    beak_length
+## 2 Isabela    beak_width 
+## 3 Isabela    body_weight
+## 4 Santa Cruz beak_length
+## 5 Santa Cruz beak_width 
+## 6 Santa Cruz body_weight</code></pre>
+<p>As an extension of this, the function <code>complete</code> can come particularly handy if we need to add missing combinations to our tibble:</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb138-1"></a><span class="kw">complete</span>(data, island, variable)</span></code></pre></div>
+<pre><code>## # A tibble: 300 x 5
+##    island  variable       id value date      
+##    &lt;chr&gt;   &lt;chr&gt;       &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;     
+##  1 Isabela beak_length     1 NA    16-12-2020
+##  2 Isabela beak_length     2 NA    7-2-2020  
+##  3 Isabela beak_length     3  4.75 12-3-2019 
+##  4 Isabela beak_length     4  4.89 6-8-2020  
+##  5 Isabela beak_length     5  4.81 28-4-2020 
+##  6 Isabela beak_length     6  4.90 20-3-2019 
+##  7 Isabela beak_length     7 NA    28-8-2020 
+##  8 Isabela beak_length     8 NA    23-2-2020 
+##  9 Isabela beak_length     9  5.14 5-9-2020  
+## 10 Isabela beak_length    10  4.99 3-3-2020  
+## # … with 290 more rows</code></pre>
+<p>which does nothing here because we already have all combinations of <code>island</code> and <code>variable</code>.</p>
+</div>
+<div id="nesting" class="section level3">
+<h3><span class="header-section-number">2.3.5</span> Nesting</h3>
+<p>The <code>tidyr</code> package has yet another feature that makes the tidyverse very powerful: the <code>nest</code> function. However, it makes little sense without combining it with the functions in the <code>purrr</code> package, so we will not cover it in this chapter but rather in the <code>purrr</code> chapter.</p>
+</div>
+</div>
+<div id="extra-factors-and-the-forcats-package" class="section level2">
+<h2><span class="header-section-number">2.4</span> Extra: factors and the <code>forcats</code> package</h2>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb140-1"></a><span class="kw">library</span>(forcats)</span></code></pre></div>
+<p>Categorical variables can be stored in R as character strings in <code>character</code> or <code>factor</code> objects. A <code>factor</code> looks like a <code>character</code>, but it actually is an <code>integer</code> vector, where each <code>integer</code> is mapped to a <code>character</code> label. With this respect it is sort of an enhanced version of <code>character</code>. For example,</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb141-1"></a>my_char_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Pratik&quot;</span>, <span class="st">&quot;Theo&quot;</span>, <span class="st">&quot;Raph&quot;</span>)</span>
+<span id="cb141-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb141-2"></a>my_char_vec</span></code></pre></div>
+<pre><code>## [1] &quot;Pratik&quot; &quot;Theo&quot;   &quot;Raph&quot;</code></pre>
+<p>is a <code>character</code> vector, recognizable to its double quotes, while</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb143-1"></a>my_fact_vec &lt;-<span class="st"> </span><span class="kw">factor</span>(my_char_vec) <span class="co"># as.factor would work too</span></span>
+<span id="cb143-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb143-2"></a>my_fact_vec</span></code></pre></div>
+<pre><code>## [1] Pratik Theo   Raph  
+## Levels: Pratik Raph Theo</code></pre>
+<p>is a <code>factor</code>, of which the <em>labels</em> are displayed. The <em>levels</em> of the factor are the unique values that appear in the vector. If I added an extra occurrence of my name:</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb145-1"></a><span class="kw">factor</span>(<span class="kw">c</span>(my_char_vec, <span class="st">&quot;Raph&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] Pratik Theo   Raph   Raph  
+## Levels: Pratik Raph Theo</code></pre>
+<p>we would still have the the same levels. Note that the levels are returned as a <code>character</code> vector in alphabetical order by the <code>levels</code> function:</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb147-1"></a><span class="kw">levels</span>(my_fact_vec)</span></code></pre></div>
+<pre><code>## [1] &quot;Pratik&quot; &quot;Raph&quot;   &quot;Theo&quot;</code></pre>
+<p>Why does it matter? Well, most operations on categorical variables can be performed on <code>character</code> of <code>factor</code> objects, so it does not matter so much which one you use for your own data. However, some functions in R require you to provide categorical variables in one specific format, and others may even implicitely convert your variables. In <code>ggplot2</code> for example, character vectors are converted into factors by default. So, it is always good to remember the differences and what type your variables are.</p>
+<p>But this is a tidyverse tutorial, so I would like to introduce here the package <code>forcats</code>, which offers tools to manipulate factors. First of all, most tools from <code>stringr</code> <em>will work</em> on factors. The <code>forcats</code> functions expand the string manipulation toolbox with factor-specific utilities. Similar in philosophy to <code>stringr</code> where functions started with <code>str_</code>, in <code>forcats</code> most functions start with <code>fct_</code>.</p>
+<p>I see two main ways <code>forcats</code> can come handy in the kind of data most people deal with: playing with the order of the levels of a factor and playing with the levels themselves. We will show here a few examples, but the full breadth of factor manipulations can be found online or in the excellent <code>forcats</code> cheatsheet.</p>
+<div id="reordering-a-factor" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> Reordering a factor</h3>
+<p>Use <code>fct_relevel</code> to manually change the order of the levels:</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb149-1"></a><span class="kw">fct_relevel</span>(my_fact_vec, <span class="kw">c</span>(<span class="st">&quot;Pratik&quot;</span>, <span class="st">&quot;Theo&quot;</span>, <span class="st">&quot;Raph&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] Pratik Theo   Raph  
+## Levels: Pratik Theo Raph</code></pre>
+<p>Alternatively, use <code>fct_inorder</code> to set the order of the levels to the order in which they appear:</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb151-1"></a><span class="kw">fct_inorder</span>(my_fact_vec)</span></code></pre></div>
+<pre><code>## [1] Pratik Theo   Raph  
+## Levels: Pratik Theo Raph</code></pre>
+<p>or <code>fct_rev</code> to reverse the order of the levels:</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb153-1"></a><span class="kw">fct_rev</span>(my_fact_vec)</span></code></pre></div>
+<pre><code>## [1] Pratik Theo   Raph  
+## Levels: Theo Raph Pratik</code></pre>
+<p>Factor reordering may come useful when plotting categorical variables, for example. Say we want to plot <code>beak_length</code> against <code>island</code> in our finch dataset:</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb155-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb155-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb155-2"></a><span class="kw">ggplot</span>(data[data<span class="op">$</span>variable <span class="op">==</span><span class="st"> &quot;beak_length&quot;</span>,], <span class="kw">aes</span>(<span class="dt">x =</span> island, <span class="dt">y =</span> value)) <span class="op">+</span></span>
+<span id="cb155-3"><a href="reshaping-data-tables-in-the-tidyverse.html#cb155-3"></a><span class="st">  </span><span class="kw">geom_violin</span>()</span></code></pre></div>
+<pre><code>## Warning: Removed 30 rows containing non-finite values (stat_ydensity).</code></pre>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p>We could use factor reordering to change the order of the violins:</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb157-1"></a>data<span class="op">$</span>island &lt;-<span class="st"> </span><span class="kw">fct_relevel</span>(data<span class="op">$</span>island, <span class="kw">c</span>(<span class="st">&quot;Santa Cruz&quot;</span>, <span class="st">&quot;Isabela&quot;</span>))</span>
+<span id="cb157-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb157-2"></a><span class="kw">ggplot</span>(data[data<span class="op">$</span>variable <span class="op">==</span><span class="st"> &quot;beak_length&quot;</span>,], <span class="kw">aes</span>(<span class="dt">x =</span> island, <span class="dt">y =</span> value)) <span class="op">+</span></span>
+<span id="cb157-3"><a href="reshaping-data-tables-in-the-tidyverse.html#cb157-3"></a><span class="st">  </span><span class="kw">geom_violin</span>()</span></code></pre></div>
+<pre><code>## Warning: Removed 30 rows containing non-finite values (stat_ydensity).</code></pre>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<p>Lots of other variants exist for reordering (e.g. reordering by association with a variable), which we do not cover here. Please refer to the <a href="https://rstudio.com/resources/cheatsheets/">cheatsheet</a> or the online documentation for more examples.</p>
+</div>
+<div id="factor-levels" class="section level3">
+<h3><span class="header-section-number">2.4.2</span> Factor levels</h3>
+<p>One can change the levels of a factor using <code>fct_recode</code>:</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb159-1"></a><span class="kw">fct_recode</span>(</span>
+<span id="cb159-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb159-2"></a>  my_fact_vec, </span>
+<span id="cb159-3"><a href="reshaping-data-tables-in-the-tidyverse.html#cb159-3"></a>  <span class="st">&quot;Pratik Gupte&quot;</span> =<span class="st"> &quot;Pratik&quot;</span>, </span>
+<span id="cb159-4"><a href="reshaping-data-tables-in-the-tidyverse.html#cb159-4"></a>  <span class="st">&quot;Theo Pannetier&quot;</span> =<span class="st"> &quot;Theo&quot;</span>, </span>
+<span id="cb159-5"><a href="reshaping-data-tables-in-the-tidyverse.html#cb159-5"></a>  <span class="st">&quot;Raphael Scherrer&quot;</span> =<span class="st"> &quot;Raph&quot;</span></span>
+<span id="cb159-6"><a href="reshaping-data-tables-in-the-tidyverse.html#cb159-6"></a>)</span></code></pre></div>
+<pre><code>## [1] Pratik Gupte     Theo Pannetier   Raphael Scherrer
+## Levels: Pratik Gupte Raphael Scherrer Theo Pannetier</code></pre>
+<p>or collapse factor levels together using <code>fct_collapse</code>:</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb161-1"></a><span class="kw">fct_collapse</span>(my_fact_vec, <span class="dt">EU =</span> <span class="kw">c</span>(<span class="st">&quot;Theo&quot;</span>, <span class="st">&quot;Raph&quot;</span>), <span class="dt">NonEU =</span> <span class="st">&quot;Pratik&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] NonEU EU    EU   
+## Levels: NonEU EU</code></pre>
+<p>Again, we do not provide an exhaustive list of <code>forcats</code> functions here but the most usual ones, to give a glimpse of many things that one can do with factors. So, if you are dealing with factors, remember that <code>forcats</code> may have handy tools for you.</p>
+</div>
+<div id="bonus-dropping-levels" class="section level3">
+<h3><span class="header-section-number">2.4.3</span> Bonus: dropping levels</h3>
+<p>If you use factors in your tibble and get rid of one level, for any reason, the factor will usually remember the old levels, which may cause some problems when applying functions to your data.</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb163-1"></a>data &lt;-<span class="st"> </span>data[data<span class="op">$</span>island <span class="op">==</span><span class="st"> &quot;Santa Cruz&quot;</span>,]</span>
+<span id="cb163-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb163-2"></a><span class="kw">unique</span>(data<span class="op">$</span>island) <span class="co"># Isabela is gone from the labels</span></span></code></pre></div>
+<pre><code>## [1] Santa Cruz
+## Levels: Santa Cruz Isabela</code></pre>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb165-1"></a><span class="kw">levels</span>(data<span class="op">$</span>island) <span class="co"># but not from the levels</span></span></code></pre></div>
+<pre><code>## [1] &quot;Santa Cruz&quot; &quot;Isabela&quot;</code></pre>
+<p>Use <code>droplevels</code> (from base R) to make sure you get rid of levels that are not in your data anymore:</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="reshaping-data-tables-in-the-tidyverse.html#cb167-1"></a>data &lt;-<span class="st"> </span><span class="kw">droplevels</span>(data)</span>
+<span id="cb167-2"><a href="reshaping-data-tables-in-the-tidyverse.html#cb167-2"></a><span class="kw">levels</span>(data<span class="op">$</span>island)</span></code></pre></div>
+<pre><code>## [1] &quot;Santa Cruz&quot;</code></pre>
+<p>Fortunately, most functions within the tidyverse will not complain about missing levels, and will automatically get rid of those inexistant levels for you. But because factors are such common causes of bugs, keep this in mind!</p>
+</div>
+</div>
+<div id="external-resources" class="section level2">
+<h2><span class="header-section-number">2.5</span> External resources</h2>
+<p>Find lots of additional info by looking up the following links:</p>
+<ul>
+<li>The <code>readr</code>/<code>tibble</code>/<code>tidyr</code> and <code>forcats</code> <a href="https://rstudio.com/resources/cheatsheets/">cheatsheets</a>.</li>
+<li>This <a href="https://tidyr.tidyverse.org/articles/tidy-data.html">link</a> on the concept of tidy data</li>
+<li>The <a href="https://tibble.tidyverse.org/">tibble</a>, <a href="https://tidyr.tidyverse.org/">tidyr</a> and <a href="https://forcats.tidyverse.org/">forcats</a> websites</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="reading-files-and-string-manipulation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="working-with-lists-and-iteration.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": "TRES-Tidy-Tutorial.pdf",
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+</body>
+
+</html>
