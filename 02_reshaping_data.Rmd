@@ -1,0 +1,364 @@
+---
+editor_options:
+  chunk_output_type: console
+---
+
+# Reshaping data tables in the tidyverse
+
+Raphael Scherrer
+
+![](opening-image.png)
+
+```{r load_packages_02}
+library(tibble)
+library(tidyr)
+```
+
+In this chapter we will learn what *tidy* means in the context of the tidyverse, and how to reshape our data into a tidy format using the `tidyr` package. But first, let us take a detour and introduce the `tibble`. 
+
+## 1. The new data frame: tibble
+
+The `tibble` is the recommended class to use to store tabular data in the tidyverse. Consider it as the operational unit of any data science pipeline. For most practical purposes, a `tibble` is basically a `data.frame`. 
+
+```{r}
+# Make a data frame
+data.frame(who = c("Pratik", "Theo", "Raph"), chapt = c("1, 4", "3", "2, 5"))
+
+# Or an equivalent tibble
+tibble(who = c("Pratik", "Theo", "Raph"), chapt = c("1, 4", "3", "2, 5"))
+```
+
+The difference between `tibble` and `data.frame` is in its display and in the way it is subsetted, among others. Most functions working with `data.frame` will work with `tibble` and vice versa. Use the `as*` family of functions to switch back and forth between the two if needed, using e.g. `as.data.frame` or `as_tibble`.
+
+In terms of display, the tibble has the advantage of showing the class of each column: `chr` for `character`, `fct` for `factor`, `int` for `integer`, `dbl` for `numeric` and `lgl` for `logical`, just to name the main atomic classes. This may be more important than you think, because many hard-to-find bugs in R are due to wrong variable types and/or cryptic type conversions. This especially happens with `factor` and `character`, which can cause quite some confusion. More about this in the extra section at the end of this chapter!
+
+Note that you can build a tibble by rows rather than by columns with `tribble`:
+
+```{r}
+tribble(
+  ~who, ~chapt,
+  "Pratik", "1, 4",
+  "Theo", "3",
+  "Raph", "2, 5"
+)
+```
+
+As a rule of thumb, try to convert your tables to tibbles whenever you can, especially when the original table is *not* a data frame. For example, the principal component analysis function `prcomp` outputs a `matrix` of coordinates in principal component-space.
+
+```{r}
+# Perform a PCA on mtcars 
+pca_scores <- prcomp(mtcars)$x
+head(pca_scores) # looks like a data frame or a tibble...
+class(pca_scores) # but is actually a matrix
+
+# Convert to tibble
+as_tibble(pca_scores)
+```
+
+This is important because a `matrix` can contain only one type of values (e.g. only `numeric` or `character`), while `tibble` (and `data.frame`) allow you to have columns of different types.
+
+So, in the tidyverse we are going to work with tibbles, got it. But what does "tidy" mean exactly?
+
+## 2. The concept of tidy data
+
+When it comes to putting data into tables, there are many ways one could organize a dataset. The *tidy* format is one such format. According to the formal [definition](https://tidyr.tidyverse.org/articles/tidy-data.html), a table is tidy if each column is a variable and each row is an observation. In practice, however, I found that this is not a very operational definition, especially in ecology and evolution where we often record multiple variables per individual. So, let's dig in with an example.
+
+Say we have a dataset of several morphometrics measured on Darwin's finches in the Galapagos islands. Let's first get this dataset.
+
+```{r}
+# We first simulate random data
+beak_lengths <- rnorm(100, mean = 5, sd = 0.1)
+beak_widths <- rnorm(100, mean = 2, sd = 0.1)
+body_weights <- rgamma(100, shape = 10, rate = 1)
+islands <- rep(c("Isabela", "Santa Cruz"), each = 50)
+
+# Assemble into a tibble
+data <- tibble(
+  id = 1:100,
+  beak_length = beak_lengths, 
+  beak_width = beak_widths, 
+  body_weight = body_weights,
+  island = islands
+)
+
+# Snapshot
+data
+```
+
+Here, we pretend to have measured `beak_length`, `beak_width` and `body_weight` on 100 birds, 50 of them from Isabela and 50 of them from Santa Cruz. In this tibble, each row is an individual bird. This is probably the way most scientists would record their data in the field. However, a single bird is not an "observation" in the sense used in the tidyverse. Our dataset is not tidy but *messy*. 
+
+The tidy equivalent of this dataset would be:
+
+```{r}
+data <- pivot_longer(
+  data, 
+  cols = c("beak_length", "beak_width", "body_weight"),
+  names_to = "variable"
+)
+data
+```
+
+where each *measurement* (and not each *individual*) is now the unit of observation (the rows). We will come back to the `pivot_longer` function later.
+
+As you can see our tibble now has three times as many rows and fewer columns. This format is rather unintuitive and not optimal for display. However, it provides a very standardized and consistent way of organizing data that will be understood (and expected) by pretty much all functions in the tidyverse. This makes the tidyverse tools work well together and reduces the time you would otherwise spend reformatting your data from one tool to the next.
+
+That does not mean that the *messy* format is useless though. There may be use-cases where you need to switch back and forth between formats. For this reason I prefer referring to these formats using their other names: *long* (tidy) versus *wide* (messy). For example, matrix operations work much faster on wide data, and the wide format arguably looks nicer for display. Luckily the `tidyr` package gives us the tools to reshape our data as needed, as we shall see shortly.
+
+Another common example of wide-or-long dilemma is when dealing with *contingency tables*. This would be our case, for example, if we asked how many observations we have for each morphometric and each island. We use `table` (from base R) to get the answer:
+
+```{r}
+# Make a contingency table
+ctg <- with(data, table(island, variable))
+ctg
+```
+
+A variety of statistical tests can be used on contingency tables such as Fisher's exact test, the chi-square test or the binomial test. Contingency tables are in the wide format by construction, but they too can be pivoted to the long format, and the tidyverse manipulation tools will expect you to do so. Actually, `tibble` knows that very well and does it by default if you convert your `table` into a `tibble`:
+
+```{r}
+# Contingency table is pivoted to the long-format automatically
+as_tibble(ctg)
+```
+
+## 3. Reshaping with `tidyr`
+
+The `tidyr` package implements tools to easily switch between layouts and also perform a few other reshaping operations. Old school R users will be familiar with the `reshape` and `reshape2` packages, of which `tidyr` is the tidyverse equivalent. Beware that `tidyr` is about playing with the general *layout* of the dataset, while *operations* and *transformations* of the data are within the scope of the `dplyr` and `purrr` packages. All these packages work hand-in-hand really well, and analysis pipelines usually involve all of them. But today, we focus on the first member of this holy trinity, which is often the first one you'll need because you will want to reshape your data before doing other things. So, please hold your non-layout-related questions for the next chapters.
+
+### 3.1. Pivoting
+
+Pivoting a dataset between the long and wide layout is the main purpose of `tidyr` (check out the package's logo). We already saw the `pivot_longer` function, that converts a table form wide to long format. Similarly, there is a `pivot_wider` function that does exactly the opposite and takes you back to the wide format:
+
+```{r}
+pivot_wider(
+  data, 
+  names_from = "variable", 
+  values_from = "value", 
+  id_cols = c("id", "island")
+)
+```
+
+The order of the columns is not exactly as it was, but this should not matter in a data analysis pipeline where you should access columns by their names. It is straightforward to change the order of the columns, but this is more within the scope of the `dplyr` package.
+
+If you are familiar with earlier versions of the tidyverse, `pivot_longer` and `pivot_wider` are the respective equivalents of `gather` and `spread`, which are now deprecated.
+
+There are a few other reshaping operations from `tidyr` that are worth knowing.
+
+### 3.2. Handling missing values
+
+Say we have some missing measurements in the column "value" of our finch dataset:
+
+```{r}
+# We replace 100 random observations by NAs
+ii <- sample(nrow(data), 100)
+data$value[ii] <- NA
+data
+```
+
+We could get rid of the rows that have missing values using `drop_na`:
+
+```{r}
+drop_na(data, value)
+```
+
+Else, we could replace the NAs with some user-defined value:
+
+```{r}
+replace_na(data, replace = list(value = -999))
+```
+
+where the `replace` argument takes a named list, and the names should refer to the columns to apply the replacement to. 
+
+We could also replace NAs with the most recent non-NA values:
+
+```{r}
+fill(data, value)
+```
+
+Note that most functions in the tidyverse take a tibble as their first argument, and columns to which to apply the functions are usually passed as "objects" rather than character strings. In the above example, we passed the `value` column as `value`, not `"value"`. These column-objects are called by the tidyverse functions *in the context* of the data (the tibble) they belong to.
+
+### 3.3. Splitting and combining cells
+
+The `tidyr` package offers tools to split and combine columns. This is a nice extension to the string manipulations we saw last week in the `stringr` tutorial. 
+
+Say we want to add the specific dates when we took measurements on our birds (we would normally do this using `dplyr` but for now we will stick to the old way):
+
+```{r}
+# Sample random dates for each observation
+data$day <- sample(30, nrow(data), replace = TRUE)
+data$month <- sample(12, nrow(data), replace = TRUE)
+data$year <- sample(2019:2020, nrow(data), replace = TRUE)
+data
+```
+
+We could combine the `day`, `month` and `year` columns into a single `date` column, with a dash as a separator, using `unite`:
+
+```{r}
+data <- unite(data, day, month, year, col = "date", sep = "-")
+data
+```
+
+Of course, we can revert back to the previous dataset by splitting the `date` column with `separate`.
+
+```{r}
+separate(data, date, into = c("day", "month", "year"))
+```
+
+But note that the `day`, `month` and `year` columns are now of class `character` and not `integer` anymore. This is because they result from the splitting of `date`, which itself was a `character` column.
+
+You can also separate a single column into multiple *rows* using `separate_rows`:
+
+```{r}
+separate_rows(data, date)
+```
+
+### 3.4. Expanding tables using combinations
+
+Sometimes one may need to quickly create a table with all combinations of a set of variables. We could generate a tibble with all combinations of island-by-morphometric using `expand_grid`:
+
+```{r}
+expand_grid(
+  island = c("Isabela", "Santa Cruz"), 
+  variable = c("beak_length", "beak_width", "body_weight")
+)
+```
+
+If we already have a tibble to work from that contains the variables to combine, we can use `expand`:
+
+```{r}
+expand(data, island, variable)
+```
+
+As an extension of this, the function `complete` can come particularly handy if we need to add missing combinations to our tibble:
+
+```{r}
+complete(data, island, variable)
+```
+
+which does nothing here because we already have all combinations of `island` and `variable`.
+
+### 3.5. Nesting
+
+The `tidyr` package has yet another feature that makes the tidyverse very powerful: the `nest` function. However, it makes little sense without combining it with the functions in the `purrr` package, so we will not cover it in this chapter but rather in the `purrr` chapter.
+
+## 4. Extra: factors and the `forcats` package
+
+```{r}
+library(forcats)
+```
+
+Categorical variables can be stored in R as character strings in `character` or `factor` objects. A `factor` looks like a `character`, but it actually is an `integer` vector, where each `integer` is mapped to a `character` label. With this respect it is sort of an enhanced version of `character`. For example,
+
+```{r}
+my_char_vec <- c("Pratik", "Theo", "Raph")
+my_char_vec
+```
+
+is a `character` vector, recognizable to its double quotes, while
+
+```{r}
+my_fact_vec <- factor(my_char_vec) # as.factor would work too
+my_fact_vec
+```
+
+is a `factor`, of which the *labels* are displayed. The *levels* of the factor are the unique values that appear in the vector. If I added an extra occurrence of my name:
+
+```{r}
+factor(c(my_char_vec, "Raph"))
+```
+
+we would still have the the same levels. Note that the levels are returned as a `character` vector in alphabetical order by the `levels` function:
+
+```{r}
+levels(my_fact_vec)
+```
+
+Why does it matter? Well, most operations on categorical variables can be performed on `character` of `factor` objects, so it does not matter so much which one you use for your own data. However, some functions in R require you to provide categorical variables in one specific format, and others may even implicitely convert your variables. In `ggplot2` for example, character vectors are converted into factors by default. So, it is always good to remember the differences and what type your variables are.
+
+But this is a tidyverse tutorial, so I would like to introduce here the package `forcats`, which offers tools to manipulate factors. First of all, most tools from `stringr` *will work* on factors. The `forcats` functions expand the string manipulation toolbox with factor-specific utilities. Similar in philosophy to `stringr` where functions started with `str_`, in `forcats` most functions start with `fct_`. 
+
+I see two main ways `forcats` can come handy in the kind of data most people deal with: playing with the order of the levels of a factor and playing with the levels themselves. We will show here a few examples, but the full breadth of factor manipulations can be found online or in the excellent `forcats` cheatsheet.
+
+### 4.1. Reordering a factor
+
+Use `fct_relevel` to manually change the order of the levels:
+
+```{r}
+fct_relevel(my_fact_vec, c("Pratik", "Theo", "Raph"))
+```
+
+Alternatively, use `fct_inorder` to set the order of the levels to the order in which they appear:
+
+```{r}
+fct_inorder(my_fact_vec)
+```
+
+or `fct_rev` to reverse the order of the levels:
+
+```{r}
+fct_rev(my_fact_vec)
+```
+
+Factor reordering may come useful when plotting categorical variables, for example. Say we want to plot `beak_length` against `island` in our finch dataset:
+
+```{r}
+library(ggplot2)
+ggplot(data[data$variable == "beak_length",], aes(x = island, y = value)) +
+  geom_violin()
+```
+
+We could use factor reordering to change the order of the violins:
+
+```{r}
+data$island <- fct_relevel(data$island, c("Santa Cruz", "Isabela"))
+ggplot(data[data$variable == "beak_length",], aes(x = island, y = value)) +
+  geom_violin()
+```
+
+Lots of other variants exist for reordering (e.g. reordering by association with a variable), which we do not cover here. Please refer to the [cheatsheet](https://rstudio.com/resources/cheatsheets/) or the online documentation for more examples.
+
+### 4.2. Factor levels
+
+One can change the levels of a factor using `fct_recode`:
+
+```{r}
+fct_recode(
+  my_fact_vec, 
+  "Pratik Gupte" = "Pratik", 
+  "Theo Pannetier" = "Theo", 
+  "Raphael Scherrer" = "Raph"
+)
+```
+
+or collapse factor levels together using `fct_collapse`:
+
+```{r}
+fct_collapse(my_fact_vec, EU = c("Theo", "Raph"), NonEU = "Pratik")
+```
+
+Again, we do not provide an exhaustive list of `forcats` functions here but the most usual ones, to give a glimpse of many things that one can do with factors. So, if you are dealing with factors, remember that `forcats` may have handy tools for you.
+
+### 4.3. Bonus: dropping levels
+
+If you use factors in your tibble and get rid of one level, for any reason, the factor will usually remember the old levels, which may cause some problems when applying functions to your data.
+
+```{r}
+data <- data[data$island == "Santa Cruz",]
+unique(data$island) # Isabela is gone from the labels
+levels(data$island) # but not from the levels
+```
+
+Use `droplevels` (from base R) to make sure you get rid of levels that are not in your data anymore:
+
+```{r}
+data <- droplevels(data)
+levels(data$island)
+```
+
+Fortunately, most functions within the tidyverse will not complain about missing levels, and will automatically get rid of those inexistant levels for you. But because factors are such common causes of bugs, keep this in mind!
+
+## 5. External resources
+
+Find lots of additional info by looking up the following links:
+
+* The `readr`/`tibble`/`tidyr` and `forcats` [cheatsheets](https://rstudio.com/resources/cheatsheets/).
+* This [link](https://tidyr.tidyverse.org/articles/tidy-data.html) on the concept of tidy data
+* The [tibble](https://tibble.tidyverse.org/), [tidyr](https://tidyr.tidyverse.org/) and [forcats](https://forcats.tidyverse.org/) websites

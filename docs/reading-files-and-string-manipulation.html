@@ -21,10 +21,10 @@
   <meta name="twitter:description" content="Section 1 Reading files and string manipulation | TRES Tidyverse Tutorial" />
   
 
-<meta name="author" content="Raphael and Pratik" />
+<meta name="author" content="Raphael, Pratik and Theo" />
 
 
-<meta name="date" content="2020-05-20" />
+<meta name="date" content="2020-06-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="index.html"/>
-<link rel="next" href="working-with-lists-and-iteration.html"/>
+<link rel="next" href="reshaping-data-tables-in-the-tidyverse.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -127,9 +127,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Outline</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Outline</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about"><i class="fa fa-check"></i>About</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#schedule"><i class="fa fa-check"></i>Schedule</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#possible-extras"><i class="fa fa-check"></i>Possible extras</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#join"><i class="fa fa-check"></i>Join</a></li>
+</ul></li>
 <li class="chapter" data-level="1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html"><i class="fa fa-check"></i><b>1</b> Reading files and string manipulation</a><ul>
-<li class="chapter" data-level="1.1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#section-on-readr"><i class="fa fa-check"></i><b>1.1</b> Section on <code>readr</code></a></li>
+<li class="chapter" data-level="1.1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#data-import-and-export-with-readr"><i class="fa fa-check"></i><b>1.1</b> Data import and export with <code>readr</code></a><ul>
+<li class="chapter" data-level="1.1.1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#reading-data"><i class="fa fa-check"></i><b>1.1.1</b> Reading data</a></li>
+<li class="chapter" data-level="1.1.2" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#writing-data"><i class="fa fa-check"></i><b>1.1.2</b> Writing data</a></li>
+<li class="chapter" data-level="1.1.3" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#reading-and-writing-lines"><i class="fa fa-check"></i><b>1.1.3</b> Reading and writing lines</a></li>
+<li class="chapter" data-level="" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#excel-files"><i class="fa fa-check"></i>Excel files</a></li>
+</ul></li>
 <li class="chapter" data-level="1.2" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#string-manipulation-with-stringr"><i class="fa fa-check"></i><b>1.2</b> String manipulation with <code>stringr</code></a><ul>
 <li class="chapter" data-level="1.2.1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#putting-strings-together"><i class="fa fa-check"></i><b>1.2.1</b> Putting strings together</a></li>
 <li class="chapter" data-level="1.2.2" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#detecting-strings"><i class="fa fa-check"></i><b>1.2.2</b> Detecting strings</a></li>
@@ -142,29 +152,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2.9" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#stringr-aspects-not-covered-here"><i class="fa fa-check"></i><b>1.2.9</b> Stringr aspects not covered here</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#string-interpolation-with-glue"><i class="fa fa-check"></i><b>1.3</b> String interpolation with <code>glue</code></a></li>
+<li class="chapter" data-level="1.4" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#strings-in-ggplot"><i class="fa fa-check"></i><b>1.4</b> Strings in <code>ggplot</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html"><i class="fa fa-check"></i><b>2</b> Working with lists and iteration</a><ul>
-<li class="chapter" data-level="2.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#basic-iteration-with-map"><i class="fa fa-check"></i><b>2.1</b> Basic iteration with <code>map</code></a><ul>
-<li class="chapter" data-level="2.1.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-basic-use"><i class="fa fa-check"></i><b>2.1.1</b> <code>map</code> basic use</a></li>
-<li class="chapter" data-level="2.1.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-vectors"><i class="fa fa-check"></i><b>2.1.2</b> <code>map</code> variants returning vectors</a></li>
+<li class="chapter" data-level="2" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html"><i class="fa fa-check"></i><b>2</b> Reshaping data tables in the tidyverse</a><ul>
+<li class="chapter" data-level="2.1" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#the-new-data-frame-tibble"><i class="fa fa-check"></i><b>2.1</b> 1. The new data frame: tibble</a></li>
+<li class="chapter" data-level="2.2" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#the-concept-of-tidy-data"><i class="fa fa-check"></i><b>2.2</b> 2. The concept of tidy data</a></li>
+<li class="chapter" data-level="2.3" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#reshaping-with-tidyr"><i class="fa fa-check"></i><b>2.3</b> 3. Reshaping with <code>tidyr</code></a><ul>
+<li class="chapter" data-level="2.3.1" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#pivoting"><i class="fa fa-check"></i><b>2.3.1</b> 3.1. Pivoting</a></li>
+<li class="chapter" data-level="2.3.2" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#handling-missing-values"><i class="fa fa-check"></i><b>2.3.2</b> 3.2. Handling missing values</a></li>
+<li class="chapter" data-level="2.3.3" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#splitting-and-combining-cells"><i class="fa fa-check"></i><b>2.3.3</b> 3.3. Splitting and combining cells</a></li>
+<li class="chapter" data-level="2.3.4" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#expanding-tables-using-combinations"><i class="fa fa-check"></i><b>2.3.4</b> 3.4. Expanding tables using combinations</a></li>
+<li class="chapter" data-level="2.3.5" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#nesting"><i class="fa fa-check"></i><b>2.3.5</b> 3.5. Nesting</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#extra-factors-and-the-forcats-package"><i class="fa fa-check"></i><b>2.4</b> 4. Extra: factors and the <code>forcats</code> package</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#reordering-a-factor"><i class="fa fa-check"></i><b>2.4.1</b> 4.1. Reordering a factor</a></li>
+<li class="chapter" data-level="2.4.2" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#factor-levels"><i class="fa fa-check"></i><b>2.4.2</b> 4.2. Factor levels</a></li>
+<li class="chapter" data-level="2.4.3" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#bonus-dropping-levels"><i class="fa fa-check"></i><b>2.4.3</b> 4.3. Bonus: dropping levels</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="reshaping-data-tables-in-the-tidyverse.html"><a href="reshaping-data-tables-in-the-tidyverse.html#external-resources"><i class="fa fa-check"></i><b>2.5</b> 5. External resources</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html"><i class="fa fa-check"></i><b>3</b> Working with lists and iteration</a><ul>
+<li class="chapter" data-level="3.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#basic-iteration-with-map"><i class="fa fa-check"></i><b>3.1</b> Basic iteration with <code>map</code></a><ul>
+<li class="chapter" data-level="3.1.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-basic-use"><i class="fa fa-check"></i><b>3.1.1</b> <code>map</code> basic use</a></li>
+<li class="chapter" data-level="3.1.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-vectors"><i class="fa fa-check"></i><b>3.1.2</b> <code>map</code> variants returning vectors</a></li>
 <li><a href="working-with-lists-and-iteration.html#integrating-map-and-tidyrnest">Integrating <code>map</code> and <code>tidyr::nest</code></a></li>
-<li class="chapter" data-level="2.1.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-dataframes"><i class="fa fa-check"></i><b>2.1.3</b> <code>map</code> variants returning dataframes</a></li>
-<li class="chapter" data-level="2.1.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#selective-mapping"><i class="fa fa-check"></i><b>2.1.4</b> Selective mapping</a></li>
+<li class="chapter" data-level="3.1.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-dataframes"><i class="fa fa-check"></i><b>3.1.3</b> <code>map</code> variants returning dataframes</a></li>
+<li class="chapter" data-level="3.1.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#selective-mapping"><i class="fa fa-check"></i><b>3.1.4</b> Selective mapping</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#more-map-variants"><i class="fa fa-check"></i><b>2.2</b> More <code>map</code> variants</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map2"><i class="fa fa-check"></i><b>2.2.1</b> <code>map2</code></a></li>
-<li class="chapter" data-level="2.2.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#pmap"><i class="fa fa-check"></i><b>2.2.2</b> <code>pmap</code></a></li>
-<li class="chapter" data-level="2.2.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#walk"><i class="fa fa-check"></i><b>2.2.3</b> <code>walk</code></a></li>
+<li class="chapter" data-level="3.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#more-map-variants"><i class="fa fa-check"></i><b>3.2</b> More <code>map</code> variants</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map2"><i class="fa fa-check"></i><b>3.2.1</b> <code>map2</code></a></li>
+<li class="chapter" data-level="3.2.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#pmap"><i class="fa fa-check"></i><b>3.2.2</b> <code>pmap</code></a></li>
+<li class="chapter" data-level="3.2.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#walk"><i class="fa fa-check"></i><b>3.2.3</b> <code>walk</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#modification-in-place"><i class="fa fa-check"></i><b>2.3</b> Modification in place</a></li>
-<li class="chapter" data-level="2.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#working-with-lists"><i class="fa fa-check"></i><b>2.4</b> Working with lists</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#filtering-lists"><i class="fa fa-check"></i><b>2.4.1</b> Filtering lists</a></li>
-<li class="chapter" data-level="2.4.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#summarising-lists"><i class="fa fa-check"></i><b>2.4.2</b> Summarising lists</a></li>
-<li class="chapter" data-level="2.4.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#reduction-and-accumulation"><i class="fa fa-check"></i><b>2.4.3</b> Reduction and accumulation</a></li>
-<li class="chapter" data-level="2.4.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#miscellaneous-operation"><i class="fa fa-check"></i><b>2.4.4</b> Miscellaneous operation</a></li>
+<li class="chapter" data-level="3.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#modification-in-place"><i class="fa fa-check"></i><b>3.3</b> Modification in place</a></li>
+<li class="chapter" data-level="3.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#working-with-lists"><i class="fa fa-check"></i><b>3.4</b> Working with lists</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#filtering-lists"><i class="fa fa-check"></i><b>3.4.1</b> Filtering lists</a></li>
+<li class="chapter" data-level="3.4.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#summarising-lists"><i class="fa fa-check"></i><b>3.4.2</b> Summarising lists</a></li>
+<li class="chapter" data-level="3.4.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#reduction-and-accumulation"><i class="fa fa-check"></i><b>3.4.3</b> Reduction and accumulation</a></li>
+<li class="chapter" data-level="3.4.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#miscellaneous-operation"><i class="fa fa-check"></i><b>3.4.4</b> Miscellaneous operation</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html"><i class="fa fa-check"></i><b>3</b> Data manipulation with <code>dplyr</code></a></li>
+<li class="chapter" data-level="4" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html"><i class="fa fa-check"></i><b>4</b> Data manipulation with <code>dplyr</code></a><ul>
+<li class="chapter" data-level="4.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#example-data-of-the-day"><i class="fa fa-check"></i><b>4.2</b> Example data of the day</a></li>
+<li class="chapter" data-level="4.3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#select-variables-with-select"><i class="fa fa-check"></i><b>4.3</b> Select variables with <code>select()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#select-observations-with-filter"><i class="fa fa-check"></i><b>4.4</b> Select observations with <code>filter()</code></a></li>
+<li class="chapter" data-level="4.5" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#create-new-variables-with-mutate"><i class="fa fa-check"></i><b>4.5</b> Create new variables with <code>mutate()</code></a></li>
+<li class="chapter" data-level="4.6" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#grouped-results-with-group_by-and-summarise"><i class="fa fa-check"></i><b>4.6</b> Grouped results with <code>group_by()</code> and <code>summarise()</code></a></li>
+<li class="chapter" data-level="4.7" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#scoped-variables"><i class="fa fa-check"></i><b>4.7</b> Scoped variables</a></li>
+<li class="chapter" data-level="4.8" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#more"><i class="fa fa-check"></i><b>4.8</b> More !</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -188,8 +225,101 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(readr)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(stringr)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(glue)</a></code></pre></div>
-<div id="section-on-readr" class="section level2">
-<h2><span class="header-section-number">1.1</span> Section on <code>readr</code></h2>
+<div id="data-import-and-export-with-readr" class="section level2">
+<h2><span class="header-section-number">1.1</span> Data import and export with <code>readr</code></h2>
+<p>Data in the wild with which ecologists and evolutionary biologists deal is most often in the form of a text file, usually with the extensions <code>.csv</code> or <code>.txt</code>. Often, such data has to be written to file from within <code>R</code>. <code>readr</code> contains a number of functions to help with reading and writing text files.</p>
+<div id="reading-data" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> Reading data</h3>
+<p>Reading in a csv file with <code>readr</code> is done with the <code>read_csv</code> function, a faster alternative to the base R <code>read.csv</code>. Here, <code>read_csv</code> is applied to the <code>mtcars</code> example.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># get the filepath of the example</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">some_example =<span class="st"> </span><span class="kw">readr_example</span>(<span class="st">&quot;mtcars.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co"># read the file in</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">some_example =<span class="st"> </span><span class="kw">read_csv</span>(some_example)</a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   mpg = col_double(),
+##   cyl = col_double(),
+##   disp = col_double(),
+##   hp = col_double(),
+##   drat = col_double(),
+##   wt = col_double(),
+##   qsec = col_double(),
+##   vs = col_double(),
+##   am = col_double(),
+##   gear = col_double(),
+##   carb = col_double()
+## )</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">head</span>(some_example)</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 11
+##     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  21       6   160   110  3.9   2.62  16.5     0     1     4     4
+## 2  21       6   160   110  3.9   2.88  17.0     0     1     4     4
+## 3  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1
+## 4  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1
+## 5  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2
+## 6  18.1     6   225   105  2.76  3.46  20.2     1     0     3     1</code></pre>
+<p>The <code>read_csv2</code> function is useful when dealing with files where the separator between columns is a semicolon <code>;</code>, and where the decimal point is represented by a comma <code>,</code>.</p>
+<p>Other variants include:</p>
+<ul>
+<li><p><code>read_tsv</code> for tab-separated files, and</p></li>
+<li><p><code>read_delim</code>, a general case which allows the separator to be specified manually.</p></li>
+</ul>
+<p><code>readr</code> import function will attempt to guess the column type from the first <em>N</em> lines in the data. This <em>N</em> can be set using the function argument <code>guess_max</code>. The <code>n_max</code> argument sets the number of rows to read, while the <code>skip</code> argument sets the number of rows to be skipped before reading data.</p>
+<p>By default, the column names are taken from the first row of the data, but they can be manually specified by passing a character vector to <code>col_names</code>.</p>
+<p>There are some other arguments to the data import functions, but the defaults usually <em>just work</em>.</p>
+</div>
+<div id="writing-data" class="section level3">
+<h3><span class="header-section-number">1.1.2</span> Writing data</h3>
+<p>Writing data uses the <code>write_*</code> family of functions, with implementations for <code>csv</code>, <code>csv2</code> etc. (represented by the asterisk), mirroring the import functions discussed above. <code>write_*</code> functions offer the <code>append</code> argument, which allow a data frame to be added to an existing file.</p>
+<p>These functions are not covered here.</p>
+</div>
+<div id="reading-and-writing-lines" class="section level3">
+<h3><span class="header-section-number">1.1.3</span> Reading and writing lines</h3>
+<p>Sometimes, there is text output generated in <code>R</code> which needs to be written to file, but is not in the form of a dataframe. A good example is model outputs. It is good practice to save model output as a text file, and add it to version control.
+Similarly, it may be necessary to import such text, either for display to screen, or to extract data.</p>
+<p>This can be done using the <code>readr</code> functions <code>read_lines</code> and <code>write_lines</code>. Consider the model summary from a simple linear model.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># get the model</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">model =<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt, <span class="dt">data =</span> mtcars)</a></code></pre></div>
+<p>The model summary can be written to file. When writing lines to file, BE AWARE OF THE DIFFERENCES BETWEEN UNIX AND WINODWS line separators. Usually, this causes no trouble.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># capture the model summary output</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">model_output =<span class="st"> </span><span class="kw">capture.output</span>(<span class="kw">summary</span>(model))</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co"># save it to file</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="kw">write_lines</span>(<span class="dt">x =</span> model_output,</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">  <span class="dt">path =</span> <span class="st">&quot;model_output.txt&quot;</span>)</a></code></pre></div>
+<p>This model output can be read back in for display, and each line of the model output is an element in a character vector.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># read in the model output and display</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">model_output =<span class="st"> </span><span class="kw">read_lines</span>(<span class="st">&quot;model_output.txt&quot;</span>)</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co"># use cat to show the model output as it would be on screen</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="kw">cat</span>(model_output, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5432 -2.3647 -0.1252  1.4096  6.8727 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  37.2851     1.8776  19.858  &lt; 2e-16 ***
+## wt           -5.3445     0.5591  -9.559 1.29e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.046 on 30 degrees of freedom
+## Multiple R-squared:  0.7528, Adjusted R-squared:  0.7446 
+## F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
+<p>These few functions demonstrate the most common uses of <code>readr</code>, but most other use cases for text data can be handled using different function arguments, including reading data off the web, unzipping
+compressed files before reading, and specifying the column types to control for type conversion errors.</p>
+</div>
+<div id="excel-files" class="section level3 unnumbered">
+<h3>Excel files</h3>
+<p>Finally, data is often shared or stored by well meaning people in the form of Microsoft Excel sheets. Indeed, Excel (especially when synced regularly to remote storage) is a good way of noting down observational data in the field. The <code>readxl</code> package allows importing from Excel files, including reading in specific sheets.</p>
+</div>
 </div>
 <div id="string-manipulation-with-stringr" class="section level2">
 <h2><span class="header-section-number">1.2</span> String manipulation with <code>stringr</code></h2>
@@ -198,21 +328,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="putting-strings-together" class="section level3">
 <h3><span class="header-section-number">1.2.1</span> Putting strings together</h3>
 <p>Concatenate two strings with <code>str_c</code>, and duplicate strings with <code>str_dup</code>. Flatten a list or vector of strings using <code>str_flatten</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># str_c works like paste(), choose a separator</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">str_c</span>(<span class="st">&quot;this string&quot;</span>, <span class="st">&quot;this other string&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># str_c works like paste(), choose a separator</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">str_c</span>(<span class="st">&quot;this string&quot;</span>, <span class="st">&quot;this other string&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;this string_this other string&quot;</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># str_dup works like rep</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">str_dup</span>(<span class="st">&quot;this string&quot;</span>, <span class="dt">times =</span> <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co"># str_dup works like rep</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">str_dup</span>(<span class="st">&quot;this string&quot;</span>, <span class="dt">times =</span> <span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;this stringthis stringthis string&quot;</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># str_flatten works on lists and vectors</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">str_flatten</span>(<span class="dt">string =</span> <span class="kw">as.list</span>(letters), <span class="dt">collapse =</span> <span class="st">&quot;_&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># str_flatten works on lists and vectors</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">str_flatten</span>(<span class="dt">string =</span> <span class="kw">as.list</span>(letters), <span class="dt">collapse =</span> <span class="st">&quot;_&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z&quot;</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">str_flatten</span>(<span class="dt">string =</span> letters, <span class="dt">collapse =</span> <span class="st">&quot;-&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">str_flatten</span>(<span class="dt">string =</span> letters, <span class="dt">collapse =</span> <span class="st">&quot;-&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;a-b-c-d-e-f-g-h-i-j-k-l-m-n-o-p-q-r-s-t-u-v-w-x-y-z&quot;</code></pre>
 <p><code>str_flatten</code> is especially useful when displaying the type of an object that returns a list when <code>class</code> is called on it.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># get the class of a tibble and display it as a single string</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">class_tibble =<span class="st"> </span><span class="kw">class</span>(tibble<span class="op">::</span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">str_flatten</span>(<span class="dt">string =</span> class_tibble, <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="co"># get the class of a tibble and display it as a single string</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">class_tibble =<span class="st"> </span><span class="kw">class</span>(tibble<span class="op">::</span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="kw">str_flatten</span>(<span class="dt">string =</span> class_tibble, <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;tbl_df, tbl, data.frame&quot;</code></pre>
 </div>
 <div id="detecting-strings" class="section level3">
@@ -220,74 +350,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Count the frequency of a pattern in a string with <code>str_count</code>. Returns an inteegr.
 Detect whether a pattern exists in a string with <code>str_detect</code>. Returns a logical and can be used as a predicate.</p>
 <p>Both are vectorised, i.e, automatically applied to a vector of arguments.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co"># there should be 5 a-s here</span></a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">str_count</span>(<span class="dt">string =</span> <span class="st">&quot;ababababa&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;a&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># there should be 5 a-s here</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="kw">str_count</span>(<span class="dt">string =</span> <span class="st">&quot;ababababa&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;a&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] 5</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># vectorise over the input string</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co"># should return a vector of length 2, with integers 5 and 3</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw">str_count</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;ababbababa&quot;</span>, <span class="st">&quot;banana&quot;</span>), <span class="dt">pattern =</span> <span class="st">&quot;a&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co"># vectorise over the input string</span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="co"># should return a vector of length 2, with integers 5 and 3</span></a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="kw">str_count</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;ababbababa&quot;</span>, <span class="st">&quot;banana&quot;</span>), <span class="dt">pattern =</span> <span class="st">&quot;a&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] 5 3</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># vectorise over the pattern to count both a-s and b-s</span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">str_count</span>(<span class="dt">string =</span> <span class="st">&quot;ababababa&quot;</span>, <span class="dt">pattern =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="co"># vectorise over the pattern to count both a-s and b-s</span></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">str_count</span>(<span class="dt">string =</span> <span class="st">&quot;ababababa&quot;</span>, <span class="dt">pattern =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>))</a></code></pre></div>
 <pre><code>## [1] 5 4</code></pre>
 <p>Vectorising over both string and pattern works as expected.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="co"># vectorise over both string and pattern</span></a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="co"># counts a-s in first input, and b-s in the second</span></a>
-<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="kw">str_count</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;ababababa&quot;</span>, <span class="st">&quot;banana&quot;</span>), </a>
-<a class="sourceLine" id="cb18-4" data-line-number="4">          <span class="dt">pattern =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co"># vectorise over both string and pattern</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="co"># counts a-s in first input, and b-s in the second</span></a>
+<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="kw">str_count</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;ababababa&quot;</span>, <span class="st">&quot;banana&quot;</span>),</a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">          <span class="dt">pattern =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>))</a></code></pre></div>
 <pre><code>## [1] 5 1</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># provide a longer pattern vector to search for both a-s </span></a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="co"># and b-s in both inputs</span></a>
-<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="kw">str_count</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;ababababa&quot;</span>, <span class="st">&quot;banana&quot;</span>), </a>
-<a class="sourceLine" id="cb20-4" data-line-number="4">         <span class="dt">pattern =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, </a>
-<a class="sourceLine" id="cb20-5" data-line-number="5">                    <span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="co"># provide a longer pattern vector to search for both a-s</span></a>
+<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="co"># and b-s in both inputs</span></a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="kw">str_count</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;ababababa&quot;</span>, <span class="st">&quot;banana&quot;</span>),</a>
+<a class="sourceLine" id="cb28-4" data-line-number="4">          <span class="dt">pattern =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>,</a>
+<a class="sourceLine" id="cb28-5" data-line-number="5">                      <span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>))</a></code></pre></div>
 <pre><code>## [1] 5 1 4 3</code></pre>
 <p><code>str_locate</code> locates the search pattern in a string, and returns the start and end as a two column matrix.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co"># the behaviour of both str_locate and str_locate_all is </span></a>
-<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="co"># to find the first match by default</span></a>
-<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="kw">str_locate</span>(<span class="dt">string =</span> <span class="st">&quot;banana&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;ana&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="co"># the behaviour of both str_locate and str_locate_all is</span></a>
+<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="co"># to find the first match by default</span></a>
+<a class="sourceLine" id="cb30-3" data-line-number="3"><span class="kw">str_locate</span>(<span class="dt">string =</span> <span class="st">&quot;banana&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;ana&quot;</span>)</a></code></pre></div>
 <pre><code>##      start end
 ## [1,]     2   4</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="co"># str_detect detects a sequence in a string</span></a>
-<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">str_detect</span>(<span class="dt">string =</span> <span class="st">&quot;Bananageddon is coming!&quot;</span>, </a>
-<a class="sourceLine" id="cb24-3" data-line-number="3">           <span class="dt">pattern =</span> <span class="st">&quot;na&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="co"># str_detect detects a sequence in a string</span></a>
+<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="kw">str_detect</span>(<span class="dt">string =</span> <span class="st">&quot;Bananageddon is coming!&quot;</span>,</a>
+<a class="sourceLine" id="cb32-3" data-line-number="3">           <span class="dt">pattern =</span> <span class="st">&quot;na&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co"># str_detect is also vectorised and returns a two-element logical vector</span></a>
-<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw">str_detect</span>(<span class="dt">string =</span> <span class="st">&quot;Bananageddon is coming!&quot;</span>, </a>
-<a class="sourceLine" id="cb26-3" data-line-number="3">           <span class="dt">pattern =</span> <span class="kw">c</span>(<span class="st">&quot;na&quot;</span>, <span class="st">&quot;don&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="co"># str_detect is also vectorised and returns a two-element logical vector</span></a>
+<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="kw">str_detect</span>(<span class="dt">string =</span> <span class="st">&quot;Bananageddon is coming!&quot;</span>,</a>
+<a class="sourceLine" id="cb34-3" data-line-number="3">           <span class="dt">pattern =</span> <span class="kw">c</span>(<span class="st">&quot;na&quot;</span>, <span class="st">&quot;don&quot;</span>))</a></code></pre></div>
 <pre><code>## [1] TRUE TRUE</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="co"># use any or all to convert a multi-element logical to a single logical</span></a>
-<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="co"># here we ask if either of the patterns is detected</span></a>
-<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="kw">any</span>(<span class="kw">str_detect</span>(<span class="dt">string =</span> <span class="st">&quot;Bananageddon is coming!&quot;</span>, </a>
-<a class="sourceLine" id="cb28-4" data-line-number="4">               <span class="dt">pattern =</span> <span class="kw">c</span>(<span class="st">&quot;na&quot;</span>, <span class="st">&quot;don&quot;</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="co"># use any or all to convert a multi-element logical to a single logical</span></a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="co"># here we ask if either of the patterns is detected</span></a>
+<a class="sourceLine" id="cb36-3" data-line-number="3"><span class="kw">any</span>(<span class="kw">str_detect</span>(<span class="dt">string =</span> <span class="st">&quot;Bananageddon is coming!&quot;</span>,</a>
+<a class="sourceLine" id="cb36-4" data-line-number="4">               <span class="dt">pattern =</span> <span class="kw">c</span>(<span class="st">&quot;na&quot;</span>, <span class="st">&quot;don&quot;</span>)))</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Detect whether a string starts or ends with a pattern. Also vectorised.
 Both have a <code>negate</code> argument, which returns the negative, i.e., returns <code>FALSE</code> if the search pattern is detected.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="co"># taken straight from the examples, because they suffice</span></a>
-<a class="sourceLine" id="cb30-2" data-line-number="2">fruit &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;apple&quot;</span>, <span class="st">&quot;banana&quot;</span>, <span class="st">&quot;pear&quot;</span>, <span class="st">&quot;pineapple&quot;</span>)</a>
-<a class="sourceLine" id="cb30-3" data-line-number="3"><span class="co"># str_detect looks at the first character</span></a>
-<a class="sourceLine" id="cb30-4" data-line-number="4"><span class="kw">str_starts</span>(fruit, <span class="st">&quot;p&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="co"># taken straight from the examples, because they suffice</span></a>
+<a class="sourceLine" id="cb38-2" data-line-number="2">fruit &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;apple&quot;</span>, <span class="st">&quot;banana&quot;</span>, <span class="st">&quot;pear&quot;</span>, <span class="st">&quot;pineapple&quot;</span>)</a>
+<a class="sourceLine" id="cb38-3" data-line-number="3"><span class="co"># str_detect looks at the first character</span></a>
+<a class="sourceLine" id="cb38-4" data-line-number="4"><span class="kw">str_starts</span>(fruit, <span class="st">&quot;p&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] FALSE FALSE  TRUE  TRUE</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="co"># str_ends looks at the last character</span></a>
-<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="kw">str_ends</span>(fruit, <span class="st">&quot;e&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="co"># str_ends looks at the last character</span></a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="kw">str_ends</span>(fruit, <span class="st">&quot;e&quot;</span>)</a></code></pre></div>
 <pre><code>## [1]  TRUE FALSE FALSE  TRUE</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="co"># an example of negate = TRUE</span></a>
-<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="kw">str_ends</span>(fruit, <span class="st">&quot;e&quot;</span>, <span class="dt">negate =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="co"># an example of negate = TRUE</span></a>
+<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="kw">str_ends</span>(fruit, <span class="st">&quot;e&quot;</span>, <span class="dt">negate =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] FALSE  TRUE  TRUE FALSE</code></pre>
 <p><code>str_subset</code> [WHICH IS NOT RELATED TO <code>str_sub</code>] helps with subsetting a character vector based on a <code>str_detect</code> predicate.
 In the example, all elements containing “banana” are subset.</p>
 <p><code>str_which</code> has the same logic except that it returns the vector position and not the elements.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="co"># should return a subset vector containing the first two elements</span></a>
-<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="kw">str_subset</span>(<span class="kw">c</span>(<span class="st">&quot;banana&quot;</span>,</a>
-<a class="sourceLine" id="cb36-3" data-line-number="3">             <span class="st">&quot;bananageddon is coming&quot;</span>,</a>
-<a class="sourceLine" id="cb36-4" data-line-number="4">             <span class="st">&quot;applegeddon is not real&quot;</span>),</a>
-<a class="sourceLine" id="cb36-5" data-line-number="5">           <span class="dt">pattern =</span> <span class="st">&quot;banana&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="co"># should return a subset vector containing the first two elements</span></a>
+<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">str_subset</span>(<span class="kw">c</span>(<span class="st">&quot;banana&quot;</span>,</a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">             <span class="st">&quot;bananageddon is coming&quot;</span>,</a>
+<a class="sourceLine" id="cb44-4" data-line-number="4">             <span class="st">&quot;applegeddon is not real&quot;</span>),</a>
+<a class="sourceLine" id="cb44-5" data-line-number="5">           <span class="dt">pattern =</span> <span class="st">&quot;banana&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;banana&quot;                 &quot;bananageddon is coming&quot;</code></pre>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="co"># returns an integer vector</span></a>
-<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="kw">str_which</span>(<span class="kw">c</span>(<span class="st">&quot;banana&quot;</span>,</a>
-<a class="sourceLine" id="cb38-3" data-line-number="3">             <span class="st">&quot;bananageddon is coming&quot;</span>,</a>
-<a class="sourceLine" id="cb38-4" data-line-number="4">             <span class="st">&quot;applegeddon is not real&quot;</span>),</a>
-<a class="sourceLine" id="cb38-5" data-line-number="5">           <span class="dt">pattern =</span> <span class="st">&quot;banana&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="co"># returns an integer vector</span></a>
+<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="kw">str_which</span>(<span class="kw">c</span>(<span class="st">&quot;banana&quot;</span>,</a>
+<a class="sourceLine" id="cb46-3" data-line-number="3">            <span class="st">&quot;bananageddon is coming&quot;</span>,</a>
+<a class="sourceLine" id="cb46-4" data-line-number="4">            <span class="st">&quot;applegeddon is not real&quot;</span>),</a>
+<a class="sourceLine" id="cb46-5" data-line-number="5">          <span class="dt">pattern =</span> <span class="st">&quot;banana&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] 1 2</code></pre>
 </div>
 <div id="matching-strings" class="section level3">
@@ -295,48 +425,48 @@ In the example, all elements containing “banana” are subset.</p>
 <p><code>str_match</code> returns all positive matches of the patttern in the string.
 The return type is a <code>list</code>, with one element per search pattern.</p>
 <p>A simple case is shown below where the search pattern is the phrase “banana”.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">str_match</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;banana&quot;</span>,</a>
-<a class="sourceLine" id="cb40-2" data-line-number="2">                     <span class="st">&quot;bananageddon&quot;</span>,</a>
-<a class="sourceLine" id="cb40-3" data-line-number="3">                     <span class="st">&quot;bananas are bad&quot;</span>),</a>
-<a class="sourceLine" id="cb40-4" data-line-number="4">          <span class="dt">pattern =</span> <span class="st">&quot;banana&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">str_match</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;banana&quot;</span>,</a>
+<a class="sourceLine" id="cb48-2" data-line-number="2">                     <span class="st">&quot;bananageddon&quot;</span>,</a>
+<a class="sourceLine" id="cb48-3" data-line-number="3">                     <span class="st">&quot;bananas are bad&quot;</span>),</a>
+<a class="sourceLine" id="cb48-4" data-line-number="4">          <span class="dt">pattern =</span> <span class="st">&quot;banana&quot;</span>)</a></code></pre></div>
 <pre><code>##      [,1]    
 ## [1,] &quot;banana&quot;
 ## [2,] &quot;banana&quot;
 ## [3,] &quot;banana&quot;</code></pre>
 <p>The search pattern can be extended to look for multiple subsets of the search pattern. Consider searching for dates and times.</p>
-<p>Here, the search pattern is a <code>regex</code> pattern that looks for a set of four digits (<code>\\d{4}</code>) and a month name <code>(\\w+)</code> seperated by a hyphen. There’s much more to be explored in dealing with dates and times in <code>[lubridate](https://lubridate.tidyverse.org/)</code>, another <code>tidyverse</code> package.</p>
+<p>Here, the search pattern is a <code>regex</code> pattern that looks for a set of four digits (<code>\\d{4}</code>) and a month name <code>(\\w+)</code> seperated by a hyphen. There’s much more to be explored in dealing with dates and times in <a href="https://lubridate.tidyverse.org/"><code>lubridate</code></a>, another <code>tidyverse</code> package.</p>
 <p>The return type is a list, each element is a character matrix where the first column is the string subset matching the full search pattern, and then as many columns as there are parts to the search pattern. The parts of interest in the search pattern are indicated by wrapping them in parentheses. For example, in the case below, wrapping <code>[-.]</code> in parentheses will turn it into a distinct part of the search pattern.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="co"># first with [-.] treated simply as a separator</span></a>
-<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="kw">str_match</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01&quot;</span>,</a>
-<a class="sourceLine" id="cb42-3" data-line-number="3">                     <span class="st">&quot;1990-anothermonth-01&quot;</span>,</a>
-<a class="sourceLine" id="cb42-4" data-line-number="4">                     <span class="st">&quot;2010-thismonth-01&quot;</span>), </a>
-<a class="sourceLine" id="cb42-5" data-line-number="5">          <span class="dt">pattern =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d{4})[-.](</span><span class="ch">\\</span><span class="st">w+)&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="co"># first with [-.] treated simply as a separator</span></a>
+<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="kw">str_match</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01&quot;</span>,</a>
+<a class="sourceLine" id="cb50-3" data-line-number="3">                     <span class="st">&quot;1990-anothermonth-01&quot;</span>,</a>
+<a class="sourceLine" id="cb50-4" data-line-number="4">                     <span class="st">&quot;2010-thismonth-01&quot;</span>),</a>
+<a class="sourceLine" id="cb50-5" data-line-number="5">          <span class="dt">pattern =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d{4})[-.](</span><span class="ch">\\</span><span class="st">w+)&quot;</span>)</a></code></pre></div>
 <pre><code>##      [,1]                [,2]   [,3]          
 ## [1,] &quot;1970-somemonth&quot;    &quot;1970&quot; &quot;somemonth&quot;   
 ## [2,] &quot;1990-anothermonth&quot; &quot;1990&quot; &quot;anothermonth&quot;
 ## [3,] &quot;2010-thismonth&quot;    &quot;2010&quot; &quot;thismonth&quot;</code></pre>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="co"># then with [-.] actively searched for</span></a>
-<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">str_match</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01&quot;</span>,</a>
-<a class="sourceLine" id="cb44-3" data-line-number="3">                     <span class="st">&quot;1990-anothermonth-01&quot;</span>,</a>
-<a class="sourceLine" id="cb44-4" data-line-number="4">                     <span class="st">&quot;2010-thismonth-01&quot;</span>), </a>
-<a class="sourceLine" id="cb44-5" data-line-number="5">          <span class="dt">pattern =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d{4})([-.])(</span><span class="ch">\\</span><span class="st">w+)&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="co"># then with [-.] actively searched for</span></a>
+<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw">str_match</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01&quot;</span>,</a>
+<a class="sourceLine" id="cb52-3" data-line-number="3">                     <span class="st">&quot;1990-anothermonth-01&quot;</span>,</a>
+<a class="sourceLine" id="cb52-4" data-line-number="4">                     <span class="st">&quot;2010-thismonth-01&quot;</span>),</a>
+<a class="sourceLine" id="cb52-5" data-line-number="5">          <span class="dt">pattern =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d{4})([-.])(</span><span class="ch">\\</span><span class="st">w+)&quot;</span>)</a></code></pre></div>
 <pre><code>##      [,1]                [,2]   [,3] [,4]          
 ## [1,] &quot;1970-somemonth&quot;    &quot;1970&quot; &quot;-&quot;  &quot;somemonth&quot;   
 ## [2,] &quot;1990-anothermonth&quot; &quot;1990&quot; &quot;-&quot;  &quot;anothermonth&quot;
 ## [3,] &quot;2010-thismonth&quot;    &quot;2010&quot; &quot;-&quot;  &quot;thismonth&quot;</code></pre>
 <p>Multiple possible matches are dealt with using <code>str_match_all</code>. An example case is uncertainty in date-time in raw data, where the date has been entered as <code>1970-somemonth-01 or 1970/anothermonth/01</code>.</p>
 <p>The return type is a list, with one element per input string. Each element is a character matrix, where each row is one possible match, and each column after the first (the full match) corresponds to the parts of the search pattern.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="co"># first with a single date entry</span></a>
-<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="kw">str_match_all</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01 or maybe 1990/anothermonth/01&quot;</span>),</a>
-<a class="sourceLine" id="cb46-3" data-line-number="3">          <span class="dt">pattern =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d{4})[</span><span class="ch">\\</span><span class="st">-</span><span class="ch">\\</span><span class="st">/]([a-z]+)&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="co"># first with a single date entry</span></a>
+<a class="sourceLine" id="cb54-2" data-line-number="2"><span class="kw">str_match_all</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01 or maybe 1990/anothermonth/01&quot;</span>),</a>
+<a class="sourceLine" id="cb54-3" data-line-number="3">              <span class="dt">pattern =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d{4})[</span><span class="ch">\\</span><span class="st">-</span><span class="ch">\\</span><span class="st">/]([a-z]+)&quot;</span>)</a></code></pre></div>
 <pre><code>## [[1]]
 ##      [,1]                [,2]   [,3]          
 ## [1,] &quot;1970-somemonth&quot;    &quot;1970&quot; &quot;somemonth&quot;   
 ## [2,] &quot;1990/anothermonth&quot; &quot;1990&quot; &quot;anothermonth&quot;</code></pre>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="co"># then with multiple date entries</span></a>
-<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="kw">str_match_all</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01 or maybe 1990/anothermonth/01&quot;</span>,</a>
-<a class="sourceLine" id="cb48-3" data-line-number="3">                         <span class="st">&quot;1990-somemonth-01 or maybe 2001/anothermonth/01&quot;</span>),</a>
-<a class="sourceLine" id="cb48-4" data-line-number="4">          <span class="dt">pattern =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d{4})[</span><span class="ch">\\</span><span class="st">-</span><span class="ch">\\</span><span class="st">/]([a-z]+)&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="co"># then with multiple date entries</span></a>
+<a class="sourceLine" id="cb56-2" data-line-number="2"><span class="kw">str_match_all</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01 or maybe 1990/anothermonth/01&quot;</span>,</a>
+<a class="sourceLine" id="cb56-3" data-line-number="3">                         <span class="st">&quot;1990-somemonth-01 or maybe 2001/anothermonth/01&quot;</span>),</a>
+<a class="sourceLine" id="cb56-4" data-line-number="4">              <span class="dt">pattern =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d{4})[</span><span class="ch">\\</span><span class="st">-</span><span class="ch">\\</span><span class="st">/]([a-z]+)&quot;</span>)</a></code></pre></div>
 <pre><code>## [[1]]
 ##      [,1]                [,2]   [,3]          
 ## [1,] &quot;1970-somemonth&quot;    &quot;1970&quot; &quot;somemonth&quot;   
@@ -351,15 +481,15 @@ The return type is a <code>list</code>, with one element per search pattern.</p>
 <h3><span class="header-section-number">1.2.4</span> Simpler pattern extraction</h3>
 <p>The full functionality of <code>str_match_*</code> can be boiled down to the most common use case, extracting one or more full matches of the search pattern using <code>str_extract</code> and <code>str_extract_all</code> respectively.</p>
 <p><code>str_extract</code> returns a character vector with the same length as the input string vector, while <code>str_extract_all</code> returns a list, with a character vector whose elements are the matches.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="co"># extracting the first full match using str_extract</span></a>
-<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="kw">str_extract</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01 or maybe 1990/anothermonth/01&quot;</span>,</a>
-<a class="sourceLine" id="cb50-3" data-line-number="3">                       <span class="st">&quot;1990-somemonth-01 or maybe 2001/anothermonth/01&quot;</span>),</a>
-<a class="sourceLine" id="cb50-4" data-line-number="4">          <span class="dt">pattern =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d{4})[</span><span class="ch">\\</span><span class="st">-</span><span class="ch">\\</span><span class="st">/]([a-z]+)&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="co"># extracting the first full match using str_extract</span></a>
+<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="kw">str_extract</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01 or maybe 1990/anothermonth/01&quot;</span>,</a>
+<a class="sourceLine" id="cb58-3" data-line-number="3">                       <span class="st">&quot;1990-somemonth-01 or maybe 2001/anothermonth/01&quot;</span>),</a>
+<a class="sourceLine" id="cb58-4" data-line-number="4">            <span class="dt">pattern =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d{4})[</span><span class="ch">\\</span><span class="st">-</span><span class="ch">\\</span><span class="st">/]([a-z]+)&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;1970-somemonth&quot; &quot;1990-somemonth&quot;</code></pre>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="co"># extracting all full matches using str_extract all</span></a>
-<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw">str_extract_all</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01 or maybe 1990/anothermonth/01&quot;</span>,</a>
-<a class="sourceLine" id="cb52-3" data-line-number="3">                       <span class="st">&quot;1990-somemonth-01 or maybe 2001/anothermonth/01&quot;</span>),</a>
-<a class="sourceLine" id="cb52-4" data-line-number="4">          <span class="dt">pattern =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d{4})[</span><span class="ch">\\</span><span class="st">-</span><span class="ch">\\</span><span class="st">/]([a-z]+)&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="co"># extracting all full matches using str_extract all</span></a>
+<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="kw">str_extract_all</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01 or maybe 1990/anothermonth/01&quot;</span>,</a>
+<a class="sourceLine" id="cb60-3" data-line-number="3">                           <span class="st">&quot;1990-somemonth-01 or maybe 2001/anothermonth/01&quot;</span>),</a>
+<a class="sourceLine" id="cb60-4" data-line-number="4">                <span class="dt">pattern =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d{4})[</span><span class="ch">\\</span><span class="st">-</span><span class="ch">\\</span><span class="st">/]([a-z]+)&quot;</span>)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;1970-somemonth&quot;    &quot;1990/anothermonth&quot;
 ## 
@@ -371,120 +501,123 @@ The return type is a <code>list</code>, with one element per search pattern.</p>
 <p><code>str_split</code>, str_sub,
 In the above date-time example, when reading filenames from a path, or when working sequences separated by a known pattern generally, <code>str_split</code> can help separate elements of interest.</p>
 <p>The return type is a list similar to <code>str_match</code>.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="co"># split on either a hyphen or a forward slash</span></a>
-<a class="sourceLine" id="cb54-2" data-line-number="2"><span class="kw">str_split</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01&quot;</span>,</a>
-<a class="sourceLine" id="cb54-3" data-line-number="3">            <span class="st">&quot;1990/anothermonth/01&quot;</span>), </a>
-<a class="sourceLine" id="cb54-4" data-line-number="4">          <span class="dt">pattern =</span> <span class="st">&quot;[</span><span class="ch">\\</span><span class="st">-</span><span class="ch">\\</span><span class="st">/]&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="co"># split on either a hyphen or a forward slash</span></a>
+<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="kw">str_split</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01&quot;</span>,</a>
+<a class="sourceLine" id="cb62-3" data-line-number="3">                     <span class="st">&quot;1990/anothermonth/01&quot;</span>),</a>
+<a class="sourceLine" id="cb62-4" data-line-number="4">          <span class="dt">pattern =</span> <span class="st">&quot;[</span><span class="ch">\\</span><span class="st">-</span><span class="ch">\\</span><span class="st">/]&quot;</span>)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;1970&quot;      &quot;somemonth&quot; &quot;01&quot;       
 ## 
 ## [[2]]
 ## [1] &quot;1990&quot;         &quot;anothermonth&quot; &quot;01&quot;</code></pre>
 <p>This can be useful in recovering simulation parameters from a filename, but may require some knowledge of <code>regex</code>.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="co"># assume a simulation output file</span></a>
-<a class="sourceLine" id="cb56-2" data-line-number="2">filename =<span class="st"> &quot;sim_param1_0.01_param2_0.05_param3_0.01.ext&quot;</span></a>
-<a class="sourceLine" id="cb56-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb56-4" data-line-number="4"><span class="co"># not quite there</span></a>
-<a class="sourceLine" id="cb56-5" data-line-number="5"><span class="kw">str_split</span>(filename, <span class="dt">pattern =</span> <span class="st">&quot;_&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="co"># assume a simulation output file</span></a>
+<a class="sourceLine" id="cb64-2" data-line-number="2">filename =<span class="st"> &quot;sim_param1_0.01_param2_0.05_param3_0.01.ext&quot;</span></a>
+<a class="sourceLine" id="cb64-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb64-4" data-line-number="4"><span class="co"># not quite there</span></a>
+<a class="sourceLine" id="cb64-5" data-line-number="5"><span class="kw">str_split</span>(filename, <span class="dt">pattern =</span> <span class="st">&quot;_&quot;</span>)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;sim&quot;      &quot;param1&quot;   &quot;0.01&quot;     &quot;param2&quot;   &quot;0.05&quot;     &quot;param3&quot;   &quot;0.01.ext&quot;</code></pre>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="co"># not really</span></a>
-<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="kw">str_split</span>(filename,</a>
-<a class="sourceLine" id="cb58-3" data-line-number="3">          <span class="dt">pattern =</span> <span class="st">&quot;sim_&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="co"># not really</span></a>
+<a class="sourceLine" id="cb66-2" data-line-number="2"><span class="kw">str_split</span>(filename,</a>
+<a class="sourceLine" id="cb66-3" data-line-number="3">          <span class="dt">pattern =</span> <span class="st">&quot;sim_&quot;</span>)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;&quot;                                       
 ## [2] &quot;param1_0.01_param2_0.05_param3_0.01.ext&quot;</code></pre>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="co"># getting there but still needs work</span></a>
-<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="kw">str_split</span>(filename,</a>
-<a class="sourceLine" id="cb60-3" data-line-number="3">          <span class="dt">pattern =</span> <span class="st">&quot;(sim_)|_*param</span><span class="ch">\\</span><span class="st">d{1}_|(.ext)&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="co"># getting there but still needs work</span></a>
+<a class="sourceLine" id="cb68-2" data-line-number="2"><span class="kw">str_split</span>(filename,</a>
+<a class="sourceLine" id="cb68-3" data-line-number="3">          <span class="dt">pattern =</span> <span class="st">&quot;(sim_)|_*param</span><span class="ch">\\</span><span class="st">d{1}_|(.ext)&quot;</span>)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;&quot;     &quot;&quot;     &quot;0.01&quot; &quot;0.05&quot; &quot;0.01&quot; &quot;&quot;</code></pre>
 <p><code>str_split_fixed</code> split the string into as many pieces as specified, and can be especially useful dealing with filepaths.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="co"># split on either a hyphen or a forward slash</span></a>
-<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="kw">str_split_fixed</span>(<span class="dt">string =</span> <span class="st">&quot;dir_level_1/dir_level_2/file.ext&quot;</span>, </a>
-<a class="sourceLine" id="cb62-3" data-line-number="3">          <span class="dt">pattern =</span> <span class="st">&quot;/&quot;</span>,</a>
-<a class="sourceLine" id="cb62-4" data-line-number="4">          <span class="dt">n =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="co"># split on either a hyphen or a forward slash</span></a>
+<a class="sourceLine" id="cb70-2" data-line-number="2"><span class="kw">str_split_fixed</span>(<span class="dt">string =</span> <span class="st">&quot;dir_level_1/dir_level_2/file.ext&quot;</span>,</a>
+<a class="sourceLine" id="cb70-3" data-line-number="3">                <span class="dt">pattern =</span> <span class="st">&quot;/&quot;</span>,</a>
+<a class="sourceLine" id="cb70-4" data-line-number="4">                <span class="dt">n =</span> <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>##      [,1]          [,2]                  
 ## [1,] &quot;dir_level_1&quot; &quot;dir_level_2/file.ext&quot;</code></pre>
 </div>
 <div id="replacing-string-elements" class="section level3">
 <h3><span class="header-section-number">1.2.6</span> Replacing string elements</h3>
 <p><code>str_replace</code> is intended to replace the search pattern, and can be co-opted into the task of recovering simulation parameters or other data from regularly named files. <code>str_replace_all</code> works the same way but replaces all matches of the search pattern.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="co"># replace all unwanted characters from this hypothetical filename with spaces</span></a>
-<a class="sourceLine" id="cb64-2" data-line-number="2">filename =<span class="st"> &quot;sim_param1_0.01_param2_0.05_param3_0.01.ext&quot;</span></a>
-<a class="sourceLine" id="cb64-3" data-line-number="3"><span class="kw">str_replace_all</span>(filename,</a>
-<a class="sourceLine" id="cb64-4" data-line-number="4">            <span class="dt">pattern =</span> <span class="st">&quot;(sim_)|_*param</span><span class="ch">\\</span><span class="st">d{1}_|(.ext)&quot;</span>,</a>
-<a class="sourceLine" id="cb64-5" data-line-number="5">            <span class="dt">replacement =</span> <span class="st">&quot; &quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="co"># replace all unwanted characters from this hypothetical filename with spaces</span></a>
+<a class="sourceLine" id="cb72-2" data-line-number="2">filename =<span class="st"> &quot;sim_param1_0.01_param2_0.05_param3_0.01.ext&quot;</span></a>
+<a class="sourceLine" id="cb72-3" data-line-number="3"><span class="kw">str_replace_all</span>(filename,</a>
+<a class="sourceLine" id="cb72-4" data-line-number="4">                <span class="dt">pattern =</span> <span class="st">&quot;(sim_)|_*param</span><span class="ch">\\</span><span class="st">d{1}_|(.ext)&quot;</span>,</a>
+<a class="sourceLine" id="cb72-5" data-line-number="5">                <span class="dt">replacement =</span> <span class="st">&quot; &quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;  0.01 0.05 0.01 &quot;</code></pre>
 <p><code>str_remove</code> is a wrapper around <code>str_replace</code> where the replacement is set to <code>&quot;&quot;</code>. This is not covered here.</p>
 <p>Having replaced unwanted characters in the filename with spaces, <code>str_trim</code> offers a way to remove leading and trailing whitespaces.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="co"># trim whitespaces from this filename after replacing unwanted text</span></a>
-<a class="sourceLine" id="cb66-2" data-line-number="2">filename =<span class="st"> &quot;sim_param1_0.01_param2_0.05_param3_0.01.ext&quot;</span></a>
-<a class="sourceLine" id="cb66-3" data-line-number="3">filename_with_spaces =<span class="st"> </span><span class="kw">str_replace_all</span>(filename,</a>
-<a class="sourceLine" id="cb66-4" data-line-number="4">                                       <span class="dt">pattern =</span> <span class="st">&quot;(sim_)|_*param</span><span class="ch">\\</span><span class="st">d{1}_|(.ext)&quot;</span>,</a>
-<a class="sourceLine" id="cb66-5" data-line-number="5">                                       <span class="dt">replacement =</span> <span class="st">&quot; &quot;</span>)</a>
-<a class="sourceLine" id="cb66-6" data-line-number="6">filename_without_spaces =<span class="st"> </span><span class="kw">str_trim</span>(filename_with_spaces)</a>
-<a class="sourceLine" id="cb66-7" data-line-number="7">filename_without_spaces</a></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="co"># trim whitespaces from this filename after replacing unwanted text</span></a>
+<a class="sourceLine" id="cb74-2" data-line-number="2">filename =<span class="st"> &quot;sim_param1_0.01_param2_0.05_param3_0.01.ext&quot;</span></a>
+<a class="sourceLine" id="cb74-3" data-line-number="3">filename_with_spaces =<span class="st"> </span><span class="kw">str_replace_all</span>(filename,</a>
+<a class="sourceLine" id="cb74-4" data-line-number="4">                                       <span class="dt">pattern =</span> <span class="st">&quot;(sim_)|_*param</span><span class="ch">\\</span><span class="st">d{1}_|(.ext)&quot;</span>,</a>
+<a class="sourceLine" id="cb74-5" data-line-number="5">                                       <span class="dt">replacement =</span> <span class="st">&quot; &quot;</span>)</a>
+<a class="sourceLine" id="cb74-6" data-line-number="6">filename_without_spaces =<span class="st"> </span><span class="kw">str_trim</span>(filename_with_spaces)</a>
+<a class="sourceLine" id="cb74-7" data-line-number="7">filename_without_spaces</a></code></pre></div>
 <pre><code>## [1] &quot;0.01 0.05 0.01&quot;</code></pre>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="co"># the result can be split on whitespaces to return useful data</span></a>
-<a class="sourceLine" id="cb68-2" data-line-number="2"><span class="kw">str_split</span>(filename_without_spaces, <span class="st">&quot; &quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="co"># the result can be split on whitespaces to return useful data</span></a>
+<a class="sourceLine" id="cb76-2" data-line-number="2"><span class="kw">str_split</span>(filename_without_spaces, <span class="st">&quot; &quot;</span>)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;0.01&quot; &quot;0.05&quot; &quot;0.01&quot;</code></pre>
 </div>
 <div id="subsetting-within-strings" class="section level3">
 <h3><span class="header-section-number">1.2.7</span> Subsetting within strings</h3>
 <p>When strings are highly regular, useful data can be extracted from a string using <code>str_sub</code>. In the date-time example, the year is always represented by the first four characters.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="co"># get the year as characters 1 - 4</span></a>
-<a class="sourceLine" id="cb70-2" data-line-number="2"><span class="kw">str_sub</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01&quot;</span>,</a>
-<a class="sourceLine" id="cb70-3" data-line-number="3">                     <span class="st">&quot;1990-anothermonth-01&quot;</span>,</a>
-<a class="sourceLine" id="cb70-4" data-line-number="4">                     <span class="st">&quot;2010-thismonth-01&quot;</span>), </a>
-<a class="sourceLine" id="cb70-5" data-line-number="5">        <span class="dt">start =</span> <span class="dv">1</span>, <span class="dt">end =</span> <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="co"># get the year as characters 1 - 4</span></a>
+<a class="sourceLine" id="cb78-2" data-line-number="2"><span class="kw">str_sub</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01&quot;</span>,</a>
+<a class="sourceLine" id="cb78-3" data-line-number="3">                   <span class="st">&quot;1990-anothermonth-01&quot;</span>,</a>
+<a class="sourceLine" id="cb78-4" data-line-number="4">                   <span class="st">&quot;2010-thismonth-01&quot;</span>),</a>
+<a class="sourceLine" id="cb78-5" data-line-number="5">        <span class="dt">start =</span> <span class="dv">1</span>, <span class="dt">end =</span> <span class="dv">4</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;1970&quot; &quot;1990&quot; &quot;2010&quot;</code></pre>
 <p>Similarly, it’s possible to extract the last few characters using negative indices.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="co"># get the day as characters -2 to -1</span></a>
-<a class="sourceLine" id="cb72-2" data-line-number="2"><span class="kw">str_sub</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01&quot;</span>,</a>
-<a class="sourceLine" id="cb72-3" data-line-number="3">                     <span class="st">&quot;1990-anothermonth-21&quot;</span>,</a>
-<a class="sourceLine" id="cb72-4" data-line-number="4">                     <span class="st">&quot;2010-thismonth-31&quot;</span>), </a>
-<a class="sourceLine" id="cb72-5" data-line-number="5">        <span class="dt">start =</span> <span class="dv">-2</span>, <span class="dt">end =</span> <span class="dv">-1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="co"># get the day as characters -2 to -1</span></a>
+<a class="sourceLine" id="cb80-2" data-line-number="2"><span class="kw">str_sub</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1970-somemonth-01&quot;</span>,</a>
+<a class="sourceLine" id="cb80-3" data-line-number="3">                   <span class="st">&quot;1990-anothermonth-21&quot;</span>,</a>
+<a class="sourceLine" id="cb80-4" data-line-number="4">                   <span class="st">&quot;2010-thismonth-31&quot;</span>),</a>
+<a class="sourceLine" id="cb80-5" data-line-number="5">        <span class="dt">start =</span> <span class="dv">-2</span>, <span class="dt">end =</span> <span class="dv">-1</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;01&quot; &quot;21&quot; &quot;31&quot;</code></pre>
 <p>Finally, it’s also possible to replace characters within a string based on the position. This requires using the assignment operator <code>&lt;-</code>.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="co"># replace all days in these dates to 01</span></a>
-<a class="sourceLine" id="cb74-2" data-line-number="2">date_times =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;1970-somemonth-25&quot;</span>,</a>
-<a class="sourceLine" id="cb74-3" data-line-number="3">                     <span class="st">&quot;1990-anothermonth-21&quot;</span>,</a>
-<a class="sourceLine" id="cb74-4" data-line-number="4">                     <span class="st">&quot;2010-thismonth-31&quot;</span>)</a>
-<a class="sourceLine" id="cb74-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb74-6" data-line-number="6"><span class="co"># a strictly necessary use of the assignment operator</span></a>
-<a class="sourceLine" id="cb74-7" data-line-number="7"><span class="kw">str_sub</span>(date_times, </a>
-<a class="sourceLine" id="cb74-8" data-line-number="8">        <span class="dt">start =</span> <span class="dv">-2</span>, <span class="dt">end =</span> <span class="dv">-1</span>) &lt;-<span class="st"> &quot;01&quot;</span></a>
-<a class="sourceLine" id="cb74-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb74-10" data-line-number="10">date_times</a></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="co"># replace all days in these dates to 01</span></a>
+<a class="sourceLine" id="cb82-2" data-line-number="2">date_times =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;1970-somemonth-25&quot;</span>,</a>
+<a class="sourceLine" id="cb82-3" data-line-number="3">               <span class="st">&quot;1990-anothermonth-21&quot;</span>,</a>
+<a class="sourceLine" id="cb82-4" data-line-number="4">               <span class="st">&quot;2010-thismonth-31&quot;</span>)</a>
+<a class="sourceLine" id="cb82-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb82-6" data-line-number="6"><span class="co"># a strictly necessary use of the assignment operator</span></a>
+<a class="sourceLine" id="cb82-7" data-line-number="7"><span class="kw">str_sub</span>(date_times,</a>
+<a class="sourceLine" id="cb82-8" data-line-number="8">        <span class="dt">start =</span> <span class="dv">-2</span>, <span class="dt">end =</span> <span class="dv">-1</span>) &lt;-<span class="st"> &quot;01&quot;</span></a>
+<a class="sourceLine" id="cb82-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb82-10" data-line-number="10">date_times</a></code></pre></div>
 <pre><code>## [1] &quot;1970-somemonth-01&quot;    &quot;1990-anothermonth-01&quot; &quot;2010-thismonth-01&quot;</code></pre>
 </div>
 <div id="padding-and-truncating-strings" class="section level3">
 <h3><span class="header-section-number">1.2.8</span> Padding and truncating strings</h3>
 <p>Strings included in filenames or plots are often of unequal lengths, especially when they represent numbers. <code>str_pad</code> can pad strings with suitable characters to maintain equal length filenames, with which it is easier to work.</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="co"># pad so all values have three digits</span></a>
-<a class="sourceLine" id="cb76-2" data-line-number="2"><span class="kw">str_pad</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;10&quot;</span>, <span class="st">&quot;100&quot;</span>), </a>
-<a class="sourceLine" id="cb76-3" data-line-number="3">        <span class="dt">width =</span> <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb76-4" data-line-number="4">        <span class="dt">side =</span> <span class="st">&quot;left&quot;</span>,</a>
-<a class="sourceLine" id="cb76-5" data-line-number="5">        <span class="dt">pad =</span> <span class="st">&quot;0&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="co"># pad so all values have three digits</span></a>
+<a class="sourceLine" id="cb84-2" data-line-number="2"><span class="kw">str_pad</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;10&quot;</span>, <span class="st">&quot;100&quot;</span>),</a>
+<a class="sourceLine" id="cb84-3" data-line-number="3">        <span class="dt">width =</span> <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb84-4" data-line-number="4">        <span class="dt">side =</span> <span class="st">&quot;left&quot;</span>,</a>
+<a class="sourceLine" id="cb84-5" data-line-number="5">        <span class="dt">pad =</span> <span class="st">&quot;0&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;001&quot; &quot;010&quot; &quot;100&quot;</code></pre>
 <p>Strings can also be truncated if they are too long.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="kw">str_trunc</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;bananas are great and wonderful </span></a>
-<a class="sourceLine" id="cb78-2" data-line-number="2"><span class="st">                     and more stuff about bananas and </span></a>
-<a class="sourceLine" id="cb78-3" data-line-number="3"><span class="st">                     it really goes on about bananas&quot;</span>),</a>
-<a class="sourceLine" id="cb78-4" data-line-number="4">          <span class="dt">width =</span> <span class="dv">27</span>,</a>
-<a class="sourceLine" id="cb78-5" data-line-number="5">          <span class="dt">side =</span> <span class="st">&quot;right&quot;</span>, <span class="dt">ellipsis =</span> <span class="st">&quot;etc. etc.&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="kw">str_trunc</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;bananas are great and wonderful</span></a>
+<a class="sourceLine" id="cb86-2" data-line-number="2"><span class="st">                     and more stuff about bananas and</span></a>
+<a class="sourceLine" id="cb86-3" data-line-number="3"><span class="st">                     it really goes on about bananas&quot;</span>),</a>
+<a class="sourceLine" id="cb86-4" data-line-number="4">          <span class="dt">width =</span> <span class="dv">27</span>,</a>
+<a class="sourceLine" id="cb86-5" data-line-number="5">          <span class="dt">side =</span> <span class="st">&quot;right&quot;</span>, <span class="dt">ellipsis =</span> <span class="st">&quot;etc. etc.&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;bananas are great etc. etc.&quot;</code></pre>
 </div>
 <div id="stringr-aspects-not-covered-here" class="section level3">
 <h3><span class="header-section-number">1.2.9</span> Stringr aspects not covered here</h3>
-<p>Some <code>stringr</code> functions are not covered here. These include:<br />
-- <code>str_wrap</code> (of dubious use),<br />
-- <code>str_interp</code>, <code>str_glue*</code> (better to use <code>glue</code>; see below),<br />
-- <code>str_sort</code>, <code>str_order</code> (used in sorting a character vector),<br />
-- <code>str_to_case*</code> (case conversion), and<br />
-- <code>str_view*</code> (a graphical view of search pattern matches).</p>
+<p>Some <code>stringr</code> functions are not covered here. These include:</p>
+<ul>
+<li><p><code>str_wrap</code> (of dubious use),</p></li>
+<li><p><code>str_interp</code>, <code>str_glue*</code> (better to use <code>glue</code>; see below),</p></li>
+<li><p><code>str_sort</code>, <code>str_order</code> (used in sorting a character vector),</p></li>
+<li><p><code>str_to_case*</code> (case conversion), and</p></li>
+<li><p><code>str_view*</code> (a graphical view of search pattern matches).</p></li>
+<li><p><code>word</code>, <code>boundary</code> etc. The use of word is covered below.</p></li>
+</ul>
 <p><a href="https://cran.r-project.org/web/packages/stringi/"><code>stringi</code></a>, of which <code>stringr</code> is a wrapper, offers a lot more flexibility and control.</p>
 </div>
 </div>
@@ -492,9 +625,9 @@ In the above date-time example, when reading filenames from a path, or when work
 <h2><span class="header-section-number">1.3</span> String interpolation with <code>glue</code></h2>
 <p>The idea behind string interpolation is to procedurally generate new complex strings from pre-existing data.</p>
 <p><code>glue</code> is as simple as the example shown.</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="co"># print that each car name is a car model</span></a>
-<a class="sourceLine" id="cb80-2" data-line-number="2">cars =<span class="st"> </span><span class="kw">rownames</span>(<span class="kw">head</span>(mtcars))</a>
-<a class="sourceLine" id="cb80-3" data-line-number="3"><span class="kw">glue</span>(<span class="st">&#39;The {cars} is a car model&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="co"># print that each car name is a car model</span></a>
+<a class="sourceLine" id="cb88-2" data-line-number="2">cars =<span class="st"> </span><span class="kw">rownames</span>(<span class="kw">head</span>(mtcars))</a>
+<a class="sourceLine" id="cb88-3" data-line-number="3"><span class="kw">glue</span>(<span class="st">&#39;The {cars} is a car model&#39;</span>)</a></code></pre></div>
 <pre><code>## The Mazda RX4 is a car model
 ## The Mazda RX4 Wag is a car model
 ## The Datsun 710 is a car model
@@ -504,21 +637,21 @@ In the above date-time example, when reading filenames from a path, or when work
 <p>This creates and prints a vector of car names stating each is a car model.</p>
 <p>The related <code>glue_data</code> is even more useful in printing from a dataframe.
 In this example, it can quickly generate command line arguments or filenames.</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="co"># use dataframes for now</span></a>
-<a class="sourceLine" id="cb82-2" data-line-number="2">parameter_combinations =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">param1 =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>],</a>
-<a class="sourceLine" id="cb82-3" data-line-number="3">                                    <span class="dt">param2 =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb82-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb82-5" data-line-number="5"><span class="co"># for command line arguments or to start multiple job scripts on the cluster</span></a>
-<a class="sourceLine" id="cb82-6" data-line-number="6"><span class="kw">glue_data</span>(parameter_combinations,</a>
-<a class="sourceLine" id="cb82-7" data-line-number="7">          <span class="st">&#39;simulation-name {param1} {param2}&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1"><span class="co"># use dataframes for now</span></a>
+<a class="sourceLine" id="cb90-2" data-line-number="2">parameter_combinations =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">param1 =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>],</a>
+<a class="sourceLine" id="cb90-3" data-line-number="3">                                    <span class="dt">param2 =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb90-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb90-5" data-line-number="5"><span class="co"># for command line arguments or to start multiple job scripts on the cluster</span></a>
+<a class="sourceLine" id="cb90-6" data-line-number="6"><span class="kw">glue_data</span>(parameter_combinations,</a>
+<a class="sourceLine" id="cb90-7" data-line-number="7">          <span class="st">&#39;simulation-name {param1} {param2}&#39;</span>)</a></code></pre></div>
 <pre><code>## simulation-name a 1
 ## simulation-name b 2
 ## simulation-name c 3
 ## simulation-name d 4
 ## simulation-name e 5</code></pre>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="co"># for filenames</span></a>
-<a class="sourceLine" id="cb84-2" data-line-number="2"><span class="kw">glue_data</span>(parameter_combinations,</a>
-<a class="sourceLine" id="cb84-3" data-line-number="3">          <span class="st">&#39;sim_data_param1_{param1}_param2_{param2}.ext&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="co"># for filenames</span></a>
+<a class="sourceLine" id="cb92-2" data-line-number="2"><span class="kw">glue_data</span>(parameter_combinations,</a>
+<a class="sourceLine" id="cb92-3" data-line-number="3">          <span class="st">&#39;sim_data_param1_{param1}_param2_{param2}.ext&#39;</span>)</a></code></pre></div>
 <pre><code>## sim_data_param1_a_param2_1.ext
 ## sim_data_param1_b_param2_2.ext
 ## sim_data_param1_c_param2_3.ext
@@ -526,6 +659,31 @@ In this example, it can quickly generate command line arguments or filenames.</p
 ## sim_data_param1_e_param2_5.ext</code></pre>
 <p>Finally, the convenient <code>glue_sql</code> and <code>glue_data_sql</code> are used to safely write SQL queries where variables from data are appropriately quoted. This is not covered here, but it is good to know it exists.</p>
 <p><code>glue</code> has some more functions — <code>glue_safe</code>, <code>glue_collapse</code>, and <code>glue_col</code>, but these are infrequently used. Their functionality can be found on the <code>glue</code> github page.</p>
+</div>
+<div id="strings-in-ggplot" class="section level2">
+<h2><span class="header-section-number">1.4</span> Strings in <code>ggplot</code></h2>
+<p><code>ggplot</code> has two <code>geoms</code> (wait for the <code>ggplot</code> tutorial to understand more about geoms) that work with text: <code>geom_text</code> and <code>geom_label</code>. These geoms allow text to be pasted on to the main body of a plot.</p>
+<p>Often, these may overlap when the data are closely spaced. The package <code>ggrepel</code> offers another <code>geom</code>, <code>geom_text_repel</code> (and the related <code>geom_label_repel</code>) that help arrange text on a plot so it doesn’t overlap with other features. This is <em>not perfect</em>, but it works more often than not.</p>
+<p>More examples can be found on the <a href="https://github.com/slowkow/ggrepel">ggrepl website</a>.</p>
+<p>Here, the arguments to <code>geom_text_repel</code> are taken both from the mtcars data (position), as well as from the car brands extracted using the <code>stringr::word</code> (labels), which tries to separate strings based on a regular pattern.</p>
+<p>The details of <code>ggplot</code> are covered in a later tutorial.</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb94-2" data-line-number="2"><span class="kw">library</span>(ggrepel)</a>
+<a class="sourceLine" id="cb94-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb94-4" data-line-number="4"><span class="co"># prepare car labels using word function</span></a>
+<a class="sourceLine" id="cb94-5" data-line-number="5">car_labels =<span class="st"> </span><span class="kw">word</span>(<span class="kw">rownames</span>(mtcars))</a>
+<a class="sourceLine" id="cb94-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb94-7" data-line-number="7"><span class="kw">ggplot</span>(mtcars,</a>
+<a class="sourceLine" id="cb94-8" data-line-number="8">       <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg,</a>
+<a class="sourceLine" id="cb94-9" data-line-number="9">           <span class="dt">label =</span> <span class="kw">rownames</span>(mtcars)))<span class="op">+</span></a>
+<a class="sourceLine" id="cb94-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb94-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_text_repel</span>(<span class="kw">aes</span>(<span class="dt">label =</span> car_labels),</a>
+<a class="sourceLine" id="cb94-12" data-line-number="12">                  <span class="dt">direction =</span> <span class="st">&quot;x&quot;</span>,</a>
+<a class="sourceLine" id="cb94-13" data-line-number="13">                  <span class="dt">nudge_x =</span> <span class="fl">0.2</span>,</a>
+<a class="sourceLine" id="cb94-14" data-line-number="14">                  <span class="dt">box.padding =</span> <span class="fl">0.5</span>,</a>
+<a class="sourceLine" id="cb94-15" data-line-number="15">                  <span class="dt">point.padding =</span> <span class="fl">0.5</span>)</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p>This is not a good looking plot, because it breaks other rules of plot design, such as whether this sort of plot should be made at all. Labels and text need to be applied sparingly, for example drawing attention or adding information to outliers.</p>
 
 </div>
 </div>
@@ -535,7 +693,7 @@ In this example, it can quickly generate command line arguments or filenames.</p
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="working-with-lists-and-iteration.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="reshaping-data-tables-in-the-tidyverse.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -574,7 +732,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["TRES Tidy Tutorial.pdf"],
+"download": "TRES-Tidy-Tutorial.pdf",
 "toc": {
 "collapse": "subsection",
 "scroll_highlight": true
@@ -582,8 +740,7 @@ gitbook.start({
 "toolbar": {
 "position": "fixed"
 },
-"search": true,
-"info": true
+"search": true
 });
 });
 </script>
