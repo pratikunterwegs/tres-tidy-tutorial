@@ -27,81 +27,139 @@ phylacine
 
 Note the friendly output given by the `tibble` (as opposed to a `data.frame`). `readr` automatically stores the content it reads in a `tibble`, tidyverse oblige. You should know however that `dplyr` doesn't require your data to be in a tibble, a regular `data.frame` will work just as fine.
 
-Most of the `dplyr` verbs covered in the next sections assume your data is *tidy*: wide format, variables as column, 1 observation per row. Not that tehy won't work if your data isn't tidy, but the results could be very different from what I'm going to show here. Fortunately, the phylacine trait dataset appears to be tidy: there is one unique entry for each species.
+Most of the `dplyr` verbs covered in the next sections assume your data is *tidy*: wide format, variables as column, 1 observation per row. If that's not the case of your
+dataset, refer to the tools introduced in Chapter 2 (`tidyr`) of this tutorial.
+Fortunately, the phylacine trait dataset appears to be tidy: there is one unique entry for each species.
 
 The first operation I'm going to run on this table is changing the names with
-`rename()`. Some people prefer their tea without sugar, and I [prefer](https://style.tidyverse.org/syntax.html#object-names) my 
-variable names without uppercase characters, dots or (if possible) numbers. 
-This will give me the opportunity to introduce the trivial syntax
-of `dplyr` verbs.
+`rename()`. Some people prefer their tea without sugar, I [prefer](https://style.tidyverse.org/syntax.html#object-names) my 
+variable names without uppercase characters, dots or (when possible) numbers. 
+This will give me a chance to introduce the trivial syntax of `dplyr` verbs.
 
 ```{r rename}
-phylacine <- phylacine %>% 
-  dplyr::rename(
-    "binomial" = Binomial.1.2,
-    "order" = Order.1.2,
-    "family" = Family.1.2,
-    "genus" = Genus.1.2,
-    "species" = Species.1.2,
-    "terrestrial" = Terrestrial,
-    "marine" = Marine,
-    "freshwater" = Freshwater,
-    "aerial" = Aerial,
-    "life_habit_method" = Life.Habit.Method,
-    "life_habit_source" = Life.Habit.Source,
-    "mass_g" = Mass.g,
-    "mass_method" = Mass.Method,
-    "mass_source" = Mass.Source,
-    "mass_comparison" = Mass.Comparison,
-    "mass_comparison_source" = Mass.Comparison.Source,
-    "island_endemicity" = Island.Endemicity,
-    "iucn_status" = IUCN.Status.1.2, # not even for acronyms
-    "added_iucn_status" =  Added.IUCN.Status.1.2,
-    "diet_plant" = Diet.Plant,
-    "diet_vertebrate" = Diet.Vertebrate,
-    "diet_invertebrate" = Diet.Invertebrate,
-    "diet_method" = Diet.Method,
-    "diet_source" = Diet.Source
-  )
-```
-
-For convenience, I'm going to use the pipe operator (`%>%`) that we've seen 
-before, through this chapter. All `dplyr` functions are built to work with the 
-pipe (i.e, their firstargument is always `data`), but again, this is not 
-compulsory. I could do
-
-```{r no_pipe, eval=FALSE}
 phylacine <- dplyr::rename(
-  data = phylacine,
+  .data = phylacine, 
   "binomial" = Binomial.1.2,
-  # ...
+  "order" = Order.1.2,
+  "family" = Family.1.2,
+  "genus" = Genus.1.2,
+  "species" = Species.1.2,
+  "terrestrial" = Terrestrial,
+  "marine" = Marine,
+  "freshwater" = Freshwater,
+  "aerial" = Aerial,
+  "life_habit_method" = Life.Habit.Method,
+  "life_habit_source" = Life.Habit.Source,
+  "mass_g" = Mass.g,
+  "mass_method" = Mass.Method,
+  "mass_source" = Mass.Source,
+  "mass_comparison" = Mass.Comparison,
+  "mass_comparison_source" = Mass.Comparison.Source,
+  "island_endemicity" = Island.Endemicity,
+  "iucn_status" = IUCN.Status.1.2, # not even for acronyms
+  "added_iucn_status" =  Added.IUCN.Status.1.2,
+  "diet_plant" = Diet.Plant,
+  "diet_vertebrate" = Diet.Vertebrate,
+  "diet_invertebrate" = Diet.Invertebrate,
+  "diet_method" = Diet.Method,
+  "diet_source" = Diet.Source
 )
 ```
-Note how columns are referred to. Once the data as been passed as an argument,
-no need to refer to it anymore, `dplyr` understands that you're dealing with
-variables inside that data frame. So drop that `data$var`, `data[, "var"]`,
-and, if you've read *The R book*, forget the very existence of `attach()`. 
+
+The first argument is always `.data`, the data table (`data.frame` or `tibble`) you want to apply change to. 
+Note how columns are referred to. Once the data table as been passed as an argument,
+there is no need to refer to it directly anymore, `dplyr` understands that you're dealing with variables inside that data frame. So drop that `data$var`, `data[, "var"]`,
+and forget the very existence of `attach()` / `detach()`. 
 
 Finally, I should mention that you can refer to variables names either with strings or directly as objects, whether you're reading or creating them:
 
 ```{r rename2, eval=FALSE}
 phylacine2 <- readr::read_csv("data/phylacine_traits.csv")
 
+dplyr::rename(
+  phylacine2,
+  # this works
+  binomial = Binomial.1.2
+)
+dplyr::rename(
+  phylacine2,
+  # this works too!
+  binomial = "Binomial.1.2"
+)
+dplyr::rename(
+  phylacine2,
+  # guess what
+  "binomial" = "Binomial.1.2"
+)
+```
+
+## The pipe operator `%>%`
+If you have already come across pieces of code using the tidyverse, chances are 
+that you have seen this odd symbol. While the pipe is no strictly-speaking a
+part of the tidyverse (it comes from its own package, `magrittr`), it is 
+imported along with each package and widely used in conjunction with its 
+functions.
+What does it do? Consider the following example with `rename()`:
+
+```{r the_pipe}
+phylacine2 <- readr::read_csv("data/phylacine_traits.csv")
+# regular syntax
+dplyr::rename(
+  phylacine2,
+  "binomial" = "Binomial.1.2"
+)
+# alternative syntax with the pipe operator
 phylacine2 %>% 
   dplyr::rename(
-    # this works
-    binomial = Binomial.1.2
-  )
-phylacine2 %>% 
-  dplyr::rename(
-    # this works too!
-    binomial = "Binomial.1.2"
-  )
-phylacine2 %>% 
-  dplyr::rename(
-    # guess what
     "binomial" = "Binomial.1.2"
   )
+```
+
+Got it? The pipe takes the object on its left-side and silently feeds it to the
+*first* argument of the function on its right-side. It could be read as "take x,
+then do...".
+The reason for using the pipe is because it makes code syntax closer to 
+the syntax of a sentence, and therefore, easier and faster for your brain to
+process (and write!) the code. In particular, the pipe enables easy chains of 
+operations, where you apply something to an object, then apply something else to
+the outcome, and so on...
+I will show some examples of chained operations with tidyverse functions, but
+for that I first need to introduce a couple more verbs.
+
+Using the pipe can be quite unsettling at first, because you're not used to
+think in this way. But if you push a bit for it, I promise it will make things
+a lot easier, and it's strangely addicting. To avoid typing the tedious symbols,
+`magrittr` installs a shortcut for you in RStudio. Use `Ctrl + Shift + M` on 
+Windows, and `Cmd + Shift + M` on MacOS.
+
+Finally I should emphasize that the use of the pipe isn't limited to the 
+tidyverse, but extends to almost all R functions. Just remember that the piped
+value is always matched to the first argument of the following function
+
+```{r pipe_examples}
+5 %>% rep(3)
+"meow" %>% cat()
+```
+
+If you need to pass the left-hand side to an argument other than the first,
+you can use the dot place-holder `.`.
+
+```{r dot}
+"meow" %>% cat("cats", "go", .)
+```
+
+Because of its syntax, most base R operators are not compatible with the pipe (but this is very rarely needed). If needed, `magrittr` introduces alternative functions for operators.
+
+Subsetting operators can be piped, with the dot place-holder.
+
+```{r pipe_limits}
+# 5 %>% * 3 # no, won't work
+# 5 %>% .* 3 # neither
+5 %>% magrittr::multiply_by(3) # yes
+
+# subsetting
+list("monkey see", "monkey_do") %>% .[[2]]
+phylacine %>% .$binomial %>% head()
 ```
 
 ## Select variables with `select()`
@@ -127,7 +185,7 @@ phylacine %>% dplyr::select(genus, species, mass_g)
 phylacine %>% dplyr::select(family:terrestrial)
 ```
 
-`select()` can also *exclude* variables:
+`select()` can also be used to *exclude* variables:
 
 ```{r exclude}
 phylacine %>% dplyr::select(-binomial)
@@ -185,6 +243,8 @@ phylacine %>% dplyr::filter(mass_g %>% between(1e3, 1e5)) # dplyr
 
 ```
 
+Note that you can absolutely pipe operations inside function arguments as above (those are expressions, after all!).
+
 If instead of selecting observations based on conditions, you want to get the nth row, use `slice()`
 
 ```{r slice}
@@ -195,21 +255,93 @@ phylacine %>%
   dplyr::slice(-2) 
 ```
 
-You may also want the row number to be included as a variable, to be used as part of some condition or calculation. `tibble` is there for you:
+## Create new variables with `mutate()`
 
-```{r row_index}
-phylacine %>% tibble::rownames_to_column()
+Often in data analysis, you will want to create new variables, or edit existing
+ones. This is done easily through `mutate()`. For example, consider the diet 
+data:
+
+```{r}
+diet <- phylacine %>% 
+  dplyr::select(
+    binomial,
+    diet_plant,
+    diet_vertebrate,
+    diet_invertebrate
+  )
+diet
 ```
 
+These three variables show the percentage of each category of food that make the
+diet of that species. They should sum to 100. To assert this, I'm going to 
+create a new variable, `total_diet`.
 
-## Create new variables with `mutate()`
-can also edit existing ones
+```{r total_diet}
+diet <- diet %>% dplyr::mutate(
+  "total_diet" = diet_vertebrate + diet_invertebrate + diet_plant
+)
+diet
 
-drop existing variables with `transmute()`
+all(diet$total_diet == 100)
+```
+
+`mutate()` adds a variable to the table, and keeps all other variables. 
+Sometimes you may want to just keep the new variable, and drop the other ones.
+That's the job of `mutate()`'s twin sibling, `transmute()`. For example,
+I want to combine `diet_invertebrate` and `diet_vertebrate`
+
+```{r diet_animal}
+diet %>% 
+  dplyr::transmute(
+    "diet_animal" = diet_invertebrate + diet_vertebrate
+  )
+```
+
+You may want to keep some variables and drop others. You could pipe `mutate()` and `select()` to do so, or you could just pass the variables to keep to `transmute()`.
+
+```{r both_diets}
+diet %>% 
+  dplyr::transmute(
+    "diet_animal" = diet_invertebrate + diet_vertebrate,
+    diet_plant
+  )
+```
+
+You can also refer to variables you're creating to derive new variables from them as part of the same operation, this is not an issue.
+
+```{r total_diet2}
+diet %>% 
+  dplyr::transmute(
+    "diet_animal" = diet_invertebrate + diet_vertebrate,
+    diet_plant,
+    "total_diet" = diet_animal + diet_plant
+  )
+```
+
+Sometimes, you may need to perform an operation based on the row number.
+To add the row number as a variable, you could do:
+
+```{r rwo_nb}
+phylacine %>% 
+  dplyr::transmute(
+    binomial,
+    "row_nb" = 1:nrow(phylacine)
+  )
+```
+
+but `tibble` has a built-in function to do just that:
+
+```{r row_index}
+phylacine %>% 
+  dplyr::select(binomial) %>% 
+  tibble::rownames_to_column(var = "row_nb")
+```
 
 ## Grouped results with `group_by()` and `summarise()`
 
 ## Scoped variables
+
+diet_plant, fauna, etc
 
 ```{r eval=FALSE}
 data(mtcars)
