@@ -24,7 +24,7 @@
 <meta name="author" content="Raphael and Pratik" />
 
 
-<meta name="date" content="2020-05-22" />
+<meta name="date" content="2020-05-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -195,12 +195,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Section 3</span> Data manipulation with <code>dplyr</code></h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># load the tidyverse</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
-<pre><code>## ── Attaching packages ───────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ── Attaching packages ────────────────────────────── tidyverse 1.3.0 ──</code></pre>
 <pre><code>## ✓ ggplot2 3.3.0     ✓ purrr   0.3.4
 ## ✓ tibble  3.0.1     ✓ dplyr   0.8.5
 ## ✓ tidyr   1.0.2     ✓ stringr 1.4.0
 ## ✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre>
-<pre><code>## ── Conflicts ──────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
 <div id="introduction" class="section level2">
@@ -301,9 +301,196 @@ and, if you’ve read <em>The R book</em>, forget the very existence of <code>at
 </div>
 <div id="select-variables-with-select" class="section level2">
 <h2><span class="header-section-number">3.3</span> Select variables with <code>select()</code></h2>
+<p>To extract a set of variables (i.e. columns), use the conveniently-named <code>select()</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">phylacine_subset &lt;-<span class="st"> </span>phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">    binomial, </a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">    order, </a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">    terrestrial, </a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">    marine, </a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">    freshwater, </a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">    aerial</a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">  )</a>
+<a class="sourceLine" id="cb10-10" data-line-number="10">phylacine_subset</a></code></pre></div>
+<pre><code>## # A tibble: 5,831 x 6
+##    binomial             order    terrestrial marine freshwater aerial
+##    &lt;chr&gt;                &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Abditomys_latidens   Rodentia           1      0          0      0
+##  2 Abeomelomys_sevia    Rodentia           1      0          0      0
+##  3 Abrawayaomys_ruschii Rodentia           1      0          0      0
+##  4 Abrocoma_bennettii   Rodentia           1      0          0      0
+##  5 Abrocoma_boliviensis Rodentia           1      0          0      0
+##  6 Abrocoma_budini      Rodentia           1      0          0      0
+##  7 Abrocoma_cinerea     Rodentia           1      0          0      0
+##  8 Abrocoma_famatina    Rodentia           1      0          0      0
+##  9 Abrocoma_shistacea   Rodentia           1      0          0      0
+## 10 Abrocoma_uspallata   Rodentia           1      0          0      0
+## # … with 5,821 more rows</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co"># Single variable</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">phylacine <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(family)</a></code></pre></div>
+<pre><code>## # A tibble: 5,831 x 1
+##    family     
+##    &lt;chr&gt;      
+##  1 Muridae    
+##  2 Muridae    
+##  3 Cricetidae 
+##  4 Abrocomidae
+##  5 Abrocomidae
+##  6 Abrocomidae
+##  7 Abrocomidae
+##  8 Abrocomidae
+##  9 Abrocomidae
+## 10 Abrocomidae
+## # … with 5,821 more rows</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># A set of variables</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">phylacine <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(genus, species, mass_g)</a></code></pre></div>
+<pre><code>## # A tibble: 5,831 x 3
+##    genus        species     mass_g
+##    &lt;chr&gt;        &lt;chr&gt;        &lt;dbl&gt;
+##  1 Abditomys    latidens      269 
+##  2 Abeomelomys  sevia          52 
+##  3 Abrawayaomys ruschii        63 
+##  4 Abrocoma     bennettii     250 
+##  5 Abrocoma     boliviensis   158 
+##  6 Abrocoma     budini        361.
+##  7 Abrocoma     cinerea       250 
+##  8 Abrocoma     famatina      233.
+##  9 Abrocoma     shistacea     276.
+## 10 Abrocoma     uspallata     246.
+## # … with 5,821 more rows</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># A range of variables</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">phylacine <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(family<span class="op">:</span>terrestrial)</a></code></pre></div>
+<pre><code>## # A tibble: 5,831 x 4
+##    family      genus        species     terrestrial
+##    &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;             &lt;dbl&gt;
+##  1 Muridae     Abditomys    latidens              1
+##  2 Muridae     Abeomelomys  sevia                 1
+##  3 Cricetidae  Abrawayaomys ruschii               1
+##  4 Abrocomidae Abrocoma     bennettii             1
+##  5 Abrocomidae Abrocoma     boliviensis           1
+##  6 Abrocomidae Abrocoma     budini                1
+##  7 Abrocomidae Abrocoma     cinerea               1
+##  8 Abrocomidae Abrocoma     famatina              1
+##  9 Abrocomidae Abrocoma     shistacea             1
+## 10 Abrocomidae Abrocoma     uspallata             1
+## # … with 5,821 more rows</code></pre>
+<p><code>select()</code> can also <em>exclude</em> variables:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>binomial)</a></code></pre></div>
+<pre><code>## # A tibble: 5,831 x 23
+##    order family genus species terrestrial marine freshwater aerial
+##    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Rode… Murid… Abdi… latide…           1      0          0      0
+##  2 Rode… Murid… Abeo… sevia             1      0          0      0
+##  3 Rode… Crice… Abra… ruschii           1      0          0      0
+##  4 Rode… Abroc… Abro… bennet…           1      0          0      0
+##  5 Rode… Abroc… Abro… bolivi…           1      0          0      0
+##  6 Rode… Abroc… Abro… budini            1      0          0      0
+##  7 Rode… Abroc… Abro… cinerea           1      0          0      0
+##  8 Rode… Abroc… Abro… famati…           1      0          0      0
+##  9 Rode… Abroc… Abro… shista…           1      0          0      0
+## 10 Rode… Abroc… Abro… uspall…           1      0          0      0
+## # … with 5,821 more rows, and 15 more variables: life_habit_method &lt;chr&gt;,
+## #   life_habit_source &lt;chr&gt;, mass_g &lt;dbl&gt;, mass_method &lt;chr&gt;,
+## #   mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;, mass_comparison_source &lt;chr&gt;,
+## #   island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;, added_iucn_status &lt;chr&gt;,
+## #   diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;, diet_invertebrate &lt;dbl&gt;,
+## #   diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>(binomial<span class="op">:</span>species))</a></code></pre></div>
+<pre><code>## # A tibble: 5,831 x 19
+##    terrestrial marine freshwater aerial life_habit_meth… life_habit_sour… mass_g
+##          &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;             &lt;dbl&gt;
+##  1           1      0          0      0 Reported         IUCN. 2016. IUC…   269 
+##  2           1      0          0      0 Reported         IUCN. 2016. IUC…    52 
+##  3           1      0          0      0 Reported         IUCN. 2016. IUC…    63 
+##  4           1      0          0      0 Reported         IUCN. 2016. IUC…   250 
+##  5           1      0          0      0 Reported         IUCN. 2016. IUC…   158 
+##  6           1      0          0      0 Reported         IUCN. 2016. IUC…   361.
+##  7           1      0          0      0 Reported         IUCN. 2016. IUC…   250 
+##  8           1      0          0      0 Reported         IUCN. 2016. IUC…   233.
+##  9           1      0          0      0 Reported         IUCN. 2016. IUC…   276.
+## 10           1      0          0      0 Reported         IUCN. 2016. IUC…   246.
+## # … with 5,821 more rows, and 12 more variables: mass_method &lt;chr&gt;,
+## #   mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;, mass_comparison_source &lt;chr&gt;,
+## #   island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;, added_iucn_status &lt;chr&gt;,
+## #   diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;, diet_invertebrate &lt;dbl&gt;,
+## #   diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</code></pre>
+<p><code>select()</code> and <code>rename()</code> are pretty similar, and in fact, <code>select()</code> can also rename variables along the way:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;fam&quot;</span> =<span class="st"> </span>family)</a></code></pre></div>
+<pre><code>## # A tibble: 5,831 x 1
+##    fam        
+##    &lt;chr&gt;      
+##  1 Muridae    
+##  2 Muridae    
+##  3 Cricetidae 
+##  4 Abrocomidae
+##  5 Abrocomidae
+##  6 Abrocomidae
+##  7 Abrocomidae
+##  8 Abrocomidae
+##  9 Abrocomidae
+## 10 Abrocomidae
+## # … with 5,821 more rows</code></pre>
+<p>And you can mix all of that at once:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">  <span class="st">&quot;fam&quot;</span> =<span class="st"> </span>family,</a>
+<a class="sourceLine" id="cb24-3" data-line-number="3">  genus<span class="op">:</span>freshwater,</a>
+<a class="sourceLine" id="cb24-4" data-line-number="4">  <span class="op">-</span>terrestrial</a>
+<a class="sourceLine" id="cb24-5" data-line-number="5">)</a></code></pre></div>
+<pre><code>## # A tibble: 5,831 x 5
+##    fam         genus        species     marine freshwater
+##    &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+##  1 Muridae     Abditomys    latidens         0          0
+##  2 Muridae     Abeomelomys  sevia            0          0
+##  3 Cricetidae  Abrawayaomys ruschii          0          0
+##  4 Abrocomidae Abrocoma     bennettii        0          0
+##  5 Abrocomidae Abrocoma     boliviensis      0          0
+##  6 Abrocomidae Abrocoma     budini           0          0
+##  7 Abrocomidae Abrocoma     cinerea          0          0
+##  8 Abrocomidae Abrocoma     famatina         0          0
+##  9 Abrocomidae Abrocoma     shistacea        0          0
+## 10 Abrocomidae Abrocoma     uspallata        0          0
+## # … with 5,821 more rows</code></pre>
 </div>
 <div id="select-observations-with-filter" class="section level2">
 <h2><span class="header-section-number">3.4</span> Select observations with <code>filter()</code></h2>
+<p>Conditional selection of observations is performed through <code>filter()</code>. The syntax uses conditions involving the variables, just as you would use for <code>if</code> statements or <code>while</code> loops.</p>
+<p>For example, I might want to extract mammals that are above a certain mass:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">has_rownames</span>()</a></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(binomial) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="st">  </span>tibble<span class="op">::</span><span class="kw">rownames_to_column</span>()</a></code></pre></div>
+<pre><code>## # A tibble: 5,831 x 2
+##    rowname binomial            
+##    &lt;chr&gt;   &lt;chr&gt;               
+##  1 1       Abditomys_latidens  
+##  2 2       Abeomelomys_sevia   
+##  3 3       Abrawayaomys_ruschii
+##  4 4       Abrocoma_bennettii  
+##  5 5       Abrocoma_boliviensis
+##  6 6       Abrocoma_budini     
+##  7 7       Abrocoma_cinerea    
+##  8 8       Abrocoma_famatina   
+##  9 9       Abrocoma_shistacea  
+## 10 10      Abrocoma_uspallata  
+## # … with 5,821 more rows</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(binomial) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb30-3" data-line-number="3"><span class="st">  </span>tibble<span class="op">::</span><span class="kw">rowid_to_column</span>()</a></code></pre></div>
+<pre><code>## # A tibble: 5,831 x 2
+##    rowid binomial            
+##    &lt;int&gt; &lt;chr&gt;               
+##  1     1 Abditomys_latidens  
+##  2     2 Abeomelomys_sevia   
+##  3     3 Abrawayaomys_ruschii
+##  4     4 Abrocoma_bennettii  
+##  5     5 Abrocoma_boliviensis
+##  6     6 Abrocoma_budini     
+##  7     7 Abrocoma_cinerea    
+##  8     8 Abrocoma_famatina   
+##  9     9 Abrocoma_shistacea  
+## 10    10 Abrocoma_uspallata  
+## # … with 5,821 more rows</code></pre>
 </div>
 <div id="create-new-variables-with-mutate" class="section level2">
 <h2><span class="header-section-number">3.5</span> Create new variables with <code>mutate()</code></h2>
@@ -315,20 +502,21 @@ and, if you’ve read <em>The R book</em>, forget the very existence of <code>at
 </div>
 <div id="scoped-variables" class="section level2">
 <h2><span class="header-section-number">3.7</span> Scoped variables</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">data</span>(mtcars)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_all</span>(toupper)</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">is_whole &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">all</span>(<span class="kw">floor</span>(x) <span class="op">==</span><span class="st"> </span>x)</a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_if</span>() <span class="co"># select integers only</span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_at</span>(<span class="kw">vars</span>(<span class="op">-</span><span class="kw">contains</span>(<span class="st">&quot;ar&quot;</span>)))</a>
-<a class="sourceLine" id="cb10-8" data-line-number="8">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_at</span>(<span class="kw">vars</span>(<span class="op">-</span><span class="kw">contains</span>(<span class="st">&quot;ar&quot;</span>), <span class="kw">starts_with</span>(<span class="st">&quot;c&quot;</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">data</span>(mtcars)</a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_all</span>(toupper)</a>
+<a class="sourceLine" id="cb32-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb32-4" data-line-number="4">is_whole &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">all</span>(<span class="kw">floor</span>(x) <span class="op">==</span><span class="st"> </span>x)</a>
+<a class="sourceLine" id="cb32-5" data-line-number="5">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_if</span>() <span class="co"># select integers only</span></a>
+<a class="sourceLine" id="cb32-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb32-7" data-line-number="7">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_at</span>(<span class="kw">vars</span>(<span class="op">-</span><span class="kw">contains</span>(<span class="st">&quot;ar&quot;</span>)))</a>
+<a class="sourceLine" id="cb32-8" data-line-number="8">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_at</span>(<span class="kw">vars</span>(<span class="op">-</span><span class="kw">contains</span>(<span class="st">&quot;ar&quot;</span>), <span class="kw">starts_with</span>(<span class="st">&quot;c&quot;</span>)))</a></code></pre></div>
 </div>
 <div id="more" class="section level2">
 <h2><span class="header-section-number">3.8</span> More !</h2>
 <p>dolla sign x point operator
 variables values -&gt; dplyr::distinct() eq. to base::unique()
-sample()
+sample_n()
+sample_frac()
 slice()</p>
 
 </div>

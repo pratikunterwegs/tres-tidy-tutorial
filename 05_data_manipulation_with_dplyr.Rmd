@@ -5,7 +5,7 @@ editor_options:
 
 # Data manipulation with `dplyr`
 
-```{r}
+```{r load_lib}
 # load the tidyverse
 library(tidyverse)
 ```
@@ -102,12 +102,105 @@ phylacine2 %>%
     # guess what
     "binomial" = "Binomial.1.2"
   )
-
 ```
 
 ## Select variables with `select()`
 
+To extract a set of variables (i.e. columns), use the conveniently-named `select()`.
+
+```{r select}
+phylacine_subset <- phylacine %>% 
+  dplyr::select(
+    binomial, 
+    order, 
+    terrestrial, 
+    marine, 
+    freshwater, 
+    aerial
+  )
+phylacine_subset
+# Single variable
+phylacine %>% dplyr::select(family)
+# A set of variables
+phylacine %>% dplyr::select(genus, species, mass_g)
+# A range of variables
+phylacine %>% dplyr::select(family:terrestrial)
+```
+
+`select()` can also *exclude* variables:
+
+```{r exclude}
+phylacine %>% dplyr::select(-binomial)
+phylacine %>% dplyr::select(-(binomial:species))
+```
+
+`select()` and `rename()` are pretty similar, and in fact, `select()` can also rename variables along the way:
+
+```{r select_rename}
+phylacine %>% dplyr::select("fam" = family)
+```
+
+And you can mix all of that at once:
+
+```{r select_mix}
+phylacine %>% dplyr::select(
+  "fam" = family,
+  genus:freshwater,
+  -terrestrial
+)
+```
+
 ## Select observations with `filter()`
+
+Conditional selection of observations is performed through `filter()`. This i sarguably the most useful function in the entire package. The syntax uses conditions involving the variables, just as you would use for `if` statements or `while` loops.
+
+For example, I might want to extract mammals that are above a certain mass:
+
+```{r megafauna}
+# megafauna
+phylacine %>% 
+  dplyr::filter(mass_g > 1e5) # 100 kg
+# living megafauna
+phylacine %>% 
+  dplyr::filter(mass_g > 1e5, iucn_status != "EP")
+
+# Are there any flying mammals besides bats?
+phylacine %>% 
+  dplyr::filter(aerial == 1, order != "Chiroptera") 
+# no :(
+
+# That one species
+phylacine %>% dplyr::filter(binomial == "Homo_sapiens")
+
+```
+
+Tip: `dplyr` introduces the useful function `between()` that does exactly what the name implies
+
+```{r between}
+between(1:5, 2, 4)
+
+# Mesofauna
+phylacine %>% dplyr::filter(mass_g > 1e3, mass_g < 1e5) # base
+phylacine %>% dplyr::filter(mass_g %>% between(1e3, 1e5)) # dplyr
+
+```
+
+If instead of selecting observations based on conditions, you want to get the nth row, use `slice()`
+
+```{r slice}
+phylacine %>% dplyr::slice(1:3)
+# can also be used to exclude rows
+phylacine %>% 
+  dplyr::slice(1:3) %>% 
+  dplyr::slice(-2) 
+```
+
+You may also want the row number to be included as a variable, to be used as part of some condition or calculation. `tibble` is there for you:
+
+```{r row_index}
+phylacine %>% tibble::rownames_to_column()
+```
+
 
 ## Create new variables with `mutate()`
 can also edit existing ones
@@ -134,5 +227,6 @@ mtcars %>% select_at(vars(-contains("ar"), starts_with("c")))
 ## More !
 dolla sign x point operator
 variables values -> dplyr::distinct() eq. to base::unique()
-sample()
-slice()
+sample_n()
+sample_frac()
+first, last, nth
