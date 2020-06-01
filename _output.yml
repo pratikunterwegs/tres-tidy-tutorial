@@ -8,7 +8,7 @@ bookdown::gitbook:
     toolbar:
       position: fixed
     edit : null
-    download: ["TRES-Tidy-Tutorial.pdf"]
+    download: download:[["TRES-Tidy-Tutorial.pdf","PDF"]]
     search: yes
     fontsettings:
       theme: white
