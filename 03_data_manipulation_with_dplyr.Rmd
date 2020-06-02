@@ -471,21 +471,6 @@ sirenia %>%
 
 ## Joining tables
 
-## Scoped variables
-
-diet_plant, fauna, etc
-
-```{r eval=FALSE}
-data(mtcars)
-mtcars %>% select_all(toupper)
-
-is_whole <- function(x) all(floor(x) == x)
-mtcars %>% select_if() # select integers only
-
-mtcars %>% select_at(vars(-contains("ar")))
-mtcars %>% select_at(vars(-contains("ar"), starts_with("c")))
-
-```
 
 ## More !
 arrange
