@@ -321,7 +321,7 @@ diet %>%
 Sometimes, you may need to perform an operation based on the row number.
 To add the row number as a variable, you could do:
 
-```{r rwo_nb}
+```{r row_nb}
 phylacine %>% 
   dplyr::transmute(
     binomial,
@@ -337,7 +337,139 @@ phylacine %>%
   tibble::rownames_to_column(var = "row_nb")
 ```
 
-## Grouped results with `group_by()` and `summarise()`
+## Grouped operations with `summarise()` and `group_by()`
+
+### Summarise observations
+
+`mutate()` applies operations to all observations in a table. By contrast, `summarise()` applies operations to *groups* of observations, by default, all of them:
+
+```{r summarise}
+phylacine %>% 
+  dplyr::summarise(
+    "n_species" = dplyr::n(),
+    "n_terrestrial" = sum(terrestrial),
+    "n_marine" = sum(marine),
+    "n_freshwater" = sum(freshwater),
+    "n_aerial" = sum(aerial),
+    "mean_mass_g" = mean(mass_g)
+  )
+```
+
+Above you can see that bats account for a large portion of mammal species diversity (`n_aerial`). How much exactly? Just as with `mutate()`, you can perform operations on the variables you just created, in the same statement:
+
+```{r prop_bats}
+phylacine %>% 
+  dplyr::summarise(
+    "n_species" = dplyr::n(),
+    "n_aerial" = sum(aerial), # bats
+    "prop_aerial" = n_aerial / n_species
+  )
+```
+
+One fifth!
+If the british spelling bothers you, worry not. `summarize()` also exists, and is strictly equivalent. That's how thoughtful the folks at RStudio are.
+
+Logical (TRUE/FALSE) variables can be used for a simple trick. Their sum is the count of observations that evaluate to `TRUE`, (because `TRUE` is taken as 1 and `FALSE` as 0) and their mean is the proportion of `TRUE` observations. This can be exploited to count the number of observations that satisfy a condition:
+
+```{r sum_logi}
+phylacine %>% 
+  dplyr::summarise(
+    "nb_species" = dplyr::n(),
+    "nb_megafauna" = sum(mass_g > 100000),
+    "p_megafauna" = mean(mass_g > 100000)
+  )
+```
+
+See `?summarise()` for more examples of functions to use with `summarise()`: spread, range, position... 
+
+### Grouping by variables
+
+In most cases you don't want to run summary operations on the entire set of observations, but instead on observations that share a common feature, i.e. groups.
+For example, I want to run the summary displayed above, but for each Order of mammals instead of the entire set as one block.
+I could work my way with what we have already seen, filtering observations (`filter(order == "Rodentia")`) and then pipeing the output to `summarise()`, and do it again for each Order. But that would be tedious.
+
+Instead, I can use `group_by()` to pool observations by `order`.
+
+```{r group_by_order}
+phylacine %>% 
+  dplyr::group_by(order)
+```
+
+At first glance, nothing has changed, apart from an extra line of information in the output. But now here's what happen if I run the same `summarise()` statement on an ungrouped and a grouped table
+
+```{r summarise_order}
+phylacine %>% 
+  dplyr::summarise(
+    "n_species" = dplyr::n(),
+    "mean_mass_g" = mean(mass_g)
+  )
+
+phylacine %>% 
+  dplyr::group_by(order) %>% 
+  dplyr::summarise(
+    "n_species" = dplyr::n(),
+    "mean_mass_g" = mean(mass_g)
+  )
+```
+
+Observations can be grouped by multiple variables, outputting a summary for every combination.
+
+```{r multiple_groups}
+phylacine %>% 
+  dplyr::group_by(order, iucn_status) %>% 
+  dplyr::summarise(
+    "n_species" = dplyr::n()
+  )
+```
+
+Whenever you call `summarise()`, the last level of grouping is dropped. Note how in the output table above, observations are grouped by order, and no longer by IUCN status. If I summarise observations again:
+
+```{r drop_grouping}
+phylacine %>% 
+  dplyr::group_by(order, iucn_status) %>% 
+  dplyr::summarise(
+    "n_species" = dplyr::n()
+  ) %>% 
+  dplyr::summarise(
+    "n_species_2" = dplyr::n()
+  )
+```
+
+I get the summary across orders, and the table is no longer grouped at all. This is useful to consider if you need to work on summaries across different levels of the data. For example, I would like to know how the members of each order are distributed among the different levels of threat in the IUCN classification. To get these proportions, I need to first get the count of each number of species in a level of threat inside an order, and divide that by the number of species in that order.
+
+```{r iucn_prop}
+iucn_props <- phylacine %>% 
+  dplyr::group_by(order, iucn_status) %>% 
+  dplyr::summarise("n_order_iucn" = dplyr::n()) %>% 
+  # grouping by iucn_status silently dropped
+  dplyr::mutate(
+    "n_order" = sum(n_order_iucn),
+    "p_iucn" = n_order_iucn / n_order
+  )
+iucn_props
+
+iucn_props %>% 
+  dplyr::filter(order == "Carnivora")
+```
+
+10.2% of all Carnivores are in the category "Endangered (EN)".
+
+Just above I used `mutate()` instead of `summarise()`. In fact, `mutate()` (and `transmute()`) can generally perform summaries just like `summarise()`. The difference is that `summarise()` will return one value per group, while `mutate()` returns one value per observation.
+
+```{r mutate_for_summaries}
+sirenia <- phylacine %>% 
+  dplyr::filter(order == "Sirenia") %>% 
+  dplyr::select(binomial)
+sirenia
+
+sirenia %>% 
+  dplyr::summarise("n" = dplyr::n())
+sirenia %>% 
+  dplyr::mutate("n" = dplyr::n())
+
+```
+
+## Joining tables
 
 ## Scoped variables
 
@@ -355,10 +487,11 @@ mtcars %>% select_at(vars(-contains("ar"), starts_with("c")))
 
 ```
 
-
 ## More !
-dolla sign x point operator
+arrange
+.$
 variables values -> dplyr::distinct() eq. to base::unique()
 sample_n()
 sample_frac()
-first, last, nth
+dplyr:: ?
+
