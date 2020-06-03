@@ -113,11 +113,7 @@
 
 \title{TRES Tidyverse Tutorial}
 \author{Raphael, Pratik and Theo}
-<<<<<<< HEAD
 \date{2020-06-03}
-=======
-\date{2020-05-31}
->>>>>>> c98edcaedd613b9f5e131e038d287d2fc7d8431b
 
 \begin{document}
 \maketitle
@@ -1124,7 +1120,7 @@ Raphael Scherrer
 In this chapter we will learn what \emph{tidy} means in the context of the tidyverse, and how to reshape our data into a tidy format using the \texttt{tidyr} package. But first, let us take a detour and introduce the \texttt{tibble}.
 
 \hypertarget{the-new-data-frame-tibble}{%
-\section{1. The new data frame: tibble}\label{the-new-data-frame-tibble}}
+\section{The new data frame: tibble}\label{the-new-data-frame-tibble}}
 
 The \texttt{tibble} is the recommended class to use to store tabular data in the tidyverse. Consider it as the operational unit of any data science pipeline. For most practical purposes, a \texttt{tibble} is basically a \texttt{data.frame}.
 
@@ -1257,7 +1253,7 @@ This is important because a \texttt{matrix} can contain only one type of values 
 So, in the tidyverse we are going to work with tibbles, got it. But what does ``tidy'' mean exactly?
 
 \hypertarget{the-concept-of-tidy-data}{%
-\section{2. The concept of tidy data}\label{the-concept-of-tidy-data}}
+\section{The concept of tidy data}\label{the-concept-of-tidy-data}}
 
 When it comes to putting data into tables, there are many ways one could organize a dataset. The \emph{tidy} format is one such format. According to the formal \href{https://tidyr.tidyverse.org/articles/tidy-data.html}{definition}, a table is tidy if each column is a variable and each row is an observation. In practice, however, I found that this is not a very operational definition, especially in ecology and evolution where we often record multiple variables per individual. So, let's dig in with an example.
 
@@ -1289,29 +1285,16 @@ Say we have a dataset of several morphometrics measured on Darwin's finches in t
 ## # A tibble: 100 x 5
 ##       id beak_length beak_width body_weight island 
 ##    <int>       <dbl>      <dbl>       <dbl> <chr>  
-<<<<<<< HEAD
-##  1     1        5.02       1.96        9.34 Isabela
-##  2     2        4.94       1.96       11.8  Isabela
-##  3     3        4.97       1.97       12.3  Isabela
-##  4     4        5.02       1.93        7.75 Isabela
-##  5     5        4.90       2.02        9.80 Isabela
-##  6     6        5.05       1.93       11.9  Isabela
-##  7     7        4.89       1.89       12.9  Isabela
-##  8     8        4.99       2.08       11.6  Isabela
-##  9     9        5.06       2.04       11.4  Isabela
-## 10    10        4.99       1.97        7.83 Isabela
-=======
-##  1     1        4.87       2.04       11.1  Isabela
-##  2     2        4.90       2.16        8.05 Isabela
-##  3     3        5.01       2.05        9.37 Isabela
-##  4     4        4.97       2.15       12.4  Isabela
-##  5     5        4.87       2.13        9.35 Isabela
-##  6     6        4.91       2.04       14.6  Isabela
-##  7     7        4.95       2.02       12.8  Isabela
-##  8     8        5.02       1.94        5.79 Isabela
-##  9     9        5.17       1.93        9.18 Isabela
-## 10    10        5.08       1.73        8.86 Isabela
->>>>>>> c98edcaedd613b9f5e131e038d287d2fc7d8431b
+##  1     1        4.93       2.11        9.02 Isabela
+##  2     2        4.97       1.93       17.5  Isabela
+##  3     3        4.86       2.13        9.36 Isabela
+##  4     4        5.22       2.11       10.2  Isabela
+##  5     5        4.86       2.00       14.1  Isabela
+##  6     6        4.92       2.03        5.80 Isabela
+##  7     7        5.03       2.08       13.6  Isabela
+##  8     8        4.86       1.97        9.94 Isabela
+##  9     9        4.91       2.01       10.2  Isabela
+## 10    10        5.10       1.95        8.81 Isabela
 ## # ... with 90 more rows
 \end{verbatim}
 
@@ -1334,29 +1317,16 @@ The tidy equivalent of this dataset would be:
 ## # A tibble: 300 x 4
 ##       id island  variable    value
 ##    <int> <chr>   <chr>       <dbl>
-<<<<<<< HEAD
-##  1     1 Isabela beak_length  5.02
-##  2     1 Isabela beak_width   1.96
-##  3     1 Isabela body_weight  9.34
-##  4     2 Isabela beak_length  4.94
-##  5     2 Isabela beak_width   1.96
-##  6     2 Isabela body_weight 11.8 
-##  7     3 Isabela beak_length  4.97
-##  8     3 Isabela beak_width   1.97
-##  9     3 Isabela body_weight 12.3 
-## 10     4 Isabela beak_length  5.02
-=======
-##  1     1 Isabela beak_length  4.87
-##  2     1 Isabela beak_width   2.04
-##  3     1 Isabela body_weight 11.1 
-##  4     2 Isabela beak_length  4.90
-##  5     2 Isabela beak_width   2.16
-##  6     2 Isabela body_weight  8.05
-##  7     3 Isabela beak_length  5.01
-##  8     3 Isabela beak_width   2.05
-##  9     3 Isabela body_weight  9.37
-## 10     4 Isabela beak_length  4.97
->>>>>>> c98edcaedd613b9f5e131e038d287d2fc7d8431b
+##  1     1 Isabela beak_length  4.93
+##  2     1 Isabela beak_width   2.11
+##  3     1 Isabela body_weight  9.02
+##  4     2 Isabela beak_length  4.97
+##  5     2 Isabela beak_width   1.93
+##  6     2 Isabela body_weight 17.5 
+##  7     3 Isabela beak_length  4.86
+##  8     3 Isabela beak_width   2.13
+##  9     3 Isabela body_weight  9.36
+## 10     4 Isabela beak_length  5.22
 ## # ... with 290 more rows
 \end{verbatim}
 
@@ -1405,12 +1375,12 @@ A variety of statistical tests can be used on contingency tables such as Fisher'
 \end{verbatim}
 
 \hypertarget{reshaping-with-tidyr}{%
-\section{\texorpdfstring{3. Reshaping with \texttt{tidyr}}{3. Reshaping with tidyr}}\label{reshaping-with-tidyr}}
+\section{\texorpdfstring{Reshaping with \texttt{tidyr}}{Reshaping with tidyr}}\label{reshaping-with-tidyr}}
 
 The \texttt{tidyr} package implements tools to easily switch between layouts and also perform a few other reshaping operations. Old school R users will be familiar with the \texttt{reshape} and \texttt{reshape2} packages, of which \texttt{tidyr} is the tidyverse equivalent. Beware that \texttt{tidyr} is about playing with the general \emph{layout} of the dataset, while \emph{operations} and \emph{transformations} of the data are within the scope of the \texttt{dplyr} and \texttt{purrr} packages. All these packages work hand-in-hand really well, and analysis pipelines usually involve all of them. But today, we focus on the first member of this holy trinity, which is often the first one you'll need because you will want to reshape your data before doing other things. So, please hold your non-layout-related questions for the next chapters.
 
 \hypertarget{pivoting}{%
-\subsection{3.1. Pivoting}\label{pivoting}}
+\subsection{Pivoting}\label{pivoting}}
 
 Pivoting a dataset between the long and wide layout is the main purpose of \texttt{tidyr} (check out the package's logo). We already saw the \texttt{pivot\_longer} function, that converts a table form wide to long format. Similarly, there is a \texttt{pivot\_wider} function that does exactly the opposite and takes you back to the wide format:
 
@@ -1429,29 +1399,16 @@ Pivoting a dataset between the long and wide layout is the main purpose of \text
 ## # A tibble: 100 x 5
 ##       id island  beak_length beak_width body_weight
 ##    <int> <chr>         <dbl>      <dbl>       <dbl>
-<<<<<<< HEAD
-##  1     1 Isabela        5.02       1.96        9.34
-##  2     2 Isabela        4.94       1.96       11.8 
-##  3     3 Isabela        4.97       1.97       12.3 
-##  4     4 Isabela        5.02       1.93        7.75
-##  5     5 Isabela        4.90       2.02        9.80
-##  6     6 Isabela        5.05       1.93       11.9 
-##  7     7 Isabela        4.89       1.89       12.9 
-##  8     8 Isabela        4.99       2.08       11.6 
-##  9     9 Isabela        5.06       2.04       11.4 
-## 10    10 Isabela        4.99       1.97        7.83
-=======
-##  1     1 Isabela        4.87       2.04       11.1 
-##  2     2 Isabela        4.90       2.16        8.05
-##  3     3 Isabela        5.01       2.05        9.37
-##  4     4 Isabela        4.97       2.15       12.4 
-##  5     5 Isabela        4.87       2.13        9.35
-##  6     6 Isabela        4.91       2.04       14.6 
-##  7     7 Isabela        4.95       2.02       12.8 
-##  8     8 Isabela        5.02       1.94        5.79
-##  9     9 Isabela        5.17       1.93        9.18
-## 10    10 Isabela        5.08       1.73        8.86
->>>>>>> c98edcaedd613b9f5e131e038d287d2fc7d8431b
+##  1     1 Isabela        4.93       2.11        9.02
+##  2     2 Isabela        4.97       1.93       17.5 
+##  3     3 Isabela        4.86       2.13        9.36
+##  4     4 Isabela        5.22       2.11       10.2 
+##  5     5 Isabela        4.86       2.00       14.1 
+##  6     6 Isabela        4.92       2.03        5.80
+##  7     7 Isabela        5.03       2.08       13.6 
+##  8     8 Isabela        4.86       1.97        9.94
+##  9     9 Isabela        4.91       2.01       10.2 
+## 10    10 Isabela        5.10       1.95        8.81
 ## # ... with 90 more rows
 \end{verbatim}
 
@@ -1462,7 +1419,7 @@ If you are familiar with earlier versions of the tidyverse, \texttt{pivot\_longe
 There are a few other reshaping operations from \texttt{tidyr} that are worth knowing.
 
 \hypertarget{handling-missing-values}{%
-\subsection{3.2. Handling missing values}\label{handling-missing-values}}
+\subsection{Handling missing values}\label{handling-missing-values}}
 
 Say we have some missing measurements in the column ``value'' of our finch dataset:
 
@@ -1479,29 +1436,16 @@ Say we have some missing measurements in the column ``value'' of our finch datas
 ## # A tibble: 300 x 4
 ##       id island  variable    value
 ##    <int> <chr>   <chr>       <dbl>
-<<<<<<< HEAD
-##  1     1 Isabela beak_length NA   
+##  1     1 Isabela beak_length  4.93
 ##  2     1 Isabela beak_width  NA   
-##  3     1 Isabela body_weight  9.34
-##  4     2 Isabela beak_length  4.94
+##  3     1 Isabela body_weight  9.02
+##  4     2 Isabela beak_length NA   
 ##  5     2 Isabela beak_width  NA   
 ##  6     2 Isabela body_weight NA   
-##  7     3 Isabela beak_length  4.97
-##  8     3 Isabela beak_width  NA   
-##  9     3 Isabela body_weight NA   
-## 10     4 Isabela beak_length  5.02
-=======
-##  1     1 Isabela beak_length  4.87
-##  2     1 Isabela beak_width   2.04
-##  3     1 Isabela body_weight 11.1 
-##  4     2 Isabela beak_length NA   
-##  5     2 Isabela beak_width   2.16
-##  6     2 Isabela body_weight  8.05
-##  7     3 Isabela beak_length  5.01
-##  8     3 Isabela beak_width   2.05
-##  9     3 Isabela body_weight  9.37
+##  7     3 Isabela beak_length  4.86
+##  8     3 Isabela beak_width   2.13
+##  9     3 Isabela body_weight  9.36
 ## 10     4 Isabela beak_length NA   
->>>>>>> c98edcaedd613b9f5e131e038d287d2fc7d8431b
 ## # ... with 290 more rows
 \end{verbatim}
 
@@ -1517,29 +1461,16 @@ We could get rid of the rows that have missing values using \texttt{drop\_na}:
 ## # A tibble: 200 x 4
 ##       id island  variable    value
 ##    <int> <chr>   <chr>       <dbl>
-<<<<<<< HEAD
-##  1     1 Isabela body_weight  9.34
-##  2     2 Isabela beak_length  4.94
-##  3     3 Isabela beak_length  4.97
-##  4     4 Isabela beak_length  5.02
-##  5     4 Isabela body_weight  7.75
-##  6     5 Isabela beak_length  4.90
-##  7     5 Isabela beak_width   2.02
-##  8     5 Isabela body_weight  9.80
-##  9     6 Isabela beak_width   1.93
-## 10     7 Isabela beak_length  4.89
-=======
-##  1     1 Isabela beak_length  4.87
-##  2     1 Isabela beak_width   2.04
-##  3     1 Isabela body_weight 11.1 
-##  4     2 Isabela beak_width   2.16
-##  5     2 Isabela body_weight  8.05
-##  6     3 Isabela beak_length  5.01
-##  7     3 Isabela beak_width   2.05
-##  8     3 Isabela body_weight  9.37
-##  9     4 Isabela beak_width   2.15
-## 10     4 Isabela body_weight 12.4 
->>>>>>> c98edcaedd613b9f5e131e038d287d2fc7d8431b
+##  1     1 Isabela beak_length  4.93
+##  2     1 Isabela body_weight  9.02
+##  3     3 Isabela beak_length  4.86
+##  4     3 Isabela beak_width   2.13
+##  5     3 Isabela body_weight  9.36
+##  6     4 Isabela beak_width   2.11
+##  7     4 Isabela body_weight 10.2 
+##  8     5 Isabela beak_length  4.86
+##  9     5 Isabela body_weight 14.1 
+## 10     6 Isabela beak_length  4.92
 ## # ... with 190 more rows
 \end{verbatim}
 
@@ -1555,29 +1486,16 @@ Else, we could replace the NAs with some user-defined value:
 ## # A tibble: 300 x 4
 ##       id island  variable      value
 ##    <int> <chr>   <chr>         <dbl>
-<<<<<<< HEAD
-##  1     1 Isabela beak_length -999   
+##  1     1 Isabela beak_length    4.93
 ##  2     1 Isabela beak_width  -999   
-##  3     1 Isabela body_weight    9.34
-##  4     2 Isabela beak_length    4.94
+##  3     1 Isabela body_weight    9.02
+##  4     2 Isabela beak_length -999   
 ##  5     2 Isabela beak_width  -999   
 ##  6     2 Isabela body_weight -999   
-##  7     3 Isabela beak_length    4.97
-##  8     3 Isabela beak_width  -999   
-##  9     3 Isabela body_weight -999   
-## 10     4 Isabela beak_length    5.02
-=======
-##  1     1 Isabela beak_length    4.87
-##  2     1 Isabela beak_width     2.04
-##  3     1 Isabela body_weight   11.1 
-##  4     2 Isabela beak_length -999   
-##  5     2 Isabela beak_width     2.16
-##  6     2 Isabela body_weight    8.05
-##  7     3 Isabela beak_length    5.01
-##  8     3 Isabela beak_width     2.05
-##  9     3 Isabela body_weight    9.37
+##  7     3 Isabela beak_length    4.86
+##  8     3 Isabela beak_width     2.13
+##  9     3 Isabela body_weight    9.36
 ## 10     4 Isabela beak_length -999   
->>>>>>> c98edcaedd613b9f5e131e038d287d2fc7d8431b
 ## # ... with 290 more rows
 \end{verbatim}
 
@@ -1595,36 +1513,23 @@ We could also replace NAs with the most recent non-NA values:
 ## # A tibble: 300 x 4
 ##       id island  variable    value
 ##    <int> <chr>   <chr>       <dbl>
-<<<<<<< HEAD
-##  1     1 Isabela beak_length NA   
-##  2     1 Isabela beak_width  NA   
-##  3     1 Isabela body_weight  9.34
-##  4     2 Isabela beak_length  4.94
-##  5     2 Isabela beak_width   4.94
-##  6     2 Isabela body_weight  4.94
-##  7     3 Isabela beak_length  4.97
-##  8     3 Isabela beak_width   4.97
-##  9     3 Isabela body_weight  4.97
-## 10     4 Isabela beak_length  5.02
-=======
-##  1     1 Isabela beak_length  4.87
-##  2     1 Isabela beak_width   2.04
-##  3     1 Isabela body_weight 11.1 
-##  4     2 Isabela beak_length 11.1 
-##  5     2 Isabela beak_width   2.16
-##  6     2 Isabela body_weight  8.05
-##  7     3 Isabela beak_length  5.01
-##  8     3 Isabela beak_width   2.05
-##  9     3 Isabela body_weight  9.37
-## 10     4 Isabela beak_length  9.37
->>>>>>> c98edcaedd613b9f5e131e038d287d2fc7d8431b
+##  1     1 Isabela beak_length  4.93
+##  2     1 Isabela beak_width   4.93
+##  3     1 Isabela body_weight  9.02
+##  4     2 Isabela beak_length  9.02
+##  5     2 Isabela beak_width   9.02
+##  6     2 Isabela body_weight  9.02
+##  7     3 Isabela beak_length  4.86
+##  8     3 Isabela beak_width   2.13
+##  9     3 Isabela body_weight  9.36
+## 10     4 Isabela beak_length  9.36
 ## # ... with 290 more rows
 \end{verbatim}
 
 Note that most functions in the tidyverse take a tibble as their first argument, and columns to which to apply the functions are usually passed as ``objects'' rather than character strings. In the above example, we passed the \texttt{value} column as \texttt{value}, not \texttt{"value"}. These column-objects are called by the tidyverse functions \emph{in the context} of the data (the tibble) they belong to.
 
 \hypertarget{splitting-and-combining-cells}{%
-\subsection{3.3. Splitting and combining cells}\label{splitting-and-combining-cells}}
+\subsection{Splitting and combining cells}\label{splitting-and-combining-cells}}
 
 The \texttt{tidyr} package offers tools to split and combine columns. This is a nice extension to the string manipulations we saw last week in the \texttt{stringr} tutorial.
 
@@ -1644,29 +1549,16 @@ Say we want to add the specific dates when we took measurements on our birds (we
 ## # A tibble: 300 x 7
 ##       id island  variable    value   day month  year
 ##    <int> <chr>   <chr>       <dbl> <int> <int> <int>
-<<<<<<< HEAD
-##  1     1 Isabela beak_length NA       14    12  2019
-##  2     1 Isabela beak_width  NA        4     9  2019
-##  3     1 Isabela body_weight  9.34    18     7  2020
-##  4     2 Isabela beak_length  4.94    28    12  2020
-##  5     2 Isabela beak_width  NA        5     8  2020
-##  6     2 Isabela body_weight NA        7     1  2019
-##  7     3 Isabela beak_length  4.97    19     6  2019
-##  8     3 Isabela beak_width  NA       13    10  2020
-##  9     3 Isabela body_weight NA       27    12  2019
-## 10     4 Isabela beak_length  5.02     1     6  2019
-=======
-##  1     1 Isabela beak_length  4.87     9     4  2019
-##  2     1 Isabela beak_width   2.04    15    10  2020
-##  3     1 Isabela body_weight 11.1      3     7  2020
-##  4     2 Isabela beak_length NA        2     4  2020
-##  5     2 Isabela beak_width   2.16     2     7  2019
-##  6     2 Isabela body_weight  8.05    18    12  2020
-##  7     3 Isabela beak_length  5.01     5     9  2019
-##  8     3 Isabela beak_width   2.05     8    11  2020
-##  9     3 Isabela body_weight  9.37    27     5  2020
-## 10     4 Isabela beak_length NA       13    12  2019
->>>>>>> c98edcaedd613b9f5e131e038d287d2fc7d8431b
+##  1     1 Isabela beak_length  4.93    13     7  2019
+##  2     1 Isabela beak_width  NA       18    11  2019
+##  3     1 Isabela body_weight  9.02    13     6  2020
+##  4     2 Isabela beak_length NA       21     4  2020
+##  5     2 Isabela beak_width  NA       14     3  2019
+##  6     2 Isabela body_weight NA       25     2  2020
+##  7     3 Isabela beak_length  4.86    26    10  2019
+##  8     3 Isabela beak_width   2.13     7     4  2020
+##  9     3 Isabela body_weight  9.36     2     9  2019
+## 10     4 Isabela beak_length NA       26    11  2020
 ## # ... with 290 more rows
 \end{verbatim}
 
@@ -1683,29 +1575,16 @@ We could combine the \texttt{day}, \texttt{month} and \texttt{year} columns into
 ## # A tibble: 300 x 5
 ##       id island  variable    value date      
 ##    <int> <chr>   <chr>       <dbl> <chr>     
-<<<<<<< HEAD
-##  1     1 Isabela beak_length NA    14-12-2019
-##  2     1 Isabela beak_width  NA    4-9-2019  
-##  3     1 Isabela body_weight  9.34 18-7-2020 
-##  4     2 Isabela beak_length  4.94 28-12-2020
-##  5     2 Isabela beak_width  NA    5-8-2020  
-##  6     2 Isabela body_weight NA    7-1-2019  
-##  7     3 Isabela beak_length  4.97 19-6-2019 
-##  8     3 Isabela beak_width  NA    13-10-2020
-##  9     3 Isabela body_weight NA    27-12-2019
-## 10     4 Isabela beak_length  5.02 1-6-2019  
-=======
-##  1     1 Isabela beak_length  4.87 9-4-2019  
-##  2     1 Isabela beak_width   2.04 15-10-2020
-##  3     1 Isabela body_weight 11.1  3-7-2020  
-##  4     2 Isabela beak_length NA    2-4-2020  
-##  5     2 Isabela beak_width   2.16 2-7-2019  
-##  6     2 Isabela body_weight  8.05 18-12-2020
-##  7     3 Isabela beak_length  5.01 5-9-2019  
-##  8     3 Isabela beak_width   2.05 8-11-2020 
-##  9     3 Isabela body_weight  9.37 27-5-2020 
-## 10     4 Isabela beak_length NA    13-12-2019
->>>>>>> c98edcaedd613b9f5e131e038d287d2fc7d8431b
+##  1     1 Isabela beak_length  4.93 13-7-2019 
+##  2     1 Isabela beak_width  NA    18-11-2019
+##  3     1 Isabela body_weight  9.02 13-6-2020 
+##  4     2 Isabela beak_length NA    21-4-2020 
+##  5     2 Isabela beak_width  NA    14-3-2019 
+##  6     2 Isabela body_weight NA    25-2-2020 
+##  7     3 Isabela beak_length  4.86 26-10-2019
+##  8     3 Isabela beak_width   2.13 7-4-2020  
+##  9     3 Isabela body_weight  9.36 2-9-2019  
+## 10     4 Isabela beak_length NA    26-11-2020
 ## # ... with 290 more rows
 \end{verbatim}
 
@@ -1721,29 +1600,16 @@ Of course, we can revert back to the previous dataset by splitting the \texttt{d
 ## # A tibble: 300 x 7
 ##       id island  variable    value day   month year 
 ##    <int> <chr>   <chr>       <dbl> <chr> <chr> <chr>
-<<<<<<< HEAD
-##  1     1 Isabela beak_length NA    14    12    2019 
-##  2     1 Isabela beak_width  NA    4     9     2019 
-##  3     1 Isabela body_weight  9.34 18    7     2020 
-##  4     2 Isabela beak_length  4.94 28    12    2020 
-##  5     2 Isabela beak_width  NA    5     8     2020 
-##  6     2 Isabela body_weight NA    7     1     2019 
-##  7     3 Isabela beak_length  4.97 19    6     2019 
-##  8     3 Isabela beak_width  NA    13    10    2020 
-##  9     3 Isabela body_weight NA    27    12    2019 
-## 10     4 Isabela beak_length  5.02 1     6     2019 
-=======
-##  1     1 Isabela beak_length  4.87 9     4     2019 
-##  2     1 Isabela beak_width   2.04 15    10    2020 
-##  3     1 Isabela body_weight 11.1  3     7     2020 
-##  4     2 Isabela beak_length NA    2     4     2020 
-##  5     2 Isabela beak_width   2.16 2     7     2019 
-##  6     2 Isabela body_weight  8.05 18    12    2020 
-##  7     3 Isabela beak_length  5.01 5     9     2019 
-##  8     3 Isabela beak_width   2.05 8     11    2020 
-##  9     3 Isabela body_weight  9.37 27    5     2020 
-## 10     4 Isabela beak_length NA    13    12    2019 
->>>>>>> c98edcaedd613b9f5e131e038d287d2fc7d8431b
+##  1     1 Isabela beak_length  4.93 13    7     2019 
+##  2     1 Isabela beak_width  NA    18    11    2019 
+##  3     1 Isabela body_weight  9.02 13    6     2020 
+##  4     2 Isabela beak_length NA    21    4     2020 
+##  5     2 Isabela beak_width  NA    14    3     2019 
+##  6     2 Isabela body_weight NA    25    2     2020 
+##  7     3 Isabela beak_length  4.86 26    10    2019 
+##  8     3 Isabela beak_width   2.13 7     4     2020 
+##  9     3 Isabela body_weight  9.36 2     9     2019 
+## 10     4 Isabela beak_length NA    26    11    2020 
 ## # ... with 290 more rows
 \end{verbatim}
 
@@ -1761,34 +1627,21 @@ You can also separate a single column into multiple \emph{rows} using \texttt{se
 ## # A tibble: 900 x 5
 ##       id island  variable    value date 
 ##    <int> <chr>   <chr>       <dbl> <chr>
-<<<<<<< HEAD
-##  1     1 Isabela beak_length NA    14   
-##  2     1 Isabela beak_length NA    12   
-##  3     1 Isabela beak_length NA    2019 
-##  4     1 Isabela beak_width  NA    4    
-##  5     1 Isabela beak_width  NA    9    
+##  1     1 Isabela beak_length  4.93 13   
+##  2     1 Isabela beak_length  4.93 7    
+##  3     1 Isabela beak_length  4.93 2019 
+##  4     1 Isabela beak_width  NA    18   
+##  5     1 Isabela beak_width  NA    11   
 ##  6     1 Isabela beak_width  NA    2019 
-##  7     1 Isabela body_weight  9.34 18   
-##  8     1 Isabela body_weight  9.34 7    
-##  9     1 Isabela body_weight  9.34 2020 
-## 10     2 Isabela beak_length  4.94 28   
-=======
-##  1     1 Isabela beak_length  4.87 9    
-##  2     1 Isabela beak_length  4.87 4    
-##  3     1 Isabela beak_length  4.87 2019 
-##  4     1 Isabela beak_width   2.04 15   
-##  5     1 Isabela beak_width   2.04 10   
-##  6     1 Isabela beak_width   2.04 2020 
-##  7     1 Isabela body_weight 11.1  3    
-##  8     1 Isabela body_weight 11.1  7    
-##  9     1 Isabela body_weight 11.1  2020 
-## 10     2 Isabela beak_length NA    2    
->>>>>>> c98edcaedd613b9f5e131e038d287d2fc7d8431b
+##  7     1 Isabela body_weight  9.02 13   
+##  8     1 Isabela body_weight  9.02 6    
+##  9     1 Isabela body_weight  9.02 2020 
+## 10     2 Isabela beak_length NA    21   
 ## # ... with 890 more rows
 \end{verbatim}
 
 \hypertarget{expanding-tables-using-combinations}{%
-\subsection{3.4. Expanding tables using combinations}\label{expanding-tables-using-combinations}}
+\subsection{Expanding tables using combinations}\label{expanding-tables-using-combinations}}
 
 Sometimes one may need to quickly create a table with all combinations of a set of variables. We could generate a tibble with all combinations of island-by-morphometric using \texttt{expand\_grid}:
 
@@ -1845,41 +1698,28 @@ As an extension of this, the function \texttt{complete} can come particularly ha
 ## # A tibble: 300 x 5
 ##    island  variable       id value date      
 ##    <chr>   <chr>       <int> <dbl> <chr>     
-<<<<<<< HEAD
-##  1 Isabela beak_length     1 NA    14-12-2019
-##  2 Isabela beak_length     2  4.94 28-12-2020
-##  3 Isabela beak_length     3  4.97 19-6-2019 
-##  4 Isabela beak_length     4  5.02 1-6-2019  
-##  5 Isabela beak_length     5  4.90 3-3-2019  
-##  6 Isabela beak_length     6 NA    21-1-2020 
-##  7 Isabela beak_length     7  4.89 13-1-2020 
-##  8 Isabela beak_length     8  4.99 17-3-2019 
-##  9 Isabela beak_length     9 NA    9-6-2020  
-## 10 Isabela beak_length    10 NA    5-8-2019  
-=======
-##  1 Isabela beak_length     1  4.87 9-4-2019  
-##  2 Isabela beak_length     2 NA    2-4-2020  
-##  3 Isabela beak_length     3  5.01 5-9-2019  
-##  4 Isabela beak_length     4 NA    13-12-2019
-##  5 Isabela beak_length     5  4.87 14-8-2020 
-##  6 Isabela beak_length     6  4.91 11-2-2019 
-##  7 Isabela beak_length     7  4.95 5-5-2019  
-##  8 Isabela beak_length     8  5.02 27-10-2019
-##  9 Isabela beak_length     9  5.17 27-5-2019 
-## 10 Isabela beak_length    10 NA    14-9-2019 
->>>>>>> c98edcaedd613b9f5e131e038d287d2fc7d8431b
+##  1 Isabela beak_length     1  4.93 13-7-2019 
+##  2 Isabela beak_length     2 NA    21-4-2020 
+##  3 Isabela beak_length     3  4.86 26-10-2019
+##  4 Isabela beak_length     4 NA    26-11-2020
+##  5 Isabela beak_length     5  4.86 27-11-2020
+##  6 Isabela beak_length     6  4.92 9-5-2020  
+##  7 Isabela beak_length     7  5.03 11-9-2020 
+##  8 Isabela beak_length     8  4.86 1-1-2019  
+##  9 Isabela beak_length     9  4.91 2-9-2020  
+## 10 Isabela beak_length    10  5.10 21-12-2020
 ## # ... with 290 more rows
 \end{verbatim}
 
 which does nothing here because we already have all combinations of \texttt{island} and \texttt{variable}.
 
 \hypertarget{nesting}{%
-\subsection{3.5. Nesting}\label{nesting}}
+\subsection{Nesting}\label{nesting}}
 
 The \texttt{tidyr} package has yet another feature that makes the tidyverse very powerful: the \texttt{nest} function. However, it makes little sense without combining it with the functions in the \texttt{purrr} package, so we will not cover it in this chapter but rather in the \texttt{purrr} chapter.
 
 \hypertarget{extra-factors-and-the-forcats-package}{%
-\section{\texorpdfstring{4. Extra: factors and the \texttt{forcats} package}{4. Extra: factors and the forcats package}}\label{extra-factors-and-the-forcats-package}}
+\section{\texorpdfstring{Extra: factors and the \texttt{forcats} package}{Extra: factors and the forcats package}}\label{extra-factors-and-the-forcats-package}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1946,7 +1786,7 @@ But this is a tidyverse tutorial, so I would like to introduce here the package 
 I see two main ways \texttt{forcats} can come handy in the kind of data most people deal with: playing with the order of the levels of a factor and playing with the levels themselves. We will show here a few examples, but the full breadth of factor manipulations can be found online or in the excellent \texttt{forcats} cheatsheet.
 
 \hypertarget{reordering-a-factor}{%
-\subsection{4.1. Reordering a factor}\label{reordering-a-factor}}
+\subsection{Reordering a factor}\label{reordering-a-factor}}
 
 Use \texttt{fct\_relevel} to manually change the order of the levels:
 
@@ -1998,14 +1838,10 @@ Factor reordering may come useful when plotting categorical variables, for examp
 \end{Shaded}
 
 \begin{verbatim}
-<<<<<<< HEAD
-## Warning: Removed 40 rows containing non-finite values (stat_ydensity).
-=======
-## Warning: Removed 34 rows containing non-finite values (stat_ydensity).
->>>>>>> c98edcaedd613b9f5e131e038d287d2fc7d8431b
+## Warning: Removed 30 rows containing non-finite values (stat_ydensity).
 \end{verbatim}
 
-\includegraphics{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-55-1.pdf}
+\includegraphics{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-56-1.pdf}
 
 We could use factor reordering to change the order of the violins:
 
@@ -2018,19 +1854,15 @@ We could use factor reordering to change the order of the violins:
 \end{Shaded}
 
 \begin{verbatim}
-<<<<<<< HEAD
-## Warning: Removed 40 rows containing non-finite values (stat_ydensity).
-=======
-## Warning: Removed 34 rows containing non-finite values (stat_ydensity).
->>>>>>> c98edcaedd613b9f5e131e038d287d2fc7d8431b
+## Warning: Removed 30 rows containing non-finite values (stat_ydensity).
 \end{verbatim}
 
-\includegraphics{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-56-1.pdf}
+\includegraphics{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-57-1.pdf}
 
 Lots of other variants exist for reordering (e.g.~reordering by association with a variable), which we do not cover here. Please refer to the \href{https://rstudio.com/resources/cheatsheets/}{cheatsheet} or the online documentation for more examples.
 
 \hypertarget{factor-levels}{%
-\subsection{4.2. Factor levels}\label{factor-levels}}
+\subsection{Factor levels}\label{factor-levels}}
 
 One can change the levels of a factor using \texttt{fct\_recode}:
 
@@ -2066,7 +1898,7 @@ or collapse factor levels together using \texttt{fct\_collapse}:
 Again, we do not provide an exhaustive list of \texttt{forcats} functions here but the most usual ones, to give a glimpse of many things that one can do with factors. So, if you are dealing with factors, remember that \texttt{forcats} may have handy tools for you.
 
 \hypertarget{bonus-dropping-levels}{%
-\subsection{4.3. Bonus: dropping levels}\label{bonus-dropping-levels}}
+\subsection{Bonus: dropping levels}\label{bonus-dropping-levels}}
 
 If you use factors in your tibble and get rid of one level, for any reason, the factor will usually remember the old levels, which may cause some problems when applying functions to your data.
 
@@ -2108,7 +1940,7 @@ Use \texttt{droplevels} (from base R) to make sure you get rid of levels that ar
 Fortunately, most functions within the tidyverse will not complain about missing levels, and will automatically get rid of those inexistant levels for you. But because factors are such common causes of bugs, keep this in mind!
 
 \hypertarget{external-resources}{%
-\section{5. External resources}\label{external-resources}}
+\section{External resources}\label{external-resources}}
 
 Find lots of additional info by looking up the following links:
 
