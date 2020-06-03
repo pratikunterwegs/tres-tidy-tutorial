@@ -1,6 +1,6 @@
 ---
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 # Working with lists and iteration
@@ -12,11 +12,11 @@ editor_options:
 library(tidyverse)
 ```
 
-## Basic iteration with `map`
+## Iteration with `map`
 
 Iteration in base `R` is commonly done with `for` and `while` loops.
 There is no readymade alternative to `while` loops in the tidyverse.
-However, the functionality of `for` loops is spread over the `map` family of functions.
+However, the functionality of `for` loops is spread over the `map` family of functions from `purrr`.
 
 `purrr` functions are _functionals_, i.e., functions that take another function as an argument.
 The closest equivalent in `R` is the `*apply` family of functions: `apply`, `lapply`, `vapply` and so on.
@@ -24,9 +24,9 @@ The closest equivalent in `R` is the `*apply` family of functions: `apply`, `lap
 A good reason to use `purrr` functions instead of base `R` functions is their consistent and clear naming, which always indicates how they should be used. 
 This is explained in the examples below.
 
-These reasons, as well as how `map` is different from `for` and `lapply` are best explained in the [Advanced R book](https://adv-r.hadley.nz/functionals.html).
+These reasons, as well as how `map` is different from `for` and `lapply` are best explained in the **[Advanced R Book](https://adv-r.hadley.nz/functionals.html)**.
 
-### `map` basic use
+### Basic use of `map`
 
 `map` works on any list-like object, which includes vectors, and always returns a list. `map` takes two arguments, the object on which to operate, and the function to apply to each element.
 
@@ -56,7 +56,7 @@ some_numbers = c(NA, 1:3, NA, NaN, Inf, -Inf)
 map_lgl(some_numbers, is.na)
 ```
 
-### Integrating `map` and `tidyr::nest` {-}
+### Integrating `map` and `tidyr::nest`
 
 The example show how each map variant can be used. This integrates `tidyr::nest` with `map`, and the two are especially complementary.
 
@@ -110,30 +110,258 @@ some_list %>%
 
 ### Selective mapping
 
-- `map_at` and `map_if`
+`map_at` and `map_if` work like other `*_at` and `*_if` functions.
+
+Here, `map_if` is used to run a linear model only on those dataframes which have sufficient data. The predicate is specified by `.p`.
+
+```{r}
+# split mtcars by cylinder number and run an lm only if there are more than 10 rows
+data <- nest(mtcars, data = -cyl)
+
+data <- mutate(data,
+               model = map_if(.x = data,
+                              .p = function(x){
+                                nrow(x) > 10
+                              },
+                              .f = function(x){
+                                lm(mpg ~ wt, data = x)
+                              }))
+# check the data structure
+data
+```
+
+`map_at` works on specific elements of a list or vector. Come back to this, it's not particularly useful.
 
 ## More `map` variants 
 
-### `map2`
+`map` also has variants along the axis of how many elements are operated upon. `map2` operates on two vectors or list-like elements, and returns a single list as output.
+The output has as many elements as the input lists, which must be of the same length.
 
-`imap` here
+```{r}
+# consider 2 vectors and replicate the simple vector addition using map2
+map2(.x = 1:5, 
+     .y = 6:10,
+     .f = sum)
+```
 
-### `pmap`
+### Mapping over two inputs with map2
 
-### `walk`
+`map2` has the same variants as `map`, allowing for different return types. 
+Here `map2_int` returns an integer vector.
 
-`walk2` and `pwalk`
+```{r}
+# consider 2 vectors and replicate the simple vector addition using map2
+map2_int(.x = 1:5, 
+     .y = 6:10,
+     .f = sum)
+```
 
-## Modification in place
+`map2` doesn't have `_at` and `_if` variants.
 
-`modify`
+One use case for `map2` is to deal with both a list element and its index, as shown in the example. This may be necessary when the list index is removed in a `split` or `nest`. This can also be done with `imap`, where the index is referred to as `.y`.
+
+```{r}
+# make a named list for this example
+this_list = list(a = "first letter",
+                 b = "second letter")
+
+# a not particularly useful example
+map2(this_list, names(this_list),
+     function(x, y) {
+       glue::glue('{x} : {y}')
+     })
+
+# imap can also do this
+imap(this_list,
+     function(x, .y){
+       glue::glue('{x} : {.y}')
+     })
+```
+
+### Mapping over multiple inputs with pmap
+
+`pmap` instead operates on a list of multiple list-like objects, and also comes with the same return type variants as `map`. The example shows both aspects of `pmap` using `pmap_chr`.
+
+```{r}
+# operate on three different lists
+list_01 = as.list(1:3)
+list_02 = as.list(letters[1:3])
+list_03 = as.list(rainbow(3))
+
+# print a few statements
+pmap_chr(list(list_01, list_02, list_03),
+     function(l1, l2, l3){
+       glue::glue('number {l1}, letter {l2}, colour {l3}')
+     })
+```
+
+### Mapping at depth
+
+Lists are often nested, that is, a list element may itself be a list. It is possible to map a function over elements as a specific depth.
+
+In the example, `mtcars` is split by cylinders, and then by gears, creating a two-level list, with the second layer operated on.
+
+```{r}
+# use map to make a 2 level list
+this_list = split(mtcars, mtcars$cyl) %>% 
+  map(function(df){ split(df, df$gear) })
+
+# map over the second level to count the number of 
+# cars with N gears in the set of cars with M cylinders
+# display only for cyl = 4
+map_depth(this_list[1], 2, nrow)
+```
+
+### Iteration without a return
+
+`map` and its variants have a return type, which is either a list or a vector.
+However, it is often necessary to iterate a function over a list-like object for that function's side effects, such as printing a message to screen, plotting a series of figures, or saving to file.
+
+`walk` is the function for this task. It has only the variants `walk2`, `iwalk`, and `pwalk`, whose logic is similar to `map2`, `imap`, and `pmap`. In the example, the function applied to each list element is intended to print a message.
+
+```{r}
+this_list = split(mtcars, mtcars$cyl)
+
+iwalk(this_list,
+     function(df, .y){
+       message(glue::glue('{nrow(df)} cars with {.y} cylinders'))
+     })
+```
+
+### Modify rather than map
+
+When the return type is expected to be the same as the input type, that is, a list returning a list, or a character vector returning the same, `modify` can help with keeping strictly to those expectations.
+
+In the example, simply adding 2 to each vector element produces an error, because the output is a `numeric`, or `double`. `modify` helps ensure some type safety in this way.
+
+```{r}
+vec = as.integer(1:10)
+
+tryCatch(
+  expr = {
+    
+    # this is what we want you to look at
+    
+    modify(vec, function(x) { (x + 2) })
+    
+    },
+  
+  # do not pay attention to this
+  error = function(e){
+    print(toString(e))
+  }
+)
+```
+
+Converting the output to an integer, which was the original input type, serves as a solution.
+
+```{r}
+modify(vec, function(x) { as.integer(x + 2) })
+```
+
+#### A note on `invoke` {-}
+
+`invoke` used to be a wrapper around `do.call`, and can still be found with its family of functions in `purrr`. It is however retired in favour of functionality already present in `map` and `rlang::exec`, the latter of which will be covered in another session.
 
 ## Working with lists
 
+`purrr` has a number of functions to work with lists, especially lists that are not nested list-columns in a tibble.
+
 ### Filtering lists
+
+Lists can be filtered on any predicate using `keep`, while the special case `compact` is applied when the empty elements of a list are to be filtered out. `discard` is the opposite of `keep`, and keeps only elements not satisfying a condition. Again, the predicate is specified by `.p`.
+
+```{r}
+# a list containing numbers
+this_list = list(a = 1, b = -1, c = 2, d = NULL, e = NA)
+
+# remove the empty element
+# this must be done before using keep on the list
+this_list = compact(this_list)
+```
+
+```{r}
+# use discard to remove the NA
+this_list = discard(this_list, .p =is.na)
+
+# keep list elements which are positive
+keep(this_list, .p = function(x){ x > 0 })
+```
+
+`head_while` is bit of an odd case, which returns all elements of a list-like object in sequence until the first one fails to satisfy a predicate, specified by `.p`.
+
+```{r}
+1:10 %>% 
+  head_while(.p = function(x) x < 5)
+```
+
 
 ### Summarising lists
 
+The `purrr` functions `every`, `some`, `has_element`, `detect`, `detect_index`, and `vec_depth` help determine whether a list passes a certain logical test or not. These are seldom used and are not discussed here.
+
 ### Reduction and accumulation
 
+`reduce` helps combine elements along a list using a specific function. Consider the example below where list elements are concatenated into a single vector.
+
+```{r}
+this_list = list(a = 1:3, b = 3:4, c = 5:10)
+
+reduce(this_list, c)
+```
+
+The way `reduce` works is to take the first element, `a` in the example, and find its intersection with `b`, and to take the result and find its intersection with `c`.
+
+```{r}
+this_list = list(a = 1:3, b = 3:6, c = 3:10)
+
+reduce(this_list, intersect)
+```
+
+`accumulate` works very similarly, except it retains the intermediate products. The first element is retained as is. `accumulate2` and `reduce2` work on two lists, following the same logic as `map2` etc.
+Both functions can be used in much more complex ways than demonstrated here.
+
+```{r}
+# make a list
+this_list = list(a = 1:3, b = 3:6, c = 5:10, d = c(1,2,5,10,12))
+
+# a multiple accumulate can help
+accumulate(this_list, union, .dir = "forward")
+```
+
 ### Miscellaneous operation
+
+`purrr` offers a few more functions to work with lists (or list like objects). `prepend` works very similarly to `append`, except it adds to the head of a list. `splice` adds multiple objects together in a list. `splice` will break the existing list structure of input lists.
+
+```{r}
+# use prepend to add values to the head of a list
+prepend(x = list("a", "b"), values = list("1", "2"))
+
+# use splice to add multiple elements together
+splice(list("a", "b"), list("1", "2"), "something else")
+```
+
+`flatten` has a similar behaviour, and converts a list of vectors or list of lists to a single list-like object. `flatten_*` options allow the output type to be specified.
+
+```{r}
+this_list = list(a = rep("a", 3),
+                 b = rep("b", 4))
+
+this_list
+
+# use flatten chr to get a character vector
+flatten_chr(this_list)
+```
+
+`transpose` shifts the index order in multi-level lists. This is seen in the example, where the `gear` goes from being the index of the second level to the index of the first.
+
+```{r}
+this_list = split(mtcars, mtcars$cyl) %>% 
+  map(function(df) split(df, df$gear))
+
+# from a list of lists where cars are divided by cylinders and then
+# gears, this is now a list of lists where cars are divided by
+# gears and then cylinders
+transpose(this_list[1])
+```
+

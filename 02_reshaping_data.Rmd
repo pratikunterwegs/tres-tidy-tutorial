@@ -9,14 +9,14 @@ Raphael Scherrer
 
 ![](opening-image.png)
 
-```{r load_packages}
+```{r}
 library(tibble)
 library(tidyr)
 ```
 
 In this chapter we will learn what *tidy* means in the context of the tidyverse, and how to reshape our data into a tidy format using the `tidyr` package. But first, let us take a detour and introduce the `tibble`. 
 
-## 1. The new data frame: tibble
+## The new data frame: tibble
 
 The `tibble` is the recommended class to use to store tabular data in the tidyverse. Consider it as the operational unit of any data science pipeline. For most practical purposes, a `tibble` is basically a `data.frame`. 
 
@@ -59,7 +59,7 @@ This is important because a `matrix` can contain only one type of values (e.g. o
 
 So, in the tidyverse we are going to work with tibbles, got it. But what does "tidy" mean exactly?
 
-## 2. The concept of tidy data
+## The concept of tidy data
 
 When it comes to putting data into tables, there are many ways one could organize a dataset. The *tidy* format is one such format. According to the formal [definition](https://tidyr.tidyverse.org/articles/tidy-data.html), a table is tidy if each column is a variable and each row is an observation. In practice, however, I found that this is not a very operational definition, especially in ecology and evolution where we often record multiple variables per individual. So, let's dig in with an example.
 
@@ -119,11 +119,11 @@ A variety of statistical tests can be used on contingency tables such as Fisher'
 as_tibble(ctg)
 ```
 
-## 3. Reshaping with `tidyr`
+## Reshaping with `tidyr`
 
 The `tidyr` package implements tools to easily switch between layouts and also perform a few other reshaping operations. Old school R users will be familiar with the `reshape` and `reshape2` packages, of which `tidyr` is the tidyverse equivalent. Beware that `tidyr` is about playing with the general *layout* of the dataset, while *operations* and *transformations* of the data are within the scope of the `dplyr` and `purrr` packages. All these packages work hand-in-hand really well, and analysis pipelines usually involve all of them. But today, we focus on the first member of this holy trinity, which is often the first one you'll need because you will want to reshape your data before doing other things. So, please hold your non-layout-related questions for the next chapters.
 
-### 3.1. Pivoting
+### Pivoting
 
 Pivoting a dataset between the long and wide layout is the main purpose of `tidyr` (check out the package's logo). We already saw the `pivot_longer` function, that converts a table form wide to long format. Similarly, there is a `pivot_wider` function that does exactly the opposite and takes you back to the wide format:
 
@@ -142,7 +142,7 @@ If you are familiar with earlier versions of the tidyverse, `pivot_longer` and `
 
 There are a few other reshaping operations from `tidyr` that are worth knowing.
 
-### 3.2. Handling missing values
+### Handling missing values
 
 Say we have some missing measurements in the column "value" of our finch dataset:
 
@@ -175,7 +175,7 @@ fill(data, value)
 
 Note that most functions in the tidyverse take a tibble as their first argument, and columns to which to apply the functions are usually passed as "objects" rather than character strings. In the above example, we passed the `value` column as `value`, not `"value"`. These column-objects are called by the tidyverse functions *in the context* of the data (the tibble) they belong to.
 
-### 3.3. Splitting and combining cells
+### Splitting and combining cells
 
 The `tidyr` package offers tools to split and combine columns. This is a nice extension to the string manipulations we saw last week in the `stringr` tutorial. 
 
@@ -210,7 +210,7 @@ You can also separate a single column into multiple *rows* using `separate_rows`
 separate_rows(data, date)
 ```
 
-### 3.4. Expanding tables using combinations
+### Expanding tables using combinations
 
 Sometimes one may need to quickly create a table with all combinations of a set of variables. We could generate a tibble with all combinations of island-by-morphometric using `expand_grid`:
 
@@ -235,11 +235,11 @@ complete(data, island, variable)
 
 which does nothing here because we already have all combinations of `island` and `variable`.
 
-### 3.5. Nesting
+### Nesting
 
 The `tidyr` package has yet another feature that makes the tidyverse very powerful: the `nest` function. However, it makes little sense without combining it with the functions in the `purrr` package, so we will not cover it in this chapter but rather in the `purrr` chapter.
 
-## 4. Extra: factors and the `forcats` package
+## Extra: factors and the `forcats` package
 
 ```{r}
 library(forcats)
@@ -277,7 +277,7 @@ But this is a tidyverse tutorial, so I would like to introduce here the package 
 
 I see two main ways `forcats` can come handy in the kind of data most people deal with: playing with the order of the levels of a factor and playing with the levels themselves. We will show here a few examples, but the full breadth of factor manipulations can be found online or in the excellent `forcats` cheatsheet.
 
-### 4.1. Reordering a factor
+### Reordering a factor
 
 Use `fct_relevel` to manually change the order of the levels:
 
@@ -315,7 +315,7 @@ ggplot(data[data$variable == "beak_length",], aes(x = island, y = value)) +
 
 Lots of other variants exist for reordering (e.g. reordering by association with a variable), which we do not cover here. Please refer to the [cheatsheet](https://rstudio.com/resources/cheatsheets/) or the online documentation for more examples.
 
-### 4.2. Factor levels
+### Factor levels
 
 One can change the levels of a factor using `fct_recode`:
 
@@ -336,7 +336,7 @@ fct_collapse(my_fact_vec, EU = c("Theo", "Raph"), NonEU = "Pratik")
 
 Again, we do not provide an exhaustive list of `forcats` functions here but the most usual ones, to give a glimpse of many things that one can do with factors. So, if you are dealing with factors, remember that `forcats` may have handy tools for you.
 
-### 4.3. Bonus: dropping levels
+### Bonus: dropping levels
 
 If you use factors in your tibble and get rid of one level, for any reason, the factor will usually remember the old levels, which may cause some problems when applying functions to your data.
 
@@ -355,7 +355,7 @@ levels(data$island)
 
 Fortunately, most functions within the tidyverse will not complain about missing levels, and will automatically get rid of those inexistant levels for you. But because factors are such common causes of bugs, keep this in mind!
 
-## 5. External resources
+## External resources
 
 Find lots of additional info by looking up the following links:
 
