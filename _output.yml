@@ -1,19 +1,21 @@
 bookdown::gitbook:
   config:
     toc:
-      collapse: subsection
+      collapse: section
       scroll_highlight: yes
       before: null
       after: null
     toolbar:
       position: fixed
     edit : null
-    download: download:[["TRES-Tidy-Tutorial.pdf","PDF"]]
     search: yes
     fontsettings:
       theme: white
       family: sans
       size: 2
+    sharing: no
+    info: yes
+    download: download:[["TRES-Tidy-Tutorial.pdf","PDF"]]
 bookdown::pdf_book:
   keep_tex: true
   documentclass: scrreprt
