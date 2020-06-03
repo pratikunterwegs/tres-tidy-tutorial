@@ -1,6 +1,6 @@
 book_filename: "TRES-Tidy-Tutorial"
 output: 
-  html_document: 
+  bookdown::gitbook: 
     fig_caption: yes
   pdf_document: 
     geometry: "margin=1in"

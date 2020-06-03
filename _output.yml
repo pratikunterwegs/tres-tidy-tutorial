@@ -1,21 +1,15 @@
 bookdown::gitbook:
+  css: style.css
   config:
     toc:
       collapse: section
       scroll_highlight: yes
       before: null
       after: null
-    toolbar:
-      position: fixed
-    edit : null
-    search: yes
-    fontsettings:
-      theme: white
-      family: sans
-      size: 2
-    sharing: no
-    info: yes
     download: download:[["TRES-Tidy-Tutorial.pdf","PDF"]]
+    edit:
+      link: https://github.com/pratikunterwegs/tres-tidy-tutorial/edit/master/%s
+      text: "Edit"
 bookdown::pdf_book:
   keep_tex: true
   documentclass: scrreprt
