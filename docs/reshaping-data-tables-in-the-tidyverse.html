@@ -329,16 +329,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 100 x 5
 ##       id beak_length beak_width body_weight island 
 ##    &lt;int&gt;       &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
-##  1     1        5.04       1.93        7.64 Isabela
-##  2     2        4.99       1.93        7.59 Isabela
-##  3     3        4.97       1.91       11.9  Isabela
-##  4     4        4.98       2.17        9.05 Isabela
-##  5     5        5.02       2.04        8.34 Isabela
-##  6     6        5.02       1.93        7.88 Isabela
-##  7     7        4.88       1.97        8.07 Isabela
-##  8     8        5.25       2.10        5.17 Isabela
-##  9     9        5.09       1.95       18.4  Isabela
-## 10    10        5.11       1.95        7.37 Isabela
+##  1     1        5.06       2.00        6.73 Isabela
+##  2     2        5.05       1.88       15.9  Isabela
+##  3     3        5.08       2.15       11.7  Isabela
+##  4     4        4.98       2.05        9.52 Isabela
+##  5     5        5.17       1.95        7.90 Isabela
+##  6     6        5.00       2.02        8.00 Isabela
+##  7     7        5.00       2.07       13.3  Isabela
+##  8     8        5.10       1.94        7.55 Isabela
+##  9     9        4.99       1.87       15.2  Isabela
+## 10    10        4.97       2.07        8.54 Isabela
 ## # … with 90 more rows</code></pre>
 <p>Here, we pretend to have measured <code>beak_length</code>, <code>beak_width</code> and <code>body_weight</code> on 100 birds, 50 of them from Isabela and 50 of them from Santa Cruz. In this tibble, each row is an individual bird. This is probably the way most scientists would record their data in the field. However, a single bird is not an “observation” in the sense used in the tidyverse. Our dataset is not tidy but <em>messy</em>.</p>
 <p>The tidy equivalent of this dataset would be:</p>
@@ -351,15 +351,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 300 x 4
 ##       id island  variable    value
 ##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;
-##  1     1 Isabela beak_length  5.04
-##  2     1 Isabela beak_width   1.93
-##  3     1 Isabela body_weight  7.64
-##  4     2 Isabela beak_length  4.99
-##  5     2 Isabela beak_width   1.93
-##  6     2 Isabela body_weight  7.59
-##  7     3 Isabela beak_length  4.97
-##  8     3 Isabela beak_width   1.91
-##  9     3 Isabela body_weight 11.9 
+##  1     1 Isabela beak_length  5.06
+##  2     1 Isabela beak_width   2.00
+##  3     1 Isabela body_weight  6.73
+##  4     2 Isabela beak_length  5.05
+##  5     2 Isabela beak_width   1.88
+##  6     2 Isabela body_weight 15.9 
+##  7     3 Isabela beak_length  5.08
+##  8     3 Isabela beak_width   2.15
+##  9     3 Isabela body_weight 11.7 
 ## 10     4 Isabela beak_length  4.98
 ## # … with 290 more rows</code></pre>
 <p>where each <em>measurement</em> (and not each <em>individual</em>) is now the unit of observation (the rows). We will come back to the <code>pivot_longer</code> function later.</p>
@@ -401,16 +401,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 100 x 5
 ##       id island  beak_length beak_width body_weight
 ##    &lt;int&gt; &lt;chr&gt;         &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;
-##  1     1 Isabela        5.04       1.93        7.64
-##  2     2 Isabela        4.99       1.93        7.59
-##  3     3 Isabela        4.97       1.91       11.9 
-##  4     4 Isabela        4.98       2.17        9.05
-##  5     5 Isabela        5.02       2.04        8.34
-##  6     6 Isabela        5.02       1.93        7.88
-##  7     7 Isabela        4.88       1.97        8.07
-##  8     8 Isabela        5.25       2.10        5.17
-##  9     9 Isabela        5.09       1.95       18.4 
-## 10    10 Isabela        5.11       1.95        7.37
+##  1     1 Isabela        5.06       2.00        6.73
+##  2     2 Isabela        5.05       1.88       15.9 
+##  3     3 Isabela        5.08       2.15       11.7 
+##  4     4 Isabela        4.98       2.05        9.52
+##  5     5 Isabela        5.17       1.95        7.90
+##  6     6 Isabela        5.00       2.02        8.00
+##  7     7 Isabela        5.00       2.07       13.3 
+##  8     8 Isabela        5.10       1.94        7.55
+##  9     9 Isabela        4.99       1.87       15.2 
+## 10    10 Isabela        4.97       2.07        8.54
 ## # … with 90 more rows</code></pre>
 <p>The order of the columns is not exactly as it was, but this should not matter in a data analysis pipeline where you should access columns by their names. It is straightforward to change the order of the columns, but this is more within the scope of the <code>dplyr</code> package.</p>
 <p>If you are familiar with earlier versions of the tidyverse, <code>pivot_longer</code> and <code>pivot_wider</code> are the respective equivalents of <code>gather</code> and <code>spread</code>, which are now deprecated.</p>
@@ -426,15 +426,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 300 x 4
 ##       id island  variable    value
 ##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;
-##  1     1 Isabela beak_length  5.04
-##  2     1 Isabela beak_width  NA   
-##  3     1 Isabela body_weight  7.64
-##  4     2 Isabela beak_length  4.99
-##  5     2 Isabela beak_width  NA   
-##  6     2 Isabela body_weight  7.59
-##  7     3 Isabela beak_length NA   
-##  8     3 Isabela beak_width   1.91
-##  9     3 Isabela body_weight 11.9 
+##  1     1 Isabela beak_length  5.06
+##  2     1 Isabela beak_width   2.00
+##  3     1 Isabela body_weight  6.73
+##  4     2 Isabela beak_length  5.05
+##  5     2 Isabela beak_width   1.88
+##  6     2 Isabela body_weight NA   
+##  7     3 Isabela beak_length  5.08
+##  8     3 Isabela beak_width  NA   
+##  9     3 Isabela body_weight 11.7 
 ## 10     4 Isabela beak_length  4.98
 ## # … with 290 more rows</code></pre>
 <p>We could get rid of the rows that have missing values using <code>drop_na</code>:</p>
@@ -442,31 +442,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 200 x 4
 ##       id island  variable    value
 ##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;
-##  1     1 Isabela beak_length  5.04
-##  2     1 Isabela body_weight  7.64
-##  3     2 Isabela beak_length  4.99
-##  4     2 Isabela body_weight  7.59
-##  5     3 Isabela beak_width   1.91
-##  6     3 Isabela body_weight 11.9 
-##  7     4 Isabela beak_length  4.98
-##  8     4 Isabela beak_width   2.17
-##  9     4 Isabela body_weight  9.05
-## 10     5 Isabela beak_length  5.02
+##  1     1 Isabela beak_length  5.06
+##  2     1 Isabela beak_width   2.00
+##  3     1 Isabela body_weight  6.73
+##  4     2 Isabela beak_length  5.05
+##  5     2 Isabela beak_width   1.88
+##  6     3 Isabela beak_length  5.08
+##  7     3 Isabela body_weight 11.7 
+##  8     4 Isabela beak_length  4.98
+##  9     4 Isabela body_weight  9.52
+## 10     5 Isabela beak_width   1.95
 ## # … with 190 more rows</code></pre>
 <p>Else, we could replace the NAs with some user-defined value:</p>
 <div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" title="1"><span class="kw">replace_na</span>(data, <span class="dt">replace =</span> <span class="kw">list</span>(<span class="dt">value =</span> <span class="dv">-999</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 300 x 4
 ##       id island  variable      value
 ##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;
-##  1     1 Isabela beak_length    5.04
-##  2     1 Isabela beak_width  -999   
-##  3     1 Isabela body_weight    7.64
-##  4     2 Isabela beak_length    4.99
-##  5     2 Isabela beak_width  -999   
-##  6     2 Isabela body_weight    7.59
-##  7     3 Isabela beak_length -999   
-##  8     3 Isabela beak_width     1.91
-##  9     3 Isabela body_weight   11.9 
+##  1     1 Isabela beak_length    5.06
+##  2     1 Isabela beak_width     2.00
+##  3     1 Isabela body_weight    6.73
+##  4     2 Isabela beak_length    5.05
+##  5     2 Isabela beak_width     1.88
+##  6     2 Isabela body_weight -999   
+##  7     3 Isabela beak_length    5.08
+##  8     3 Isabela beak_width  -999   
+##  9     3 Isabela body_weight   11.7 
 ## 10     4 Isabela beak_length    4.98
 ## # … with 290 more rows</code></pre>
 <p>where the <code>replace</code> argument takes a named list, and the names should refer to the columns to apply the replacement to.</p>
@@ -475,15 +475,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 300 x 4
 ##       id island  variable    value
 ##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;
-##  1     1 Isabela beak_length  5.04
-##  2     1 Isabela beak_width   5.04
-##  3     1 Isabela body_weight  7.64
-##  4     2 Isabela beak_length  4.99
-##  5     2 Isabela beak_width   4.99
-##  6     2 Isabela body_weight  7.59
-##  7     3 Isabela beak_length  7.59
-##  8     3 Isabela beak_width   1.91
-##  9     3 Isabela body_weight 11.9 
+##  1     1 Isabela beak_length  5.06
+##  2     1 Isabela beak_width   2.00
+##  3     1 Isabela body_weight  6.73
+##  4     2 Isabela beak_length  5.05
+##  5     2 Isabela beak_width   1.88
+##  6     2 Isabela body_weight  1.88
+##  7     3 Isabela beak_length  5.08
+##  8     3 Isabela beak_width   5.08
+##  9     3 Isabela body_weight 11.7 
 ## 10     4 Isabela beak_length  4.98
 ## # … with 290 more rows</code></pre>
 <p>Note that most functions in the tidyverse take a tibble as their first argument, and columns to which to apply the functions are usually passed as “objects” rather than character strings. In the above example, we passed the <code>value</code> column as <code>value</code>, not <code>"value"</code>. These column-objects are called by the tidyverse functions <em>in the context</em> of the data (the tibble) they belong to.</p>
@@ -500,49 +500,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 300 x 7
 ##       id island  variable    value   day month  year
 ##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-##  1     1 Isabela beak_length  5.04    23     7  2019
-##  2     1 Isabela beak_width  NA       23     7  2020
-##  3     1 Isabela body_weight  7.64    12     1  2020
-##  4     2 Isabela beak_length  4.99    14    10  2020
-##  5     2 Isabela beak_width  NA       26     9  2019
-##  6     2 Isabela body_weight  7.59    30     6  2020
-##  7     3 Isabela beak_length NA        1    11  2019
-##  8     3 Isabela beak_width   1.91    26     5  2019
-##  9     3 Isabela body_weight 11.9     17    11  2019
-## 10     4 Isabela beak_length  4.98    14     5  2019
+##  1     1 Isabela beak_length  5.06     2     1  2019
+##  2     1 Isabela beak_width   2.00     2     4  2019
+##  3     1 Isabela body_weight  6.73    19     9  2020
+##  4     2 Isabela beak_length  5.05     6     6  2019
+##  5     2 Isabela beak_width   1.88    26     3  2020
+##  6     2 Isabela body_weight NA        9     6  2019
+##  7     3 Isabela beak_length  5.08    29     5  2020
+##  8     3 Isabela beak_width  NA       24     6  2019
+##  9     3 Isabela body_weight 11.7     17     5  2020
+## 10     4 Isabela beak_length  4.98    23     3  2020
 ## # … with 290 more rows</code></pre>
 <p>We could combine the <code>day</code>, <code>month</code> and <code>year</code> columns into a single <code>date</code> column, with a dash as a separator, using <code>unite</code>:</p>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" title="1">data &lt;-<span class="st"> </span><span class="kw">unite</span>(data, day, month, year, <span class="dt">col =</span> <span class="st">&quot;date&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>)</a>
 <a class="sourceLine" id="cb128-2" title="2">data</a></code></pre></div>
 <pre><code>## # A tibble: 300 x 5
-##       id island  variable    value date      
-##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     
-##  1     1 Isabela beak_length  5.04 23-7-2019 
-##  2     1 Isabela beak_width  NA    23-7-2020 
-##  3     1 Isabela body_weight  7.64 12-1-2020 
-##  4     2 Isabela beak_length  4.99 14-10-2020
-##  5     2 Isabela beak_width  NA    26-9-2019 
-##  6     2 Isabela body_weight  7.59 30-6-2020 
-##  7     3 Isabela beak_length NA    1-11-2019 
-##  8     3 Isabela beak_width   1.91 26-5-2019 
-##  9     3 Isabela body_weight 11.9  17-11-2019
-## 10     4 Isabela beak_length  4.98 14-5-2019 
+##       id island  variable    value date     
+##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;    
+##  1     1 Isabela beak_length  5.06 2-1-2019 
+##  2     1 Isabela beak_width   2.00 2-4-2019 
+##  3     1 Isabela body_weight  6.73 19-9-2020
+##  4     2 Isabela beak_length  5.05 6-6-2019 
+##  5     2 Isabela beak_width   1.88 26-3-2020
+##  6     2 Isabela body_weight NA    9-6-2019 
+##  7     3 Isabela beak_length  5.08 29-5-2020
+##  8     3 Isabela beak_width  NA    24-6-2019
+##  9     3 Isabela body_weight 11.7  17-5-2020
+## 10     4 Isabela beak_length  4.98 23-3-2020
 ## # … with 290 more rows</code></pre>
 <p>Of course, we can revert back to the previous dataset by splitting the <code>date</code> column with <code>separate</code>.</p>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" title="1"><span class="kw">separate</span>(data, date, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;day&quot;</span>, <span class="st">&quot;month&quot;</span>, <span class="st">&quot;year&quot;</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 300 x 7
 ##       id island  variable    value day   month year 
 ##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
-##  1     1 Isabela beak_length  5.04 23    7     2019 
-##  2     1 Isabela beak_width  NA    23    7     2020 
-##  3     1 Isabela body_weight  7.64 12    1     2020 
-##  4     2 Isabela beak_length  4.99 14    10    2020 
-##  5     2 Isabela beak_width  NA    26    9     2019 
-##  6     2 Isabela body_weight  7.59 30    6     2020 
-##  7     3 Isabela beak_length NA    1     11    2019 
-##  8     3 Isabela beak_width   1.91 26    5     2019 
-##  9     3 Isabela body_weight 11.9  17    11    2019 
-## 10     4 Isabela beak_length  4.98 14    5     2019 
+##  1     1 Isabela beak_length  5.06 2     1     2019 
+##  2     1 Isabela beak_width   2.00 2     4     2019 
+##  3     1 Isabela body_weight  6.73 19    9     2020 
+##  4     2 Isabela beak_length  5.05 6     6     2019 
+##  5     2 Isabela beak_width   1.88 26    3     2020 
+##  6     2 Isabela body_weight NA    9     6     2019 
+##  7     3 Isabela beak_length  5.08 29    5     2020 
+##  8     3 Isabela beak_width  NA    24    6     2019 
+##  9     3 Isabela body_weight 11.7  17    5     2020 
+## 10     4 Isabela beak_length  4.98 23    3     2020 
 ## # … with 290 more rows</code></pre>
 <p>But note that the <code>day</code>, <code>month</code> and <code>year</code> columns are now of class <code>character</code> and not <code>integer</code> anymore. This is because they result from the splitting of <code>date</code>, which itself was a <code>character</code> column.</p>
 <p>You can also separate a single column into multiple <em>rows</em> using <code>separate_rows</code>:</p>
@@ -550,16 +550,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 900 x 5
 ##       id island  variable    value date 
 ##    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;
-##  1     1 Isabela beak_length  5.04 23   
-##  2     1 Isabela beak_length  5.04 7    
-##  3     1 Isabela beak_length  5.04 2019 
-##  4     1 Isabela beak_width  NA    23   
-##  5     1 Isabela beak_width  NA    7    
-##  6     1 Isabela beak_width  NA    2020 
-##  7     1 Isabela body_weight  7.64 12   
-##  8     1 Isabela body_weight  7.64 1    
-##  9     1 Isabela body_weight  7.64 2020 
-## 10     2 Isabela beak_length  4.99 14   
+##  1     1 Isabela beak_length  5.06 2    
+##  2     1 Isabela beak_length  5.06 1    
+##  3     1 Isabela beak_length  5.06 2019 
+##  4     1 Isabela beak_width   2.00 2    
+##  5     1 Isabela beak_width   2.00 4    
+##  6     1 Isabela beak_width   2.00 2019 
+##  7     1 Isabela body_weight  6.73 19   
+##  8     1 Isabela body_weight  6.73 9    
+##  9     1 Isabela body_weight  6.73 2020 
+## 10     2 Isabela beak_length  5.05 6    
 ## # … with 890 more rows</code></pre>
 </div>
 <div id="expanding-tables-using-combinations" class="section level3">
@@ -594,16 +594,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 300 x 5
 ##    island  variable       id value date      
 ##    &lt;chr&gt;   &lt;chr&gt;       &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;     
-##  1 Isabela beak_length     1  5.04 23-7-2019 
-##  2 Isabela beak_length     2  4.99 14-10-2020
-##  3 Isabela beak_length     3 NA    1-11-2019 
-##  4 Isabela beak_length     4  4.98 14-5-2019 
-##  5 Isabela beak_length     5  5.02 21-7-2019 
-##  6 Isabela beak_length     6 NA    9-8-2020  
-##  7 Isabela beak_length     7  4.88 30-1-2020 
-##  8 Isabela beak_length     8  5.25 2-9-2020  
-##  9 Isabela beak_length     9  5.09 10-4-2020 
-## 10 Isabela beak_length    10 NA    14-1-2020 
+##  1 Isabela beak_length     1  5.06 2-1-2019  
+##  2 Isabela beak_length     2  5.05 6-6-2019  
+##  3 Isabela beak_length     3  5.08 29-5-2020 
+##  4 Isabela beak_length     4  4.98 23-3-2020 
+##  5 Isabela beak_length     5 NA    4-11-2020 
+##  6 Isabela beak_length     6 NA    30-4-2019 
+##  7 Isabela beak_length     7 NA    20-12-2020
+##  8 Isabela beak_length     8  5.10 15-1-2019 
+##  9 Isabela beak_length     9  4.99 8-6-2019  
+## 10 Isabela beak_length    10  4.97 7-11-2020 
 ## # … with 290 more rows</code></pre>
 <p>which does nothing here because we already have all combinations of <code>island</code> and <code>variable</code>.</p>
 </div>
@@ -652,13 +652,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" title="1"><span class="kw">library</span>(ggplot2)</a>
 <a class="sourceLine" id="cb155-2" title="2"><span class="kw">ggplot</span>(data[data<span class="op">$</span>variable <span class="op">==</span><span class="st"> &quot;beak_length&quot;</span>,], <span class="kw">aes</span>(<span class="dt">x =</span> island, <span class="dt">y =</span> value)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb155-3" title="3"><span class="st">  </span><span class="kw">geom_violin</span>()</a></code></pre></div>
-<pre><code>## Warning: Removed 31 rows containing non-finite values (stat_ydensity).</code></pre>
+<pre><code>## Warning: Removed 30 rows containing non-finite values (stat_ydensity).</code></pre>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
 <p>We could use factor reordering to change the order of the violins:</p>
 <div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1">data<span class="op">$</span>island &lt;-<span class="st"> </span><span class="kw">fct_relevel</span>(data<span class="op">$</span>island, <span class="kw">c</span>(<span class="st">&quot;Santa Cruz&quot;</span>, <span class="st">&quot;Isabela&quot;</span>))</a>
 <a class="sourceLine" id="cb157-2" title="2"><span class="kw">ggplot</span>(data[data<span class="op">$</span>variable <span class="op">==</span><span class="st"> &quot;beak_length&quot;</span>,], <span class="kw">aes</span>(<span class="dt">x =</span> island, <span class="dt">y =</span> value)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb157-3" title="3"><span class="st">  </span><span class="kw">geom_violin</span>()</a></code></pre></div>
-<pre><code>## Warning: Removed 31 rows containing non-finite values (stat_ydensity).</code></pre>
+<pre><code>## Warning: Removed 30 rows containing non-finite values (stat_ydensity).</code></pre>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
 <p>Lots of other variants exist for reordering (e.g. reordering by association with a variable), which we do not cover here. Please refer to the <a href="https://rstudio.com/resources/cheatsheets/">cheatsheet</a> or the online documentation for more examples.</p>
 </div>

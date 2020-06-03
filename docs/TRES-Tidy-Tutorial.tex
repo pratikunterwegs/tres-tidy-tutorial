@@ -1285,16 +1285,16 @@ Say we have a dataset of several morphometrics measured on Darwin's finches in t
 ## # A tibble: 100 x 5
 ##       id beak_length beak_width body_weight island 
 ##    <int>       <dbl>      <dbl>       <dbl> <chr>  
-##  1     1        4.87       2.04       11.1  Isabela
-##  2     2        4.90       2.16        8.05 Isabela
-##  3     3        5.01       2.05        9.37 Isabela
-##  4     4        4.97       2.15       12.4  Isabela
-##  5     5        4.87       2.13        9.35 Isabela
-##  6     6        4.91       2.04       14.6  Isabela
-##  7     7        4.95       2.02       12.8  Isabela
-##  8     8        5.02       1.94        5.79 Isabela
-##  9     9        5.17       1.93        9.18 Isabela
-## 10    10        5.08       1.73        8.86 Isabela
+##  1     1        5.01       2.00       11.5  Isabela
+##  2     2        5.07       1.97        9.44 Isabela
+##  3     3        5.10       1.88        7.80 Isabela
+##  4     4        4.95       2.00        9.24 Isabela
+##  5     5        5.07       2.11       14.6  Isabela
+##  6     6        5.01       2.08       13.6  Isabela
+##  7     7        5.03       1.95        8.84 Isabela
+##  8     8        5.11       1.96        8.99 Isabela
+##  9     9        4.99       1.88        7.26 Isabela
+## 10    10        4.97       1.87        8.51 Isabela
 ## # ... with 90 more rows
 \end{verbatim}
 
@@ -1317,16 +1317,16 @@ The tidy equivalent of this dataset would be:
 ## # A tibble: 300 x 4
 ##       id island  variable    value
 ##    <int> <chr>   <chr>       <dbl>
-##  1     1 Isabela beak_length  4.87
-##  2     1 Isabela beak_width   2.04
-##  3     1 Isabela body_weight 11.1 
-##  4     2 Isabela beak_length  4.90
-##  5     2 Isabela beak_width   2.16
-##  6     2 Isabela body_weight  8.05
-##  7     3 Isabela beak_length  5.01
-##  8     3 Isabela beak_width   2.05
-##  9     3 Isabela body_weight  9.37
-## 10     4 Isabela beak_length  4.97
+##  1     1 Isabela beak_length  5.01
+##  2     1 Isabela beak_width   2.00
+##  3     1 Isabela body_weight 11.5 
+##  4     2 Isabela beak_length  5.07
+##  5     2 Isabela beak_width   1.97
+##  6     2 Isabela body_weight  9.44
+##  7     3 Isabela beak_length  5.10
+##  8     3 Isabela beak_width   1.88
+##  9     3 Isabela body_weight  7.80
+## 10     4 Isabela beak_length  4.95
 ## # ... with 290 more rows
 \end{verbatim}
 
@@ -1399,16 +1399,16 @@ Pivoting a dataset between the long and wide layout is the main purpose of \text
 ## # A tibble: 100 x 5
 ##       id island  beak_length beak_width body_weight
 ##    <int> <chr>         <dbl>      <dbl>       <dbl>
-##  1     1 Isabela        4.87       2.04       11.1 
-##  2     2 Isabela        4.90       2.16        8.05
-##  3     3 Isabela        5.01       2.05        9.37
-##  4     4 Isabela        4.97       2.15       12.4 
-##  5     5 Isabela        4.87       2.13        9.35
-##  6     6 Isabela        4.91       2.04       14.6 
-##  7     7 Isabela        4.95       2.02       12.8 
-##  8     8 Isabela        5.02       1.94        5.79
-##  9     9 Isabela        5.17       1.93        9.18
-## 10    10 Isabela        5.08       1.73        8.86
+##  1     1 Isabela        5.01       2.00       11.5 
+##  2     2 Isabela        5.07       1.97        9.44
+##  3     3 Isabela        5.10       1.88        7.80
+##  4     4 Isabela        4.95       2.00        9.24
+##  5     5 Isabela        5.07       2.11       14.6 
+##  6     6 Isabela        5.01       2.08       13.6 
+##  7     7 Isabela        5.03       1.95        8.84
+##  8     8 Isabela        5.11       1.96        8.99
+##  9     9 Isabela        4.99       1.88        7.26
+## 10    10 Isabela        4.97       1.87        8.51
 ## # ... with 90 more rows
 \end{verbatim}
 
@@ -1436,15 +1436,15 @@ Say we have some missing measurements in the column ``value'' of our finch datas
 ## # A tibble: 300 x 4
 ##       id island  variable    value
 ##    <int> <chr>   <chr>       <dbl>
-##  1     1 Isabela beak_length  4.87
-##  2     1 Isabela beak_width   2.04
-##  3     1 Isabela body_weight 11.1 
-##  4     2 Isabela beak_length NA   
-##  5     2 Isabela beak_width   2.16
-##  6     2 Isabela body_weight  8.05
-##  7     3 Isabela beak_length  5.01
-##  8     3 Isabela beak_width   2.05
-##  9     3 Isabela body_weight  9.37
+##  1     1 Isabela beak_length  5.01
+##  2     1 Isabela beak_width  NA   
+##  3     1 Isabela body_weight 11.5 
+##  4     2 Isabela beak_length  5.07
+##  5     2 Isabela beak_width  NA   
+##  6     2 Isabela body_weight  9.44
+##  7     3 Isabela beak_length  5.10
+##  8     3 Isabela beak_width  NA   
+##  9     3 Isabela body_weight NA   
 ## 10     4 Isabela beak_length NA   
 ## # ... with 290 more rows
 \end{verbatim}
@@ -1461,16 +1461,16 @@ We could get rid of the rows that have missing values using \texttt{drop\_na}:
 ## # A tibble: 200 x 4
 ##       id island  variable    value
 ##    <int> <chr>   <chr>       <dbl>
-##  1     1 Isabela beak_length  4.87
-##  2     1 Isabela beak_width   2.04
-##  3     1 Isabela body_weight 11.1 
-##  4     2 Isabela beak_width   2.16
-##  5     2 Isabela body_weight  8.05
-##  6     3 Isabela beak_length  5.01
-##  7     3 Isabela beak_width   2.05
-##  8     3 Isabela body_weight  9.37
-##  9     4 Isabela beak_width   2.15
-## 10     4 Isabela body_weight 12.4 
+##  1     1 Isabela beak_length  5.01
+##  2     1 Isabela body_weight 11.5 
+##  3     2 Isabela beak_length  5.07
+##  4     2 Isabela body_weight  9.44
+##  5     3 Isabela beak_length  5.10
+##  6     4 Isabela beak_width   2.00
+##  7     4 Isabela body_weight  9.24
+##  8     5 Isabela beak_length  5.07
+##  9     5 Isabela body_weight 14.6 
+## 10     6 Isabela beak_width   2.08
 ## # ... with 190 more rows
 \end{verbatim}
 
@@ -1486,15 +1486,15 @@ Else, we could replace the NAs with some user-defined value:
 ## # A tibble: 300 x 4
 ##       id island  variable      value
 ##    <int> <chr>   <chr>         <dbl>
-##  1     1 Isabela beak_length    4.87
-##  2     1 Isabela beak_width     2.04
-##  3     1 Isabela body_weight   11.1 
-##  4     2 Isabela beak_length -999   
-##  5     2 Isabela beak_width     2.16
-##  6     2 Isabela body_weight    8.05
-##  7     3 Isabela beak_length    5.01
-##  8     3 Isabela beak_width     2.05
-##  9     3 Isabela body_weight    9.37
+##  1     1 Isabela beak_length    5.01
+##  2     1 Isabela beak_width  -999   
+##  3     1 Isabela body_weight   11.5 
+##  4     2 Isabela beak_length    5.07
+##  5     2 Isabela beak_width  -999   
+##  6     2 Isabela body_weight    9.44
+##  7     3 Isabela beak_length    5.10
+##  8     3 Isabela beak_width  -999   
+##  9     3 Isabela body_weight -999   
 ## 10     4 Isabela beak_length -999   
 ## # ... with 290 more rows
 \end{verbatim}
@@ -1513,16 +1513,16 @@ We could also replace NAs with the most recent non-NA values:
 ## # A tibble: 300 x 4
 ##       id island  variable    value
 ##    <int> <chr>   <chr>       <dbl>
-##  1     1 Isabela beak_length  4.87
-##  2     1 Isabela beak_width   2.04
-##  3     1 Isabela body_weight 11.1 
-##  4     2 Isabela beak_length 11.1 
-##  5     2 Isabela beak_width   2.16
-##  6     2 Isabela body_weight  8.05
-##  7     3 Isabela beak_length  5.01
-##  8     3 Isabela beak_width   2.05
-##  9     3 Isabela body_weight  9.37
-## 10     4 Isabela beak_length  9.37
+##  1     1 Isabela beak_length  5.01
+##  2     1 Isabela beak_width   5.01
+##  3     1 Isabela body_weight 11.5 
+##  4     2 Isabela beak_length  5.07
+##  5     2 Isabela beak_width   5.07
+##  6     2 Isabela body_weight  9.44
+##  7     3 Isabela beak_length  5.10
+##  8     3 Isabela beak_width   5.10
+##  9     3 Isabela body_weight  5.10
+## 10     4 Isabela beak_length  5.10
 ## # ... with 290 more rows
 \end{verbatim}
 
@@ -1549,16 +1549,16 @@ Say we want to add the specific dates when we took measurements on our birds (we
 ## # A tibble: 300 x 7
 ##       id island  variable    value   day month  year
 ##    <int> <chr>   <chr>       <dbl> <int> <int> <int>
-##  1     1 Isabela beak_length  4.87     9     4  2019
-##  2     1 Isabela beak_width   2.04    15    10  2020
-##  3     1 Isabela body_weight 11.1      3     7  2020
-##  4     2 Isabela beak_length NA        2     4  2020
-##  5     2 Isabela beak_width   2.16     2     7  2019
-##  6     2 Isabela body_weight  8.05    18    12  2020
-##  7     3 Isabela beak_length  5.01     5     9  2019
-##  8     3 Isabela beak_width   2.05     8    11  2020
-##  9     3 Isabela body_weight  9.37    27     5  2020
-## 10     4 Isabela beak_length NA       13    12  2019
+##  1     1 Isabela beak_length  5.01    14     3  2019
+##  2     1 Isabela beak_width  NA       14     7  2020
+##  3     1 Isabela body_weight 11.5     11     5  2020
+##  4     2 Isabela beak_length  5.07    25     8  2020
+##  5     2 Isabela beak_width  NA       10     4  2020
+##  6     2 Isabela body_weight  9.44    30     9  2020
+##  7     3 Isabela beak_length  5.10    29    11  2020
+##  8     3 Isabela beak_width  NA       10     2  2020
+##  9     3 Isabela body_weight NA       25    10  2020
+## 10     4 Isabela beak_length NA        9     9  2019
 ## # ... with 290 more rows
 \end{verbatim}
 
@@ -1575,16 +1575,16 @@ We could combine the \texttt{day}, \texttt{month} and \texttt{year} columns into
 ## # A tibble: 300 x 5
 ##       id island  variable    value date      
 ##    <int> <chr>   <chr>       <dbl> <chr>     
-##  1     1 Isabela beak_length  4.87 9-4-2019  
-##  2     1 Isabela beak_width   2.04 15-10-2020
-##  3     1 Isabela body_weight 11.1  3-7-2020  
-##  4     2 Isabela beak_length NA    2-4-2020  
-##  5     2 Isabela beak_width   2.16 2-7-2019  
-##  6     2 Isabela body_weight  8.05 18-12-2020
-##  7     3 Isabela beak_length  5.01 5-9-2019  
-##  8     3 Isabela beak_width   2.05 8-11-2020 
-##  9     3 Isabela body_weight  9.37 27-5-2020 
-## 10     4 Isabela beak_length NA    13-12-2019
+##  1     1 Isabela beak_length  5.01 14-3-2019 
+##  2     1 Isabela beak_width  NA    14-7-2020 
+##  3     1 Isabela body_weight 11.5  11-5-2020 
+##  4     2 Isabela beak_length  5.07 25-8-2020 
+##  5     2 Isabela beak_width  NA    10-4-2020 
+##  6     2 Isabela body_weight  9.44 30-9-2020 
+##  7     3 Isabela beak_length  5.10 29-11-2020
+##  8     3 Isabela beak_width  NA    10-2-2020 
+##  9     3 Isabela body_weight NA    25-10-2020
+## 10     4 Isabela beak_length NA    9-9-2019  
 ## # ... with 290 more rows
 \end{verbatim}
 
@@ -1600,16 +1600,16 @@ Of course, we can revert back to the previous dataset by splitting the \texttt{d
 ## # A tibble: 300 x 7
 ##       id island  variable    value day   month year 
 ##    <int> <chr>   <chr>       <dbl> <chr> <chr> <chr>
-##  1     1 Isabela beak_length  4.87 9     4     2019 
-##  2     1 Isabela beak_width   2.04 15    10    2020 
-##  3     1 Isabela body_weight 11.1  3     7     2020 
-##  4     2 Isabela beak_length NA    2     4     2020 
-##  5     2 Isabela beak_width   2.16 2     7     2019 
-##  6     2 Isabela body_weight  8.05 18    12    2020 
-##  7     3 Isabela beak_length  5.01 5     9     2019 
-##  8     3 Isabela beak_width   2.05 8     11    2020 
-##  9     3 Isabela body_weight  9.37 27    5     2020 
-## 10     4 Isabela beak_length NA    13    12    2019 
+##  1     1 Isabela beak_length  5.01 14    3     2019 
+##  2     1 Isabela beak_width  NA    14    7     2020 
+##  3     1 Isabela body_weight 11.5  11    5     2020 
+##  4     2 Isabela beak_length  5.07 25    8     2020 
+##  5     2 Isabela beak_width  NA    10    4     2020 
+##  6     2 Isabela body_weight  9.44 30    9     2020 
+##  7     3 Isabela beak_length  5.10 29    11    2020 
+##  8     3 Isabela beak_width  NA    10    2     2020 
+##  9     3 Isabela body_weight NA    25    10    2020 
+## 10     4 Isabela beak_length NA    9     9     2019 
 ## # ... with 290 more rows
 \end{verbatim}
 
@@ -1627,16 +1627,16 @@ You can also separate a single column into multiple \emph{rows} using \texttt{se
 ## # A tibble: 900 x 5
 ##       id island  variable    value date 
 ##    <int> <chr>   <chr>       <dbl> <chr>
-##  1     1 Isabela beak_length  4.87 9    
-##  2     1 Isabela beak_length  4.87 4    
-##  3     1 Isabela beak_length  4.87 2019 
-##  4     1 Isabela beak_width   2.04 15   
-##  5     1 Isabela beak_width   2.04 10   
-##  6     1 Isabela beak_width   2.04 2020 
-##  7     1 Isabela body_weight 11.1  3    
-##  8     1 Isabela body_weight 11.1  7    
-##  9     1 Isabela body_weight 11.1  2020 
-## 10     2 Isabela beak_length NA    2    
+##  1     1 Isabela beak_length  5.01 14   
+##  2     1 Isabela beak_length  5.01 3    
+##  3     1 Isabela beak_length  5.01 2019 
+##  4     1 Isabela beak_width  NA    14   
+##  5     1 Isabela beak_width  NA    7    
+##  6     1 Isabela beak_width  NA    2020 
+##  7     1 Isabela body_weight 11.5  11   
+##  8     1 Isabela body_weight 11.5  5    
+##  9     1 Isabela body_weight 11.5  2020 
+## 10     2 Isabela beak_length  5.07 25   
 ## # ... with 890 more rows
 \end{verbatim}
 
@@ -1698,16 +1698,16 @@ As an extension of this, the function \texttt{complete} can come particularly ha
 ## # A tibble: 300 x 5
 ##    island  variable       id value date      
 ##    <chr>   <chr>       <int> <dbl> <chr>     
-##  1 Isabela beak_length     1  4.87 9-4-2019  
-##  2 Isabela beak_length     2 NA    2-4-2020  
-##  3 Isabela beak_length     3  5.01 5-9-2019  
-##  4 Isabela beak_length     4 NA    13-12-2019
-##  5 Isabela beak_length     5  4.87 14-8-2020 
-##  6 Isabela beak_length     6  4.91 11-2-2019 
-##  7 Isabela beak_length     7  4.95 5-5-2019  
-##  8 Isabela beak_length     8  5.02 27-10-2019
-##  9 Isabela beak_length     9  5.17 27-5-2019 
-## 10 Isabela beak_length    10 NA    14-9-2019 
+##  1 Isabela beak_length     1  5.01 14-3-2019 
+##  2 Isabela beak_length     2  5.07 25-8-2020 
+##  3 Isabela beak_length     3  5.10 29-11-2020
+##  4 Isabela beak_length     4 NA    9-9-2019  
+##  5 Isabela beak_length     5  5.07 26-12-2019
+##  6 Isabela beak_length     6 NA    19-5-2019 
+##  7 Isabela beak_length     7  5.03 22-1-2020 
+##  8 Isabela beak_length     8 NA    9-2-2019  
+##  9 Isabela beak_length     9  4.99 30-2-2020 
+## 10 Isabela beak_length    10  4.97 19-10-2020
 ## # ... with 290 more rows
 \end{verbatim}
 
@@ -1838,7 +1838,7 @@ Factor reordering may come useful when plotting categorical variables, for examp
 \end{Shaded}
 
 \begin{verbatim}
-## Warning: Removed 34 rows containing non-finite values (stat_ydensity).
+## Warning: Removed 31 rows containing non-finite values (stat_ydensity).
 \end{verbatim}
 
 \includegraphics{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-55-1.pdf}
@@ -1854,7 +1854,7 @@ We could use factor reordering to change the order of the violins:
 \end{Shaded}
 
 \begin{verbatim}
-## Warning: Removed 34 rows containing non-finite values (stat_ydensity).
+## Warning: Removed 31 rows containing non-finite values (stat_ydensity).
 \end{verbatim}
 
 \includegraphics{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-56-1.pdf}
