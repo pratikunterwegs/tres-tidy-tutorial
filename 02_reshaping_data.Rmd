@@ -3,7 +3,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Reshaping data tables in the tidyverse
+# Reshaping data tables in the tidyverse, and other things
 
 Raphael Scherrer
 
@@ -75,9 +75,9 @@ islands <- rep(c("Isabela", "Santa Cruz"), each = 50)
 # Assemble into a tibble
 data <- tibble(
   id = 1:100,
-  beak_length = beak_lengths, 
-  beak_width = beak_widths, 
   body_weight = body_weights,
+  beak_length = beak_lengths,  
+  beak_width = beak_widths,
   island = islands
 )
 
@@ -92,13 +92,13 @@ The tidy equivalent of this dataset would be:
 ```{r}
 data <- pivot_longer(
   data, 
-  cols = c("beak_length", "beak_width", "body_weight"),
+  cols = c("body_weight", "beak_length", "beak_width"),
   names_to = "variable"
 )
 data
 ```
 
-where each *measurement* (and not each *individual*) is now the unit of observation (the rows). We will come back to the `pivot_longer` function later.
+where each *measurement* (and not each *individual*) is now the unit of observation (the rows). The `pivot_longer` function is the easiest way to get to this format. It belongs to the `tidyr` package, which we'll cover in a minute.
 
 As you can see our tibble now has three times as many rows and fewer columns. This format is rather unintuitive and not optimal for display. However, it provides a very standardized and consistent way of organizing data that will be understood (and expected) by pretty much all functions in the tidyverse. This makes the tidyverse tools work well together and reduces the time you would otherwise spend reformatting your data from one tool to the next.
 
@@ -125,7 +125,7 @@ The `tidyr` package implements tools to easily switch between layouts and also p
 
 ### Pivoting
 
-Pivoting a dataset between the long and wide layout is the main purpose of `tidyr` (check out the package's logo). We already saw the `pivot_longer` function, that converts a table form wide to long format. Similarly, there is a `pivot_wider` function that does exactly the opposite and takes you back to the wide format:
+Pivoting a dataset between the long and wide layout is the main purpose of `tidyr` (check out the package's logo). We already saw the `pivot_longer` function above. This function converts a table form wide to long format. Similarly, there is a `pivot_wider` function that does exactly the opposite and takes you back to the wide format:
 
 ```{r}
 pivot_wider(
@@ -212,28 +212,64 @@ separate_rows(data, date)
 
 ### Expanding tables using combinations
 
-Sometimes one may need to quickly create a table with all combinations of a set of variables. We could generate a tibble with all combinations of island-by-morphometric using `expand_grid`:
+Instead of getting rid of rows with NAs, we may want to add rows with NAs, for example, for combinations of parameters that we did not measure. 
+
+```{r}
+data <- separate(data, date, into = c("day", "month", "year"))
+to_rm <- with(data, island == "Santa Cruz" & year == "2020")
+data <- data[!to_rm,]
+tail(data)
+```
+
+We could generate a tibble with all combinations of island, morphometric and year using `expand_grid`:
 
 ```{r}
 expand_grid(
   island = c("Isabela", "Santa Cruz"), 
-  variable = c("beak_length", "beak_width", "body_weight")
+  year = c("2019", "2020")
 )
 ```
 
-If we already have a tibble to work from that contains the variables to combine, we can use `expand`:
+If we already have a tibble to work from that contains the variables to combine, we can use `expand` on that tibble:
 
 ```{r}
-expand(data, island, variable)
+expand(data, island, year)
 ```
 
-As an extension of this, the function `complete` can come particularly handy if we need to add missing combinations to our tibble:
+As you can see, we get all the combinations of the variables of interest, even those that are missing. But sometimes you might be interested in variables that are *nested* within each other and not *crossed*. For example, say we have measured birds at different locations within each island:
 
 ```{r}
-complete(data, island, variable)
+nrow_Isabela <- with(data, length(which(island == "Isabela")))
+nrow_SantaCruz <- with(data, length(which(island == "Santa Cruz")))
+sites_Isabela <- sample(c("A", "B"), size = nrow_Isabela, replace = TRUE)
+sites_SantaCruz <- sample(c("C", "D"), size = nrow_SantaCruz, replace = TRUE)
+sites <- c(sites_Isabela, sites_SantaCruz)
+data$site <- sites
+data
 ```
 
-which does nothing here because we already have all combinations of `island` and `variable`.
+Of course, if sites A and B are on Isabela, they cannot be on Santa Cruz, where we have sites C and D instead. It would not make sense to `expand` assuming that `island` and `site` are crossed, instead, they are nested. We can therefore expand using the `nesting` function:
+
+```{r}
+expand(data, nesting(island, site, year))
+```
+
+But now the missing data for Santa Cruz in 2020 are not accounted for because `expand` thinks the `year` is also nested within island. To get back the missing combination, we use `crossing`, the complement of `nesting`:
+
+```{r}
+expand(data, crossing(nesting(island, site), year)) # both can be used together
+```
+
+Here, we specify that `site` is nested within `island` and these two are crossed with `site`. Easy! 
+
+But wait a minute. These combinations are all very good, but our measurements have disappeared! We can get them back by levelling up to the `complete` function instead of using `expand`:
+
+```{r}
+tail(complete(data, crossing(nesting(island, site), year))) 
+# the last row has been added, full of NAs
+```
+
+which nicely keeps the rest of the columns in the tibble and just adds the missing combinations.
 
 ### Nesting
 
@@ -277,47 +313,70 @@ But this is a tidyverse tutorial, so I would like to introduce here the package 
 
 I see two main ways `forcats` can come handy in the kind of data most people deal with: playing with the order of the levels of a factor and playing with the levels themselves. We will show here a few examples, but the full breadth of factor manipulations can be found online or in the excellent `forcats` cheatsheet.
 
-### Reordering a factor
+### Change the order of the levels
+ 
+One example use-case where you would want to change the order of the levels of a factor is when plotting. Your categorical variable, for example, may not be plotted in the order you want. If we plot the distribution of each variable across islands, we get
+
+```{r}
+# Make the plotting code a function so we can re-use it without copying and pasting
+my_plot <- function(data) {
+  
+  # We do not cover the ggplot functions in this chapter, this is just to
+  # illustrate our use-case, wait until chapter 5!
+  library(ggplot2)
+  ggplot(data, aes(x = island, y = value, color = island)) + 
+    geom_violin() + 
+    geom_jitter(width = 0.1) +
+    facet_grid(variable ~ year, scales = "free") +
+    theme_bw() +
+    scale_color_manual(values = c("forestgreen", "goldenrod"))
+  
+}
+
+my_plot(data)
+# Remember that data are missing from Santa Cruz in 2020
+```
+
+Here, the islands (horizontal axis) and the variables (the facets) are displayed in alphabetical order. When making a figure you may want to customize these orders in such a way that your message is optimally conveyed by your figure, and this may involve playing with the order of levels.
 
 Use `fct_relevel` to manually change the order of the levels:
 
 ```{r}
-fct_relevel(my_fact_vec, c("Pratik", "Theo", "Raph"))
+data$island <- as.factor(data$island) # turn this column into a factor
+data$island <- fct_relevel(data$island, c("Santa Cruz", "Isabela"))
+my_plot(data) # order of islands has changed!
+```
+
+Beware that reordering a factor *does not change* the order of the items within the vector, only the order of the *levels*. So, it does not introduce any mistmatch between the `island` column and the other columns! It only matters when the levels are called, for example, in a `ggplot`. As you can see:
+
+```{r}
+data$island[1:10]
+fct_relevel(data$island, c("Isabela", "Santa Cruz"))[1:10] # same thing, different levels
 ```
 
 Alternatively, use `fct_inorder` to set the order of the levels to the order in which they appear:
 
 ```{r}
-fct_inorder(my_fact_vec)
+data$variable <- as.factor(data$variable)
+levels(data$variable)
+levels(fct_inorder(data$variable))
 ```
 
 or `fct_rev` to reverse the order of the levels:
 
 ```{r}
-fct_rev(my_fact_vec)
+levels(fct_rev(data$island)) # back in the alphabetical order
 ```
 
-Factor reordering may come useful when plotting categorical variables, for example. Say we want to plot `beak_length` against `island` in our finch dataset:
+Other variants exist to do more complex reordering, all present in the forcats  [cheatsheet](https://rstudio.com/resources/cheatsheets/), for example:
+* `fct_infreq` to re-order according to the frequency of each level (how many observation on each island?)
+* `fct_shift` to shift the order of all levels by a certain rank (in a circular way so that the last one becomes the first one or vice versa)
+* `fct_shuffle` if you want your levels in random order
+* `fct_reorder`, which reorders based on an associated variable (see `fct_reorder2` for even more complex relationship between the factor and the associated variable)
 
-```{r}
-library(ggplot2)
-ggplot(data[data$variable == "beak_length",], aes(x = island, y = value)) +
-  geom_violin()
-```
+### Change the levels themselves
 
-We could use factor reordering to change the order of the violins:
-
-```{r}
-data$island <- fct_relevel(data$island, c("Santa Cruz", "Isabela"))
-ggplot(data[data$variable == "beak_length",], aes(x = island, y = value)) +
-  geom_violin()
-```
-
-Lots of other variants exist for reordering (e.g. reordering by association with a variable), which we do not cover here. Please refer to the [cheatsheet](https://rstudio.com/resources/cheatsheets/) or the online documentation for more examples.
-
-### Factor levels
-
-One can change the levels of a factor using `fct_recode`:
+Changing the levels of a factor will change the labels in the actual vector. It is similar to performing a string substitution in `stringr`. One can change the levels of a factor using `fct_recode`:
 
 ```{r}
 fct_recode(
@@ -334,14 +393,16 @@ or collapse factor levels together using `fct_collapse`:
 fct_collapse(my_fact_vec, EU = c("Theo", "Raph"), NonEU = "Pratik")
 ```
 
-Again, we do not provide an exhaustive list of `forcats` functions here but the most usual ones, to give a glimpse of many things that one can do with factors. So, if you are dealing with factors, remember that `forcats` may have handy tools for you.
+Again, we do not provide an exhaustive list of `forcats` functions here but the most usual ones, to give a glimpse of many things that one can do with factors. So, if you are dealing with factors, remember that `forcats` may have handy tools for you. Among others:
+* `fct_anon` to "anonymize", i.e. replace the levels by random integers
+* `fct_lump` to collapse levels together based on their frequency (e.g. the two most frequent levels together)
 
-### Bonus: dropping levels
+### Dropping levels
 
 If you use factors in your tibble and get rid of one level, for any reason, the factor will usually remember the old levels, which may cause some problems when applying functions to your data.
 
 ```{r}
-data <- data[data$island == "Santa Cruz",]
+data <- data[data$island == "Santa Cruz",] # keep only one island
 unique(data$island) # Isabela is gone from the labels
 levels(data$island) # but not from the levels
 ```
@@ -354,6 +415,22 @@ levels(data$island)
 ```
 
 Fortunately, most functions within the tidyverse will not complain about missing levels, and will automatically get rid of those inexistant levels for you. But because factors are such common causes of bugs, keep this in mind!
+
+Note that this is equivalent to doing:
+
+```{r}
+data$island <- fct_drop(data$island)
+```
+
+### Other things
+
+Among other things you can use in `forcats`:
+* `fct_count` to get the frequency of each level
+* `fct_c` to combine factors together
+
+### Take home message for forcats
+
+Use this package to manipulate your factors. Do you need factors? Or are character vectors enough? That is your call, and may depend on the kind of analyses you want to do and what they require. We saw here that for plotting, having factors can allow you to do quite some tweaking of the display. If you encounter a situation where the order of encoding of your character vector starts to matter, then maybe converting into a factor would make your life easier. And if you do so, remember that lots of tools to perform all kinds of manipulation are available to you with both `stringr`and `forcats`.
 
 ## External resources
 
