@@ -15,7 +15,7 @@ description: "TRES Tidyverse Tutorial"
 
 # Outline {-}
 
-This is the readable version of the TRES [tidyverse](https://www.tidyverse.org/) tutorial.
+This is the readable version of the TRES [tidyverse](https://www.tidyverse.org/) tutorial. A convenient PDF version can be downloaded by clicking the PDF document icon in the header bar.
 
 ## About {-}
 
