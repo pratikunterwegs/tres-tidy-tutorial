@@ -3,13 +3,12 @@ bookdown::gitbook:
   config:
     toc:
       collapse: section
-      scroll_highlight: yes
       before: null
       after: null
-    download: download:[["TRES-Tidy-Tutorial.pdf","PDF"]]
     edit:
       link: https://github.com/pratikunterwegs/tres-tidy-tutorial/edit/master/%s
       text: "Edit"
+    sharing: no
 bookdown::pdf_book:
   keep_tex: true
   documentclass: scrreprt
