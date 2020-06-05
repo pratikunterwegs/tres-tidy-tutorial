@@ -113,7 +113,7 @@
 
 \title{TRES Tidyverse Tutorial}
 \author{Raphael, Pratik and Theo}
-\date{2020-06-04}
+\date{2020-06-05}
 
 \begin{document}
 \maketitle
@@ -877,8 +877,8 @@ The details of \texttt{ggplot} are covered in a later tutorial.
 
 This is not a good looking plot, because it breaks other rules of plot design, such as whether this sort of plot should be made at all. Labels and text need to be applied sparingly, for example drawing attention or adding information to outliers.
 
-\hypertarget{reshaping-data-tables-in-the-tidyverse}{%
-\chapter{Reshaping data tables in the tidyverse}\label{reshaping-data-tables-in-the-tidyverse}}
+\hypertarget{reshaping-data-tables-in-the-tidyverse-and-other-things}{%
+\chapter{Reshaping data tables in the tidyverse, and other things}\label{reshaping-data-tables-in-the-tidyverse-and-other-things}}
 
 Raphael Scherrer
 
@@ -1002,23 +1002,23 @@ Say we have a dataset of several morphometrics measured on Darwin's finches in t
 \CommentTok{# Assemble into a tibble}
 \NormalTok{data <-}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
   \DataTypeTok{id =} \DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{,}
-  \DataTypeTok{beak_length =}\NormalTok{ beak_lengths, }
-  \DataTypeTok{beak_width =}\NormalTok{ beak_widths, }
   \DataTypeTok{body_weight =}\NormalTok{ body_weights,}
+  \DataTypeTok{beak_length =}\NormalTok{ beak_lengths,  }
+  \DataTypeTok{beak_width =}\NormalTok{ beak_widths,}
   \DataTypeTok{island =}\NormalTok{ islands}
 \NormalTok{)}
 
 \CommentTok{# Snapshot}
 \NormalTok{data}
 \CommentTok{#> # A tibble: 100 x 5}
-\CommentTok{#>      id beak_length beak_width body_weight island }
-\CommentTok{#>   <int>       <dbl>      <dbl>       <dbl> <chr>  }
-\CommentTok{#> 1     1        4.94       1.94       10.8  Isabela}
-\CommentTok{#> 2     2        5.02       2.00       15.4  Isabela}
-\CommentTok{#> 3     3        4.92       1.91       15.0  Isabela}
-\CommentTok{#> 4     4        5.16       2.02        8.51 Isabela}
-\CommentTok{#> 5     5        5.03       1.93       14.9  Isabela}
-\CommentTok{#> 6     6        4.92       2.18        8.41 Isabela}
+\CommentTok{#>      id body_weight beak_length beak_width island }
+\CommentTok{#>   <int>       <dbl>       <dbl>      <dbl> <chr>  }
+\CommentTok{#> 1     1       10.8         4.94       1.94 Isabela}
+\CommentTok{#> 2     2       15.4         5.02       2.00 Isabela}
+\CommentTok{#> 3     3       15.0         4.92       1.91 Isabela}
+\CommentTok{#> 4     4        8.51        5.16       2.02 Isabela}
+\CommentTok{#> 5     5       14.9         5.03       1.93 Isabela}
+\CommentTok{#> 6     6        8.41        4.92       2.18 Isabela}
 \CommentTok{#> # ... with 94 more rows}
 \end{Highlighting}
 \end{Shaded}
@@ -1031,24 +1031,24 @@ The tidy equivalent of this dataset would be:
 \begin{Highlighting}[]
 \NormalTok{data <-}\StringTok{ }\KeywordTok{pivot_longer}\NormalTok{(}
 \NormalTok{  data, }
-  \DataTypeTok{cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"beak_length"}\NormalTok{, }\StringTok{"beak_width"}\NormalTok{, }\StringTok{"body_weight"}\NormalTok{),}
+  \DataTypeTok{cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"body_weight"}\NormalTok{, }\StringTok{"beak_length"}\NormalTok{, }\StringTok{"beak_width"}\NormalTok{),}
   \DataTypeTok{names_to =} \StringTok{"variable"}
 \NormalTok{)}
 \NormalTok{data}
 \CommentTok{#> # A tibble: 300 x 4}
 \CommentTok{#>      id island  variable    value}
 \CommentTok{#>   <int> <chr>   <chr>       <dbl>}
-\CommentTok{#> 1     1 Isabela beak_length  4.94}
-\CommentTok{#> 2     1 Isabela beak_width   1.94}
-\CommentTok{#> 3     1 Isabela body_weight 10.8 }
-\CommentTok{#> 4     2 Isabela beak_length  5.02}
-\CommentTok{#> 5     2 Isabela beak_width   2.00}
-\CommentTok{#> 6     2 Isabela body_weight 15.4 }
+\CommentTok{#> 1     1 Isabela body_weight 10.8 }
+\CommentTok{#> 2     1 Isabela beak_length  4.94}
+\CommentTok{#> 3     1 Isabela beak_width   1.94}
+\CommentTok{#> 4     2 Isabela body_weight 15.4 }
+\CommentTok{#> 5     2 Isabela beak_length  5.02}
+\CommentTok{#> 6     2 Isabela beak_width   2.00}
 \CommentTok{#> # ... with 294 more rows}
 \end{Highlighting}
 \end{Shaded}
 
-where each \emph{measurement} (and not each \emph{individual}) is now the unit of observation (the rows). We will come back to the \texttt{pivot\_longer} function later.
+where each \emph{measurement} (and not each \emph{individual}) is now the unit of observation (the rows). The \texttt{pivot\_longer} function is the easiest way to get to this format. It belongs to the \texttt{tidyr} package, which we'll cover in a minute.
 
 As you can see our tibble now has three times as many rows and fewer columns. This format is rather unintuitive and not optimal for display. However, it provides a very standardized and consistent way of organizing data that will be understood (and expected) by pretty much all functions in the tidyverse. This makes the tidyverse tools work well together and reduces the time you would otherwise spend reformatting your data from one tool to the next.
 
@@ -1094,7 +1094,7 @@ The \texttt{tidyr} package implements tools to easily switch between layouts and
 \hypertarget{pivoting}{%
 \subsection{Pivoting}\label{pivoting}}
 
-Pivoting a dataset between the long and wide layout is the main purpose of \texttt{tidyr} (check out the package's logo). We already saw the \texttt{pivot\_longer} function, that converts a table form wide to long format. Similarly, there is a \texttt{pivot\_wider} function that does exactly the opposite and takes you back to the wide format:
+Pivoting a dataset between the long and wide layout is the main purpose of \texttt{tidyr} (check out the package's logo). We already saw the \texttt{pivot\_longer} function above. This function converts a table form wide to long format. Similarly, there is a \texttt{pivot\_wider} function that does exactly the opposite and takes you back to the wide format:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1105,14 +1105,14 @@ Pivoting a dataset between the long and wide layout is the main purpose of \text
   \DataTypeTok{id_cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"id"}\NormalTok{, }\StringTok{"island"}\NormalTok{)}
 \NormalTok{)}
 \CommentTok{#> # A tibble: 100 x 5}
-\CommentTok{#>      id island  beak_length beak_width body_weight}
-\CommentTok{#>   <int> <chr>         <dbl>      <dbl>       <dbl>}
-\CommentTok{#> 1     1 Isabela        4.94       1.94       10.8 }
-\CommentTok{#> 2     2 Isabela        5.02       2.00       15.4 }
-\CommentTok{#> 3     3 Isabela        4.92       1.91       15.0 }
-\CommentTok{#> 4     4 Isabela        5.16       2.02        8.51}
-\CommentTok{#> 5     5 Isabela        5.03       1.93       14.9 }
-\CommentTok{#> 6     6 Isabela        4.92       2.18        8.41}
+\CommentTok{#>      id island  body_weight beak_length beak_width}
+\CommentTok{#>   <int> <chr>         <dbl>       <dbl>      <dbl>}
+\CommentTok{#> 1     1 Isabela       10.8         4.94       1.94}
+\CommentTok{#> 2     2 Isabela       15.4         5.02       2.00}
+\CommentTok{#> 3     3 Isabela       15.0         4.92       1.91}
+\CommentTok{#> 4     4 Isabela        8.51        5.16       2.02}
+\CommentTok{#> 5     5 Isabela       14.9         5.03       1.93}
+\CommentTok{#> 6     6 Isabela        8.41        4.92       2.18}
 \CommentTok{#> # ... with 94 more rows}
 \end{Highlighting}
 \end{Shaded}
@@ -1137,12 +1137,12 @@ Say we have some missing measurements in the column ``value'' of our finch datas
 \CommentTok{#> # A tibble: 300 x 4}
 \CommentTok{#>      id island  variable    value}
 \CommentTok{#>   <int> <chr>   <chr>       <dbl>}
-\CommentTok{#> 1     1 Isabela beak_length  4.94}
-\CommentTok{#> 2     1 Isabela beak_width  NA   }
-\CommentTok{#> 3     1 Isabela body_weight NA   }
-\CommentTok{#> 4     2 Isabela beak_length NA   }
-\CommentTok{#> 5     2 Isabela beak_width   2.00}
-\CommentTok{#> 6     2 Isabela body_weight NA   }
+\CommentTok{#> 1     1 Isabela body_weight 10.8 }
+\CommentTok{#> 2     1 Isabela beak_length NA   }
+\CommentTok{#> 3     1 Isabela beak_width  NA   }
+\CommentTok{#> 4     2 Isabela body_weight NA   }
+\CommentTok{#> 5     2 Isabela beak_length  5.02}
+\CommentTok{#> 6     2 Isabela beak_width  NA   }
 \CommentTok{#> # ... with 294 more rows}
 \end{Highlighting}
 \end{Shaded}
@@ -1155,12 +1155,12 @@ We could get rid of the rows that have missing values using \texttt{drop\_na}:
 \CommentTok{#> # A tibble: 200 x 4}
 \CommentTok{#>      id island  variable    value}
 \CommentTok{#>   <int> <chr>   <chr>       <dbl>}
-\CommentTok{#> 1     1 Isabela beak_length  4.94}
-\CommentTok{#> 2     2 Isabela beak_width   2.00}
-\CommentTok{#> 3     3 Isabela beak_length  4.92}
-\CommentTok{#> 4     3 Isabela beak_width   1.91}
-\CommentTok{#> 5     4 Isabela beak_length  5.16}
-\CommentTok{#> 6     4 Isabela body_weight  8.51}
+\CommentTok{#> 1     1 Isabela body_weight 10.8 }
+\CommentTok{#> 2     2 Isabela beak_length  5.02}
+\CommentTok{#> 3     3 Isabela body_weight 15.0 }
+\CommentTok{#> 4     3 Isabela beak_length  4.92}
+\CommentTok{#> 5     4 Isabela body_weight  8.51}
+\CommentTok{#> 6     4 Isabela beak_width   2.02}
 \CommentTok{#> # ... with 194 more rows}
 \end{Highlighting}
 \end{Shaded}
@@ -1173,12 +1173,12 @@ Else, we could replace the NAs with some user-defined value:
 \CommentTok{#> # A tibble: 300 x 4}
 \CommentTok{#>      id island  variable      value}
 \CommentTok{#>   <int> <chr>   <chr>         <dbl>}
-\CommentTok{#> 1     1 Isabela beak_length    4.94}
-\CommentTok{#> 2     1 Isabela beak_width  -999   }
-\CommentTok{#> 3     1 Isabela body_weight -999   }
-\CommentTok{#> 4     2 Isabela beak_length -999   }
-\CommentTok{#> 5     2 Isabela beak_width     2.00}
-\CommentTok{#> 6     2 Isabela body_weight -999   }
+\CommentTok{#> 1     1 Isabela body_weight   10.8 }
+\CommentTok{#> 2     1 Isabela beak_length -999   }
+\CommentTok{#> 3     1 Isabela beak_width  -999   }
+\CommentTok{#> 4     2 Isabela body_weight -999   }
+\CommentTok{#> 5     2 Isabela beak_length    5.02}
+\CommentTok{#> 6     2 Isabela beak_width  -999   }
 \CommentTok{#> # ... with 294 more rows}
 \end{Highlighting}
 \end{Shaded}
@@ -1193,12 +1193,12 @@ We could also replace NAs with the most recent non-NA values:
 \CommentTok{#> # A tibble: 300 x 4}
 \CommentTok{#>      id island  variable    value}
 \CommentTok{#>   <int> <chr>   <chr>       <dbl>}
-\CommentTok{#> 1     1 Isabela beak_length  4.94}
-\CommentTok{#> 2     1 Isabela beak_width   4.94}
-\CommentTok{#> 3     1 Isabela body_weight  4.94}
-\CommentTok{#> 4     2 Isabela beak_length  4.94}
-\CommentTok{#> 5     2 Isabela beak_width   2.00}
-\CommentTok{#> 6     2 Isabela body_weight  2.00}
+\CommentTok{#> 1     1 Isabela body_weight 10.8 }
+\CommentTok{#> 2     1 Isabela beak_length 10.8 }
+\CommentTok{#> 3     1 Isabela beak_width  10.8 }
+\CommentTok{#> 4     2 Isabela body_weight 10.8 }
+\CommentTok{#> 5     2 Isabela beak_length  5.02}
+\CommentTok{#> 6     2 Isabela beak_width   5.02}
 \CommentTok{#> # ... with 294 more rows}
 \end{Highlighting}
 \end{Shaded}
@@ -1222,12 +1222,12 @@ Say we want to add the specific dates when we took measurements on our birds (we
 \CommentTok{#> # A tibble: 300 x 7}
 \CommentTok{#>      id island  variable    value   day month  year}
 \CommentTok{#>   <int> <chr>   <chr>       <dbl> <int> <int> <int>}
-\CommentTok{#> 1     1 Isabela beak_length  4.94     8     7  2020}
-\CommentTok{#> 2     1 Isabela beak_width  NA       19     7  2019}
-\CommentTok{#> 3     1 Isabela body_weight NA       17    12  2019}
-\CommentTok{#> 4     2 Isabela beak_length NA       20    12  2020}
-\CommentTok{#> 5     2 Isabela beak_width   2.00    21    10  2020}
-\CommentTok{#> 6     2 Isabela body_weight NA       23     2  2020}
+\CommentTok{#> 1     1 Isabela body_weight 10.8      8     7  2020}
+\CommentTok{#> 2     1 Isabela beak_length NA       19     7  2019}
+\CommentTok{#> 3     1 Isabela beak_width  NA       17    12  2019}
+\CommentTok{#> 4     2 Isabela body_weight NA       20    12  2020}
+\CommentTok{#> 5     2 Isabela beak_length  5.02    21    10  2020}
+\CommentTok{#> 6     2 Isabela beak_width  NA       23     2  2020}
 \CommentTok{#> # ... with 294 more rows}
 \end{Highlighting}
 \end{Shaded}
@@ -1241,12 +1241,12 @@ We could combine the \texttt{day}, \texttt{month} and \texttt{year} columns into
 \CommentTok{#> # A tibble: 300 x 5}
 \CommentTok{#>      id island  variable    value date      }
 \CommentTok{#>   <int> <chr>   <chr>       <dbl> <chr>     }
-\CommentTok{#> 1     1 Isabela beak_length  4.94 8-7-2020  }
-\CommentTok{#> 2     1 Isabela beak_width  NA    19-7-2019 }
-\CommentTok{#> 3     1 Isabela body_weight NA    17-12-2019}
-\CommentTok{#> 4     2 Isabela beak_length NA    20-12-2020}
-\CommentTok{#> 5     2 Isabela beak_width   2.00 21-10-2020}
-\CommentTok{#> 6     2 Isabela body_weight NA    23-2-2020 }
+\CommentTok{#> 1     1 Isabela body_weight 10.8  8-7-2020  }
+\CommentTok{#> 2     1 Isabela beak_length NA    19-7-2019 }
+\CommentTok{#> 3     1 Isabela beak_width  NA    17-12-2019}
+\CommentTok{#> 4     2 Isabela body_weight NA    20-12-2020}
+\CommentTok{#> 5     2 Isabela beak_length  5.02 21-10-2020}
+\CommentTok{#> 6     2 Isabela beak_width  NA    23-2-2020 }
 \CommentTok{#> # ... with 294 more rows}
 \end{Highlighting}
 \end{Shaded}
@@ -1259,12 +1259,12 @@ Of course, we can revert back to the previous dataset by splitting the \texttt{d
 \CommentTok{#> # A tibble: 300 x 7}
 \CommentTok{#>      id island  variable    value day   month year }
 \CommentTok{#>   <int> <chr>   <chr>       <dbl> <chr> <chr> <chr>}
-\CommentTok{#> 1     1 Isabela beak_length  4.94 8     7     2020 }
-\CommentTok{#> 2     1 Isabela beak_width  NA    19    7     2019 }
-\CommentTok{#> 3     1 Isabela body_weight NA    17    12    2019 }
-\CommentTok{#> 4     2 Isabela beak_length NA    20    12    2020 }
-\CommentTok{#> 5     2 Isabela beak_width   2.00 21    10    2020 }
-\CommentTok{#> 6     2 Isabela body_weight NA    23    2     2020 }
+\CommentTok{#> 1     1 Isabela body_weight 10.8  8     7     2020 }
+\CommentTok{#> 2     1 Isabela beak_length NA    19    7     2019 }
+\CommentTok{#> 3     1 Isabela beak_width  NA    17    12    2019 }
+\CommentTok{#> 4     2 Isabela body_weight NA    20    12    2020 }
+\CommentTok{#> 5     2 Isabela beak_length  5.02 21    10    2020 }
+\CommentTok{#> 6     2 Isabela beak_width  NA    23    2     2020 }
 \CommentTok{#> # ... with 294 more rows}
 \end{Highlighting}
 \end{Shaded}
@@ -1279,12 +1279,12 @@ You can also separate a single column into multiple \emph{rows} using \texttt{se
 \CommentTok{#> # A tibble: 900 x 5}
 \CommentTok{#>      id island  variable    value date }
 \CommentTok{#>   <int> <chr>   <chr>       <dbl> <chr>}
-\CommentTok{#> 1     1 Isabela beak_length  4.94 8    }
-\CommentTok{#> 2     1 Isabela beak_length  4.94 7    }
-\CommentTok{#> 3     1 Isabela beak_length  4.94 2020 }
-\CommentTok{#> 4     1 Isabela beak_width  NA    19   }
-\CommentTok{#> 5     1 Isabela beak_width  NA    7    }
-\CommentTok{#> 6     1 Isabela beak_width  NA    2019 }
+\CommentTok{#> 1     1 Isabela body_weight  10.8 8    }
+\CommentTok{#> 2     1 Isabela body_weight  10.8 7    }
+\CommentTok{#> 3     1 Isabela body_weight  10.8 2020 }
+\CommentTok{#> 4     1 Isabela beak_length  NA   19   }
+\CommentTok{#> 5     1 Isabela beak_length  NA   7    }
+\CommentTok{#> 6     1 Isabela beak_length  NA   2019 }
 \CommentTok{#> # ... with 894 more rows}
 \end{Highlighting}
 \end{Shaded}
@@ -1292,62 +1292,139 @@ You can also separate a single column into multiple \emph{rows} using \texttt{se
 \hypertarget{expanding-tables-using-combinations}{%
 \subsection{Expanding tables using combinations}\label{expanding-tables-using-combinations}}
 
-Sometimes one may need to quickly create a table with all combinations of a set of variables. We could generate a tibble with all combinations of island-by-morphometric using \texttt{expand\_grid}:
+Instead of getting rid of rows with NAs, we may want to add rows with NAs, for example, for combinations of parameters that we did not measure.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data <-}\StringTok{ }\KeywordTok{separate}\NormalTok{(data, date, }\DataTypeTok{into =} \KeywordTok{c}\NormalTok{(}\StringTok{"day"}\NormalTok{, }\StringTok{"month"}\NormalTok{, }\StringTok{"year"}\NormalTok{))}
+\NormalTok{to_rm <-}\StringTok{ }\KeywordTok{with}\NormalTok{(data, island }\OperatorTok{==}\StringTok{ "Santa Cruz"} \OperatorTok{&}\StringTok{ }\NormalTok{year }\OperatorTok{==}\StringTok{ "2020"}\NormalTok{)}
+\NormalTok{data <-}\StringTok{ }\NormalTok{data[}\OperatorTok{!}\NormalTok{to_rm,]}
+\KeywordTok{tail}\NormalTok{(data)}
+\CommentTok{#> # A tibble: 6 x 7}
+\CommentTok{#>      id island     variable    value day   month year }
+\CommentTok{#>   <int> <chr>      <chr>       <dbl> <chr> <chr> <chr>}
+\CommentTok{#> 1    98 Santa Cruz beak_length  4.94 22    12    2019 }
+\CommentTok{#> 2    98 Santa Cruz beak_width   1.90 9     1     2019 }
+\CommentTok{#> 3    99 Santa Cruz body_weight 15.0  16    7     2019 }
+\CommentTok{#> 4    99 Santa Cruz beak_length NA    26    10    2019 }
+\CommentTok{#> 5    99 Santa Cruz beak_width   2.04 30    7     2019 }
+\CommentTok{#> 6   100 Santa Cruz beak_width  NA    23    3     2019}
+\end{Highlighting}
+\end{Shaded}
+
+We could generate a tibble with all combinations of island, morphometric and year using \texttt{expand\_grid}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{expand_grid}\NormalTok{(}
   \DataTypeTok{island =} \KeywordTok{c}\NormalTok{(}\StringTok{"Isabela"}\NormalTok{, }\StringTok{"Santa Cruz"}\NormalTok{), }
-  \DataTypeTok{variable =} \KeywordTok{c}\NormalTok{(}\StringTok{"beak_length"}\NormalTok{, }\StringTok{"beak_width"}\NormalTok{, }\StringTok{"body_weight"}\NormalTok{)}
+  \DataTypeTok{year =} \KeywordTok{c}\NormalTok{(}\StringTok{"2019"}\NormalTok{, }\StringTok{"2020"}\NormalTok{)}
 \NormalTok{)}
-\CommentTok{#> # A tibble: 6 x 2}
-\CommentTok{#>   island     variable   }
-\CommentTok{#>   <chr>      <chr>      }
-\CommentTok{#> 1 Isabela    beak_length}
-\CommentTok{#> 2 Isabela    beak_width }
-\CommentTok{#> 3 Isabela    body_weight}
-\CommentTok{#> 4 Santa Cruz beak_length}
-\CommentTok{#> 5 Santa Cruz beak_width }
-\CommentTok{#> 6 Santa Cruz body_weight}
+\CommentTok{#> # A tibble: 4 x 2}
+\CommentTok{#>   island     year }
+\CommentTok{#>   <chr>      <chr>}
+\CommentTok{#> 1 Isabela    2019 }
+\CommentTok{#> 2 Isabela    2020 }
+\CommentTok{#> 3 Santa Cruz 2019 }
+\CommentTok{#> 4 Santa Cruz 2020}
 \end{Highlighting}
 \end{Shaded}
 
-If we already have a tibble to work from that contains the variables to combine, we can use \texttt{expand}:
+If we already have a tibble to work from that contains the variables to combine, we can use \texttt{expand} on that tibble:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{expand}\NormalTok{(data, island, variable)}
-\CommentTok{#> # A tibble: 6 x 2}
-\CommentTok{#>   island     variable   }
-\CommentTok{#>   <chr>      <chr>      }
-\CommentTok{#> 1 Isabela    beak_length}
-\CommentTok{#> 2 Isabela    beak_width }
-\CommentTok{#> 3 Isabela    body_weight}
-\CommentTok{#> 4 Santa Cruz beak_length}
-\CommentTok{#> 5 Santa Cruz beak_width }
-\CommentTok{#> 6 Santa Cruz body_weight}
+\KeywordTok{expand}\NormalTok{(data, island, year)}
+\CommentTok{#> # A tibble: 4 x 2}
+\CommentTok{#>   island     year }
+\CommentTok{#>   <chr>      <chr>}
+\CommentTok{#> 1 Isabela    2019 }
+\CommentTok{#> 2 Isabela    2020 }
+\CommentTok{#> 3 Santa Cruz 2019 }
+\CommentTok{#> 4 Santa Cruz 2020}
 \end{Highlighting}
 \end{Shaded}
 
-As an extension of this, the function \texttt{complete} can come particularly handy if we need to add missing combinations to our tibble:
+As you can see, we get all the combinations of the variables of interest, even those that are missing. But sometimes you might be interested in variables that are \emph{nested} within each other and not \emph{crossed}. For example, say we have measured birds at different locations within each island:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{complete}\NormalTok{(data, island, variable)}
-\CommentTok{#> # A tibble: 300 x 5}
-\CommentTok{#>   island  variable       id value date      }
-\CommentTok{#>   <chr>   <chr>       <int> <dbl> <chr>     }
-\CommentTok{#> 1 Isabela beak_length     1  4.94 8-7-2020  }
-\CommentTok{#> 2 Isabela beak_length     2 NA    20-12-2020}
-\CommentTok{#> 3 Isabela beak_length     3  4.92 20-4-2019 }
-\CommentTok{#> 4 Isabela beak_length     4  5.16 5-3-2020  }
-\CommentTok{#> 5 Isabela beak_length     5  5.03 1-4-2019  }
-\CommentTok{#> 6 Isabela beak_length     6  4.92 2-3-2019  }
-\CommentTok{#> # ... with 294 more rows}
+\NormalTok{nrow_Isabela <-}\StringTok{ }\KeywordTok{with}\NormalTok{(data, }\KeywordTok{length}\NormalTok{(}\KeywordTok{which}\NormalTok{(island }\OperatorTok{==}\StringTok{ "Isabela"}\NormalTok{)))}
+\NormalTok{nrow_SantaCruz <-}\StringTok{ }\KeywordTok{with}\NormalTok{(data, }\KeywordTok{length}\NormalTok{(}\KeywordTok{which}\NormalTok{(island }\OperatorTok{==}\StringTok{ "Santa Cruz"}\NormalTok{)))}
+\NormalTok{sites_Isabela <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{), }\DataTypeTok{size =}\NormalTok{ nrow_Isabela, }\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{sites_SantaCruz <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"C"}\NormalTok{, }\StringTok{"D"}\NormalTok{), }\DataTypeTok{size =}\NormalTok{ nrow_SantaCruz, }\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{sites <-}\StringTok{ }\KeywordTok{c}\NormalTok{(sites_Isabela, sites_SantaCruz)}
+\NormalTok{data}\OperatorTok{$}\NormalTok{site <-}\StringTok{ }\NormalTok{sites}
+\NormalTok{data}
+\CommentTok{#> # A tibble: 232 x 8}
+\CommentTok{#>      id island  variable    value day   month year  site }
+\CommentTok{#>   <int> <chr>   <chr>       <dbl> <chr> <chr> <chr> <chr>}
+\CommentTok{#> 1     1 Isabela body_weight 10.8  8     7     2020  A    }
+\CommentTok{#> 2     1 Isabela beak_length NA    19    7     2019  B    }
+\CommentTok{#> 3     1 Isabela beak_width  NA    17    12    2019  B    }
+\CommentTok{#> 4     2 Isabela body_weight NA    20    12    2020  A    }
+\CommentTok{#> 5     2 Isabela beak_length  5.02 21    10    2020  A    }
+\CommentTok{#> 6     2 Isabela beak_width  NA    23    2     2020  A    }
+\CommentTok{#> # ... with 226 more rows}
 \end{Highlighting}
 \end{Shaded}
 
-which does nothing here because we already have all combinations of \texttt{island} and \texttt{variable}.
+Of course, if sites A and B are on Isabela, they cannot be on Santa Cruz, where we have sites C and D instead. It would not make sense to \texttt{expand} assuming that \texttt{island} and \texttt{site} are crossed, instead, they are nested. We can therefore expand using the \texttt{nesting} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{expand}\NormalTok{(data, }\KeywordTok{nesting}\NormalTok{(island, site, year))}
+\CommentTok{#> # A tibble: 6 x 3}
+\CommentTok{#>   island     site  year }
+\CommentTok{#>   <chr>      <chr> <chr>}
+\CommentTok{#> 1 Isabela    A     2019 }
+\CommentTok{#> 2 Isabela    A     2020 }
+\CommentTok{#> 3 Isabela    B     2019 }
+\CommentTok{#> 4 Isabela    B     2020 }
+\CommentTok{#> 5 Santa Cruz C     2019 }
+\CommentTok{#> 6 Santa Cruz D     2019}
+\end{Highlighting}
+\end{Shaded}
+
+But now the missing data for Santa Cruz in 2020 are not accounted for because \texttt{expand} thinks the \texttt{year} is also nested within island. To get back the missing combination, we use \texttt{crossing}, the complement of \texttt{nesting}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{expand}\NormalTok{(data, }\KeywordTok{crossing}\NormalTok{(}\KeywordTok{nesting}\NormalTok{(island, site), year)) }\CommentTok{# both can be used together}
+\CommentTok{#> # A tibble: 8 x 3}
+\CommentTok{#>   island     site  year }
+\CommentTok{#>   <chr>      <chr> <chr>}
+\CommentTok{#> 1 Isabela    A     2019 }
+\CommentTok{#> 2 Isabela    A     2020 }
+\CommentTok{#> 3 Isabela    B     2019 }
+\CommentTok{#> 4 Isabela    B     2020 }
+\CommentTok{#> 5 Santa Cruz C     2019 }
+\CommentTok{#> 6 Santa Cruz C     2020 }
+\CommentTok{#> # ... with 2 more rows}
+\end{Highlighting}
+\end{Shaded}
+
+Here, we specify that \texttt{site} is nested within \texttt{island} and these two are crossed with \texttt{site}. Easy!
+
+But wait a minute. These combinations are all very good, but our measurements have disappeared! We can get them back by levelling up to the \texttt{complete} function instead of using \texttt{expand}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tail}\NormalTok{(}\KeywordTok{complete}\NormalTok{(data, }\KeywordTok{crossing}\NormalTok{(}\KeywordTok{nesting}\NormalTok{(island, site), year))) }
+\CommentTok{#> # A tibble: 6 x 8}
+\CommentTok{#>   island     site  year     id variable    value day   month}
+\CommentTok{#>   <chr>      <chr> <chr> <int> <chr>       <dbl> <chr> <chr>}
+\CommentTok{#> 1 Santa Cruz D     2019     95 beak_width  NA    13    10   }
+\CommentTok{#> 2 Santa Cruz D     2019     98 beak_length  4.94 22    12   }
+\CommentTok{#> 3 Santa Cruz D     2019     99 body_weight 15.0  16    7    }
+\CommentTok{#> 4 Santa Cruz D     2019     99 beak_length NA    26    10   }
+\CommentTok{#> 5 Santa Cruz D     2019     99 beak_width   2.04 30    7    }
+\CommentTok{#> 6 Santa Cruz D     2020     NA <NA>        NA    <NA>  <NA>}
+\CommentTok{# the last row has been added, full of NAs}
+\end{Highlighting}
+\end{Shaded}
+
+which nicely keeps the rest of the columns in the tibble and just adds the missing combinations.
 
 \hypertarget{nesting}{%
 \subsection{Nesting}\label{nesting}}
@@ -1409,16 +1486,61 @@ But this is a tidyverse tutorial, so I would like to introduce here the package 
 
 I see two main ways \texttt{forcats} can come handy in the kind of data most people deal with: playing with the order of the levels of a factor and playing with the levels themselves. We will show here a few examples, but the full breadth of factor manipulations can be found online or in the excellent \texttt{forcats} cheatsheet.
 
-\hypertarget{reordering-a-factor}{%
-\subsection{Reordering a factor}\label{reordering-a-factor}}
+\hypertarget{change-the-order-of-the-levels}{%
+\subsection{Change the order of the levels}\label{change-the-order-of-the-levels}}
+
+One example use-case where you would want to change the order of the levels of a factor is when plotting. Your categorical variable, for example, may not be plotted in the order you want. If we plot the distribution of each variable across islands, we get
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Make the plotting code a function so we can re-use it without copying and pasting}
+\NormalTok{my_plot <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data) \{}
+  
+  \CommentTok{# We do not cover the ggplot functions in this chapter, this is just to}
+  \CommentTok{# illustrate our use-case, wait until chapter 5!}
+  \KeywordTok{library}\NormalTok{(ggplot2)}
+  \KeywordTok{ggplot}\NormalTok{(data, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ island, }\DataTypeTok{y =}\NormalTok{ value, }\DataTypeTok{color =}\NormalTok{ island)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_violin}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.1}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{facet_grid}\NormalTok{(variable }\OperatorTok{~}\StringTok{ }\NormalTok{year, }\DataTypeTok{scales =} \StringTok{"free"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"forestgreen"}\NormalTok{, }\StringTok{"goldenrod"}\NormalTok{))}
+  
+\NormalTok{\}}
+
+\KeywordTok{my_plot}\NormalTok{(data)}
+\CommentTok{# Remember that data are missing from Santa Cruz in 2020}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-60-1} \end{center}
+
+Here, the islands (horizontal axis) and the variables (the facets) are displayed in alphabetical order. When making a figure you may want to customize these orders in such a way that your message is optimally conveyed by your figure, and this may involve playing with the order of levels.
 
 Use \texttt{fct\_relevel} to manually change the order of the levels:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{fct_relevel}\NormalTok{(my_fact_vec, }\KeywordTok{c}\NormalTok{(}\StringTok{"Pratik"}\NormalTok{, }\StringTok{"Theo"}\NormalTok{, }\StringTok{"Raph"}\NormalTok{))}
-\CommentTok{#> [1] Pratik Theo   Raph  }
-\CommentTok{#> Levels: Pratik Theo Raph}
+\NormalTok{data}\OperatorTok{$}\NormalTok{island <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(data}\OperatorTok{$}\NormalTok{island) }\CommentTok{# turn this column into a factor}
+\NormalTok{data}\OperatorTok{$}\NormalTok{island <-}\StringTok{ }\KeywordTok{fct_relevel}\NormalTok{(data}\OperatorTok{$}\NormalTok{island, }\KeywordTok{c}\NormalTok{(}\StringTok{"Santa Cruz"}\NormalTok{, }\StringTok{"Isabela"}\NormalTok{))}
+\KeywordTok{my_plot}\NormalTok{(data) }\CommentTok{# order of islands has changed!}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-61-1} \end{center}
+
+Beware that reordering a factor \emph{does not change} the order of the items within the vector, only the order of the \emph{levels}. So, it does not introduce any mistmatch between the \texttt{island} column and the other columns! It only matters when the levels are called, for example, in a \texttt{ggplot}. As you can see:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data}\OperatorTok{$}\NormalTok{island[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{]}
+\CommentTok{#>  [1] Isabela Isabela Isabela Isabela Isabela Isabela Isabela Isabela Isabela}
+\CommentTok{#> [10] Isabela}
+\CommentTok{#> Levels: Santa Cruz Isabela}
+\KeywordTok{fct_relevel}\NormalTok{(data}\OperatorTok{$}\NormalTok{island, }\KeywordTok{c}\NormalTok{(}\StringTok{"Isabela"}\NormalTok{, }\StringTok{"Santa Cruz"}\NormalTok{))[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{] }\CommentTok{# same thing, different levels}
+\CommentTok{#>  [1] Isabela Isabela Isabela Isabela Isabela Isabela Isabela Isabela Isabela}
+\CommentTok{#> [10] Isabela}
+\CommentTok{#> Levels: Isabela Santa Cruz}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1426,9 +1548,11 @@ Alternatively, use \texttt{fct\_inorder} to set the order of the levels to the o
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{fct_inorder}\NormalTok{(my_fact_vec)}
-\CommentTok{#> [1] Pratik Theo   Raph  }
-\CommentTok{#> Levels: Pratik Theo Raph}
+\NormalTok{data}\OperatorTok{$}\NormalTok{variable <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(data}\OperatorTok{$}\NormalTok{variable)}
+\KeywordTok{levels}\NormalTok{(data}\OperatorTok{$}\NormalTok{variable)}
+\CommentTok{#> [1] "beak_length" "beak_width"  "body_weight"}
+\KeywordTok{levels}\NormalTok{(}\KeywordTok{fct_inorder}\NormalTok{(data}\OperatorTok{$}\NormalTok{variable))}
+\CommentTok{#> [1] "body_weight" "beak_length" "beak_width"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1436,42 +1560,21 @@ or \texttt{fct\_rev} to reverse the order of the levels:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{fct_rev}\NormalTok{(my_fact_vec)}
-\CommentTok{#> [1] Pratik Theo   Raph  }
-\CommentTok{#> Levels: Theo Raph Pratik}
+\KeywordTok{levels}\NormalTok{(}\KeywordTok{fct_rev}\NormalTok{(data}\OperatorTok{$}\NormalTok{island)) }\CommentTok{# back in the alphabetical order}
+\CommentTok{#> [1] "Isabela"    "Santa Cruz"}
 \end{Highlighting}
 \end{Shaded}
 
-Factor reordering may come useful when plotting categorical variables, for example. Say we want to plot \texttt{beak\_length} against \texttt{island} in our finch dataset:
+Other variants exist to do more complex reordering, all present in the forcats \href{https://rstudio.com/resources/cheatsheets/}{cheatsheet}, for example:
+* \texttt{fct\_infreq} to re-order according to the frequency of each level (how many observation on each island?)
+* \texttt{fct\_shift} to shift the order of all levels by a certain rank (in a circular way so that the last one becomes the first one or vice versa)
+* \texttt{fct\_shuffle} if you want your levels in random order
+* \texttt{fct\_reorder}, which reorders based on an associated variable (see \texttt{fct\_reorder2} for even more complex relationship between the factor and the associated variable)
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(ggplot2)}
-\KeywordTok{ggplot}\NormalTok{(data[data}\OperatorTok{$}\NormalTok{variable }\OperatorTok{==}\StringTok{ "beak_length"}\NormalTok{,], }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ island, }\DataTypeTok{y =}\NormalTok{ value)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_violin}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{change-the-levels-themselves}{%
+\subsection{Change the levels themselves}\label{change-the-levels-themselves}}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-59-1} \end{center}
-
-We could use factor reordering to change the order of the violins:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data}\OperatorTok{$}\NormalTok{island <-}\StringTok{ }\KeywordTok{fct_relevel}\NormalTok{(data}\OperatorTok{$}\NormalTok{island, }\KeywordTok{c}\NormalTok{(}\StringTok{"Santa Cruz"}\NormalTok{, }\StringTok{"Isabela"}\NormalTok{))}
-\KeywordTok{ggplot}\NormalTok{(data[data}\OperatorTok{$}\NormalTok{variable }\OperatorTok{==}\StringTok{ "beak_length"}\NormalTok{,], }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ island, }\DataTypeTok{y =}\NormalTok{ value)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_violin}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-60-1} \end{center}
-
-Lots of other variants exist for reordering (e.g.~reordering by association with a variable), which we do not cover here. Please refer to the \href{https://rstudio.com/resources/cheatsheets/}{cheatsheet} or the online documentation for more examples.
-
-\hypertarget{factor-levels}{%
-\subsection{Factor levels}\label{factor-levels}}
-
-One can change the levels of a factor using \texttt{fct\_recode}:
+Changing the levels of a factor will change the labels in the actual vector. It is similar to performing a string substitution in \texttt{stringr}. One can change the levels of a factor using \texttt{fct\_recode}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1496,16 +1599,18 @@ or collapse factor levels together using \texttt{fct\_collapse}:
 \end{Highlighting}
 \end{Shaded}
 
-Again, we do not provide an exhaustive list of \texttt{forcats} functions here but the most usual ones, to give a glimpse of many things that one can do with factors. So, if you are dealing with factors, remember that \texttt{forcats} may have handy tools for you.
+Again, we do not provide an exhaustive list of \texttt{forcats} functions here but the most usual ones, to give a glimpse of many things that one can do with factors. So, if you are dealing with factors, remember that \texttt{forcats} may have handy tools for you. Among others:
+* \texttt{fct\_anon} to ``anonymize'', i.e.~replace the levels by random integers
+* \texttt{fct\_lump} to collapse levels together based on their frequency (e.g.~the two most frequent levels together)
 
-\hypertarget{bonus-dropping-levels}{%
-\subsection{Bonus: dropping levels}\label{bonus-dropping-levels}}
+\hypertarget{dropping-levels}{%
+\subsection{Dropping levels}\label{dropping-levels}}
 
 If you use factors in your tibble and get rid of one level, for any reason, the factor will usually remember the old levels, which may cause some problems when applying functions to your data.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{data <-}\StringTok{ }\NormalTok{data[data}\OperatorTok{$}\NormalTok{island }\OperatorTok{==}\StringTok{ "Santa Cruz"}\NormalTok{,]}
+\NormalTok{data <-}\StringTok{ }\NormalTok{data[data}\OperatorTok{$}\NormalTok{island }\OperatorTok{==}\StringTok{ "Santa Cruz"}\NormalTok{,] }\CommentTok{# keep only one island}
 \KeywordTok{unique}\NormalTok{(data}\OperatorTok{$}\NormalTok{island) }\CommentTok{# Isabela is gone from the labels}
 \CommentTok{#> [1] Santa Cruz}
 \CommentTok{#> Levels: Santa Cruz Isabela}
@@ -1525,6 +1630,26 @@ Use \texttt{droplevels} (from base R) to make sure you get rid of levels that ar
 \end{Shaded}
 
 Fortunately, most functions within the tidyverse will not complain about missing levels, and will automatically get rid of those inexistant levels for you. But because factors are such common causes of bugs, keep this in mind!
+
+Note that this is equivalent to doing:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data}\OperatorTok{$}\NormalTok{island <-}\StringTok{ }\KeywordTok{fct_drop}\NormalTok{(data}\OperatorTok{$}\NormalTok{island)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{other-things}{%
+\subsection{Other things}\label{other-things}}
+
+Among other things you can use in \texttt{forcats}:
+* \texttt{fct\_count} to get the frequency of each level
+* \texttt{fct\_c} to combine factors together
+
+\hypertarget{take-home-message-for-forcats}{%
+\subsection{Take home message for forcats}\label{take-home-message-for-forcats}}
+
+Use this package to manipulate your factors. Do you need factors? Or are character vectors enough? That is your call, and may depend on the kind of analyses you want to do and what they require. We saw here that for plotting, having factors can allow you to do quite some tweaking of the display. If you encounter a situation where the order of encoding of your character vector starts to matter, then maybe converting into a factor would make your life easier. And if you do so, remember that lots of tools to perform all kinds of manipulation are available to you with both \texttt{stringr}and \texttt{forcats}.
 
 \hypertarget{external-resources}{%
 \section{External resources}\label{external-resources}}
