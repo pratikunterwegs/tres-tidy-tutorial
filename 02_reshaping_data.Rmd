@@ -119,6 +119,12 @@ A variety of statistical tests can be used on contingency tables such as Fisher'
 as_tibble(ctg)
 ```
 
+::: {.infobox .caution data-latex="{summary}"}
+*Summary: Tidy or not tidy*
+
+To sum up, the definition of what is tidy and what is not is somewhat subjective. Tables can be in long or wide format, and depending on the complexity of a dataset, there may even be some intermediate states. To be clear, the tidyverse does not only accept long tables, and wide tables may sometimes be the way to go. This is very use-case specific. Have a clear idea of what you want to do with your data (what tidyverse tools you will use), and use that to figure which format makes more sense. And remember, `tidyr` is here to easily do the switching for you.
+:::
+
 ## Reshaping with `tidyr`
 
 The `tidyr` package implements tools to easily switch between layouts and also perform a few other reshaping operations. Old school R users will be familiar with the `reshape` and `reshape2` packages, of which `tidyr` is the tidyverse equivalent. Beware that `tidyr` is about playing with the general *layout* of the dataset, while *operations* and *transformations* of the data are within the scope of the `dplyr` and `purrr` packages. All these packages work hand-in-hand really well, and analysis pipelines usually involve all of them. But today, we focus on the first member of this holy trinity, which is often the first one you'll need because you will want to reshape your data before doing other things. So, please hold your non-layout-related questions for the next chapters.
@@ -260,7 +266,7 @@ But now the missing data for Santa Cruz in 2020 are not accounted for because `e
 expand(data, crossing(nesting(island, site), year)) # both can be used together
 ```
 
-Here, we specify that `site` is nested within `island` and these two are crossed with `site`. Easy! 
+Here, we specify that `site` is nested within `island` and these two are crossed with `year`. Easy! 
 
 But wait a minute. These combinations are all very good, but our measurements have disappeared! We can get them back by levelling up to the `complete` function instead of using `expand`:
 
@@ -274,6 +280,29 @@ which nicely keeps the rest of the columns in the tibble and just adds the missi
 ### Nesting
 
 The `tidyr` package has yet another feature that makes the tidyverse very powerful: the `nest` function. However, it makes little sense without combining it with the functions in the `purrr` package, so we will not cover it in this chapter but rather in the `purrr` chapter.
+
+### What else can be tidied up?
+
+#### Model output with `broom`
+
+Check out the [`broom`](https://cran.r-project.org/web/packages/broom/vignettes/broom.html) package and its `tidy` function to tidy up messy linear model output, e.g.
+
+```{r}
+library(broom)
+fit <- lm(mpg ~ cyl, mtcars)
+summary(fit)
+tidy(fit) # returns a tibble
+```
+
+The `broom` package is just one package among a series of packages together known as [tidymodels](https://www.tidymodels.org/) that deal with statistical models according to the tidyverse philosophy, and those include machine learning models.
+
+#### Graphs with `tidygraph`
+
+For some datasets, sometimes there is no trivial and intuitive way to store them into a table. This is the case, for example, for data underlying graphs (as in networks), which contain information about relations between entities. What is the unit of observation in a network? A node? An edge between two nodes? Nodes and edges in a network may each have node- or edge-specific variables mapped to them, and both may be equally valid units of observation. The [`tidygraph`](https://www.data-imaginist.com/2017/introducing-tidygraph/) package has tools to store graph-data in a tidyverse-friendly object, consisting of two tibbles: one for node-specific information, the other for edge-specific information. This package goes hand in hand with the [`ggraph`](https://ggraph.data-imaginist.com/), that makes plotting networks compatible with the grammar of graphics. 
+
+#### Trees with `tidytree`
+
+Phylogenetic trees are a special type of graphs suffering from the same issue, i.e. of being non-trivial to store in a table. The [`tidytree`](https://yulab-smu.github.io/treedata-book/) package and its companion `treeio` offer an interface to convert tree-like objects (from most format used by other packages and software) into a tidyverse-friendly format. Again, the point is that the rest of the tidyverse can be used to wrangle or plot this type of data in the same way as one would do with regular tabular data. For plotting a `tidytree` with the grammar of graphics, see [`ggtree`](https://guangchuangyu.github.io/ggtree-book/chapter-ggtree.html).
 
 ## Extra: factors and the `forcats` package
 
@@ -439,3 +468,4 @@ Find lots of additional info by looking up the following links:
 * The `readr`/`tibble`/`tidyr` and `forcats` [cheatsheets](https://rstudio.com/resources/cheatsheets/).
 * This [link](https://tidyr.tidyverse.org/articles/tidy-data.html) on the concept of tidy data
 * The [tibble](https://tibble.tidyverse.org/), [tidyr](https://tidyr.tidyverse.org/) and [forcats](https://forcats.tidyverse.org/) websites
+* The [broom](https://broom.tidymodels.org/), [tidymodels](https://www.tidymodels.org/), [tidygraph](https://www.data-imaginist.com/2017/introducing-tidygraph/) and [tidytree](https://yulab-smu.github.io/treedata-book/) websites
