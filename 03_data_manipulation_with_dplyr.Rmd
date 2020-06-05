@@ -10,34 +10,83 @@ editor_options:
 library(tidyverse)
 ```
 
-## Introduction
+verbs
 
-Reminders from last weeks: pipe operator, tidy tables, ggplot
+## Foreword on data
 
-Why dplyr ? dplyr vs base R
-
-## Example data of the day
-
-Through this tutorial, we will be using mammal trait data from the [Phylacine](https://megapast2future.github.io/PHYLACINE_1.2/) database. The dataset contains information on mass, diet, life habit, etc, for more than all living species of mammals. Let's have a look.
+Through this tutorial, we will be using mammal trait data from the [Phylacine](https://megapast2future.github.io/PHYLACINE_1.2/) database.
+Let's have a peek at what it contains.
 
 ```{r read_data, message=FALSE}
-phylacine <- readr::read_csv("data/phylacine_traits.csv")
+phylacine <- read_csv("data/phylacine_traits.csv")
 phylacine
 ```
 
-Note the friendly output given by the `tibble` (as opposed to a `data.frame`). `readr` automatically stores the content it reads in a `tibble`, tidyverse oblige. You should know however that `dplyr` doesn't require your data to be in a tibble, a regular `data.frame` will work just as fine.
+`readr` automatically loads the data in a `tibble`, as we have seen in chapter
+1 and 2. Calling the tibble gives a nice preview of what it contains. We have 
+data for 5,831 mammal species, and the variables contain information on taxonomy,
+(broad) habitat, mass, IUCN status, and diet.
 
-Most of the `dplyr` verbs covered in the next sections assume your data is *tidy*: wide format, variables as column, 1 observation per row. If that's not the case of your
-dataset, refer to the tools introduced in Chapter 2 (`tidyr`) of this tutorial.
-Fortunately, the phylacine trait dataset appears to be tidy: there is one unique entry for each species.
+If you remember Section 1.2 on tidy data, you may see that this data isn't 
+exactly tidy. In fact, some columns are in wide (and messy) format, like the 
+"habitat" (terrestrial, marine, etc.) and diet columns. 
 
-The first operation I'm going to run on this table is changing the names with
-`rename()`. Some people prefer their tea without sugar, I [prefer](https://style.tidyverse.org/syntax.html#object-names) my 
-variable names without uppercase characters, dots or (when possible) numbers. 
-This will give me a chance to introduce the trivial syntax of `dplyr` verbs.
+`dplyr` does not require your data to be strictly tidy. If you feel that your
+data satisfies the definition "one observation per row, one variable per column",
+you are probably good to go. 
+
+I use a `tibble` here, but `dplyr` works equally well on base `data.frame`s. In
+fact, `dplyr` is built for `data.frame` objects, and `tibble`s are `data.frame`s.
+Ergo, Socrates is a dog.
+
+## Working with existing variables
+
+Through this section, I'm going to rework the table a little bit before running any kinf of operation on it.
+
+First, the variable names are descriptive, but quite unpractical. Typing `Binomial.1.2.` is cumbersome and subject to typos (in fact, I just made one). `binomial` would be much simpler to use.
+
+Second, there are a lot of variables that I am not going to use, like the metadata (`Life.Habit.Method`), so I'm going to select a subset of the data.
+
+### Renaming variables
+
+Changing names is straightforward with `rename()`.
 
 ```{r rename}
-phylacine <- dplyr::rename(
+rename(
+ .data = phylacine, 
+ "binomial" = Binomial.1.2,
+)
+```
+
+The first argument is always `.data`, the data table you want to apply change to. 
+Note how columns are referred to. Once the data table as been passed as an argument, there is no need to refer to it directly anymore, `dplyr` understands that you're dealing with variables inside that data frame. So drop that `data$var`, `data[, "var"]`,
+and forget the very existence of `attach()` / `detach()`. 
+
+You can refer to variables names either with strings or directly as objects, whether you're reading or creating them:
+
+```{r rename2, eval=FALSE}
+rename(
+  phylacine,
+  # this works
+  binomial = Binomial.1.2
+)
+rename(
+  phylacine,
+  # this works too!
+  binomial = "Binomial.1.2"
+)
+rename(
+  phylacine,
+  # guess what
+  "binomial" = "Binomial.1.2"
+)
+```
+
+I have applied similar changes to all variables in the dataset. Here is what the
+new names look like:
+
+```{r rename3, include=FALSE, echo=TRUE}
+phylacine <- rename(
   .data = phylacine, 
   "binomial" = Binomial.1.2,
   "order" = Order.1.2,
@@ -64,38 +113,13 @@ phylacine <- dplyr::rename(
   "diet_method" = Diet.Method,
   "diet_source" = Diet.Source
 )
+phylacine
 ```
 
-The first argument is always `.data`, the data table (`data.frame` or `tibble`) you want to apply change to. 
-Note how columns are referred to. Once the data table as been passed as an argument,
-there is no need to refer to it directly anymore, `dplyr` understands that you're dealing with variables inside that data frame. So drop that `data$var`, `data[, "var"]`,
-and forget the very existence of `attach()` / `detach()`. 
+### The pipe operator `%>%`
 
-Finally, I should mention that you can refer to variables names either with strings or directly as objects, whether you're reading or creating them:
-
-```{r rename2, eval=FALSE}
-phylacine2 <- readr::read_csv("data/phylacine_traits.csv")
-
-dplyr::rename(
-  phylacine2,
-  # this works
-  binomial = Binomial.1.2
-)
-dplyr::rename(
-  phylacine2,
-  # this works too!
-  binomial = "Binomial.1.2"
-)
-dplyr::rename(
-  phylacine2,
-  # guess what
-  "binomial" = "Binomial.1.2"
-)
-```
-
-## The pipe operator `%>%`
 If you have already come across pieces of code using the tidyverse, chances are 
-that you have seen this odd symbol. While the pipe is no strictly-speaking a
+that you have seen this odd symbol. While the pipe is not strictly-speaking a
 part of the tidyverse (it comes from its own package, `magrittr`), it is 
 imported along with each package and widely used in conjunction with its 
 functions.
@@ -104,13 +128,13 @@ What does it do? Consider the following example with `rename()`:
 ```{r the_pipe}
 phylacine2 <- readr::read_csv("data/phylacine_traits.csv")
 # regular syntax
-dplyr::rename(
+rename(
   phylacine2,
   "binomial" = "Binomial.1.2"
 )
 # alternative syntax with the pipe operator
 phylacine2 %>% 
-  dplyr::rename(
+  rename(
     "binomial" = "Binomial.1.2"
   )
 ```
@@ -128,13 +152,14 @@ for that I first need to introduce a couple more verbs.
 
 Using the pipe can be quite unsettling at first, because you're not used to
 think in this way. But if you push a bit for it, I promise it will make things
-a lot easier, and it's strangely addicting. To avoid typing the tedious symbols,
+a lot easier (and it's quite addictive!). To avoid typing the tedious symbols,
 `magrittr` installs a shortcut for you in RStudio. Use `Ctrl + Shift + M` on 
 Windows, and `Cmd + Shift + M` on MacOS.
 
 Finally I should emphasize that the use of the pipe isn't limited to the 
-tidyverse, but extends to almost all R functions. Just remember that the piped
-value is always matched to the first argument of the following function
+tidyverse, but extends to almost all R functions. Remember that by default
+the piped value is always matched to the first argument of the following 
+function
 
 ```{r pipe_examples}
 5 %>% rep(3)
@@ -162,53 +187,75 @@ list("monkey see", "monkey_do") %>% .[[2]]
 phylacine %>% .$binomial %>% head()
 ```
 
-## Select variables with `select()`
+Because subsetting in this way is particularly hideous, `dplyr`
+delivers a function to extract values from a single variable. In only works on tables, though.
 
-To extract a set of variables (i.e. columns), use the conveniently-named `select()`.
+```{r pull}
+phylacine %>% pull(binomial) %>% head()
+```
+
+### Selecting variables with `select()`
+
+To extract a set of variables (i.e. columns), use the conveniently-named 
+`select()`. The basic syntax is the same as `rename()`: pass your data as the 
+first argument, then call the variables to select, quoted or not.
 
 ```{r select}
-phylacine_subset <- phylacine %>% 
-  dplyr::select(
-    binomial, 
-    order, 
-    terrestrial, 
-    marine, 
-    freshwater, 
-    aerial
-  )
-phylacine_subset
 # Single variable
-phylacine %>% dplyr::select(family)
+phylacine %>% select(binomial)
 # A set of variables
-phylacine %>% dplyr::select(genus, species, mass_g)
-# A range of variables
-phylacine %>% dplyr::select(family:terrestrial)
+phylacine %>% select(genus, "species", mass_g)
+# A range of contiguous variables
+phylacine %>% select(family:terrestrial)
+```
+
+You can select by variable numbers. This is not recommended, as prone to 
+errors, especially if you change the variable order.
+
+```{r select_nb}
+phylacine %>% select(2)
 ```
 
 `select()` can also be used to *exclude* variables:
 
 ```{r exclude}
-phylacine %>% dplyr::select(-binomial)
-phylacine %>% dplyr::select(-(binomial:species))
+phylacine %>% select(-binomial)
+phylacine %>% select(-(binomial:species))
 ```
 
 `select()` and `rename()` are pretty similar, and in fact, `select()` can also rename variables along the way:
 
 ```{r select_rename}
-phylacine %>% dplyr::select("fam" = family)
+phylacine %>% select("linnaeus" = binomial)
 ```
 
 And you can mix all of that at once:
 
 ```{r select_mix}
-phylacine %>% dplyr::select(
+phylacine %>% select(
   "fam" = family,
   genus:freshwater,
   -terrestrial
 )
 ```
 
-## Select observations with `filter()`
+### Select variables with helpers
+
+The Rstudio team just released `dplyr 1.0.0`, and along with it, some nice helper functions to ease the selection of a set of variables. I give three examples here, and encourage you to look at the documentation (`?select()`) to
+find out more.
+
+```{r select_help}
+phylacine %>% select(where(is.numeric))
+phylacine %>% select(contains("mass") | contains("diet"))
+
+habitats <- c("terrestrial", "marine", "arboreal", "fossorial", "freshwater")
+phylacine %>% select(any_of(habitats))
+
+```
+
+## Working with observations
+
+### Select observations with `filter()`
 
 Conditional selection of observations is performed through `filter()`. This i sarguably the most useful function in the entire package. The syntax uses conditions involving the variables, just as you would use for `if` statements or `while` loops.
 
@@ -217,18 +264,18 @@ For example, I might want to extract mammals that are above a certain mass:
 ```{r megafauna}
 # megafauna
 phylacine %>% 
-  dplyr::filter(mass_g > 1e5) # 100 kg
+  filter(mass_g > 1e5) # 100 kg
 # living megafauna
 phylacine %>% 
-  dplyr::filter(mass_g > 1e5, iucn_status != "EP")
+  filter(mass_g > 1e5, iucn_status != "EP")
 
 # Are there any flying mammals besides bats?
 phylacine %>% 
-  dplyr::filter(aerial == 1, order != "Chiroptera") 
+  filter(aerial == 1, order != "Chiroptera") 
 # no :(
 
 # That one species
-phylacine %>% dplyr::filter(binomial == "Homo_sapiens")
+phylacine %>% filter(binomial == "Homo_sapiens")
 
 ```
 
@@ -238,8 +285,8 @@ Tip: `dplyr` introduces the useful function `between()` that does exactly what t
 between(1:5, 2, 4)
 
 # Mesofauna
-phylacine %>% dplyr::filter(mass_g > 1e3, mass_g < 1e5) # base
-phylacine %>% dplyr::filter(mass_g %>% between(1e3, 1e5)) # dplyr
+phylacine %>% filter(mass_g > 1e3, mass_g < 1e5) # base
+phylacine %>% filter(mass_g %>% between(1e3, 1e5)) # dplyr
 
 ```
 
@@ -248,14 +295,16 @@ Note that you can absolutely pipe operations inside function arguments as above 
 If instead of selecting observations based on conditions, you want to get the nth row, use `slice()`
 
 ```{r slice}
-phylacine %>% dplyr::slice(1:3)
+phylacine %>% slice(1:3)
 # can also be used to exclude rows
 phylacine %>% 
-  dplyr::slice(1:3) %>% 
-  dplyr::slice(-2) 
+  slice(1:3) %>% 
+  slice(-2) 
 ```
 
-## Create new variables with `mutate()`
+## Operations on the data
+
+### Create new variables with `mutate()`
 
 Often in data analysis, you will want to create new variables, or edit existing
 ones. This is done easily through `mutate()`. For example, consider the diet 
@@ -263,7 +312,7 @@ data:
 
 ```{r}
 diet <- phylacine %>% 
-  dplyr::select(
+  select(
     binomial,
     diet_plant,
     diet_vertebrate,
@@ -277,7 +326,7 @@ diet of that species. They should sum to 100. To assert this, I'm going to
 create a new variable, `total_diet`.
 
 ```{r total_diet}
-diet <- diet %>% dplyr::mutate(
+diet <- diet %>% mutate(
   "total_diet" = diet_vertebrate + diet_invertebrate + diet_plant
 )
 diet
@@ -292,7 +341,7 @@ I want to combine `diet_invertebrate` and `diet_vertebrate`
 
 ```{r diet_animal}
 diet %>% 
-  dplyr::transmute(
+  transmute(
     "diet_animal" = diet_invertebrate + diet_vertebrate
   )
 ```
@@ -301,7 +350,7 @@ You may want to keep some variables and drop others. You could pipe `mutate()` a
 
 ```{r both_diets}
 diet %>% 
-  dplyr::transmute(
+  transmute(
     "diet_animal" = diet_invertebrate + diet_vertebrate,
     diet_plant
   )
@@ -311,7 +360,7 @@ You can also refer to variables you're creating to derive new variables from the
 
 ```{r total_diet2}
 diet %>% 
-  dplyr::transmute(
+  transmute(
     "diet_animal" = diet_invertebrate + diet_vertebrate,
     diet_plant,
     "total_diet" = diet_animal + diet_plant
@@ -323,7 +372,7 @@ To add the row number as a variable, you could do:
 
 ```{r row_nb}
 phylacine %>% 
-  dplyr::transmute(
+  transmute(
     binomial,
     "row_nb" = 1:nrow(phylacine)
   )
@@ -333,20 +382,20 @@ but `tibble` has a built-in function to do just that:
 
 ```{r row_index}
 phylacine %>% 
-  dplyr::select(binomial) %>% 
+  select(binomial) %>% 
   tibble::rownames_to_column(var = "row_nb")
 ```
 
-## Grouped operations with `summarise()` and `group_by()`
+### Grouped operations with `summarise()` and `group_by()`
 
-### Summarise observations
+#### Summarise observations
 
 `mutate()` applies operations to all observations in a table. By contrast, `summarise()` applies operations to *groups* of observations, by default, all of them:
 
 ```{r summarise}
 phylacine %>% 
-  dplyr::summarise(
-    "n_species" = dplyr::n(),
+  summarise(
+    "n_species" = n(),
     "n_terrestrial" = sum(terrestrial),
     "n_marine" = sum(marine),
     "n_freshwater" = sum(freshwater),
@@ -359,8 +408,8 @@ Above you can see that bats account for a large portion of mammal species divers
 
 ```{r prop_bats}
 phylacine %>% 
-  dplyr::summarise(
-    "n_species" = dplyr::n(),
+  summarise(
+    "n_species" = n(),
     "n_aerial" = sum(aerial), # bats
     "prop_aerial" = n_aerial / n_species
   )
@@ -373,8 +422,8 @@ Logical (TRUE/FALSE) variables can be used for a simple trick. Their sum is the 
 
 ```{r sum_logi}
 phylacine %>% 
-  dplyr::summarise(
-    "nb_species" = dplyr::n(),
+  summarise(
+    "nb_species" = n(),
     "nb_megafauna" = sum(mass_g > 100000),
     "p_megafauna" = mean(mass_g > 100000)
   )
@@ -382,7 +431,7 @@ phylacine %>%
 
 See `?summarise()` for more examples of functions to use with `summarise()`: spread, range, position... 
 
-### Grouping by variables
+#### Grouping by variables
 
 In most cases you don't want to run summary operations on the entire set of observations, but instead on observations that share a common feature, i.e. groups.
 For example, I want to run the summary displayed above, but for each Order of mammals instead of the entire set as one block.
@@ -392,22 +441,22 @@ Instead, I can use `group_by()` to pool observations by `order`.
 
 ```{r group_by_order}
 phylacine %>% 
-  dplyr::group_by(order)
+  group_by(order)
 ```
 
 At first glance, nothing has changed, apart from an extra line of information in the output. But now here's what happen if I run the same `summarise()` statement on an ungrouped and a grouped table
 
 ```{r summarise_order}
 phylacine %>% 
-  dplyr::summarise(
-    "n_species" = dplyr::n(),
+  summarise(
+    "n_species" = n(),
     "mean_mass_g" = mean(mass_g)
   )
 
 phylacine %>% 
-  dplyr::group_by(order) %>% 
-  dplyr::summarise(
-    "n_species" = dplyr::n(),
+  group_by(order) %>% 
+  summarise(
+    "n_species" = n(),
     "mean_mass_g" = mean(mass_g)
   )
 ```
@@ -416,9 +465,9 @@ Observations can be grouped by multiple variables, outputting a summary for ever
 
 ```{r multiple_groups}
 phylacine %>% 
-  dplyr::group_by(order, iucn_status) %>% 
-  dplyr::summarise(
-    "n_species" = dplyr::n()
+  group_by(order, iucn_status) %>% 
+  summarise(
+    "n_species" = n()
   )
 ```
 
@@ -426,12 +475,12 @@ Whenever you call `summarise()`, the last level of grouping is dropped. Note how
 
 ```{r drop_grouping}
 phylacine %>% 
-  dplyr::group_by(order, iucn_status) %>% 
-  dplyr::summarise(
-    "n_species" = dplyr::n()
+  group_by(order, iucn_status) %>% 
+  summarise(
+    "n_species" = n()
   ) %>% 
-  dplyr::summarise(
-    "n_species_2" = dplyr::n()
+  summarise(
+    "n_species_2" = n()
   )
 ```
 
@@ -439,17 +488,17 @@ I get the summary across orders, and the table is no longer grouped at all. This
 
 ```{r iucn_prop}
 iucn_props <- phylacine %>% 
-  dplyr::group_by(order, iucn_status) %>% 
-  dplyr::summarise("n_order_iucn" = dplyr::n()) %>% 
+  group_by(order, iucn_status) %>% 
+  summarise("n_order_iucn" = n()) %>% 
   # grouping by iucn_status silently dropped
-  dplyr::mutate(
+  mutate(
     "n_order" = sum(n_order_iucn),
     "p_iucn" = n_order_iucn / n_order
   )
 iucn_props
 
 iucn_props %>% 
-  dplyr::filter(order == "Carnivora")
+  filter(order == "Carnivora")
 ```
 
 10.2% of all Carnivores are in the category "Endangered (EN)".
@@ -458,25 +507,25 @@ Just above I used `mutate()` instead of `summarise()`. In fact, `mutate()` (and 
 
 ```{r mutate_for_summaries}
 sirenia <- phylacine %>% 
-  dplyr::filter(order == "Sirenia") %>% 
-  dplyr::select(binomial)
+  filter(order == "Sirenia") %>% 
+  select(binomial)
 sirenia
 
 sirenia %>% 
-  dplyr::summarise("n" = dplyr::n())
+  summarise("n" = n())
 sirenia %>% 
-  dplyr::mutate("n" = dplyr::n())
+  mutate("n" = n())
 
 ```
 
 ## Joining tables
 
 
-## More !
+## More
 arrange
 .$
-variables values -> dplyr::distinct() eq. to base::unique()
+variables values -> distinct() eq. to base::unique()
 sample_n()
 sample_frac()
-dplyr:: ?
+ ?
 
