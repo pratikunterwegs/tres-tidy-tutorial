@@ -10,9 +10,18 @@ editor_options:
 library(tidyverse)
 ```
 
-verbs
+## Introduction
+### Foreword on `dplyr`
+`dplyr` is tasked with performing all sorts of transformations on a dataset.
 
-## Foreword on data
+The structure of `dplyr` revolves around a set of functions, the so-called **verbs**, that share a common syntax and logic, and are meant to work with one another in chained operations. Chained operations are performed with the pipe operator (`%>%`), that will be introduced in section 3.2.2.
+
+The basic syntax is `verb(data, variable)`, where `data` is a data frame and `variable` is the name of one or more columns containing a set of values for each observation.
+
+There are 5 main verbs, which names already hint at what they do: `rename()`, `select()`, `filter()`, `mutate()`, and `summarise()`.
+I'm going to introduce each of them (and a couple more) through the following sections.
+
+### Example data
 
 Through this tutorial, we will be using mammal trait data from the [Phylacine](https://megapast2future.github.io/PHYLACINE_1.2/) database.
 Let's have a peek at what it contains.
@@ -31,40 +40,44 @@ If you remember Section 1.2 on tidy data, you may see that this data isn't
 exactly tidy. In fact, some columns are in wide (and messy) format, like the 
 "habitat" (terrestrial, marine, etc.) and diet columns. 
 
-`dplyr` does not require your data to be strictly tidy. If you feel that your
+`dplyr` actually does not require your data to be strictly tidy. If you feel that your
 data satisfies the definition "one observation per row, one variable per column",
-you are probably good to go. 
+that's probably good enough. 
 
-I use a `tibble` here, but `dplyr` works equally well on base `data.frame`s. In
-fact, `dplyr` is built for `data.frame` objects, and `tibble`s are `data.frame`s.
-Ergo, Socrates is a dog.
+I use a `tibble` here, but `dplyr` works equally well on base data frames. In
+fact, `dplyr` is built for `data.frame` objects, and tibbles are data frames.
+Therefore, tibbles are mortal.
 
 ## Working with existing variables
 
-Through this section, I'm going to rework the table a little bit before running any kinf of operation on it.
+### Renaming variables with `rename()`
 
-First, the variable names are descriptive, but quite unpractical. Typing `Binomial.1.2.` is cumbersome and subject to typos (in fact, I just made one). `binomial` would be much simpler to use.
-
-Second, there are a lot of variables that I am not going to use, like the metadata (`Life.Habit.Method`), so I'm going to select a subset of the data.
-
-### Renaming variables
+The variable names in the phylacine dataset are descriptive, but quite unpractical. Typing 
+`Binomial.1.2.` is cumbersome and subject to typos (in fact, I just made one). 
+`binomial` would be much simpler to use.
 
 Changing names is straightforward with `rename()`.
 
 ```{r rename}
 rename(
- .data = phylacine, 
- "binomial" = Binomial.1.2,
+  .data = phylacine, 
+  "binomial" = Binomial.1.2,
 )
+
+
 ```
 
 The first argument is always `.data`, the data table you want to apply change to. 
-Note how columns are referred to. Once the data table as been passed as an argument, there is no need to refer to it directly anymore, `dplyr` understands that you're dealing with variables inside that data frame. So drop that `data$var`, `data[, "var"]`,
-and forget the very existence of `attach()` / `detach()`. 
+Note how columns are referred to. Once the data table as been passed as an 
+argument, there is no need to refer to it directly anymore, `dplyr` understands 
+that you're dealing with variables inside that data frame. So drop that 
+`data$var`, `data[, "var"]`, and forget the very existence of `attach()` / 
+`detach()`. 
 
-You can refer to variables names either with strings or directly as objects, whether you're reading or creating them:
+You can refer to variables names either with strings or directly as objects, 
+whether you're reading or creating them:
 
-```{r rename2, eval=FALSE}
+```{r rename2, eval=TRUE}
 rename(
   phylacine,
   # this works
@@ -147,10 +160,10 @@ the syntax of a sentence, and therefore, easier and faster for your brain to
 process (and write!) the code. In particular, the pipe enables easy chains of 
 operations, where you apply something to an object, then apply something else to
 the outcome, and so on...
-I will show some examples of chained operations with tidyverse functions, but
+Through the later sections, you will see some examples of chained operations with `dplyr` functions, but
 for that I first need to introduce a couple more verbs.
 
-Using the pipe can be quite unsettling at first, because you're not used to
+Using the pipe can be quite unsettling at first, because you are not used to
 think in this way. But if you push a bit for it, I promise it will make things
 a lot easier (and it's quite addictive!). To avoid typing the tedious symbols,
 `magrittr` installs a shortcut for you in RStudio. Use `Ctrl + Shift + M` on 
@@ -194,7 +207,7 @@ delivers a function to extract values from a single variable. In only works on t
 phylacine %>% pull(binomial) %>% head()
 ```
 
-### Selecting variables with `select()`
+### Select variables with `select()`
 
 To extract a set of variables (i.e. columns), use the conveniently-named 
 `select()`. The basic syntax is the same as `rename()`: pass your data as the 
@@ -223,7 +236,8 @@ phylacine %>% select(-binomial)
 phylacine %>% select(-(binomial:species))
 ```
 
-`select()` and `rename()` are pretty similar, and in fact, `select()` can also rename variables along the way:
+`select()` and `rename()` are pretty similar, and in fact, `select()` can also 
+rename variables along the way:
 
 ```{r select_rename}
 phylacine %>% select("linnaeus" = binomial)
@@ -241,7 +255,9 @@ phylacine %>% select(
 
 ### Select variables with helpers
 
-The Rstudio team just released `dplyr 1.0.0`, and along with it, some nice helper functions to ease the selection of a set of variables. I give three examples here, and encourage you to look at the documentation (`?select()`) to
+The Rstudio team just released `dplyr 1.0.0`, and along with it, some nice 
+helper functions to ease the selection of a set of variables. I give three 
+examples here, and encourage you to look at the documentation (`?select()`) to
 find out more.
 
 ```{r select_help}
@@ -253,62 +269,140 @@ phylacine %>% select(any_of(habitats))
 
 ```
 
+### Rearranging variable order with `relocate()`
+
+The order of variables seldom matters in `dplyr`, but due to popular demand, 
+`dplyr` now has a dedicated verb to rearrange the order of variables. The syntax
+is identical to `rename()`, `select()`.
+
+```{r relocate}
+phylacine %>% relocate(mass_g, .before = binomial)
+phylacine %>% relocate(starts_with("diet"), .after = species)
+```
+
+
 ## Working with observations
 
-### Select observations with `filter()`
+### Ordering rows by value - `arrange()`
 
-Conditional selection of observations is performed through `filter()`. This i sarguably the most useful function in the entire package. The syntax uses conditions involving the variables, just as you would use for `if` statements or `while` loops.
+`arrange()` sorts rows in the data by **ascending** value for a given variable.
+Use the wrapper `desc()` to sort by descending values instead.
 
-For example, I might want to extract mammals that are above a certain mass:
+```{r}
+# Smallest mammals
+phylacine %>% 
+  arrange(mass_g) %>% 
+  select(binomial, mass_g)
+
+# Largest mammals
+phylacine %>% 
+  arrange(desc(mass_g)) %>% 
+  select(binomial, mass_g)
+
+# Extra variables are used to sort ties in the first variable
+phylacine %>% 
+  arrange(mass_g, desc(binomial)) %>% 
+  select(binomial, mass_g)
+```
+
+*Important*: `NA` values, if present, are always ordered at the end!
+
+### Subset rows by position - `slice()`
+
+Use `slice()` and its variants to extract particular rows.
+
+```{r slice}
+phylacine %>% slice(3) # third row
+phylacine %>% slice(5, 1, 2) # fifth, first and second row
+phylacine %>% slice(rep(3, 2)) # duplicate the third row
+phylacine %>% slice(-c(2:5830)) # exclude all but first and last row
+
+phylacine %>% slice_tail(n = 3) # last three rows
+phylacine %>% slice_max(mass_g) # largest mammal
+```
+
+You can also sample random rows in the data:
+
+```{r slice_sample}
+phylacine %>% slice_sample() # a random row
+
+# bootstrap
+phylacine %>% slice_sample(n = 1000, replace = TRUE)
+
+```
+
+### Subsetting rows by value with `filter()`
+
+`filter()` does a similar job as `slice()`, but extract rows that satisfy a set
+of conditions. The conditions are supplied much the same way as you would do 
+for an `if` statement.
+
+Along with `mutate()` (next section), this is probably the function you are going to use 
+the most.
+
+For example, I might want to extract mammals above a given mass:
 
 ```{r megafauna}
 # megafauna
 phylacine %>% 
-  filter(mass_g > 1e5) # 100 kg
-# living megafauna
+  filter(mass_g > 1e5) %>% # 100 kg
+  select(binomial, mass_g)
+# non-extinct megafauna
 phylacine %>% 
-  filter(mass_g > 1e5, iucn_status != "EP")
+  filter(mass_g > 1e5, iucn_status != "EP") %>% 
+  select(binomial, mass_g, iucn_status)
 
-# Are there any flying mammals besides bats?
-phylacine %>% 
-  filter(aerial == 1, order != "Chiroptera") 
-# no :(
-
-# That one species
-phylacine %>% filter(binomial == "Homo_sapiens")
 
 ```
 
-Tip: `dplyr` introduces the useful function `between()` that does exactly what the name implies
+Are there any flying mammals that aren't bats?
+
+```{r no_bats}
+phylacine %>% 
+  filter(aerial == 1, order != "Chiroptera") 
+# no :(
+```
+
+Are humans included in the table?
+
+```{r human_after_all}
+phylacine %>% filter(binomial == "Homo_sapiens")
+```
+
+`filter()` can be used to deal with NAs:
+
+```{r filter_na}
+phylacine %>% 
+  filter(!is.na(mass_comparison)) 
+```
+
+Tip: `dplyr` introduces the useful function `between()` that does exactly what  the name implies
 
 ```{r between}
 between(1:5, 2, 4)
 
 # Mesofauna
-phylacine %>% filter(mass_g > 1e3, mass_g < 1e5) # base
-phylacine %>% filter(mass_g %>% between(1e3, 1e5)) # dplyr
-
-```
-
-Note that you can absolutely pipe operations inside function arguments as above (those are expressions, after all!).
-
-If instead of selecting observations based on conditions, you want to get the nth row, use `slice()`
-
-```{r slice}
-phylacine %>% slice(1:3)
-# can also be used to exclude rows
 phylacine %>% 
-  slice(1:3) %>% 
-  slice(-2) 
+  filter(mass_g > 1e3, mass_g < 1e5) %>% 
+  select(binomial, mass_g)
+
+# same thing
+phylacine %>% 
+  filter(mass_g %>% between(1e3, 1e5)) %>% 
+  select(binomial, mass_g)
+
 ```
 
-## Operations on the data
+Note that you can pipe operations inside function arguments as in the last line 
+above (arguments are expressions, after all!).
+
+## Making new variables
 
 ### Create new variables with `mutate()`
 
-Often in data analysis, you will want to create new variables, or edit existing
-ones. This is done easily through `mutate()`. For example, consider the diet 
-data:
+Very often in data analysis, you will want to create new variables, or edit 
+existing ones. This is done easily through `mutate()`. For example, consider 
+the diet data:
 
 ```{r}
 diet <- phylacine %>% 
@@ -322,8 +416,9 @@ diet
 ```
 
 These three variables show the percentage of each category of food that make the
-diet of that species. They should sum to 100. To assert this, I'm going to 
-create a new variable, `total_diet`.
+diet of that species. They should sum to 100, unless the authors made a typo or
+other entry error. To assert this, I'm going to create a new variable, 
+`total_diet`.
 
 ```{r total_diet}
 diet <- diet %>% mutate(
@@ -332,12 +427,13 @@ diet <- diet %>% mutate(
 diet
 
 all(diet$total_diet == 100)
+# cool and good
 ```
 
 `mutate()` adds a variable to the table, and keeps all other variables. 
 Sometimes you may want to just keep the new variable, and drop the other ones.
 That's the job of `mutate()`'s twin sibling, `transmute()`. For example,
-I want to combine `diet_invertebrate` and `diet_vertebrate`
+I want to combine `diet_invertebrate` and `diet_vertebrate` together:
 
 ```{r diet_animal}
 diet %>% 
@@ -346,7 +442,9 @@ diet %>%
   )
 ```
 
-You may want to keep some variables and drop others. You could pipe `mutate()` and `select()` to do so, or you could just pass the variables to keep to `transmute()`.
+You may want to keep some variables and drop others. You could pipe `mutate()` 
+and `select()` to do so, or you could just pass the variables to keep to
+`transmute()`.
 
 ```{r both_diets}
 diet %>% 
@@ -356,7 +454,8 @@ diet %>%
   )
 ```
 
-You can also refer to variables you're creating to derive new variables from them as part of the same operation, this is not an issue.
+You can also refer to variables you're creating to derive new variables from 
+them as part of the same operation, this is not an issue.
 
 ```{r total_diet2}
 diet %>% 
@@ -367,7 +466,8 @@ diet %>%
   )
 ```
 
-Sometimes, you may need to perform an operation based on the row number.
+Sometimes, you may need to perform an operation based on the row number 
+(I don't have a good example in mind).
 To add the row number as a variable, you could do:
 
 ```{r row_nb}
@@ -386,39 +486,44 @@ phylacine %>%
   tibble::rownames_to_column(var = "row_nb")
 ```
 
-### Grouped operations with `summarise()` and `group_by()`
+### Summarise observations with `summarise()`
 
-#### Summarise observations
-
-`mutate()` applies operations to all observations in a table. By contrast, `summarise()` applies operations to *groups* of observations, by default, all of them:
+`mutate()` applies operations to all observations in a table. By contrast, 
+`summarise()` applies operations to *groups* of observations, and returns, er, summaries. The default grouping unit is the entire table:
 
 ```{r summarise}
 phylacine %>% 
   summarise(
-    "n_species" = n(),
-    "n_terrestrial" = sum(terrestrial),
-    "n_marine" = sum(marine),
-    "n_freshwater" = sum(freshwater),
-    "n_aerial" = sum(aerial),
+    "nb_species" = n(), # counts observations
+    "nb_terrestrial" = sum(terrestrial),
+    "nb_marine" = sum(marine),
+    "nb_freshwater" = sum(freshwater),
+    "nb_aerial" = sum(aerial),
     "mean_mass_g" = mean(mass_g)
   )
 ```
 
-Above you can see that bats account for a large portion of mammal species diversity (`n_aerial`). How much exactly? Just as with `mutate()`, you can perform operations on the variables you just created, in the same statement:
+Above you can see that bats account for a large portion of mammal species 
+diversity (`nb_aerial`). How much exactly? Just as with `mutate()`, you can 
+perform operations on the variables you just created, in the same statement:
 
 ```{r prop_bats}
 phylacine %>% 
   summarise(
-    "n_species" = n(),
-    "n_aerial" = sum(aerial), # bats
-    "prop_aerial" = n_aerial / n_species
+    "nb_species" = n(),
+    "nb_aerial" = sum(aerial), # bats
+    "prop_aerial" = nb_aerial / nb_species
   )
 ```
 
 One fifth!
-If the british spelling bothers you, worry not. `summarize()` also exists, and is strictly equivalent. That's how thoughtful the folks at RStudio are.
+If the british spelling bothers you, `summarize()` exists and is strictly 
+equivalent.
 
-Logical (TRUE/FALSE) variables can be used for a simple trick. Their sum is the count of observations that evaluate to `TRUE`, (because `TRUE` is taken as 1 and `FALSE` as 0) and their mean is the proportion of `TRUE` observations. This can be exploited to count the number of observations that satisfy a condition:
+Here's a simple trick with logical (TRUE / FALSE) variables. Their sum is the 
+count of observations that evaluate to `TRUE` (because `TRUE` is taken as 1 and 
+`FALSE` as 0) and their mean is the proportion of `TRUE` observations. This can 
+be exploited to count the number of observations that satisfy a condition:
 
 ```{r sum_logi}
 phylacine %>% 
@@ -427,14 +532,30 @@ phylacine %>%
     "nb_megafauna" = sum(mass_g > 100000),
     "p_megafauna" = mean(mass_g > 100000)
   )
+
 ```
 
-See `?summarise()` for more examples of functions to use with `summarise()`: spread, range, position... 
+There are more summaries that just means and counts (see `?summarise()` for some helpful functions). In fact, summarise can use any function or expression that evaluates to a single value or a *vector* of values. This includes base R `max()`, `quantiles`, etc.
 
-#### Grouping by variables
+`mutate()` and `transmute()` can compute summaries as well, but they will return the summary once for each observation, in a new column.
 
-In most cases you don't want to run summary operations on the entire set of observations, but instead on observations that share a common feature, i.e. groups.
-For example, I want to run the summary displayed above, but for each Order of mammals instead of the entire set as one block.
+```{r mutate_summary}
+phylacine %>% 
+  mutate("nb_species" = n()) %>%
+  select(binomial, nb_species)
+```
+
+### Grouping observations by variables
+
+In most cases you don't want to run summary operations on the entire set of observations, but instead on observations that share a common value, i.e. groups.
+For example, I want to run the summary displayed above, but for each Order of mammals. 
+
+`distinct()` extracts all the unique values of a variable
+
+```{r distinct_orders}
+phylacine %>% distinct(order)
+```
+
 I could work my way with what we have already seen, filtering observations (`filter(order == "Rodentia")`) and then pipeing the output to `summarise()`, and do it again for each Order. But that would be tedious.
 
 Instead, I can use `group_by()` to pool observations by `order`.
@@ -444,7 +565,7 @@ phylacine %>%
   group_by(order)
 ```
 
-At first glance, nothing has changed, apart from an extra line of information in the output. But now here's what happen if I run the same `summarise()` statement on an ungrouped and a grouped table
+At first glance, nothing has changed, apart from an extra line of information in the output that tells me the observations have been grouped. But now here's what happen if I run the same `summarise()` statement on an ungrouped and a grouped table
 
 ```{r summarise_order}
 phylacine %>% 
@@ -461,7 +582,9 @@ phylacine %>%
   )
 ```
 
-Observations can be grouped by multiple variables, outputting a summary for every combination.
+I get one value for each group. 
+
+Observations can be grouped by multiple variables, which will output a summary for every unique combination of groups.
 
 ```{r multiple_groups}
 phylacine %>% 
@@ -471,7 +594,7 @@ phylacine %>%
   )
 ```
 
-Whenever you call `summarise()`, the last level of grouping is dropped. Note how in the output table above, observations are grouped by order, and no longer by IUCN status. If I summarise observations again:
+Whenever you call `summarise()`, the last level of grouping is dropped. Note how in the output table above, observations are still grouped by order, and no longer by IUCN status. If I summarise observations again:
 
 ```{r drop_grouping}
 phylacine %>% 
@@ -484,7 +607,9 @@ phylacine %>%
   )
 ```
 
-I get the summary across orders, and the table is no longer grouped at all. This is useful to consider if you need to work on summaries across different levels of the data. For example, I would like to know how the members of each order are distributed among the different levels of threat in the IUCN classification. To get these proportions, I need to first get the count of each number of species in a level of threat inside an order, and divide that by the number of species in that order.
+I get the summary across orders, and the table is no longer grouped at all. This is useful to consider if you need to work on summaries across different levels of the data. 
+
+For example, I would like to know how the species in each order are distributed between the different levels of threat in the IUCN classification. To get these proportions, I need to first get the count of each number of species in a level of threat inside an order, and divide that by the number of species in that order.
 
 ```{r iucn_prop}
 iucn_props <- phylacine %>% 
@@ -501,31 +626,127 @@ iucn_props %>%
   filter(order == "Carnivora")
 ```
 
-10.2% of all Carnivores are in the category "Endangered (EN)".
+10.2% of Carnivores are Endangered ("EN").
 
-Just above I used `mutate()` instead of `summarise()`. In fact, `mutate()` (and `transmute()`) can generally perform summaries just like `summarise()`. The difference is that `summarise()` will return one value per group, while `mutate()` returns one value per observation.
+### Grouped data and other `dplyr` verbs
 
-```{r mutate_for_summaries}
-sirenia <- phylacine %>% 
-  filter(order == "Sirenia") %>% 
-  select(binomial)
-sirenia
+Grouping does not only affect the behaviour of `summarise`, but under circumstances, other verbs can (and will!) perform operations by groups.
 
-sirenia %>% 
-  summarise("n" = n())
-sirenia %>% 
-  mutate("n" = n())
+```{r grouped_filter}
+# Species with a higher mass than the mammal mean
+phylacine %>% 
+  select("binomial", "mass_g") %>% 
+  filter(mass_g > mean(mass_g, na.rm = TRUE))
+
+# Species with a higher mass than the mean in their order
+phylacine %>% 
+  group_by(order) %>% 
+  select("binomial", "mass_g") %>% 
+  filter(mass_g > mean(mass_g, na.rm = TRUE))
 
 ```
 
-## Joining tables
+```{r grouped_arrange}
+# Largest mammal
+phylacine %>% 
+  select(binomial, mass_g) %>% 
+  slice_max(mass_g) 
+# Largest species in each order
+phylacine %>% 
+  group_by(order) %>% 
+  select(binomial, mass_g) %>% 
+  slice_max(mass_g) 
+```
+
+To avoid grouped operations, you can simply drop grouping with `ungroup()`.
+
+## Working with multiple tables
+
+### Binding tables
+
+`dplyr` introduces `bind_rows()` and `bind_cols()`, which are equivalent to base
+R `rbind()` and `cbind()`, with a few extra feature. They are faster, and can 
+bind many tables at once, and bind data frames with vectors or lists. 
+
+`bind_rows()` has an option to pass a variable specifying which dataset each 
+observation originates from.
+
+```{r id_bind}
+porpoises <- phylacine %>% 
+  filter(family == "Phocoenidae") %>% 
+  select(binomial, iucn_status)
+echidnas <- phylacine %>% 
+  filter(family == "Tachyglossidae") %>% 
+  select(binomial, iucn_status)
+
+bind_rows(
+  "porpoise" = porpoises, 
+  "echidna" = echidnas, 
+  .id = "kind"
+)
+```
+
+### Combining variables of two tables with mutating joins
+
+Mutating joins are tailored to combine tables that share a set of observations
+but have different variables. 
+
+As an example, let's split the `phylacine` dataset in two smaller datasets, 
+one containing information on diet and one on the dominant habitat.
+
+```{r split_phylacine}
+diet <- phylacine %>% 
+  select(binomial, diet_plant:diet_invertebrate) %>% 
+  slice(1:5)
+diet
+
+life_habit <- phylacine %>% select(binomial, terrestrial:aerial) %>% 
+  slice(1:3, 6:7)
+life_habit
+
+```
+
+The two datasets each contain 5 species, the first three are shared, and the 
+two last differ between the two.
+
+```{r intersect}
+intersect(diet$binomial, life_habit$binomial)
+setdiff(diet$binomial, life_habit$binomial)
+```
+
+To use mutate-joins, both tables need to have a **key**, a variable that 
+identifies each observation. Here, that would be `binomial`, the sepcies names.
+If your table doesn't have such a key and the rows between the tables match 
+one another, remember you can create a row number variable easily with 
+`tibble::column_to_rownames()`.
+
+```{r inner_join}
+inner_join(diet, life_habit, by = "binomial")
+```
+
+`inner_join` combined the variables, and dropped the observations that weren't 
+matched between the two tables. There are three other variations of mutating 
+joins, differing in what they do with unmatching variables.
+
+```{r outer_joins}
+left_join(diet, life_habit, by = "binomial")
+right_join(diet, life_habit, by = "binomial")
+full_join(diet, life_habit, by = "binomial")
+
+semi_join(diet, life_habit, by  = "binomial")
+anti_join(diet, life_habit, by  = "binomial")
+```
+
+### Filtering matching observations between two tables wiht filtering joins
+
+So-called filtering joins return row from the first table that are matched 
+(or not, for `anti_join()`) in the second.
+
+```{r filter_joins}
+semi_join(diet, life_habit, by  = "binomial")
+anti_join(diet, life_habit, by  = "binomial")
+```
 
 
-## More
-arrange
-.$
-variables values -> distinct() eq. to base::unique()
-sample_n()
-sample_frac()
- ?
+
 
