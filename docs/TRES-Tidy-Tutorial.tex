@@ -113,7 +113,7 @@
 
 \title{TRES Tidyverse Tutorial}
 \author{Raphael, Pratik and Theo}
-\date{2020-06-05}
+\date{2020-06-08}
 
 \begin{document}
 \maketitle
@@ -1849,30 +1849,175 @@ slice()
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{list-columns-with-tidyr}{%
+\section{\texorpdfstring{List columns with \texttt{tidyr}}{List columns with tidyr}}\label{list-columns-with-tidyr}}
+
+\hypertarget{nesting-data}{%
+\subsection{Nesting data}\label{nesting-data}}
+
+It may become necessary to indicate the groups of a tibble in a somewhat more explicit way than simply using \texttt{dplyr::group\_by}. \texttt{tidyr} offers the option to create nested tibbles, that is, to store complex objects in the columns of a tibble. This includes other tibbles, as well as model objects and plots.
+
+\emph{NB:} Nesting data is done using \texttt{tidyr::nest}, which is different from the similarly named \texttt{tidyr::nesting}.
+
+The example below shows how \texttt{mtcars} can be converted into a nested tibble.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# nest mtcars into a list of dataframes based on number of cylinders}
+\NormalTok{nested_cars =}\StringTok{ }\KeywordTok{as_tibble}\NormalTok{(mtcars, }
+                        \DataTypeTok{rownames =} \StringTok{"car_name"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(cyl) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{nest}\NormalTok{()}
+
+\NormalTok{nested_cars}
+\CommentTok{#> # A tibble: 3 x 2}
+\CommentTok{#> # Groups:   cyl [3]}
+\CommentTok{#>     cyl data              }
+\CommentTok{#>   <dbl> <list>            }
+\CommentTok{#> 1     6 <tibble [7 x 11]> }
+\CommentTok{#> 2     4 <tibble [11 x 11]>}
+\CommentTok{#> 3     8 <tibble [14 x 11]>}
+
+\CommentTok{# get column class}
+\KeywordTok{sapply}\NormalTok{(nested_cars, class)}
+\CommentTok{#>       cyl      data }
+\CommentTok{#> "numeric"    "list"}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{mtcars} is now a nested data frame. The class of each of its columns is respectively, a numeric (number of cylinders) and a list (the data of all cars with as many cylinders as in the corresponding row).
+
+While \texttt{nest} can be used without first grouping the tibble, it's just much easier to group first.
+
+\hypertarget{unnesting-data}{%
+\subsection{Unnesting data}\label{unnesting-data}}
+
+A nested tibble can be converted back into the original, or into a processed form, using \texttt{tidyr::unnest}. The original groups are retained.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# use unnest to recover the original data frame}
+\KeywordTok{unnest}\NormalTok{(nested_cars, }\DataTypeTok{cols =} \StringTok{"data"}\NormalTok{)}
+\CommentTok{#> # A tibble: 32 x 12}
+\CommentTok{#> # Groups:   cyl [3]}
+\CommentTok{#>     cyl car_name       mpg  disp    hp  drat    wt  qsec    vs    am  gear  carb}
+\CommentTok{#>   <dbl> <chr>        <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>}
+\CommentTok{#> 1     6 Mazda RX4     21    160    110  3.9   2.62  16.5     0     1     4     4}
+\CommentTok{#> 2     6 Mazda RX4 W~  21    160    110  3.9   2.88  17.0     0     1     4     4}
+\CommentTok{#> 3     6 Hornet 4 Dr~  21.4  258    110  3.08  3.22  19.4     1     0     3     1}
+\CommentTok{#> 4     6 Valiant       18.1  225    105  2.76  3.46  20.2     1     0     3     1}
+\CommentTok{#> 5     6 Merc 280      19.2  168.   123  3.92  3.44  18.3     1     0     4     4}
+\CommentTok{#> 6     6 Merc 280C     17.8  168.   123  3.92  3.44  18.9     1     0     4     4}
+\CommentTok{#> # ... with 26 more rows}
+
+\CommentTok{# unnesting preserves groups}
+\KeywordTok{groups}\NormalTok{(}\KeywordTok{unnest}\NormalTok{(nested_cars, }\DataTypeTok{cols =} \StringTok{"data"}\NormalTok{))}
+\CommentTok{#> [[1]]}
+\CommentTok{#> cyl}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{unnest\_longer} and \texttt{unnest\_wider} variants of \texttt{unnest} are maturing functions, that is, not in their final form. They allow interesting variations on unnesting --- these are shown here but advised against.
+
+Unnest the data first, and then convert it to the form needed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{unnest_longer}\NormalTok{(nested_cars, }\DataTypeTok{col =} \StringTok{"data"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 2}
+\CommentTok{#> # Groups:   cyl [1]}
+\CommentTok{#>     cyl data$car_name  $mpg $disp   $hp $drat   $wt $qsec   $vs   $am $gear}
+\CommentTok{#>   <dbl> <chr>         <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>}
+\CommentTok{#> 1     6 Mazda RX4      21    160    110  3.9   2.62  16.5     0     1     4}
+\CommentTok{#> 2     6 Mazda RX4 Wag  21    160    110  3.9   2.88  17.0     0     1     4}
+\CommentTok{#> 3     6 Hornet 4 Dri~  21.4  258    110  3.08  3.22  19.4     1     0     3}
+\CommentTok{#> 4     6 Valiant        18.1  225    105  2.76  3.46  20.2     1     0     3}
+\CommentTok{#> 5     6 Merc 280       19.2  168.   123  3.92  3.44  18.3     1     0     4}
+\CommentTok{#> 6     6 Merc 280C      17.8  168.   123  3.92  3.44  18.9     1     0     4}
+\CommentTok{#> # ... with 1 more variable: $carb <dbl>}
+
+\KeywordTok{unnest_wider}\NormalTok{(nested_cars, }\DataTypeTok{col =} \StringTok{"data"}\NormalTok{)}
+\CommentTok{#> # A tibble: 3 x 12}
+\CommentTok{#> # Groups:   cyl [3]}
+\CommentTok{#>     cyl car_name  mpg    disp   hp     drat  wt    qsec  vs    am    gear  carb }
+\CommentTok{#>   <dbl> <list>    <list> <list> <list> <lis> <lis> <lis> <lis> <lis> <lis> <lis>}
+\CommentTok{#> 1     6 <chr [7]> <dbl ~ <dbl ~ <dbl ~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~}
+\CommentTok{#> 2     4 <chr [11~ <dbl ~ <dbl ~ <dbl ~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~}
+\CommentTok{#> 3     8 <chr [14~ <dbl ~ <dbl ~ <dbl ~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~ <dbl~}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{working-with-list-columns}{%
+\subsection{Working with list columns}\label{working-with-list-columns}}
+
+The class of a list column is \texttt{list}, and working with list columns (and lists, and list-like objects such as vectors) makes iteration necessary, since this is one of the only ways to operate on lists.
+
+Two examples are shown below when getting the class and number of rows of the nested tibbles in the list column.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# how many rows in each nested tibble?}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_along}\NormalTok{(nested_cars}\OperatorTok{$}\NormalTok{data)) \{}
+  \KeywordTok{print}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(nested_cars}\OperatorTok{$}\NormalTok{data[[i]]))}
+\NormalTok{\}}
+\CommentTok{#> [1] 7}
+\CommentTok{#> [1] 11}
+\CommentTok{#> [1] 14}
+
+\CommentTok{# what is the class of each element?}
+\KeywordTok{lapply}\NormalTok{(}\DataTypeTok{X =}\NormalTok{ nested_cars}\OperatorTok{$}\NormalTok{data, }\DataTypeTok{FUN =}\NormalTok{ class)}
+\CommentTok{#> [[1]]}
+\CommentTok{#> [1] "tbl_df"     "tbl"        "data.frame"}
+\CommentTok{#> }
+\CommentTok{#> [[2]]}
+\CommentTok{#> [1] "tbl_df"     "tbl"        "data.frame"}
+\CommentTok{#> }
+\CommentTok{#> [[3]]}
+\CommentTok{#> [1] "tbl_df"     "tbl"        "data.frame"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{functionals}{%
+\subsection*{Functionals}\label{functionals}}
+\addcontentsline{toc}{subsection}{Functionals}
+
+The second example uses \texttt{lapply}, and this is a \emph{functional}. \emph{Functionals} are functions that take another function as one of their arguments. Base \texttt{R} functionals include the \texttt{*apply} family of functions: \texttt{apply}, \texttt{lapply}, \texttt{vapply} and so on.
+
 \hypertarget{iteration-with-map}{%
 \section{\texorpdfstring{Iteration with \texttt{map}}{Iteration with map}}\label{iteration-with-map}}
 
-Iteration in base \texttt{R} is commonly done with \texttt{for} and \texttt{while} loops.
-There is no readymade alternative to \texttt{while} loops in the tidyverse.
-However, the functionality of \texttt{for} loops is spread over the \texttt{map} family of functions from \texttt{purrr}.
-
-\texttt{purrr} functions are \emph{functionals}, i.e., functions that take another function as an argument.
-The closest equivalent in \texttt{R} is the \texttt{*apply} family of functions: \texttt{apply}, \texttt{lapply}, \texttt{vapply} and so on.
-
-A good reason to use \texttt{purrr} functions instead of base \texttt{R} functions is their consistent and clear naming, which always indicates how they should be used.
+The \texttt{tidyverse} replaces traditional loop-based iteration with \emph{functionals} from the \texttt{purrr} package. A good reason to use \texttt{purrr} functionals instead of base \texttt{R} functionals is their consistent and clear naming, which always indicates how they should be used.
 This is explained in the examples below.
 
-These reasons, as well as how \texttt{map} is different from \texttt{for} and \texttt{lapply} are best explained in the \textbf{\href{https://adv-r.hadley.nz/functionals.html}{Advanced R Book}}.
+How \texttt{map} is different from \texttt{for} and \texttt{lapply} are best explained in the \textbf{\href{https://adv-r.hadley.nz/functionals.html}{Advanced R Book}}.
 
 \hypertarget{basic-use-of-map}{%
 \subsection{\texorpdfstring{Basic use of \texttt{map}}{Basic use of map}}\label{basic-use-of-map}}
+
+\texttt{map} works very similarly to \texttt{lapply}, where \texttt{.x} is object on whose elements to apply the function \texttt{.f}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# get the number of rows in data}
+\KeywordTok{map}\NormalTok{(}\DataTypeTok{.x =}\NormalTok{ nested_cars}\OperatorTok{$}\NormalTok{data, }\DataTypeTok{.f =}\NormalTok{ nrow)}
+\CommentTok{#> [[1]]}
+\CommentTok{#> [1] 7}
+\CommentTok{#> }
+\CommentTok{#> [[2]]}
+\CommentTok{#> [1] 11}
+\CommentTok{#> }
+\CommentTok{#> [[3]]}
+\CommentTok{#> [1] 14}
+\end{Highlighting}
+\end{Shaded}
 
 \texttt{map} works on any list-like object, which includes vectors, and always returns a list. \texttt{map} takes two arguments, the object on which to operate, and the function to apply to each element.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# get the square root of each integer 1 - 10}
-\NormalTok{some_numbers =}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{10}
+\NormalTok{some_numbers =}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{3}
 \KeywordTok{map}\NormalTok{(some_numbers, sqrt)}
 \CommentTok{#> [[1]]}
 \CommentTok{#> [1] 1}
@@ -1882,27 +2027,6 @@ These reasons, as well as how \texttt{map} is different from \texttt{for} and \t
 \CommentTok{#> }
 \CommentTok{#> [[3]]}
 \CommentTok{#> [1] 1.73}
-\CommentTok{#> }
-\CommentTok{#> [[4]]}
-\CommentTok{#> [1] 2}
-\CommentTok{#> }
-\CommentTok{#> [[5]]}
-\CommentTok{#> [1] 2.24}
-\CommentTok{#> }
-\CommentTok{#> [[6]]}
-\CommentTok{#> [1] 2.45}
-\CommentTok{#> }
-\CommentTok{#> [[7]]}
-\CommentTok{#> [1] 2.65}
-\CommentTok{#> }
-\CommentTok{#> [[8]]}
-\CommentTok{#> [1] 2.83}
-\CommentTok{#> }
-\CommentTok{#> [[9]]}
-\CommentTok{#> [1] 3}
-\CommentTok{#> }
-\CommentTok{#> [[10]]}
-\CommentTok{#> [1] 3.16}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1924,8 +2048,6 @@ Though \texttt{map} always returns a list, it has variants named \texttt{map\_*}
 \CommentTok{#>  [1] "1.000000" "1.414214" "1.732051" "2.000000" "2.236068" "2.449490"}
 \CommentTok{#>  [7] "2.645751" "2.828427" "3.000000" "3.162278"}
 
-\CommentTok{# map_int will NOT round the output to an integer}
-
 \CommentTok{# map_lgl returns TRUE/FALSE values}
 \NormalTok{some_numbers =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NaN}\NormalTok{, }\OtherTok{Inf}\NormalTok{, }\OperatorTok{-}\OtherTok{Inf}\NormalTok{)}
 \KeywordTok{map_lgl}\NormalTok{(some_numbers, is.na)}
@@ -1933,41 +2055,8 @@ Though \texttt{map} always returns a list, it has variants named \texttt{map\_*}
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{integrating-map-and-tidyrnest}{%
-\subsection{\texorpdfstring{Integrating \texttt{map} and \texttt{tidyr::nest}}{Integrating map and tidyr::nest}}\label{integrating-map-and-tidyrnest}}
-
-The example show how each map variant can be used. This integrates \texttt{tidyr::nest} with \texttt{map}, and the two are especially complementary.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# nest mtcars into a list of dataframes based on number of cylinders}
-\NormalTok{some_data =}\StringTok{ }\KeywordTok{as_tibble}\NormalTok{(mtcars, }\DataTypeTok{rownames =} \StringTok{"car_name"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(cyl) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{nest}\NormalTok{()}
-
-\CommentTok{# get the number of rows per dataframe}
-\CommentTok{# the mean mileage}
-\CommentTok{# and the first car}
-\NormalTok{some_data =}\StringTok{ }\NormalTok{some_data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{n_rows =} \KeywordTok{map_int}\NormalTok{(data, nrow),}
-         \DataTypeTok{mean_mpg =} \KeywordTok{map_dbl}\NormalTok{(data, }\OperatorTok{~}\KeywordTok{mean}\NormalTok{(.}\OperatorTok{$}\NormalTok{mpg)),}
-         \DataTypeTok{first_car =} \KeywordTok{map_chr}\NormalTok{(data, }\OperatorTok{~}\KeywordTok{first}\NormalTok{(.}\OperatorTok{$}\NormalTok{car_name)))}
-
-\NormalTok{some_data}
-\CommentTok{#> # A tibble: 3 x 5}
-\CommentTok{#> # Groups:   cyl [3]}
-\CommentTok{#>     cyl data               n_rows mean_mpg first_car        }
-\CommentTok{#>   <dbl> <list>              <int>    <dbl> <chr>            }
-\CommentTok{#> 1     6 <tibble [7 x 11]>       7     19.7 Mazda RX4        }
-\CommentTok{#> 2     4 <tibble [11 x 11]>     11     26.7 Datsun 710       }
-\CommentTok{#> 3     8 <tibble [14 x 11]>     14     15.1 Hornet Sportabout}
-\end{Highlighting}
-\end{Shaded}
-
-\texttt{map} accepts multiple functions that are applied in sequence to the input list-like object, but this is confusing to the reader and ill advised.
-
-\hypertarget{map-variants-returning-dataframes}{%
-\subsection{\texorpdfstring{\texttt{map} variants returning dataframes}{map variants returning dataframes}}\label{map-variants-returning-dataframes}}
+\hypertarget{map-variants-returning-data-frames}{%
+\subsection{\texorpdfstring{\texttt{map} variants returning data frames}{map variants returning data frames}}\label{map-variants-returning-data-frames}}
 
 \texttt{map\_df} returns data frames, and by default binds dataframes by rows, while \texttt{map\_dfr} does this explicitly, and \texttt{map\_dfc} does returns a dataframe bound by column.
 
@@ -1978,13 +2067,13 @@ The example show how each map variant can be used. This integrates \texttt{tidyr
 
 \CommentTok{# get the first two rows of each dataframe}
 \KeywordTok{map_df}\NormalTok{(some_list, head, }\DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
-\CommentTok{#>    mpg cyl disp  hp drat   wt qsec vs am gear carb}
-\CommentTok{#> 1 22.8   4  108  93 3.85 2.32 18.6  1  1    4    1}
-\CommentTok{#> 2 24.4   4  147  62 3.69 3.19 20.0  1  0    4    2}
-\CommentTok{#> 3 21.0   6  160 110 3.90 2.62 16.5  0  1    4    4}
-\CommentTok{#> 4 21.0   6  160 110 3.90 2.88 17.0  0  1    4    4}
-\CommentTok{#> 5 18.7   8  360 175 3.15 3.44 17.0  0  0    3    2}
-\CommentTok{#> 6 14.3   8  360 245 3.21 3.57 15.8  0  0    3    4}
+\CommentTok{#>                    mpg cyl disp  hp drat   wt qsec vs am gear carb}
+\CommentTok{#> Datsun 710        22.8   4  108  93 3.85 2.32 18.6  1  1    4    1}
+\CommentTok{#> Merc 240D         24.4   4  147  62 3.69 3.19 20.0  1  0    4    2}
+\CommentTok{#> Mazda RX4         21.0   6  160 110 3.90 2.62 16.5  0  1    4    4}
+\CommentTok{#> Mazda RX4 Wag     21.0   6  160 110 3.90 2.88 17.0  0  1    4    4}
+\CommentTok{#> Hornet Sportabout 18.7   8  360 175 3.15 3.44 17.0  0  0    3    2}
+\CommentTok{#> Duster 360        14.3   8  360 245 3.21 3.57 15.8  0  0    3    4}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1997,13 +2086,13 @@ The example show how each map variant can be used. This integrates \texttt{tidyr
 \CommentTok{# the same as above but with a pipe}
 \NormalTok{some_list }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{map_dfr}\NormalTok{(head, }\DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
-\CommentTok{#>    mpg cyl disp  hp drat   wt qsec vs am gear carb}
-\CommentTok{#> 1 22.8   4  108  93 3.85 2.32 18.6  1  1    4    1}
-\CommentTok{#> 2 24.4   4  147  62 3.69 3.19 20.0  1  0    4    2}
-\CommentTok{#> 3 21.0   6  160 110 3.90 2.62 16.5  0  1    4    4}
-\CommentTok{#> 4 21.0   6  160 110 3.90 2.88 17.0  0  1    4    4}
-\CommentTok{#> 5 18.7   8  360 175 3.15 3.44 17.0  0  0    3    2}
-\CommentTok{#> 6 14.3   8  360 245 3.21 3.57 15.8  0  0    3    4}
+\CommentTok{#>                    mpg cyl disp  hp drat   wt qsec vs am gear carb}
+\CommentTok{#> Datsun 710        22.8   4  108  93 3.85 2.32 18.6  1  1    4    1}
+\CommentTok{#> Merc 240D         24.4   4  147  62 3.69 3.19 20.0  1  0    4    2}
+\CommentTok{#> Mazda RX4         21.0   6  160 110 3.90 2.62 16.5  0  1    4    4}
+\CommentTok{#> Mazda RX4 Wag     21.0   6  160 110 3.90 2.88 17.0  0  1    4    4}
+\CommentTok{#> Hornet Sportabout 18.7   8  360 175 3.15 3.44 17.0  0  0    3    2}
+\CommentTok{#> Duster 360        14.3   8  360 245 3.21 3.57 15.8  0  0    3    4}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2013,31 +2102,72 @@ The example show how each map variant can be used. This integrates \texttt{tidyr
 \begin{Highlighting}[]
 \NormalTok{some_list }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{map_dfc}\NormalTok{(head, }\DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
-\CommentTok{#>    mpg cyl disp hp drat   wt qsec vs am gear carb mpg1 cyl1 disp1 hp1 drat1}
-\CommentTok{#> 1 22.8   4  108 93 3.85 2.32 18.6  1  1    4    1   21    6   160 110   3.9}
-\CommentTok{#> 2 24.4   4  147 62 3.69 3.19 20.0  1  0    4    2   21    6   160 110   3.9}
-\CommentTok{#>    wt1 qsec1 vs1 am1 gear1 carb1 mpg2 cyl2 disp2 hp2 drat2  wt2 qsec2 vs2 am2}
-\CommentTok{#> 1 2.62  16.5   0   1     4     4 18.7    8   360 175  3.15 3.44  17.0   0   0}
-\CommentTok{#> 2 2.88  17.0   0   1     4     4 14.3    8   360 245  3.21 3.57  15.8   0   0}
-\CommentTok{#>   gear2 carb2}
-\CommentTok{#> 1     3     2}
-\CommentTok{#> 2     3     4}
+\CommentTok{#>            mpg...1 cyl...2 disp...3 hp...4 drat...5 wt...6 qsec...7 vs...8}
+\CommentTok{#> Datsun 710    22.8       4      108     93     3.85   2.32     18.6      1}
+\CommentTok{#> Merc 240D     24.4       4      147     62     3.69   3.19     20.0      1}
+\CommentTok{#>            am...9 gear...10 carb...11 mpg...12 cyl...13 disp...14 hp...15}
+\CommentTok{#> Datsun 710      1         4         1       21        6       160     110}
+\CommentTok{#> Merc 240D       0         4         2       21        6       160     110}
+\CommentTok{#>            drat...16 wt...17 qsec...18 vs...19 am...20 gear...21 carb...22}
+\CommentTok{#> Datsun 710       3.9    2.62      16.5       0       1         4         4}
+\CommentTok{#> Merc 240D        3.9    2.88      17.0       0       1         4         4}
+\CommentTok{#>            mpg...23 cyl...24 disp...25 hp...26 drat...27 wt...28 qsec...29}
+\CommentTok{#> Datsun 710     18.7        8       360     175      3.15    3.44      17.0}
+\CommentTok{#> Merc 240D      14.3        8       360     245      3.21    3.57      15.8}
+\CommentTok{#>            vs...30 am...31 gear...32 carb...33}
+\CommentTok{#> Datsun 710       0       0         3         2}
+\CommentTok{#> Merc 240D        0       0         3         4}
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{selective-mapping}{%
-\subsection{Selective mapping}\label{selective-mapping}}
+\hypertarget{working-with-list-columns-using-map}{%
+\subsection{\texorpdfstring{Working with list columns using \texttt{map}}{Working with list columns using map}}\label{working-with-list-columns-using-map}}
 
-\texttt{map\_at} and \texttt{map\_if} work like other \texttt{*\_at} and \texttt{*\_if} functions.
+The various \texttt{map} versions integrate well with list columns to make synthetic/summary data. In the example, the \texttt{dplyr::mutate} function is used to add three columns to the nested tibble: the number of rows, the mean mileage, and the name of the first car.
 
-Here, \texttt{map\_if} is used to run a linear model only on those dataframes which have sufficient data. The predicate is specified by \texttt{.p}.
+In each of these cases, the vectors added are generated using \texttt{purrr} functions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# get the number of rows per dataframe, the mean mileage, and the first car}
+\NormalTok{nested_cars =}\StringTok{ }\NormalTok{nested_cars }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}
+    \CommentTok{# use the int return to get the number of rows}
+    \DataTypeTok{n_rows =} \KeywordTok{map_int}\NormalTok{(data, nrow),}
+    
+    \CommentTok{# double return for mean mileage}
+    \DataTypeTok{mean_mpg =} \KeywordTok{map_dbl}\NormalTok{(data, }\ControlFlowTok{function}\NormalTok{(df) \{}\KeywordTok{mean}\NormalTok{(df}\OperatorTok{$}\NormalTok{mpg)\}),}
+    
+    \CommentTok{# character return to get first car}
+    \DataTypeTok{first_car =} \KeywordTok{map_chr}\NormalTok{(data, }\ControlFlowTok{function}\NormalTok{(df) \{}\KeywordTok{first}\NormalTok{(df}\OperatorTok{$}\NormalTok{car_name)\}}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\CommentTok{# examine the output}
+\NormalTok{nested_cars}
+\CommentTok{#> # A tibble: 3 x 5}
+\CommentTok{#> # Groups:   cyl [3]}
+\CommentTok{#>     cyl data               n_rows mean_mpg first_car        }
+\CommentTok{#>   <dbl> <list>              <int>    <dbl> <chr>            }
+\CommentTok{#> 1     6 <tibble [7 x 11]>       7     19.7 Mazda RX4        }
+\CommentTok{#> 2     4 <tibble [11 x 11]>     11     26.7 Datsun 710       }
+\CommentTok{#> 3     8 <tibble [14 x 11]>     14     15.1 Hornet Sportabout}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{selective-mapping-using-map-variants}{%
+\subsection{\texorpdfstring{Selective mapping using \texttt{map} variants}{Selective mapping using map variants}}\label{selective-mapping-using-map-variants}}
+
+\texttt{map\_at} and \texttt{map\_if} work like other \texttt{*\_at} and \texttt{*\_if} functions. Here, \texttt{map\_if} is used to run a linear model only on those tibbles which have sufficient data. The predicate is specified by \texttt{.p}.
+
+In this example, the nested tibble is given a new column using \texttt{dplyr::mutate}, where the data to be added is a mixed list.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# split mtcars by cylinder number and run an lm only if there are more than 10 rows}
-\NormalTok{data <-}\StringTok{ }\KeywordTok{nest}\NormalTok{(mtcars, }\DataTypeTok{data =} \OperatorTok{-}\NormalTok{cyl)}
+\NormalTok{data =}\StringTok{ }\KeywordTok{nest}\NormalTok{(mtcars, }\DataTypeTok{data =} \OperatorTok{-}\NormalTok{cyl)}
 
-\NormalTok{data <-}\StringTok{ }\KeywordTok{mutate}\NormalTok{(data,}
+\NormalTok{data =}\StringTok{ }\KeywordTok{mutate}\NormalTok{(data,}
                \DataTypeTok{model =} \KeywordTok{map_if}\NormalTok{(}\DataTypeTok{.x =}\NormalTok{ data,}
                               \DataTypeTok{.p =} \ControlFlowTok{function}\NormalTok{(x)\{}
                                 \KeywordTok{nrow}\NormalTok{(x) }\OperatorTok{>}\StringTok{ }\DecValTok{10}
@@ -2056,36 +2186,13 @@ Here, \texttt{map\_if} is used to run a linear model only on those dataframes wh
 \end{Highlighting}
 \end{Shaded}
 
-\texttt{map\_at} works on specific elements of a list or vector. Come back to this, it's not particularly useful.
+The first element is a tibble of the corresponding element in \texttt{mtcars\$cars}, which has not been operated on because it has fewer than 10 rows. The remaining elements are \texttt{lm} objects.
 
 \hypertarget{more-map-variants}{%
 \section{\texorpdfstring{More \texttt{map} variants}{More map variants}}\label{more-map-variants}}
 
-\texttt{map} also has variants along the axis of how many elements are operated upon. \texttt{map2} operates on two vectors or list-like elements, and returns a single list as output.
+\texttt{map} also has variants along the axis of how many elements are operated upon. \texttt{map2} operates on two vectors or list-like elements, and returns a single list as output, while \texttt{pmap} operates on a list of list-like elements.
 The output has as many elements as the input lists, which must be of the same length.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# consider 2 vectors and replicate the simple vector addition using map2}
-\KeywordTok{map2}\NormalTok{(}\DataTypeTok{.x =} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{, }
-     \DataTypeTok{.y =} \DecValTok{6}\OperatorTok{:}\DecValTok{10}\NormalTok{,}
-     \DataTypeTok{.f =}\NormalTok{ sum)}
-\CommentTok{#> [[1]]}
-\CommentTok{#> [1] 7}
-\CommentTok{#> }
-\CommentTok{#> [[2]]}
-\CommentTok{#> [1] 9}
-\CommentTok{#> }
-\CommentTok{#> [[3]]}
-\CommentTok{#> [1] 11}
-\CommentTok{#> }
-\CommentTok{#> [[4]]}
-\CommentTok{#> [1] 13}
-\CommentTok{#> }
-\CommentTok{#> [[5]]}
-\CommentTok{#> [1] 15}
-\end{Highlighting}
-\end{Shaded}
 
 \hypertarget{mapping-over-two-inputs-with-map2}{%
 \subsection{Mapping over two inputs with map2}\label{mapping-over-two-inputs-with-map2}}
@@ -2252,8 +2359,8 @@ Converting the output to an integer, which was the original input type, serves a
 
 \texttt{invoke} used to be a wrapper around \texttt{do.call}, and can still be found with its family of functions in \texttt{purrr}. It is however retired in favour of functionality already present in \texttt{map} and \texttt{rlang::exec}, the latter of which will be covered in another session.
 
-\hypertarget{working-with-lists}{%
-\section{Working with lists}\label{working-with-lists}}
+\hypertarget{other-functions-for-working-with-lists}{%
+\section{Other functions for working with lists}\label{other-functions-for-working-with-lists}}
 
 \texttt{purrr} has a number of functions to work with lists, especially lists that are not nested list-columns in a tibble.
 
@@ -2317,14 +2424,18 @@ The \texttt{purrr} functions \texttt{every}, \texttt{some}, \texttt{has\_element
 \end{Highlighting}
 \end{Shaded}
 
-The way \texttt{reduce} works is to take the first element, \texttt{a} in the example, and find its intersection with \texttt{b}, and to take the result and find its intersection with \texttt{c}.
+This can also be applied to data frames. Consider some random samples of \texttt{mtcars}, each with only 5 cars removed. The objective is to find the cars present in all 10 samples.
+
+The way \texttt{reduce} works in the example below is to take the first element and find its intersection with the second, and to take the result and find its intersection with the third and so on.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{this_list =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{a =} \DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{, }\DataTypeTok{b =} \DecValTok{3}\OperatorTok{:}\DecValTok{6}\NormalTok{, }\DataTypeTok{c =} \DecValTok{3}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+\CommentTok{# sample mtcars}
+\NormalTok{mtcars =}\StringTok{ }\KeywordTok{as_tibble}\NormalTok{(mtcars, }\DataTypeTok{rownames =} \StringTok{"car"}\NormalTok{)}
+\NormalTok{sampled_data =}\StringTok{ }\KeywordTok{map}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x)\{}\KeywordTok{sample_n}\NormalTok{(mtcars, }\KeywordTok{nrow}\NormalTok{(mtcars)}\OperatorTok{-}\DecValTok{5}\NormalTok{)\})}
 
-\KeywordTok{reduce}\NormalTok{(this_list, intersect)}
-\CommentTok{#> [1] 3}
+\CommentTok{# get cars which appear in all samples}
+\NormalTok{sampled_data =}\StringTok{ }\KeywordTok{reduce}\NormalTok{(sampled_data, dplyr}\OperatorTok{::}\NormalTok{inner_join)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2425,29 +2536,42 @@ Both functions can be used in much more complex ways than demonstrated here.
 \KeywordTok{transpose}\NormalTok{(this_list[}\DecValTok{1}\NormalTok{])}
 \CommentTok{#> $`3`}
 \CommentTok{#> $`3`$`4`}
-\CommentTok{#>                mpg cyl disp hp drat   wt qsec vs am gear carb}
-\CommentTok{#> Toyota Corona 21.5   4  120 97  3.7 2.46   20  1  0    3    1}
+\CommentTok{#> # A tibble: 1 x 12}
+\CommentTok{#>   car            mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb}
+\CommentTok{#>   <chr>        <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>}
+\CommentTok{#> 1 Toyota Coro~  21.5     4  120.    97   3.7  2.46  20.0     1     0     3     1}
 \CommentTok{#> }
 \CommentTok{#> }
 \CommentTok{#> $`4`}
 \CommentTok{#> $`4`$`4`}
-\CommentTok{#>                 mpg cyl  disp  hp drat   wt qsec vs am gear carb}
-\CommentTok{#> Datsun 710     22.8   4 108.0  93 3.85 2.32 18.6  1  1    4    1}
-\CommentTok{#> Merc 240D      24.4   4 146.7  62 3.69 3.19 20.0  1  0    4    2}
-\CommentTok{#> Merc 230       22.8   4 140.8  95 3.92 3.15 22.9  1  0    4    2}
-\CommentTok{#> Fiat 128       32.4   4  78.7  66 4.08 2.20 19.5  1  1    4    1}
-\CommentTok{#> Honda Civic    30.4   4  75.7  52 4.93 1.61 18.5  1  1    4    2}
-\CommentTok{#> Toyota Corolla 33.9   4  71.1  65 4.22 1.83 19.9  1  1    4    1}
-\CommentTok{#> Fiat X1-9      27.3   4  79.0  66 4.08 1.94 18.9  1  1    4    1}
-\CommentTok{#> Volvo 142E     21.4   4 121.0 109 4.11 2.78 18.6  1  1    4    2}
+\CommentTok{#> # A tibble: 8 x 12}
+\CommentTok{#>   car            mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb}
+\CommentTok{#>   <chr>        <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>}
+\CommentTok{#> 1 Datsun 710    22.8     4 108      93  3.85  2.32  18.6     1     1     4     1}
+\CommentTok{#> 2 Merc 240D     24.4     4 147.     62  3.69  3.19  20       1     0     4     2}
+\CommentTok{#> 3 Merc 230      22.8     4 141.     95  3.92  3.15  22.9     1     0     4     2}
+\CommentTok{#> 4 Fiat 128      32.4     4  78.7    66  4.08  2.2   19.5     1     1     4     1}
+\CommentTok{#> 5 Honda Civic   30.4     4  75.7    52  4.93  1.62  18.5     1     1     4     2}
+\CommentTok{#> 6 Toyota Coro~  33.9     4  71.1    65  4.22  1.84  19.9     1     1     4     1}
+\CommentTok{#> # ... with 2 more rows}
 \CommentTok{#> }
 \CommentTok{#> }
 \CommentTok{#> $`5`}
 \CommentTok{#> $`5`$`4`}
-\CommentTok{#>                mpg cyl  disp  hp drat   wt qsec vs am gear carb}
-\CommentTok{#> Porsche 914-2 26.0   4 120.3  91 4.43 2.14 16.7  0  1    5    2}
-\CommentTok{#> Lotus Europa  30.4   4  95.1 113 3.77 1.51 16.9  1  1    5    2}
+\CommentTok{#> # A tibble: 2 x 12}
+\CommentTok{#>   car            mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb}
+\CommentTok{#>   <chr>        <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>}
+\CommentTok{#> 1 Porsche 914~  26       4 120.     91  4.43  2.14  16.7     0     1     5     2}
+\CommentTok{#> 2 Lotus Europa  30.4     4  95.1   113  3.77  1.51  16.9     1     1     5     2}
 \end{Highlighting}
 \end{Shaded}
+
+\hypertarget{to-add-patchwork}{%
+\section{To add: patchwork}\label{to-add-patchwork}}
+
+\hypertarget{final-words}{%
+\subsubsection{Final words}\label{final-words}}
+
+In general, an iteration based problem can usually be solved with \texttt{purrr}.
 
 \end{document}
