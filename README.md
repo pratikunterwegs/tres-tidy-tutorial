@@ -16,7 +16,7 @@ This tutorial will take the form of a one hour per week video stream via Google 
 Topic|Package|Instructor|Date*
 ---|---|---|---
 Reading data and string manipulation|[readr](https://readr.tidyverse.org/), [stringr](https://stringr.tidyverse.org/), [glue](https://github.com/tidyverse/glue)|Pratik|29/05/20
-Data and reshaping|[tibble](https://tibble.tidyverse.org/), [tidyr](https://tidyr.tidyverse.org/)|Raphael|05/06/20
+Data and reshaping|[tibble](https://tibble.tidyverse.org/), [tidyr](https://tidyr.tidyverse.org/), [forcats](https://forcats.tidyverse.org/)|Raphael|05/06/20
 Manipulating data|[dplyr](https://dplyr.tidyverse.org/)|Theo|12/06/20
 Working with lists and iteration|[purrr](https://purrr.tidyverse.org/)|Pratik|19/06/20
 Plotting|[ggplot2](https://ggplot2.tidyverse.org/)|Raphael|26/06/20
@@ -41,7 +41,7 @@ Here are links to external resources to dig deeper in making efficient use of R 
 
 - The tidyverse [website](https://www.tidyverse.org/)
 - The RStudio [cheatsheats](https://rstudio.com/resources/cheatsheets/)
-- The [R for Data Dcience](https://r4ds.had.co.nz/) book
+- The [R for Data Science](https://r4ds.had.co.nz/) book
 - The [Advanced R](http://adv-r.had.co.nz/) book
 - To learn about making your own packages, the [R Packages](http://r-pkgs.had.co.nz/) book
 - [Datacamp](https://www.datacamp.com/tidyverse-tutorials/) has a bunch of tutorials too

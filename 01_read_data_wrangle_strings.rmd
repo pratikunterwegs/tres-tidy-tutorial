@@ -7,6 +7,7 @@ editor_options:
 
 ![](opening-image.png)
 
+
 Load the packages for the day.
 
 ```{r load_packages_01}
@@ -103,7 +104,7 @@ Finally, data is often shared or stored by well meaning people in the form of Mi
 
 Concatenate two strings with `str_c`, and duplicate strings with `str_dup`. Flatten a list or vector of strings using `str_flatten`.
 
-```{r string_joining, echo=TRUE}
+```{r string_joining_01, echo=TRUE}
 # str_c works like paste(), choose a separator
 str_c("this string", "this other string", sep = "_")
 
@@ -130,7 +131,7 @@ Detect whether a pattern exists in a string with `str_detect`. Returns a logical
 
 Both are vectorised, i.e, automatically applied to a vector of arguments.
 
-```{r count_matches}
+```{r count_matches_01}
 # there should be 5 a-s here
 str_count(string = "ababababa", pattern = "a")
 

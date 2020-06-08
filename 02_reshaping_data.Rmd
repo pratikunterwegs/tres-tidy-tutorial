@@ -9,6 +9,7 @@ Raphael Scherrer
 
 ![](opening-image.png)
 
+
 ```{r}
 library(tibble)
 library(tidyr)
