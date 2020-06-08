@@ -12,6 +12,91 @@ editor_options:
 library(tidyverse)
 ```
 
+## List columns with `tidyr`
+
+### Nesting data
+
+It may become necessary to indicate the groups of a tibble in a somewhat more explicit way than simply using `dplyr::group_by`. `tidyr` offers the option to create nested tibbles, that is, to store complex objects in the columns of a tibble. This includes other tibbles, as well as model objects and plots.
+
+*NB:* Nesting data is done using `tidyr::nest`, which is different from the similarly named `tidyr::nesting`.
+
+The example below shows how `mtcars` can be converted into a nested tibble.
+
+```{r}
+# nest mtcars into a list of dataframes based on number of cylinders
+nested_cars = as_tibble(mtcars, 
+                        rownames = "car_name") %>% 
+  group_by(cyl) %>% 
+  nest()
+
+nested_cars
+
+# get column class
+sapply(nested_cars, class)
+```
+
+`mtcars` is now a nested data frame. The class of each of its columns is respectively, a numeric (number of cylinders) and a list (the data of all cars with as many cylinders as in the corresponding row).
+
+While `nest` can be used without first grouping the tibble, it's just much easier to group first.
+
+### Unnesting data
+
+A nested tibble can be converted back into the original, or into a processed form, using `tidyr::unnest`. The original groups are retained.
+
+```{r}
+# use unnest to recover the original data frame
+unnest(nested_cars, cols = "data")
+
+# unnesting preserves groups
+groups(unnest(nested_cars, cols = "data"))
+```
+
+The `unnest_longer` and `unnest_wider` variants of `unnest` are maturing functions, that is, not in their final form. They allow interesting variations on unnesting --- these are shown here but advised against.
+
+Unnest the data first, and then convert it to the form needed.
+
+```{r}
+unnest_longer(nested_cars, col = "data") %>% 
+  head()
+
+unnest_wider(nested_cars, col = "data")
+```
+
+### Working with list columns
+
+The class of a list column is `list`, and functions that deal with lists can be used on list columns too, within the bounds of what is allowed in a tibble.
+
+That is, one cannot add more elements to a list column than there are rows in the tibble.
+
+```{r}
+tryCatch(
+  expr = {
+    nested_cars$data = append(nested_cars$data, "a")    
+  },
+  error = function(e){
+    print(as.character(e))
+  }
+)
+```
+
+
+```{r}
+lapply(nested_cars$data, class)
+```
+
+
+```{r}
+# get the number of rows per dataframe
+# the mean mileage
+# and the first car
+# some_data = some_data %>% 
+#   mutate(n_rows = map_int(data, nrow),
+#          mean_mpg = map_dbl(data, ~mean(.$mpg)),
+#          first_car = map_chr(data, ~first(.$car_name)))
+# 
+# some_data
+```
+
 ## Iteration with `map`
 
 Iteration in base `R` is commonly done with `for` and `while` loops.
@@ -54,27 +139,6 @@ map_chr(some_numbers, sqrt)
 # map_lgl returns TRUE/FALSE values
 some_numbers = c(NA, 1:3, NA, NaN, Inf, -Inf)
 map_lgl(some_numbers, is.na)
-```
-
-### Integrating `map` and `tidyr::nest`
-
-The example show how each map variant can be used. This integrates `tidyr::nest` with `map`, and the two are especially complementary.
-
-```{r}
-# nest mtcars into a list of dataframes based on number of cylinders
-some_data = as_tibble(mtcars, rownames = "car_name") %>% 
-  group_by(cyl) %>% 
-  nest()
-
-# get the number of rows per dataframe
-# the mean mileage
-# and the first car
-some_data = some_data %>% 
-  mutate(n_rows = map_int(data, nrow),
-         mean_mpg = map_dbl(data, ~mean(.$mpg)),
-         first_car = map_chr(data, ~first(.$car_name)))
-
-some_data
 ```
 
 `map` accepts multiple functions that are applied in sequence to the input list-like object, but this is confusing to the reader and ill advised.
