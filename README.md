@@ -41,7 +41,7 @@ Here are links to external resources to dig deeper in making efficient use of R 
 
 - The tidyverse [website](https://www.tidyverse.org/)
 - The RStudio [cheatsheats](https://rstudio.com/resources/cheatsheets/)
-- The [R for Data Dcience](https://r4ds.had.co.nz/) book
+- The [R for Data Science](https://r4ds.had.co.nz/) book
 - The [Advanced R](http://adv-r.had.co.nz/) book
 - To learn about making your own packages, the [R Packages](http://r-pkgs.had.co.nz/) book
 - [Datacamp](https://www.datacamp.com/tidyverse-tutorials/) has a bunch of tutorials too
