@@ -143,7 +143,7 @@
 
 \title{TRES Tidyverse Tutorial}
 \author{Raphael, Pratik and Theo}
-\date{2020-06-08}
+\date{2020-06-11}
 
 \begin{document}
 \maketitle
@@ -197,7 +197,7 @@ Programming with the tidyverse & \href{https://rlang.r-lib.org/}{rlang} & Pratik
 \begin{itemize}
 \tightlist
 \item
-  Reproducibility and package-making (with e.g.~\href{https://usethis.r-lib.org/}{usethis})\\
+  Reproducibility and package-making (with e.g. \href{https://usethis.r-lib.org/}{usethis})\\
 \item
   Embedding C++ code with \href{http://adv-r.had.co.nz/Rcpp.html}{Rcpp}
 \end{itemize}
@@ -948,7 +948,7 @@ The \texttt{tibble} is the recommended class to use to store tabular data in the
 \end{Highlighting}
 \end{Shaded}
 
-The difference between \texttt{tibble} and \texttt{data.frame} is in its display and in the way it is subsetted, among others. Most functions working with \texttt{data.frame} will work with \texttt{tibble} and vice versa. Use the \texttt{as*} family of functions to switch back and forth between the two if needed, using e.g.~\texttt{as.data.frame} or \texttt{as\_tibble}.
+The difference between \texttt{tibble} and \texttt{data.frame} is in its display and in the way it is subsetted, among others. Most functions working with \texttt{data.frame} will work with \texttt{tibble} and vice versa. Use the \texttt{as*} family of functions to switch back and forth between the two if needed, using e.g. \texttt{as.data.frame} or \texttt{as\_tibble}.
 
 In terms of display, the tibble has the advantage of showing the class of each column: \texttt{chr} for \texttt{character}, \texttt{fct} for \texttt{factor}, \texttt{int} for \texttt{integer}, \texttt{dbl} for \texttt{numeric} and \texttt{lgl} for \texttt{logical}, just to name the main atomic classes. This may be more important than you think, because many hard-to-find bugs in R are due to wrong variable types and/or cryptic type conversions. This especially happens with \texttt{factor} and \texttt{character}, which can cause quite some confusion. More about this in the extra section at the end of this chapter!
 
@@ -993,7 +993,7 @@ As a rule of thumb, try to convert your tables to tibbles whenever you can, espe
 \CommentTok{#> Hornet Sportabout  0.153 -0.1886 -0.109}
 \CommentTok{#> Valiant            0.101 -0.0377  0.276}
 \KeywordTok{class}\NormalTok{(pca_scores) }\CommentTok{# but is actually a matrix}
-\CommentTok{#> [1] "matrix"}
+\CommentTok{#> [1] "matrix" "array"}
 
 \CommentTok{# Convert to tibble}
 \KeywordTok{as_tibble}\NormalTok{(pca_scores)}
@@ -1776,11 +1776,17 @@ Find lots of additional info by looking up the following links:
 
 \texttt{dplyr} is tasked with performing all sorts of transformations on a dataset.
 
-The structure of \texttt{dplyr} revolves around a set of functions, the so-called \textbf{verbs}, that share a common syntax and logic, and are meant to work with one another in chained operations. Chained operations are performed with the pipe operator (\texttt{\%\textgreater{}\%}), that will be introduced in section 3.2.2.
+The structure of \texttt{dplyr} revolves around a set of functions, the so-called
+\textbf{verbs}, that share a common syntax and logic, and are meant to work with one
+another in chained operations. Chained operations are performed with the pipe
+operator (\texttt{\%\textgreater{}\%}), that will be introduced in section 3.2.2.
 
-The basic syntax is \texttt{verb(data,\ variable)}, where \texttt{data} is a data frame and \texttt{variable} is the name of one or more columns containing a set of values for each observation.
+The basic syntax is \texttt{verb(data,\ variable)}, where \texttt{data} is a data frame and
+\texttt{variable} is the name of one or more columns containing a set of values for
+each observation.
 
-There are 5 main verbs, which names already hint at what they do: \texttt{rename()}, \texttt{select()}, \texttt{filter()}, \texttt{mutate()}, and \texttt{summarise()}.
+There are 5 main verbs, which names already hint at what they do: \texttt{rename()},
+\texttt{select()}, \texttt{filter()}, \texttt{mutate()}, and \texttt{summarise()}.
 I'm going to introduce each of them (and a couple more) through the following sections.
 
 \hypertarget{example-data}{%
@@ -1843,10 +1849,7 @@ Changing names is straightforward with \texttt{rename()}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{rename}\NormalTok{(}
-  \DataTypeTok{.data =}\NormalTok{ phylacine, }
-  \StringTok{"binomial"}\NormalTok{ =}\StringTok{ }\NormalTok{Binomial.}\FloatTok{1.2}\NormalTok{,}
-\NormalTok{)}
+\KeywordTok{rename}\NormalTok{(}\DataTypeTok{.data =}\NormalTok{ phylacine, }\StringTok{"binomial"}\NormalTok{ =}\StringTok{ }\NormalTok{Binomial.}\FloatTok{1.2}\NormalTok{)}
 \CommentTok{#> # A tibble: 5,831 x 24}
 \CommentTok{#>   binomial Order.1.2 Family.1.2 Genus.1.2 Species.1.2 Terrestrial Marine}
 \CommentTok{#>   <chr>    <chr>     <chr>      <chr>     <chr>             <dbl>  <dbl>}
@@ -1883,69 +1886,39 @@ whether you're reading or creating them:
   \CommentTok{# this works}
   \DataTypeTok{binomial =}\NormalTok{ Binomial.}\FloatTok{1.2}
 \NormalTok{)}
-\CommentTok{#> # A tibble: 5,831 x 24}
-\CommentTok{#>   binomial Order.1.2 Family.1.2 Genus.1.2 Species.1.2 Terrestrial Marine}
-\CommentTok{#>   <chr>    <chr>     <chr>      <chr>     <chr>             <dbl>  <dbl>}
-\CommentTok{#> 1 Abditom~ Rodentia  Muridae    Abditomys latidens              1      0}
-\CommentTok{#> 2 Abeomel~ Rodentia  Muridae    Abeomelo~ sevia                 1      0}
-\CommentTok{#> 3 Abraway~ Rodentia  Cricetidae Abrawaya~ ruschii               1      0}
-\CommentTok{#> 4 Abrocom~ Rodentia  Abrocomid~ Abrocoma  bennettii             1      0}
-\CommentTok{#> 5 Abrocom~ Rodentia  Abrocomid~ Abrocoma  boliviensis           1      0}
-\CommentTok{#> 6 Abrocom~ Rodentia  Abrocomid~ Abrocoma  budini                1      0}
-\CommentTok{#> # ... with 5,825 more rows, and 17 more variables: Freshwater <dbl>,}
-\CommentTok{#> #   Aerial <dbl>, Life.Habit.Method <chr>, Life.Habit.Source <chr>,}
-\CommentTok{#> #   Mass.g <dbl>, Mass.Method <chr>, Mass.Source <chr>, Mass.Comparison <chr>,}
-\CommentTok{#> #   Mass.Comparison.Source <chr>, Island.Endemicity <chr>,}
-\CommentTok{#> #   IUCN.Status.1.2 <chr>, Added.IUCN.Status.1.2 <chr>, Diet.Plant <dbl>,}
-\CommentTok{#> #   Diet.Vertebrate <dbl>, Diet.Invertebrate <dbl>, Diet.Method <chr>,}
-\CommentTok{#> #   Diet.Source <chr>}
 \KeywordTok{rename}\NormalTok{(}
 \NormalTok{  phylacine,}
   \CommentTok{# this works too!}
   \DataTypeTok{binomial =} \StringTok{"Binomial.1.2"}
 \NormalTok{)}
-\CommentTok{#> # A tibble: 5,831 x 24}
-\CommentTok{#>   binomial Order.1.2 Family.1.2 Genus.1.2 Species.1.2 Terrestrial Marine}
-\CommentTok{#>   <chr>    <chr>     <chr>      <chr>     <chr>             <dbl>  <dbl>}
-\CommentTok{#> 1 Abditom~ Rodentia  Muridae    Abditomys latidens              1      0}
-\CommentTok{#> 2 Abeomel~ Rodentia  Muridae    Abeomelo~ sevia                 1      0}
-\CommentTok{#> 3 Abraway~ Rodentia  Cricetidae Abrawaya~ ruschii               1      0}
-\CommentTok{#> 4 Abrocom~ Rodentia  Abrocomid~ Abrocoma  bennettii             1      0}
-\CommentTok{#> 5 Abrocom~ Rodentia  Abrocomid~ Abrocoma  boliviensis           1      0}
-\CommentTok{#> 6 Abrocom~ Rodentia  Abrocomid~ Abrocoma  budini                1      0}
-\CommentTok{#> # ... with 5,825 more rows, and 17 more variables: Freshwater <dbl>,}
-\CommentTok{#> #   Aerial <dbl>, Life.Habit.Method <chr>, Life.Habit.Source <chr>,}
-\CommentTok{#> #   Mass.g <dbl>, Mass.Method <chr>, Mass.Source <chr>, Mass.Comparison <chr>,}
-\CommentTok{#> #   Mass.Comparison.Source <chr>, Island.Endemicity <chr>,}
-\CommentTok{#> #   IUCN.Status.1.2 <chr>, Added.IUCN.Status.1.2 <chr>, Diet.Plant <dbl>,}
-\CommentTok{#> #   Diet.Vertebrate <dbl>, Diet.Invertebrate <dbl>, Diet.Method <chr>,}
-\CommentTok{#> #   Diet.Source <chr>}
 \KeywordTok{rename}\NormalTok{(}
 \NormalTok{  phylacine,}
   \CommentTok{# guess what}
   \StringTok{"binomial"}\NormalTok{ =}\StringTok{ "Binomial.1.2"}
 \NormalTok{)}
-\CommentTok{#> # A tibble: 5,831 x 24}
-\CommentTok{#>   binomial Order.1.2 Family.1.2 Genus.1.2 Species.1.2 Terrestrial Marine}
-\CommentTok{#>   <chr>    <chr>     <chr>      <chr>     <chr>             <dbl>  <dbl>}
-\CommentTok{#> 1 Abditom~ Rodentia  Muridae    Abditomys latidens              1      0}
-\CommentTok{#> 2 Abeomel~ Rodentia  Muridae    Abeomelo~ sevia                 1      0}
-\CommentTok{#> 3 Abraway~ Rodentia  Cricetidae Abrawaya~ ruschii               1      0}
-\CommentTok{#> 4 Abrocom~ Rodentia  Abrocomid~ Abrocoma  bennettii             1      0}
-\CommentTok{#> 5 Abrocom~ Rodentia  Abrocomid~ Abrocoma  boliviensis           1      0}
-\CommentTok{#> 6 Abrocom~ Rodentia  Abrocomid~ Abrocoma  budini                1      0}
-\CommentTok{#> # ... with 5,825 more rows, and 17 more variables: Freshwater <dbl>,}
-\CommentTok{#> #   Aerial <dbl>, Life.Habit.Method <chr>, Life.Habit.Source <chr>,}
-\CommentTok{#> #   Mass.g <dbl>, Mass.Method <chr>, Mass.Source <chr>, Mass.Comparison <chr>,}
-\CommentTok{#> #   Mass.Comparison.Source <chr>, Island.Endemicity <chr>,}
-\CommentTok{#> #   IUCN.Status.1.2 <chr>, Added.IUCN.Status.1.2 <chr>, Diet.Plant <dbl>,}
-\CommentTok{#> #   Diet.Vertebrate <dbl>, Diet.Invertebrate <dbl>, Diet.Method <chr>,}
-\CommentTok{#> #   Diet.Source <chr>}
 \end{Highlighting}
 \end{Shaded}
 
 I have applied similar changes to all variables in the dataset. Here is what the
 new names look like:
+
+\begin{verbatim}
+#> # A tibble: 5,831 x 24
+#>   binomial order family genus species terrestrial marine freshwater aerial
+#>   <chr>    <chr> <chr>  <chr> <chr>         <dbl>  <dbl>      <dbl>  <dbl>
+#> 1 Abditom~ Rode~ Murid~ Abdi~ latide~           1      0          0      0
+#> 2 Abeomel~ Rode~ Murid~ Abeo~ sevia             1      0          0      0
+#> 3 Abraway~ Rode~ Crice~ Abra~ ruschii           1      0          0      0
+#> 4 Abrocom~ Rode~ Abroc~ Abro~ bennet~           1      0          0      0
+#> 5 Abrocom~ Rode~ Abroc~ Abro~ bolivi~           1      0          0      0
+#> 6 Abrocom~ Rode~ Abroc~ Abro~ budini            1      0          0      0
+#> # ... with 5,825 more rows, and 15 more variables: life_habit_method <chr>,
+#> #   life_habit_source <chr>, mass_g <dbl>, mass_method <chr>,
+#> #   mass_source <chr>, mass_comparison <chr>, mass_comparison_source <chr>,
+#> #   island_endemicity <chr>, iucn_status <chr>, added_iucn_status <chr>,
+#> #   diet_plant <dbl>, diet_vertebrate <dbl>, diet_invertebrate <dbl>,
+#> #   diet_method <chr>, diet_source <chr>
+\end{verbatim}
 
 \hypertarget{the-pipe-operator}{%
 \subsection{\texorpdfstring{The pipe operator \texttt{\%\textgreater{}\%}}{The pipe operator \%\textgreater{}\%}}\label{the-pipe-operator}}
@@ -1961,10 +1934,7 @@ What does it do? Consider the following example with \texttt{rename()}:
 \begin{Highlighting}[]
 \NormalTok{phylacine2 <-}\StringTok{ }\NormalTok{readr}\OperatorTok{::}\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/phylacine_traits.csv"}\NormalTok{)}
 \CommentTok{# regular syntax}
-\KeywordTok{rename}\NormalTok{(}
-\NormalTok{  phylacine2,}
-  \StringTok{"binomial"}\NormalTok{ =}\StringTok{ "Binomial.1.2"}
-\NormalTok{)}
+\KeywordTok{rename}\NormalTok{(phylacine2, }\StringTok{"binomial"}\NormalTok{ =}\StringTok{ "Binomial.1.2"}\NormalTok{)}
 \CommentTok{#> # A tibble: 5,831 x 24}
 \CommentTok{#>   binomial Order.1.2 Family.1.2 Genus.1.2 Species.1.2 Terrestrial Marine}
 \CommentTok{#>   <chr>    <chr>     <chr>      <chr>     <chr>             <dbl>  <dbl>}
@@ -1982,10 +1952,7 @@ What does it do? Consider the following example with \texttt{rename()}:
 \CommentTok{#> #   Diet.Vertebrate <dbl>, Diet.Invertebrate <dbl>, Diet.Method <chr>,}
 \CommentTok{#> #   Diet.Source <chr>}
 \CommentTok{# alternative syntax with the pipe operator}
-\NormalTok{phylacine2 }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{rename}\NormalTok{(}
-    \StringTok{"binomial"}\NormalTok{ =}\StringTok{ "Binomial.1.2"}
-\NormalTok{  )}
+\NormalTok{phylacine2 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{rename}\NormalTok{(}\StringTok{"binomial"}\NormalTok{ =}\StringTok{ "Binomial.1.2"}\NormalTok{)}
 \CommentTok{#> # A tibble: 5,831 x 24}
 \CommentTok{#>   binomial Order.1.2 Family.1.2 Genus.1.2 Species.1.2 Terrestrial Marine}
 \CommentTok{#>   <chr>    <chr>     <chr>      <chr>     <chr>             <dbl>  <dbl>}
@@ -2013,7 +1980,8 @@ the syntax of a sentence, and therefore, easier and faster for your brain to
 process (and write!) the code. In particular, the pipe enables easy chains of
 operations, where you apply something to an object, then apply something else to
 the outcome, and so on\ldots{}
-Through the later sections, you will see some examples of chained operations with \texttt{dplyr} functions, but
+Through the later sections, you will see some examples of chained operations
+with \texttt{dplyr} functions, but
 for that I first need to introduce a couple more verbs.
 
 Using the pipe can be quite unsettling at first, because you are not used to
@@ -2041,12 +2009,14 @@ you can use the dot place-holder \texttt{.}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\StringTok{"meow"} \OperatorTok{%>%}\StringTok{ }\KeywordTok{cat}\NormalTok{(}\StringTok{"cats"}\NormalTok{, }\StringTok{"go"}\NormalTok{, .)}
-\CommentTok{#> cats go meow}
+\StringTok{"meow"} \OperatorTok{%>%}\StringTok{ }\KeywordTok{cat}\NormalTok{(}\StringTok{"cats"}\NormalTok{, }\StringTok{"go"}\NormalTok{)}
+\CommentTok{#> meow cats go}
 \end{Highlighting}
 \end{Shaded}
 
-Because of its syntax, most base R operators are not compatible with the pipe (but this is very rarely needed). If needed, \texttt{magrittr} introduces alternative functions for operators.
+Because of its syntax, most base R operators are not compatible with the pipe
+(but this is very rarely needed).
+If needed, \texttt{magrittr} introduces alternative functions for operators.
 
 Subsetting operators can be piped, with the dot place-holder.
 
@@ -2469,8 +2439,8 @@ You can also sample random rows in the data:
 \CommentTok{#> #   diet_invertebrate <dbl>, diet_method <chr>, diet_source <chr>}
 
 \CommentTok{# bootstrap}
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }\KeywordTok{slice_sample}\NormalTok{(}\DataTypeTok{n =} \DecValTok{1000}\NormalTok{, }\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{)}
-\CommentTok{#> # A tibble: 1,000 x 24}
+\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }\KeywordTok{slice_sample}\NormalTok{(}\DataTypeTok{n =} \DecValTok{5831}\NormalTok{, }\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{)}
+\CommentTok{#> # A tibble: 5,831 x 24}
 \CommentTok{#>   binomial order family genus species terrestrial marine freshwater aerial}
 \CommentTok{#>   <chr>    <chr> <chr>  <chr> <chr>         <dbl>  <dbl>      <dbl>  <dbl>}
 \CommentTok{#> 1 Rhinolo~ Chir~ Rhino~ Rhin~ adami             0      0          0      1}
@@ -2479,7 +2449,7 @@ You can also sample random rows in the data:
 \CommentTok{#> 4 Emballo~ Chir~ Embal~ Emba~ alecto            0      0          0      1}
 \CommentTok{#> 5 Pteralo~ Chir~ Ptero~ Pter~ taki              0      0          0      1}
 \CommentTok{#> 6 Lasiorh~ Dipr~ Vomba~ Lasi~ latifr~           1      0          0      0}
-\CommentTok{#> # ... with 994 more rows, and 15 more variables: life_habit_method <chr>,}
+\CommentTok{#> # ... with 5,825 more rows, and 15 more variables: life_habit_method <chr>,}
 \CommentTok{#> #   life_habit_source <chr>, mass_g <dbl>, mass_method <chr>,}
 \CommentTok{#> #   mass_source <chr>, mass_comparison <chr>, mass_comparison_source <chr>,}
 \CommentTok{#> #   island_endemicity <chr>, iucn_status <chr>, added_iucn_status <chr>,}
@@ -2495,8 +2465,8 @@ You can also sample random rows in the data:
 of conditions. The conditions are supplied much the same way as you would do
 for an \texttt{if} statement.
 
-Along with \texttt{mutate()} (next section), this is probably the function you are going to use
-the most.
+Along with \texttt{mutate()} (next section), this is probably the function you are
+going to use the most.
 
 For example, I might want to extract mammals above a given mass:
 
@@ -2516,6 +2486,7 @@ For example, I might want to extract mammals above a given mass:
 \CommentTok{#> 5 Arctocephalus_forsteri    101250 }
 \CommentTok{#> 6 Arctocephalus_pusillus    178500 }
 \CommentTok{#> # ... with 296 more rows}
+
 \CommentTok{# non-extinct megafauna}
 \NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{filter}\NormalTok{(mass_g }\OperatorTok{>}\StringTok{ }\FloatTok{1e5}\NormalTok{, iucn_status }\OperatorTok{!=}\StringTok{ "EP"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
@@ -2650,9 +2621,7 @@ the diet data:
 \NormalTok{diet <-}\StringTok{ }\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{select}\NormalTok{(}
 \NormalTok{    binomial,}
-\NormalTok{    diet_plant,}
-\NormalTok{    diet_vertebrate,}
-\NormalTok{    diet_invertebrate}
+    \KeywordTok{contains}\NormalTok{(}\StringTok{"diet"}\NormalTok{) }\OperatorTok{&}\StringTok{ }\OperatorTok{!}\KeywordTok{contains}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"method"}\NormalTok{, }\StringTok{"source"}\NormalTok{))}
 \NormalTok{  )}
 \NormalTok{diet}
 \CommentTok{#> # A tibble: 5,831 x 4}
@@ -2769,30 +2738,8 @@ them as part of the same operation, this is not an issue.
 \end{Shaded}
 
 Sometimes, you may need to perform an operation based on the row number
-(I don't have a good example in mind).
-To add the row number as a variable, you could do:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{transmute}\NormalTok{(}
-\NormalTok{    binomial,}
-    \StringTok{"row_nb"}\NormalTok{ =}\StringTok{ }\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(phylacine)}
-\NormalTok{  )}
-\CommentTok{#> # A tibble: 5,831 x 2}
-\CommentTok{#>   binomial             row_nb}
-\CommentTok{#>   <chr>                 <int>}
-\CommentTok{#> 1 Abditomys_latidens        1}
-\CommentTok{#> 2 Abeomelomys_sevia         2}
-\CommentTok{#> 3 Abrawayaomys_ruschii      3}
-\CommentTok{#> 4 Abrocoma_bennettii        4}
-\CommentTok{#> 5 Abrocoma_boliviensis      5}
-\CommentTok{#> 6 Abrocoma_budini           6}
-\CommentTok{#> # ... with 5,825 more rows}
-\end{Highlighting}
-\end{Shaded}
-
-but \texttt{tibble} has a built-in function to do just that:
+(I don't have a good example in mind). \texttt{tibble} has a built-in function to do
+just that:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2816,7 +2763,8 @@ but \texttt{tibble} has a built-in function to do just that:
 \subsection{\texorpdfstring{Summarise observations with \texttt{summarise()}}{Summarise observations with summarise()}}\label{summarise-observations-with-summarise}}
 
 \texttt{mutate()} applies operations to all observations in a table. By contrast,
-\texttt{summarise()} applies operations to \emph{groups} of observations, and returns, er, summaries. The default grouping unit is the entire table:
+\texttt{summarise()} applies operations to \emph{groups} of observations, and returns, er,
+summaries. The default grouping unit is the entire table:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2856,6 +2804,7 @@ perform operations on the variables you just created, in the same statement:
 \end{Shaded}
 
 One fifth!
+
 If the british spelling bothers you, \texttt{summarize()} exists and is strictly
 equivalent.
 
@@ -2879,9 +2828,13 @@ be exploited to count the number of observations that satisfy a condition:
 \end{Highlighting}
 \end{Shaded}
 
-There are more summaries that just means and counts (see \texttt{?summarise()} for some helpful functions). In fact, summarise can use any function or expression that evaluates to a single value or a \emph{vector} of values. This includes base R \texttt{max()}, \texttt{quantiles}, etc.
+There are more summaries that just means and counts
+(see \texttt{?summarise()} for some helpful functions). In fact, summarise can
+use any function or expression that evaluates to a single value or a \emph{vector}
+of values. This includes base R \texttt{max()}, \texttt{quantiles}, etc.
 
-\texttt{mutate()} and \texttt{transmute()} can compute summaries as well, but they will return the summary once for each observation, in a new column.
+\texttt{mutate()} and \texttt{transmute()} can compute summaries as well, but they will
+return the summary once for each observation, in a new column.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3041,7 +2994,7 @@ For example, I would like to know how the species in each order are distributed 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{iucn_props <-}\StringTok{ }\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(order, iucn_status) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}\StringTok{"n_order_iucn"}\NormalTok{ =}\StringTok{ }\KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\CommentTok{# grouping by iucn_status silently dropped}
@@ -3049,7 +3002,6 @@ For example, I would like to know how the species in each order are distributed 
     \StringTok{"n_order"}\NormalTok{ =}\StringTok{ }\KeywordTok{sum}\NormalTok{(n_order_iucn),}
     \StringTok{"p_iucn"}\NormalTok{ =}\StringTok{ }\NormalTok{n_order_iucn }\OperatorTok{/}\StringTok{ }\NormalTok{n_order}
 \NormalTok{  )}
-\NormalTok{iucn_props}
 \CommentTok{#> # A tibble: 138 x 5}
 \CommentTok{#> # Groups:   order [29]}
 \CommentTok{#>   order        iucn_status n_order_iucn n_order p_iucn}
@@ -3061,20 +3013,6 @@ For example, I would like to know how the species in each order are distributed 
 \CommentTok{#> 5 Afrosoricida LC                    32      57 0.561 }
 \CommentTok{#> 6 Afrosoricida NT                     3      57 0.0526}
 \CommentTok{#> # ... with 132 more rows}
-
-\NormalTok{iucn_props }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(order }\OperatorTok{==}\StringTok{ "Carnivora"}\NormalTok{)}
-\CommentTok{#> # A tibble: 8 x 5}
-\CommentTok{#> # Groups:   order [1]}
-\CommentTok{#>   order     iucn_status n_order_iucn n_order p_iucn}
-\CommentTok{#>   <chr>     <chr>              <int>   <int>  <dbl>}
-\CommentTok{#> 1 Carnivora CR                     4     313 0.0128}
-\CommentTok{#> 2 Carnivora DD                     6     313 0.0192}
-\CommentTok{#> 3 Carnivora EN                    32     313 0.102 }
-\CommentTok{#> 4 Carnivora EP                    18     313 0.0575}
-\CommentTok{#> 5 Carnivora EX                     6     313 0.0192}
-\CommentTok{#> 6 Carnivora LC                   175     313 0.559 }
-\CommentTok{#> # ... with 2 more rows}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3763,9 +3701,8 @@ One use case for \texttt{map2} is to deal with both a list element and its index
      \ControlFlowTok{function}\NormalTok{(l1, l2, l3)\{}
 \NormalTok{       glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\StringTok{'number \{l1\}, letter \{l2\}, colour \{l3\}'}\NormalTok{)}
 \NormalTok{     \})}
-\CommentTok{#> [1] "number 1, letter a, colour #FF0000FF"}
-\CommentTok{#> [2] "number 2, letter b, colour #00FF00FF"}
-\CommentTok{#> [3] "number 3, letter c, colour #0000FFFF"}
+\CommentTok{#> [1] "number 1, letter a, colour #FF0000" "number 2, letter b, colour #00FF00"}
+\CommentTok{#> [3] "number 3, letter c, colour #0000FF"}
 \end{Highlighting}
 \end{Shaded}
 
