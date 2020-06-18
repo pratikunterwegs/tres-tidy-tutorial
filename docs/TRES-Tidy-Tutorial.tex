@@ -3821,8 +3821,11 @@ However, it is often necessary to iterate a function over a list-like object for
 
 \KeywordTok{iwalk}\NormalTok{(this_list,}
       \ControlFlowTok{function}\NormalTok{(df, .y)\{}
-        \KeywordTok{message}\NormalTok{(glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\StringTok{'\{nrow(df)\} cars with \{.y\} cylinders'}\NormalTok{))}
+        \KeywordTok{print}\NormalTok{(glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\StringTok{'\{nrow(df)\} cars with \{.y\} cylinders'}\NormalTok{))}
 \NormalTok{      \})}
+\CommentTok{#> 11 cars with 4 cylinders}
+\CommentTok{#> 7 cars with 6 cylinders}
+\CommentTok{#> 14 cars with 8 cylinders}
 \end{Highlighting}
 \end{Shaded}
 

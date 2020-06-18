@@ -654,8 +654,11 @@ However, it is often necessary to iterate a function over a list-like object for
 <a class="sourceLine" id="cb138-2" title="2"></a>
 <a class="sourceLine" id="cb138-3" title="3"><span class="kw">iwalk</span>(this_list,</a>
 <a class="sourceLine" id="cb138-4" title="4">      <span class="cf">function</span>(df, .y){</a>
-<a class="sourceLine" id="cb138-5" title="5">        <span class="kw">message</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&#39;{nrow(df)} cars with {.y} cylinders&#39;</span>))</a>
-<a class="sourceLine" id="cb138-6" title="6">      })</a></code></pre></div>
+<a class="sourceLine" id="cb138-5" title="5">        <span class="kw">print</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&#39;{nrow(df)} cars with {.y} cylinders&#39;</span>))</a>
+<a class="sourceLine" id="cb138-6" title="6">      })</a>
+<a class="sourceLine" id="cb138-7" title="7"><span class="co">#&gt; 11 cars with 4 cylinders</span></a>
+<a class="sourceLine" id="cb138-8" title="8"><span class="co">#&gt; 7 cars with 6 cylinders</span></a>
+<a class="sourceLine" id="cb138-9" title="9"><span class="co">#&gt; 14 cars with 8 cylinders</span></a></code></pre></div>
 </div>
 <div id="modify-rather-than-map" class="section level3">
 <h3><span class="header-section-number">4.5.2</span> Modify rather than map</h3>
