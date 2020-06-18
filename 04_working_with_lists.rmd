@@ -363,7 +363,7 @@ this_list = split(mtcars, mtcars$cyl)
 
 iwalk(this_list,
       function(df, .y){
-        message(glue::glue('{nrow(df)} cars with {.y} cylinders'))
+        print(glue::glue('{nrow(df)} cars with {.y} cylinders'))
       })
 ```
 
