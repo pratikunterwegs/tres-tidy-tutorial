@@ -143,7 +143,7 @@
 
 \title{TRES Tidyverse Tutorial}
 \author{Raphael, Pratik and Theo}
-\date{2020-06-18}
+\date{2020-06-19}
 
 \begin{document}
 \maketitle
@@ -3303,29 +3303,43 @@ The example below shows how \texttt{mtcars} can be converted into a nested tibbl
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# nest mtcars into a list of dataframes based on number of cylinders}
-\NormalTok{nested_cars =}\StringTok{ }\KeywordTok{as_tibble}\NormalTok{(mtcars, }
-                        \DataTypeTok{rownames =} \StringTok{"car_name"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(cyl) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{nest}\NormalTok{()}
-
-\NormalTok{nested_cars}
-\CommentTok{#> # A tibble: 3 x 2}
-\CommentTok{#> # Groups:   cyl [3]}
-\CommentTok{#>     cyl data              }
-\CommentTok{#>   <dbl> <list>            }
-\CommentTok{#> 1     6 <tibble [7 x 11]> }
-\CommentTok{#> 2     4 <tibble [11 x 11]>}
-\CommentTok{#> 3     8 <tibble [14 x 11]>}
-
-\CommentTok{# get column class}
-\KeywordTok{sapply}\NormalTok{(nested_cars, class)}
-\CommentTok{#>       cyl      data }
-\CommentTok{#> "numeric"    "list"}
+\CommentTok{# get phylacine data}
+\NormalTok{data =}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/phylacine_traits.csv"}\NormalTok{)}
+\NormalTok{data =}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  `}\DataTypeTok{colnames<-}\StringTok{`}\NormalTok{(}\KeywordTok{str_to_lower}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(.))) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  `}\DataTypeTok{colnames<-}\StringTok{`}\NormalTok{(}\KeywordTok{str_remove}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(.), }\StringTok{"(.1.2)"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  `}\DataTypeTok{colnames<-}\StringTok{`}\NormalTok{(}\KeywordTok{str_replace_all}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(.), }\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{."}\NormalTok{, }\StringTok{"_"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
-\texttt{mtcars} is now a nested data frame. The class of each of its columns is respectively, a numeric (number of cylinders) and a list (the data of all cars with as many cylinders as in the corresponding row).
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# nest phylacine by order}
+\NormalTok{nested_data =}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(order) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{nest}\NormalTok{()}
+
+\NormalTok{nested_data}
+\CommentTok{#> # A tibble: 29 x 2}
+\CommentTok{#> # Groups:   order [29]}
+\CommentTok{#>   order           data                 }
+\CommentTok{#>   <chr>           <list>               }
+\CommentTok{#> 1 Rodentia        <tibble [2,306 x 23]>}
+\CommentTok{#> 2 Chiroptera      <tibble [1,162 x 23]>}
+\CommentTok{#> 3 Carnivora       <tibble [313 x 23]>  }
+\CommentTok{#> 4 Pilosa          <tibble [34 x 23]>   }
+\CommentTok{#> 5 Diprotodontia   <tibble [183 x 23]>  }
+\CommentTok{#> 6 Cetartiodactyla <tibble [392 x 23]>  }
+\CommentTok{#> # ... with 23 more rows}
+
+\CommentTok{# get column class}
+\KeywordTok{sapply}\NormalTok{(nested_data, class)}
+\CommentTok{#>       order        data }
+\CommentTok{#> "character"      "list"}
+\end{Highlighting}
+\end{Shaded}
+
+The data is now a nested data frame. The class of each of its columns is respectively, a character (order name) and a list (the data of all mammals in the corresponding order).
 
 While \texttt{nest} can be used without first grouping the tibble, it's just much easier to group first.
 
@@ -3337,38 +3351,33 @@ A nested tibble can be converted back into the original, or into a processed for
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# use unnest to recover the original data frame}
-\KeywordTok{unnest}\NormalTok{(nested_cars, }\DataTypeTok{cols =} \StringTok{"data"}\NormalTok{)}
-\CommentTok{#> # A tibble: 32 x 12}
-\CommentTok{#> # Groups:   cyl [3]}
-\CommentTok{#>     cyl car_name       mpg  disp    hp  drat    wt  qsec    vs    am  gear  carb}
-\CommentTok{#>   <dbl> <chr>        <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>}
-\CommentTok{#> 1     6 Mazda RX4     21    160    110  3.9   2.62  16.5     0     1     4     4}
-\CommentTok{#> 2     6 Mazda RX4 W~  21    160    110  3.9   2.88  17.0     0     1     4     4}
-\CommentTok{#> 3     6 Hornet 4 Dr~  21.4  258    110  3.08  3.22  19.4     1     0     3     1}
-\CommentTok{#> 4     6 Valiant       18.1  225    105  2.76  3.46  20.2     1     0     3     1}
-\CommentTok{#> 5     6 Merc 280      19.2  168.   123  3.92  3.44  18.3     1     0     4     4}
-\CommentTok{#> 6     6 Merc 280C     17.8  168.   123  3.92  3.44  18.9     1     0     4     4}
-\CommentTok{#> # ... with 26 more rows}
+\KeywordTok{unnest}\NormalTok{(nested_data, }\DataTypeTok{cols =} \StringTok{"data"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 24}
+\CommentTok{#> # Groups:   order [1]}
+\CommentTok{#>   order binomial family genus species terrestrial marine freshwater aerial}
+\CommentTok{#>   <chr> <chr>    <chr>  <chr> <chr>         <dbl>  <dbl>      <dbl>  <dbl>}
+\CommentTok{#> 1 Rode~ Abditom~ Murid~ Abdi~ latide~           1      0          0      0}
+\CommentTok{#> 2 Rode~ Abeomel~ Murid~ Abeo~ sevia             1      0          0      0}
+\CommentTok{#> 3 Rode~ Abraway~ Crice~ Abra~ ruschii           1      0          0      0}
+\CommentTok{#> 4 Rode~ Abrocom~ Abroc~ Abro~ bennet~           1      0          0      0}
+\CommentTok{#> 5 Rode~ Abrocom~ Abroc~ Abro~ bolivi~           1      0          0      0}
+\CommentTok{#> 6 Rode~ Abrocom~ Abroc~ Abro~ budini            1      0          0      0}
+\CommentTok{#> # ... with 15 more variables: life_habit_method <chr>, life_habit_source <chr>,}
+\CommentTok{#> #   mass_g <dbl>, mass_method <chr>, mass_source <chr>, mass_comparison <chr>,}
+\CommentTok{#> #   mass_comparison_source <chr>, island_endemicity <chr>, iucn_status <chr>,}
+\CommentTok{#> #   added_iucn_status <chr>, diet_plant <dbl>, diet_vertebrate <dbl>,}
+\CommentTok{#> #   diet_invertebrate <dbl>, diet_method <chr>, diet_source <chr>}
 
 \CommentTok{# unnesting preserves groups}
-\KeywordTok{groups}\NormalTok{(}\KeywordTok{unnest}\NormalTok{(nested_cars, }\DataTypeTok{cols =} \StringTok{"data"}\NormalTok{))}
+\KeywordTok{groups}\NormalTok{(}\KeywordTok{unnest}\NormalTok{(nested_data, }\DataTypeTok{cols =} \StringTok{"data"}\NormalTok{))}
 \CommentTok{#> [[1]]}
-\CommentTok{#> cyl}
+\CommentTok{#> order}
 \end{Highlighting}
 \end{Shaded}
 
 The \texttt{unnest\_longer} and \texttt{unnest\_wider} variants of \texttt{unnest} are maturing functions, that is, not in their final form. They allow interesting variations on unnesting --- these are shown here but advised against.
-
 Unnest the data first, and then convert it to the form needed.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{unnest_longer}\NormalTok{(nested_cars, }\DataTypeTok{col =} \StringTok{"data"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{head}\NormalTok{()}
-
-\KeywordTok{unnest_wider}\NormalTok{(nested_cars, }\DataTypeTok{col =} \StringTok{"data"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
 \hypertarget{working-with-list-columns}{%
 \subsection{Working with list columns}\label{working-with-list-columns}}
@@ -3380,15 +3389,22 @@ Two examples are shown below when getting the class and number of rows of the ne
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# how many rows in each nested tibble?}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_along}\NormalTok{(nested_cars}\OperatorTok{$}\NormalTok{data)) \{}
-  \KeywordTok{print}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(nested_cars}\OperatorTok{$}\NormalTok{data[[i]]))}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_along}\NormalTok{(nested_data}\OperatorTok{$}\NormalTok{data[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{])) \{}
+  \KeywordTok{print}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(nested_data}\OperatorTok{$}\NormalTok{data[[i]]))}
 \NormalTok{\}}
-\CommentTok{#> [1] 7}
-\CommentTok{#> [1] 11}
-\CommentTok{#> [1] 14}
+\CommentTok{#> [1] 2306}
+\CommentTok{#> [1] 1162}
+\CommentTok{#> [1] 313}
+\CommentTok{#> [1] 34}
+\CommentTok{#> [1] 183}
+\CommentTok{#> [1] 392}
+\CommentTok{#> [1] 460}
+\CommentTok{#> [1] 57}
+\CommentTok{#> [1] 20}
+\CommentTok{#> [1] 465}
 
 \CommentTok{# what is the class of each element?}
-\KeywordTok{lapply}\NormalTok{(}\DataTypeTok{X =}\NormalTok{ nested_cars}\OperatorTok{$}\NormalTok{data, }\DataTypeTok{FUN =}\NormalTok{ class)}
+\KeywordTok{lapply}\NormalTok{(}\DataTypeTok{X =}\NormalTok{ nested_data}\OperatorTok{$}\NormalTok{data[}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{], }\DataTypeTok{FUN =}\NormalTok{ class)}
 \CommentTok{#> [[1]]}
 \CommentTok{#> [1] "tbl_df"     "tbl"        "data.frame"}
 \CommentTok{#> }
@@ -3409,10 +3425,13 @@ The second example uses \texttt{lapply}, and this is a \emph{functional}. \emph{
 \hypertarget{iteration-with-map}{%
 \section{\texorpdfstring{Iteration with \texttt{map}}{Iteration with map}}\label{iteration-with-map}}
 
-The \texttt{tidyverse} replaces traditional loop-based iteration with \emph{functionals} from the \texttt{purrr} package. A good reason to use \texttt{purrr} functionals instead of base \texttt{R} functionals is their consistent and clear naming, which always indicates how they should be used.
-This is explained in the examples below.
+The \texttt{tidyverse} replaces traditional loop-based iteration with \emph{functionals} from the \texttt{purrr} package.
 
-How \texttt{map} is different from \texttt{for} and \texttt{lapply} are best explained in the \textbf{\href{https://adv-r.hadley.nz/functionals.html}{Advanced R Book}}.
+\hypertarget{why-use-purrr}{%
+\subsubsection*{\texorpdfstring{Why use \texttt{purrr}}{Why use purrr}}\label{why-use-purrr}}
+\addcontentsline{toc}{subsubsection}{Why use \texttt{purrr}}
+
+A good reason to use \texttt{purrr} functionals instead of base \texttt{R} functionals is their consistent and clear naming, which always indicates how they should be used. This is explained in the examples below. How \texttt{map} is different from \texttt{for} and \texttt{lapply} are best explained in the \textbf{\href{https://adv-r.hadley.nz/functionals.html}{Advanced R Book}}.
 
 \hypertarget{basic-use-of-map}{%
 \subsection{\texorpdfstring{Basic use of \texttt{map}}{Basic use of map}}\label{basic-use-of-map}}
@@ -3422,15 +3441,25 @@ How \texttt{map} is different from \texttt{for} and \texttt{lapply} are best exp
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# get the number of rows in data}
-\KeywordTok{map}\NormalTok{(}\DataTypeTok{.x =}\NormalTok{ nested_cars}\OperatorTok{$}\NormalTok{data, }\DataTypeTok{.f =}\NormalTok{ nrow)}
+\KeywordTok{map}\NormalTok{(}\DataTypeTok{.x =}\NormalTok{ nested_data}\OperatorTok{$}\NormalTok{data, }\DataTypeTok{.f =}\NormalTok{ nrow) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
 \CommentTok{#> [[1]]}
-\CommentTok{#> [1] 7}
+\CommentTok{#> [1] 2306}
 \CommentTok{#> }
 \CommentTok{#> [[2]]}
-\CommentTok{#> [1] 11}
+\CommentTok{#> [1] 1162}
 \CommentTok{#> }
 \CommentTok{#> [[3]]}
-\CommentTok{#> [1] 14}
+\CommentTok{#> [1] 313}
+\CommentTok{#> }
+\CommentTok{#> [[4]]}
+\CommentTok{#> [1] 34}
+\CommentTok{#> }
+\CommentTok{#> [[5]]}
+\CommentTok{#> [1] 183}
+\CommentTok{#> }
+\CommentTok{#> [[6]]}
+\CommentTok{#> [1] 392}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3460,15 +3489,26 @@ Though \texttt{map} always returns a list, it has variants named \texttt{map\_*}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# use map_dbl to get a vector of square roots}
-\NormalTok{some_numbers =}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{10}
-\KeywordTok{map_dbl}\NormalTok{(some_numbers, sqrt)}
-\CommentTok{#>  [1] 1.00 1.41 1.73 2.00 2.24 2.45 2.65 2.83 3.00 3.16}
+\CommentTok{# use map_dbl to get the mean mass in each order}
+\KeywordTok{map_dbl}\NormalTok{(nested_data}\OperatorTok{$}\NormalTok{data, }\ControlFlowTok{function}\NormalTok{(df)\{}
+  \KeywordTok{mean}\NormalTok{(df}\OperatorTok{$}\NormalTok{mass_g)}
+\NormalTok{\})}
+\CommentTok{#>  [1] 4.86e+02 4.91e+01 4.79e+04 7.86e+05 4.02e+04 1.85e+06 6.68e+03 3.06e+02}
+\CommentTok{#>  [9] 1.61e+02 4.06e+01 7.48e+02 1.45e+03 2.36e+05 3.37e+01 1.74e+02 9.58e+05}
+\CommentTok{#> [17] 9.03e+02 4.70e+06 1.13e+03 2.84e+03 2.23e+01 1.12e+06 1.83e+02 5.94e+05}
+\CommentTok{#> [25] 1.22e+04 9.44e+03 1.65e+06 4.45e+01 5.24e+04}
 
 \CommentTok{# map_chr will convert the output to a character}
-\KeywordTok{map_chr}\NormalTok{(some_numbers, sqrt)}
-\CommentTok{#>  [1] "1.000000" "1.414214" "1.732051" "2.000000" "2.236068" "2.449490"}
-\CommentTok{#>  [7] "2.645751" "2.828427" "3.000000" "3.162278"}
+\CommentTok{# here we get the most common IUCN status of each order}
+\KeywordTok{map_chr}\NormalTok{(nested_data}\OperatorTok{$}\NormalTok{data, }\ControlFlowTok{function}\NormalTok{(df)\{}
+  
+  \KeywordTok{count}\NormalTok{(df, iucn_status) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{arrange}\NormalTok{(}\OperatorTok{-}\NormalTok{n) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{common_status =} \KeywordTok{first}\NormalTok{(iucn_status)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{pull}\NormalTok{(common_status)}
+\NormalTok{\})}
+\CommentTok{#>  [1] "LC" "LC" "LC" "EP" "LC" "LC" "LC" "LC" "LC" "LC" "LC" "LC" "EP" "VU" "LC"}
+\CommentTok{#> [16] "EP" "LC" "EP" "LC" "LC" "NT" "VU" "LC" "EP" "VU" "CR" "EP" "LC" "LC"}
 
 \CommentTok{# map_lgl returns TRUE/FALSE values}
 \NormalTok{some_numbers =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NaN}\NormalTok{, }\OtherTok{Inf}\NormalTok{, }\OperatorTok{-}\OtherTok{Inf}\NormalTok{)}
@@ -3484,18 +3524,22 @@ Though \texttt{map} always returns a list, it has variants named \texttt{map\_*}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# split mtcars into 3 dataframes, one per cylinder number}
-\NormalTok{some_list =}\StringTok{ }\KeywordTok{split}\NormalTok{(mtcars, mtcars}\OperatorTok{$}\NormalTok{cyl)}
-
 \CommentTok{# get the first two rows of each dataframe}
-\KeywordTok{map_df}\NormalTok{(some_list, head, }\DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
-\CommentTok{#>                    mpg cyl disp  hp drat   wt qsec vs am gear carb}
-\CommentTok{#> Datsun 710        22.8   4  108  93 3.85 2.32 18.6  1  1    4    1}
-\CommentTok{#> Merc 240D         24.4   4  147  62 3.69 3.19 20.0  1  0    4    2}
-\CommentTok{#> Mazda RX4         21.0   6  160 110 3.90 2.62 16.5  0  1    4    4}
-\CommentTok{#> Mazda RX4 Wag     21.0   6  160 110 3.90 2.88 17.0  0  1    4    4}
-\CommentTok{#> Hornet Sportabout 18.7   8  360 175 3.15 3.44 17.0  0  0    3    2}
-\CommentTok{#> Duster 360        14.3   8  360 245 3.21 3.57 15.8  0  0    3    4}
+\KeywordTok{map_df}\NormalTok{(nested_data}\OperatorTok{$}\NormalTok{data[}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{], head, }\DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
+\CommentTok{#> # A tibble: 6 x 23}
+\CommentTok{#>   binomial family genus species terrestrial marine freshwater aerial}
+\CommentTok{#>   <chr>    <chr>  <chr> <chr>         <dbl>  <dbl>      <dbl>  <dbl>}
+\CommentTok{#> 1 Abditom~ Murid~ Abdi~ latide~           1      0          0      0}
+\CommentTok{#> 2 Abeomel~ Murid~ Abeo~ sevia             1      0          0      0}
+\CommentTok{#> 3 Acerodo~ Ptero~ Acer~ celebe~           0      0          0      1}
+\CommentTok{#> 4 Acerodo~ Ptero~ Acer~ humilis           0      0          0      1}
+\CommentTok{#> 5 Acinony~ Felid~ Acin~ jubatus           1      0          0      0}
+\CommentTok{#> 6 Ailurop~ Ursid~ Ailu~ melano~           1      0          0      0}
+\CommentTok{#> # ... with 15 more variables: life_habit_method <chr>, life_habit_source <chr>,}
+\CommentTok{#> #   mass_g <dbl>, mass_method <chr>, mass_source <chr>, mass_comparison <chr>,}
+\CommentTok{#> #   mass_comparison_source <chr>, island_endemicity <chr>, iucn_status <chr>,}
+\CommentTok{#> #   added_iucn_status <chr>, diet_plant <dbl>, diet_vertebrate <dbl>,}
+\CommentTok{#> #   diet_invertebrate <dbl>, diet_method <chr>, diet_source <chr>}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3506,41 +3550,27 @@ Though \texttt{map} always returns a list, it has variants named \texttt{map\_*}
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# the same as above but with a pipe}
-\NormalTok{some_list }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{nested_data}\OperatorTok{$}\NormalTok{data[}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{] }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{map_dfr}\NormalTok{(head, }\DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
-\CommentTok{#>                    mpg cyl disp  hp drat   wt qsec vs am gear carb}
-\CommentTok{#> Datsun 710        22.8   4  108  93 3.85 2.32 18.6  1  1    4    1}
-\CommentTok{#> Merc 240D         24.4   4  147  62 3.69 3.19 20.0  1  0    4    2}
-\CommentTok{#> Mazda RX4         21.0   6  160 110 3.90 2.62 16.5  0  1    4    4}
-\CommentTok{#> Mazda RX4 Wag     21.0   6  160 110 3.90 2.88 17.0  0  1    4    4}
-\CommentTok{#> Hornet Sportabout 18.7   8  360 175 3.15 3.44 17.0  0  0    3    2}
-\CommentTok{#> Duster 360        14.3   8  360 245 3.21 3.57 15.8  0  0    3    4}
+\CommentTok{#> # A tibble: 10 x 23}
+\CommentTok{#>   binomial family genus species terrestrial marine freshwater aerial}
+\CommentTok{#>   <chr>    <chr>  <chr> <chr>         <dbl>  <dbl>      <dbl>  <dbl>}
+\CommentTok{#> 1 Abditom~ Murid~ Abdi~ latide~           1      0          0      0}
+\CommentTok{#> 2 Abeomel~ Murid~ Abeo~ sevia             1      0          0      0}
+\CommentTok{#> 3 Acerodo~ Ptero~ Acer~ celebe~           0      0          0      1}
+\CommentTok{#> 4 Acerodo~ Ptero~ Acer~ humilis           0      0          0      1}
+\CommentTok{#> 5 Acinony~ Felid~ Acin~ jubatus           1      0          0      0}
+\CommentTok{#> 6 Ailurop~ Ursid~ Ailu~ melano~           1      0          0      0}
+\CommentTok{#> # ... with 4 more rows, and 15 more variables: life_habit_method <chr>,}
+\CommentTok{#> #   life_habit_source <chr>, mass_g <dbl>, mass_method <chr>,}
+\CommentTok{#> #   mass_source <chr>, mass_comparison <chr>, mass_comparison_source <chr>,}
+\CommentTok{#> #   island_endemicity <chr>, iucn_status <chr>, added_iucn_status <chr>,}
+\CommentTok{#> #   diet_plant <dbl>, diet_vertebrate <dbl>, diet_invertebrate <dbl>,}
+\CommentTok{#> #   diet_method <chr>, diet_source <chr>}
 \end{Highlighting}
 \end{Shaded}
 
 \texttt{map\_dfc} binds the resulting 3 data frames of two rows each by column, and automatically repairs the column names, adding a suffix to each duplicate.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{some_list }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{map_dfc}\NormalTok{(head, }\DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
-\CommentTok{#>            mpg...1 cyl...2 disp...3 hp...4 drat...5 wt...6 qsec...7 vs...8}
-\CommentTok{#> Datsun 710    22.8       4      108     93     3.85   2.32     18.6      1}
-\CommentTok{#> Merc 240D     24.4       4      147     62     3.69   3.19     20.0      1}
-\CommentTok{#>            am...9 gear...10 carb...11 mpg...12 cyl...13 disp...14 hp...15}
-\CommentTok{#> Datsun 710      1         4         1       21        6       160     110}
-\CommentTok{#> Merc 240D       0         4         2       21        6       160     110}
-\CommentTok{#>            drat...16 wt...17 qsec...18 vs...19 am...20 gear...21 carb...22}
-\CommentTok{#> Datsun 710       3.9    2.62      16.5       0       1         4         4}
-\CommentTok{#> Merc 240D        3.9    2.88      17.0       0       1         4         4}
-\CommentTok{#>            mpg...23 cyl...24 disp...25 hp...26 drat...27 wt...28 qsec...29}
-\CommentTok{#> Datsun 710     18.7        8       360     175      3.15    3.44      17.0}
-\CommentTok{#> Merc 240D      14.3        8       360     245      3.21    3.57      15.8}
-\CommentTok{#>            vs...30 am...31 gear...32 carb...33}
-\CommentTok{#> Datsun 710       0       0         3         2}
-\CommentTok{#> Merc 240D        0       0         3         4}
-\end{Highlighting}
-\end{Shaded}
 
 \hypertarget{working-with-list-columns-using-map}{%
 \subsection{\texorpdfstring{Working with list columns using \texttt{map}}{Working with list columns using map}}\label{working-with-list-columns-using-map}}
@@ -3552,28 +3582,35 @@ In each of these cases, the vectors added are generated using \texttt{purrr} fun
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# get the number of rows per dataframe, the mean mileage, and the first car}
-\NormalTok{nested_cars =}\StringTok{ }\NormalTok{nested_cars }\OperatorTok{%>%}
+\NormalTok{nested_data =}\StringTok{ }\NormalTok{nested_data }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}
     \CommentTok{# use the int return to get the number of rows}
     \DataTypeTok{n_rows =} \KeywordTok{map_int}\NormalTok{(data, nrow),}
     
     \CommentTok{# double return for mean mileage}
-    \DataTypeTok{mean_mpg =} \KeywordTok{map_dbl}\NormalTok{(data, }\ControlFlowTok{function}\NormalTok{(df) \{}\KeywordTok{mean}\NormalTok{(df}\OperatorTok{$}\NormalTok{mpg)\}),}
+    \DataTypeTok{mean_mass =} \KeywordTok{map_dbl}\NormalTok{(data, }\ControlFlowTok{function}\NormalTok{(df) \{}\KeywordTok{mean}\NormalTok{(df}\OperatorTok{$}\NormalTok{mass_g)\}),}
     
-    \CommentTok{# character return to get first car}
-    \DataTypeTok{first_car =} \KeywordTok{map_chr}\NormalTok{(data, }\ControlFlowTok{function}\NormalTok{(df) \{}\KeywordTok{first}\NormalTok{(df}\OperatorTok{$}\NormalTok{car_name)\}}
+    \CommentTok{# character return to get the heaviest member}
+    \DataTypeTok{first_animal =} \KeywordTok{map_chr}\NormalTok{(data, }\ControlFlowTok{function}\NormalTok{(df) \{}
+      \KeywordTok{arrange}\NormalTok{(df, }\OperatorTok{-}\NormalTok{mass_g) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{        }\NormalTok{.}\OperatorTok{$}\NormalTok{binomial }\OperatorTok{%>%}\StringTok{ }
+\StringTok{        }\KeywordTok{first}\NormalTok{()\}}
 \NormalTok{    )}
 \NormalTok{  )}
 
 \CommentTok{# examine the output}
-\NormalTok{nested_cars}
-\CommentTok{#> # A tibble: 3 x 5}
-\CommentTok{#> # Groups:   cyl [3]}
-\CommentTok{#>     cyl data               n_rows mean_mpg first_car        }
-\CommentTok{#>   <dbl> <list>              <int>    <dbl> <chr>            }
-\CommentTok{#> 1     6 <tibble [7 x 11]>       7     19.7 Mazda RX4        }
-\CommentTok{#> 2     4 <tibble [11 x 11]>     11     26.7 Datsun 710       }
-\CommentTok{#> 3     8 <tibble [14 x 11]>     14     15.1 Hornet Sportabout}
+\NormalTok{nested_data}
+\CommentTok{#> # A tibble: 29 x 5}
+\CommentTok{#> # Groups:   order [29]}
+\CommentTok{#>   order           data                  n_rows mean_mass first_animal          }
+\CommentTok{#>   <chr>           <list>                 <int>     <dbl> <chr>                 }
+\CommentTok{#> 1 Rodentia        <tibble [2,306 x 23]>   2306     486.  Neochoerus_aesopi     }
+\CommentTok{#> 2 Chiroptera      <tibble [1,162 x 23]>   1162      49.1 Acerodon_jubatus      }
+\CommentTok{#> 3 Carnivora       <tibble [313 x 23]>      313   47905.  Mirounga_leonina      }
+\CommentTok{#> 4 Pilosa          <tibble [34 x 23]>        34  785958.  Megatherium_americanum}
+\CommentTok{#> 5 Diprotodontia   <tibble [183 x 23]>      183   40202.  Diprotodon_optatum    }
+\CommentTok{#> 6 Cetartiodactyla <tibble [392 x 23]>      392 1854811.  Balaenoptera_musculus }
+\CommentTok{#> # ... with 23 more rows}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3586,35 +3623,38 @@ In this example, the nested tibble is given a new column using \texttt{dplyr::mu
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# split mtcars by cylinder number and run an lm only if there are more than 10 rows}
-\NormalTok{data =}\StringTok{ }\KeywordTok{nest}\NormalTok{(mtcars, }\DataTypeTok{data =} \OperatorTok{-}\NormalTok{cyl)}
+\CommentTok{# split data by order number and run an lm only if there are more than 100 rows}
+\NormalTok{nested_data =}\StringTok{ }\KeywordTok{nest}\NormalTok{(data, }\DataTypeTok{data =} \OperatorTok{-}\NormalTok{order)}
 
-\NormalTok{data =}\StringTok{ }\KeywordTok{mutate}\NormalTok{(data,}
+\NormalTok{nested_data =}\StringTok{ }\KeywordTok{mutate}\NormalTok{(nested_data,}
               \DataTypeTok{model =} \KeywordTok{map_if}\NormalTok{(}\DataTypeTok{.x =}\NormalTok{ data,}
                              
                              \CommentTok{# this is the predicate}
                              \CommentTok{# which elements should be operated on?}
                              \DataTypeTok{.p =} \ControlFlowTok{function}\NormalTok{(x)\{}
-                               \KeywordTok{nrow}\NormalTok{(x) }\OperatorTok{>}\StringTok{ }\DecValTok{10}
+                               \KeywordTok{nrow}\NormalTok{(x) }\OperatorTok{>}\StringTok{ }\DecValTok{100}
 \NormalTok{                             \},}
                              
                              \CommentTok{# this is the function to use}
                              \CommentTok{# if the predicate is satisfied}
                              \DataTypeTok{.f =} \ControlFlowTok{function}\NormalTok{(x)\{}
-                               \KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{wt, }\DataTypeTok{data =}\NormalTok{ x)}
+                               \KeywordTok{lm}\NormalTok{(mass_g }\OperatorTok{~}\StringTok{ }\NormalTok{diet_plant, }\DataTypeTok{data =}\NormalTok{ x)}
 \NormalTok{                             \}))}
 \CommentTok{# check the data structure}
-\NormalTok{data}
-\CommentTok{#> # A tibble: 3 x 3}
-\CommentTok{#>     cyl data               model            }
-\CommentTok{#>   <dbl> <list>             <list>           }
-\CommentTok{#> 1     6 <tibble [7 x 10]>  <tibble [7 x 10]>}
-\CommentTok{#> 2     4 <tibble [11 x 10]> <lm>             }
-\CommentTok{#> 3     8 <tibble [14 x 10]> <lm>}
+\NormalTok{nested_data }\OperatorTok{%>%}\StringTok{ }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 3}
+\CommentTok{#>   order           data                  model             }
+\CommentTok{#>   <chr>           <list>                <list>            }
+\CommentTok{#> 1 Rodentia        <tibble [2,306 x 23]> <lm>              }
+\CommentTok{#> 2 Chiroptera      <tibble [1,162 x 23]> <lm>              }
+\CommentTok{#> 3 Carnivora       <tibble [313 x 23]>   <lm>              }
+\CommentTok{#> 4 Pilosa          <tibble [34 x 23]>    <tibble [34 x 23]>}
+\CommentTok{#> 5 Diprotodontia   <tibble [183 x 23]>   <lm>              }
+\CommentTok{#> 6 Cetartiodactyla <tibble [392 x 23]>   <lm>}
 \end{Highlighting}
 \end{Shaded}
 
-The first element is a tibble of the corresponding element in \texttt{mtcars\$cars}, which has not been operated on because it has fewer than 10 rows. The remaining elements are \texttt{lm} objects.
+Some elements of the column \texttt{model} are tibbles, which have not been operated on because they have fewer than 100 rows (species). The remaining elements are \texttt{lm} objects.
 
 \hypertarget{more-map-variants}{%
 \section{\texorpdfstring{More \texttt{map} variants}{More map variants}}\label{more-map-variants}}
@@ -3711,7 +3751,7 @@ In the pipeline:
 \item
   The tibble becomes a nested dataframe by cylinders (using \texttt{tidyr::nest}),
 \item
-  If there are enough data points (\textgreater{} 10), a linear model of mileage \textasciitilde{} car weight is fit (using \texttt{purrr::map\_if}, and \texttt{stats::lm}),
+  If there are enough data points (\textgreater{} 100), a linear model of mass \textasciitilde{} plant diet is fit (using \texttt{purrr::map\_if}, and \texttt{stats::lm}),
 \item
   The model coefficients are extracted if the model was fit (using \texttt{purrr::map} \& \texttt{dplyr::case\_when}),
 \item
@@ -3723,22 +3763,21 @@ In the pipeline:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{nested_data <-}
-\StringTok{  }\NormalTok{mtcars }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{as_tibble}\NormalTok{(}\DataTypeTok{rownames =} \StringTok{"car"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\NormalTok{tidyr}\OperatorTok{::}\KeywordTok{nest}\NormalTok{(}\DataTypeTok{data =} \OperatorTok{-}\NormalTok{cyl) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{tidyr}\OperatorTok{::}\KeywordTok{nest}\NormalTok{(}\DataTypeTok{data =} \OperatorTok{-}\NormalTok{order) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(data,}
          \DataTypeTok{model =} \KeywordTok{map_if}\NormalTok{(}\DataTypeTok{.x =}\NormalTok{ data,}
                         
                         \CommentTok{# this is the predicate}
                         \CommentTok{# which elements should be operated on?}
                         \DataTypeTok{.p =} \ControlFlowTok{function}\NormalTok{(x)\{}
-                          \KeywordTok{nrow}\NormalTok{(x) }\OperatorTok{>}\StringTok{ }\DecValTok{10}
+                          \KeywordTok{nrow}\NormalTok{(x) }\OperatorTok{>}\StringTok{ }\DecValTok{100}
 \NormalTok{                        \},}
                         
                         \CommentTok{# this is the function to use}
                         \CommentTok{# if the predicate is satisfied}
                         \DataTypeTok{.f =} \ControlFlowTok{function}\NormalTok{(x)\{}
-                          \KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{wt, }\DataTypeTok{data =}\NormalTok{ x)}
+                          \KeywordTok{lm}\NormalTok{(mass_g }\OperatorTok{~}\StringTok{ }\NormalTok{diet_plant, }\DataTypeTok{data =}\NormalTok{ x)}
 \NormalTok{                        \})) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{m_coef =} \KeywordTok{map}\NormalTok{(model,}
@@ -3757,22 +3796,21 @@ In the pipeline:
          \CommentTok{# work on the two element double vector of coefficients}
          \DataTypeTok{m_coef =} \KeywordTok{map}\NormalTok{(m_coef, }\ControlFlowTok{function}\NormalTok{(x)\{}
            \KeywordTok{tibble}\NormalTok{(}\DataTypeTok{coef =} \KeywordTok{unlist}\NormalTok{(x),}
-                  \DataTypeTok{param =} \KeywordTok{c}\NormalTok{(}\StringTok{"intercept"}\NormalTok{, }\StringTok{"wt"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+                  \DataTypeTok{param =} \KeywordTok{c}\NormalTok{(}\StringTok{"intercept"}\NormalTok{, }\StringTok{"diet_plant"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{             }\KeywordTok{pivot_wider}\NormalTok{(}\DataTypeTok{names_from =} \StringTok{"param"}\NormalTok{,}
                          \DataTypeTok{values_from =} \StringTok{"coef"}\NormalTok{)}
 \NormalTok{         \}),}
          
          \CommentTok{# work on the raw data and the coefficients}
-         \DataTypeTok{plot =} \KeywordTok{pmap}\NormalTok{(}\KeywordTok{list}\NormalTok{(cyl, data, m_coef), }\ControlFlowTok{function}\NormalTok{(cyl, x, y)\{}
+         \DataTypeTok{plot =} \KeywordTok{pmap}\NormalTok{(}\KeywordTok{list}\NormalTok{(order, data, m_coef), }\ControlFlowTok{function}\NormalTok{(ord, x, y)\{}
            
            \CommentTok{# pay no attention to the ggplot for now}
 \NormalTok{           ggplot2}\OperatorTok{::}\KeywordTok{ggplot}\NormalTok{()}\OperatorTok{+}
 \StringTok{             }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ x,}
-                        \KeywordTok{aes}\NormalTok{(wt, mpg))}\OperatorTok{+}
-\StringTok{             }\KeywordTok{geom_abline}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ y,}
-                         \KeywordTok{aes}\NormalTok{(}\DataTypeTok{slope =}\NormalTok{ wt,}
-                             \DataTypeTok{intercept =}\NormalTok{ intercept))}\OperatorTok{+}
-\StringTok{             }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =}\NormalTok{ glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\StringTok{'cars with \{cyl\} cylinders'}\NormalTok{))}
+                        \KeywordTok{aes}\NormalTok{(diet_plant, mass_g),}
+                        \DataTypeTok{size =} \FloatTok{0.1}\NormalTok{)}\OperatorTok{+}
+\StringTok{             }\KeywordTok{scale_y_log10}\NormalTok{()}\OperatorTok{+}
+\StringTok{             }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =}\NormalTok{ glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\StringTok{'order: \{ord\}'}\NormalTok{))}
 \NormalTok{         \})}
 \NormalTok{  )}
 \end{Highlighting}
@@ -3783,27 +3821,39 @@ In the pipeline:
 
 Lists are often nested, that is, a list element may itself be a list. It is possible to map a function over elements as a specific depth.
 
-In the example, \texttt{mtcars} is split by cylinders, and then by gears, creating a two-level list, with the second layer operated on.
+In the example, phylacine is split by order, and then by IUCN status, creating a two-level list, with the second layer operated on.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# use map to make a 2 level list}
-\NormalTok{this_list =}\StringTok{ }\KeywordTok{split}\NormalTok{(mtcars, mtcars}\OperatorTok{$}\NormalTok{cyl) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{map}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(df)\{ }\KeywordTok{split}\NormalTok{(df, df}\OperatorTok{$}\NormalTok{gear) \})}
+\NormalTok{this_list =}\StringTok{ }\KeywordTok{split}\NormalTok{(data, data}\OperatorTok{$}\NormalTok{order) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{map}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(df)\{ }\KeywordTok{split}\NormalTok{(df, df}\OperatorTok{$}\NormalTok{iucn_status) \})}
 
 \CommentTok{# map over the second level to count the number of }
-\CommentTok{# cars with N gears in the set of cars with M cylinders}
-\CommentTok{# display only for cyl = 4}
+\CommentTok{# species in each order in each IUCN class}
+\CommentTok{# display only the first element}
 \KeywordTok{map_depth}\NormalTok{(this_list[}\DecValTok{1}\NormalTok{], }\DecValTok{2}\NormalTok{, nrow)}
-\CommentTok{#> $`4`}
-\CommentTok{#> $`4`$`3`}
+\CommentTok{#> $Afrosoricida}
+\CommentTok{#> $Afrosoricida$CR}
 \CommentTok{#> [1] 1}
 \CommentTok{#> }
-\CommentTok{#> $`4`$`4`}
-\CommentTok{#> [1] 8}
+\CommentTok{#> $Afrosoricida$DD}
+\CommentTok{#> [1] 4}
 \CommentTok{#> }
-\CommentTok{#> $`4`$`5`}
+\CommentTok{#> $Afrosoricida$EN}
+\CommentTok{#> [1] 7}
+\CommentTok{#> }
+\CommentTok{#> $Afrosoricida$EP}
 \CommentTok{#> [1] 2}
+\CommentTok{#> }
+\CommentTok{#> $Afrosoricida$LC}
+\CommentTok{#> [1] 32}
+\CommentTok{#> }
+\CommentTok{#> $Afrosoricida$NT}
+\CommentTok{#> [1] 3}
+\CommentTok{#> }
+\CommentTok{#> $Afrosoricida$VU}
+\CommentTok{#> [1] 8}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3817,15 +3867,41 @@ However, it is often necessary to iterate a function over a list-like object for
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{this_list =}\StringTok{ }\KeywordTok{split}\NormalTok{(mtcars, mtcars}\OperatorTok{$}\NormalTok{cyl)}
+\NormalTok{this_list =}\StringTok{ }\KeywordTok{split}\NormalTok{(data, data}\OperatorTok{$}\NormalTok{order)}
 
 \KeywordTok{iwalk}\NormalTok{(this_list,}
       \ControlFlowTok{function}\NormalTok{(df, .y)\{}
-        \KeywordTok{print}\NormalTok{(glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\StringTok{'\{nrow(df)\} cars with \{.y\} cylinders'}\NormalTok{))}
+        \KeywordTok{print}\NormalTok{(glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\StringTok{'\{nrow(df)\} species in order \{.y\}'}\NormalTok{))}
 \NormalTok{      \})}
-\CommentTok{#> 11 cars with 4 cylinders}
-\CommentTok{#> 7 cars with 6 cylinders}
-\CommentTok{#> 14 cars with 8 cylinders}
+\CommentTok{#> 57 species in order Afrosoricida}
+\CommentTok{#> 313 species in order Carnivora}
+\CommentTok{#> 392 species in order Cetartiodactyla}
+\CommentTok{#> 1162 species in order Chiroptera}
+\CommentTok{#> 39 species in order Cingulata}
+\CommentTok{#> 74 species in order Dasyuromorphia}
+\CommentTok{#> 2 species in order Dermoptera}
+\CommentTok{#> 97 species in order Didelphimorphia}
+\CommentTok{#> 183 species in order Diprotodontia}
+\CommentTok{#> 465 species in order Eulipotyphla}
+\CommentTok{#> 5 species in order Hyracoidea}
+\CommentTok{#> 94 species in order Lagomorpha}
+\CommentTok{#> 3 species in order Litopterna}
+\CommentTok{#> 19 species in order Macroscelidea}
+\CommentTok{#> 1 species in order Microbiotheria}
+\CommentTok{#> 7 species in order Monotremata}
+\CommentTok{#> 2 species in order Notoryctemorphia}
+\CommentTok{#> 3 species in order Notoungulata}
+\CommentTok{#> 7 species in order Paucituberculata}
+\CommentTok{#> 24 species in order Peramelemorphia}
+\CommentTok{#> 29 species in order Perissodactyla}
+\CommentTok{#> 9 species in order Pholidota}
+\CommentTok{#> 34 species in order Pilosa}
+\CommentTok{#> 460 species in order Primates}
+\CommentTok{#> 18 species in order Proboscidea}
+\CommentTok{#> 2306 species in order Rodentia}
+\CommentTok{#> 20 species in order Scandentia}
+\CommentTok{#> 5 species in order Sirenia}
+\CommentTok{#> 1 species in order Tubulidentata}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4006,46 +4082,21 @@ Both functions can be used in much more complex ways than demonstrated here.
 \end{Highlighting}
 \end{Shaded}
 
-\texttt{transpose} shifts the index order in multi-level lists. This is seen in the example, where the \texttt{gear} goes from being the index of the second level to the index of the first.
+\texttt{transpose} shifts the index order in multi-level lists. This is seen in the example, where the \texttt{iucn\_status} goes from being the index of the second level to the index of the first.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{this_list =}\StringTok{ }\KeywordTok{split}\NormalTok{(mtcars, mtcars}\OperatorTok{$}\NormalTok{cyl) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{map}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(df) }\KeywordTok{split}\NormalTok{(df, df}\OperatorTok{$}\NormalTok{gear))}
+\NormalTok{this_list =}\StringTok{ }\KeywordTok{split}\NormalTok{(data, data}\OperatorTok{$}\NormalTok{order) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{map}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(df) \{}\KeywordTok{split}\NormalTok{(df, df}\OperatorTok{$}\NormalTok{iucn_status)\})}
+\end{Highlighting}
+\end{Shaded}
 
-\CommentTok{# from a list of lists where cars are divided by cylinders and then}
-\CommentTok{# gears, this is now a list of lists where cars are divided by}
-\CommentTok{# gears and then cylinders}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# from a list of lists where species are divided by order and then}
+\CommentTok{# iucn_status, this is now a list of lists where species are }
+\CommentTok{# divided by status and then order}
 \KeywordTok{transpose}\NormalTok{(this_list[}\DecValTok{1}\NormalTok{])}
-\CommentTok{#> $`3`}
-\CommentTok{#> $`3`$`4`}
-\CommentTok{#> # A tibble: 1 x 12}
-\CommentTok{#>   car            mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb}
-\CommentTok{#>   <chr>        <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>}
-\CommentTok{#> 1 Toyota Coro~  21.5     4  120.    97   3.7  2.46  20.0     1     0     3     1}
-\CommentTok{#> }
-\CommentTok{#> }
-\CommentTok{#> $`4`}
-\CommentTok{#> $`4`$`4`}
-\CommentTok{#> # A tibble: 8 x 12}
-\CommentTok{#>   car            mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb}
-\CommentTok{#>   <chr>        <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>}
-\CommentTok{#> 1 Datsun 710    22.8     4 108      93  3.85  2.32  18.6     1     1     4     1}
-\CommentTok{#> 2 Merc 240D     24.4     4 147.     62  3.69  3.19  20       1     0     4     2}
-\CommentTok{#> 3 Merc 230      22.8     4 141.     95  3.92  3.15  22.9     1     0     4     2}
-\CommentTok{#> 4 Fiat 128      32.4     4  78.7    66  4.08  2.2   19.5     1     1     4     1}
-\CommentTok{#> 5 Honda Civic   30.4     4  75.7    52  4.93  1.62  18.5     1     1     4     2}
-\CommentTok{#> 6 Toyota Coro~  33.9     4  71.1    65  4.22  1.84  19.9     1     1     4     1}
-\CommentTok{#> # ... with 2 more rows}
-\CommentTok{#> }
-\CommentTok{#> }
-\CommentTok{#> $`5`}
-\CommentTok{#> $`5`$`4`}
-\CommentTok{#> # A tibble: 2 x 12}
-\CommentTok{#>   car            mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb}
-\CommentTok{#>   <chr>        <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>}
-\CommentTok{#> 1 Porsche 914~  26       4 120.     91  4.43  2.14  16.7     0     1     5     2}
-\CommentTok{#> 2 Lotus Europa  30.4     4  95.1   113  3.77  1.51  16.9     1     1     5     2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4058,7 +4109,7 @@ The example below shows the latter, with the \texttt{data} data frame from earli
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# use patchwork on list}
-\NormalTok{patchwork}\OperatorTok{::}\KeywordTok{wrap_plots}\NormalTok{(nested_data}\OperatorTok{$}\NormalTok{plot)}
+\NormalTok{patchwork}\OperatorTok{::}\KeywordTok{wrap_plots}\NormalTok{(nested_data}\OperatorTok{$}\NormalTok{plot[}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
