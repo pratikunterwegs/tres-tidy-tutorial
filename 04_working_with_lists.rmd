@@ -20,7 +20,7 @@ It may become necessary to indicate the groups of a tibble in a somewhat more ex
 
 *NB:* Nesting data is done using `tidyr::nest`, which is different from the similarly named `tidyr::nesting`.
 
-The example below shows how `mtcars` can be converted into a nested tibble.
+The example below shows how _Phylacine_ data can be converted into a nested tibble.
 
 ```{r}
 # get phylacine data
@@ -279,11 +279,10 @@ Such pipelines must either be thought through carefully in advance, or checked f
 
 In the pipeline:
 
-1. mtcars is converted to a tibble (using `tibble::as_tibble`),
-2. The tibble becomes a nested dataframe by cylinders (using `tidyr::nest`),
-3. If there are enough data points (> 100), a linear model of mass ~ plant diet is fit (using `purrr::map_if`, and `stats::lm`),
-4. The model coefficients are extracted if the model was fit (using `purrr::map` & `dplyr::case_when`),
-5. The model coefficients are converted to data for plotting (using `purrr::map`, `tibble::tibble`, & `tidyr::pivot_wider`),
+1. The tibble becomes a nested dataframe by order (using `tidyr::nest`),
+2. If there are enough data points (> 100), a linear model of mass ~ plant diet is fit (using `purrr::map_if`, and `stats::lm`),
+3. The model coefficients are extracted if the model was fit (using `purrr::map` & `dplyr::case_when`),
+4. The model coefficients are converted to data for plotting (using `purrr::map`, `tibble::tibble`, & `tidyr::pivot_wider`),
 5. The raw data is plotted along with the model fit, taking the title from the nested data frame (using `purrr::pmap` & `ggplot2::ggplot`).
 
 ```{r message=FALSE, warning=FALSE}
