@@ -23,19 +23,29 @@ It may become necessary to indicate the groups of a tibble in a somewhat more ex
 The example below shows how `mtcars` can be converted into a nested tibble.
 
 ```{r}
-# nest mtcars into a list of dataframes based on number of cylinders
-nested_cars = as_tibble(mtcars, 
-                        rownames = "car_name") %>% 
-  group_by(cyl) %>% 
-  nest()
+# get phylacine data
+data = read_csv("data/phylacine_traits.csv")
+data = data %>% 
+  `colnames<-`(str_to_lower(colnames(.))) %>% 
+  `colnames<-`(str_remove(colnames(.), "(.1.2)")) %>% 
+  `colnames<-`(str_replace_all(colnames(.), "\\.", "_"))
 
-nested_cars
-
-# get column class
-sapply(nested_cars, class)
 ```
 
-`mtcars` is now a nested data frame. The class of each of its columns is respectively, a numeric (number of cylinders) and a list (the data of all cars with as many cylinders as in the corresponding row).
+
+```{r}
+# nest phylacine by order
+nested_data = data %>% 
+  group_by(order) %>% 
+  nest()
+
+nested_data
+
+# get column class
+sapply(nested_data, class)
+```
+
+The data is now a nested data frame. The class of each of its columns is respectively, a character (order name) and a list (the data of all mammals in the corresponding order).
 
 While `nest` can be used without first grouping the tibble, it's just much easier to group first.
 
@@ -45,22 +55,15 @@ A nested tibble can be converted back into the original, or into a processed for
 
 ```{r}
 # use unnest to recover the original data frame
-unnest(nested_cars, cols = "data")
+unnest(nested_data, cols = "data") %>% 
+  head()
 
 # unnesting preserves groups
-groups(unnest(nested_cars, cols = "data"))
+groups(unnest(nested_data, cols = "data"))
 ```
 
 The `unnest_longer` and `unnest_wider` variants of `unnest` are maturing functions, that is, not in their final form. They allow interesting variations on unnesting --- these are shown here but advised against.
-
 Unnest the data first, and then convert it to the form needed.
-
-```{r eval=FALSE}
-unnest_longer(nested_cars, col = "data") %>% 
-  head()
-
-unnest_wider(nested_cars, col = "data")
-```
 
 ### Working with list columns
 
@@ -70,12 +73,12 @@ Two examples are shown below when getting the class and number of rows of the ne
 
 ```{r}
 # how many rows in each nested tibble?
-for (i in seq_along(nested_cars$data)) {
-  print(nrow(nested_cars$data[[i]]))
+for (i in seq_along(nested_data$data[1:10])) {
+  print(nrow(nested_data$data[[i]]))
 }
 
 # what is the class of each element?
-lapply(X = nested_cars$data, FUN = class)
+lapply(X = nested_data$data[1:3], FUN = class)
 ```
 
 ### Functionals {-}
@@ -84,10 +87,11 @@ The second example uses `lapply`, and this is a _functional_. _Functionals_ are 
 
 ## Iteration with `map`
 
-The `tidyverse` replaces traditional loop-based iteration with _functionals_ from the `purrr` package. A good reason to use `purrr` functionals instead of base `R` functionals is their consistent and clear naming, which always indicates how they should be used. 
-This is explained in the examples below.
+The `tidyverse` replaces traditional loop-based iteration with _functionals_ from the `purrr` package. 
 
-How `map` is different from `for` and `lapply` are best explained in the **[Advanced R Book](https://adv-r.hadley.nz/functionals.html)**.
+#### Why use `purrr` {-}
+
+A good reason to use `purrr` functionals instead of base `R` functionals is their consistent and clear naming, which always indicates how they should be used. This is explained in the examples below. How `map` is different from `for` and `lapply` are best explained in the **[Advanced R Book](https://adv-r.hadley.nz/functionals.html)**.
 
 ### Basic use of `map`
 
@@ -95,7 +99,8 @@ How `map` is different from `for` and `lapply` are best explained in the **[Adva
 
 ```{r}
 # get the number of rows in data
-map(.x = nested_cars$data, .f = nrow)
+map(.x = nested_data$data, .f = nrow) %>% 
+  head()
 ```
 
 `map` works on any list-like object, which includes vectors, and always returns a list. `map` takes two arguments, the object on which to operate, and the function to apply to each element.
@@ -112,12 +117,20 @@ Though `map` always returns a list, it has variants named `map_*` where the suff
 `map_chr`, `map_dbl`, `map_int`, and `map_lgl` return character, double (numeric), integer, and logical vectors.
 
 ```{r}
-# use map_dbl to get a vector of square roots
-some_numbers = 1:10
-map_dbl(some_numbers, sqrt)
+# use map_dbl to get the mean mass in each order
+map_dbl(nested_data$data, function(df){
+  mean(df$mass_g)
+})
 
 # map_chr will convert the output to a character
-map_chr(some_numbers, sqrt)
+# here we get the most common IUCN status of each order
+map_chr(nested_data$data, function(df){
+  
+  count(df, iucn_status) %>% 
+    arrange(-n) %>% 
+    summarise(common_status = first(iucn_status)) %>% 
+    pull(common_status)
+})
 
 # map_lgl returns TRUE/FALSE values
 some_numbers = c(NA, 1:3, NA, NaN, Inf, -Inf)
@@ -129,11 +142,8 @@ map_lgl(some_numbers, is.na)
 `map_df` returns data frames, and by default binds dataframes by rows, while `map_dfr` does this explicitly, and `map_dfc` does returns a dataframe bound by column.
 
 ```{r}
-# split mtcars into 3 dataframes, one per cylinder number
-some_list = split(mtcars, mtcars$cyl)
-
 # get the first two rows of each dataframe
-map_df(some_list, head, n = 2)
+map_df(nested_data$data[1:3], head, n = 2)
 ```
 
 `map` accepts arguments to the function being mapped, such as in the example above, where `head()` accepts the argument `n = 2`.
@@ -142,16 +152,11 @@ map_df(some_list, head, n = 2)
 
 ```{r}
 # the same as above but with a pipe
-some_list %>% 
+nested_data$data[1:5] %>% 
   map_dfr(head, n = 2)
 ```
 
 `map_dfc` binds the resulting 3 data frames of two rows each by column, and automatically repairs the column names, adding a suffix to each duplicate.
-
-```{r}
-some_list %>% 
-  map_dfc(head, n = 2)
-```
 
 ### Working with list columns using `map`
 
@@ -161,21 +166,24 @@ In each of these cases, the vectors added are generated using `purrr` functions.
 
 ```{r}
 # get the number of rows per dataframe, the mean mileage, and the first car
-nested_cars = nested_cars %>%
+nested_data = nested_data %>%
   mutate(
     # use the int return to get the number of rows
     n_rows = map_int(data, nrow),
     
     # double return for mean mileage
-    mean_mpg = map_dbl(data, function(df) {mean(df$mpg)}),
+    mean_mass = map_dbl(data, function(df) {mean(df$mass_g)}),
     
-    # character return to get first car
-    first_car = map_chr(data, function(df) {first(df$car_name)}
+    # character return to get the heaviest member
+    first_animal = map_chr(data, function(df) {
+      arrange(df, -mass_g) %>% 
+        .$binomial %>% 
+        first()}
     )
   )
 
 # examine the output
-nested_cars
+nested_data
 ```
 
 ### Selective mapping using `map` variants
@@ -185,28 +193,28 @@ nested_cars
 In this example, the nested tibble is given a new column using `dplyr::mutate`, where the data to be added is a mixed list.
 
 ```{r}
-# split mtcars by cylinder number and run an lm only if there are more than 10 rows
-data = nest(mtcars, data = -cyl)
+# split data by order number and run an lm only if there are more than 100 rows
+nested_data = nest(data, data = -order)
 
-data = mutate(data,
+nested_data = mutate(nested_data,
               model = map_if(.x = data,
                              
                              # this is the predicate
                              # which elements should be operated on?
                              .p = function(x){
-                               nrow(x) > 10
+                               nrow(x) > 100
                              },
                              
                              # this is the function to use
                              # if the predicate is satisfied
                              .f = function(x){
-                               lm(mpg ~ wt, data = x)
+                               lm(mass_g ~ diet_plant, data = x)
                              }))
 # check the data structure
-data
+nested_data %>% head()
 ```
 
-The first element is a tibble of the corresponding element in `mtcars$cars`, which has not been operated on because it has fewer than 10 rows. The remaining elements are `lm` objects.
+Some elements of the column `model` are tibbles, which have not been operated on because they have fewer than 100 rows (species). The remaining elements are `lm` objects.
 
 ## More `map` variants 
 
@@ -273,29 +281,28 @@ In the pipeline:
 
 1. mtcars is converted to a tibble (using `tibble::as_tibble`),
 2. The tibble becomes a nested dataframe by cylinders (using `tidyr::nest`),
-3. If there are enough data points (> 10), a linear model of mileage ~ car weight is fit (using `purrr::map_if`, and `stats::lm`),
+3. If there are enough data points (> 100), a linear model of mass ~ plant diet is fit (using `purrr::map_if`, and `stats::lm`),
 4. The model coefficients are extracted if the model was fit (using `purrr::map` & `dplyr::case_when`),
 5. The model coefficients are converted to data for plotting (using `purrr::map`, `tibble::tibble`, & `tidyr::pivot_wider`),
 5. The raw data is plotted along with the model fit, taking the title from the nested data frame (using `purrr::pmap` & `ggplot2::ggplot`).
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 nested_data <-
-  mtcars %>%
-  as_tibble(rownames = "car") %>% 
-  tidyr::nest(data = -cyl) %>% 
+  data %>% 
+  tidyr::nest(data = -order) %>% 
   mutate(data,
          model = map_if(.x = data,
                         
                         # this is the predicate
                         # which elements should be operated on?
                         .p = function(x){
-                          nrow(x) > 10
+                          nrow(x) > 100
                         },
                         
                         # this is the function to use
                         # if the predicate is satisfied
                         .f = function(x){
-                          lm(mpg ~ wt, data = x)
+                          lm(mass_g ~ diet_plant, data = x)
                         })) %>% 
   
   mutate(m_coef = map(model,
@@ -314,22 +321,21 @@ nested_data <-
          # work on the two element double vector of coefficients
          m_coef = map(m_coef, function(x){
            tibble(coef = unlist(x),
-                  param = c("intercept", "wt")) %>% 
+                  param = c("intercept", "diet_plant")) %>% 
              pivot_wider(names_from = "param",
                          values_from = "coef")
          }),
          
          # work on the raw data and the coefficients
-         plot = pmap(list(cyl, data, m_coef), function(cyl, x, y){
+         plot = pmap(list(order, data, m_coef), function(ord, x, y){
            
            # pay no attention to the ggplot for now
            ggplot2::ggplot()+
              geom_point(data = x,
-                        aes(wt, mpg))+
-             geom_abline(data = y,
-                         aes(slope = wt,
-                             intercept = intercept))+
-             labs(title = glue::glue('cars with {cyl} cylinders'))
+                        aes(diet_plant, mass_g),
+                        size = 0.1)+
+             scale_y_log10()+
+             labs(title = glue::glue('order: {ord}'))
          })
   )
 ```
@@ -338,16 +344,16 @@ nested_data <-
 
 Lists are often nested, that is, a list element may itself be a list. It is possible to map a function over elements as a specific depth.
 
-In the example, `mtcars` is split by cylinders, and then by gears, creating a two-level list, with the second layer operated on.
+In the example, phylacine is split by order, and then by IUCN status, creating a two-level list, with the second layer operated on.
 
 ```{r}
 # use map to make a 2 level list
-this_list = split(mtcars, mtcars$cyl) %>% 
-  map(function(df){ split(df, df$gear) })
+this_list = split(data, data$order) %>% 
+  map(function(df){ split(df, df$iucn_status) })
 
 # map over the second level to count the number of 
-# cars with N gears in the set of cars with M cylinders
-# display only for cyl = 4
+# species in each order in each IUCN class
+# display only the first element
 map_depth(this_list[1], 2, nrow)
 ```
 
@@ -359,11 +365,11 @@ However, it is often necessary to iterate a function over a list-like object for
 `walk` is the function for this task. It has only the variants `walk2`, `iwalk`, and `pwalk`, whose logic is similar to `map2`, `imap`, and `pmap`. In the example, the function applied to each list element is intended to print a message.
 
 ```{r}
-this_list = split(mtcars, mtcars$cyl)
+this_list = split(data, data$order)
 
 iwalk(this_list,
       function(df, .y){
-        print(glue::glue('{nrow(df)} cars with {.y} cylinders'))
+        print(glue::glue('{nrow(df)} species in order {.y}'))
       })
 ```
 
@@ -493,15 +499,17 @@ this_list
 flatten_chr(this_list)
 ```
 
-`transpose` shifts the index order in multi-level lists. This is seen in the example, where the `gear` goes from being the index of the second level to the index of the first.
+`transpose` shifts the index order in multi-level lists. This is seen in the example, where the `iucn_status` goes from being the index of the second level to the index of the first.
 
 ```{r}
-this_list = split(mtcars, mtcars$cyl) %>% 
-  map(function(df) split(df, df$gear))
+this_list = split(data, data$order) %>% 
+  map(function(df) {split(df, df$iucn_status)})
+```
 
-# from a list of lists where cars are divided by cylinders and then
-# gears, this is now a list of lists where cars are divided by
-# gears and then cylinders
+```{r eval=FALSE}
+# from a list of lists where species are divided by order and then
+# iucn_status, this is now a list of lists where species are 
+# divided by status and then order
 transpose(this_list[1])
 ```
 
@@ -512,6 +520,6 @@ The example below shows the latter, with the `data` data frame from earlier.
 
 ```{r message=FALSE, warning=FALSE}
 # use patchwork on list
-patchwork::wrap_plots(nested_data$plot)
+patchwork::wrap_plots(nested_data$plot[1:5])
 ```
 
