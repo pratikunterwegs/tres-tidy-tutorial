@@ -19,7 +19,7 @@ There are many ways of making graphics in base R. For example, `plot` is used fo
 
 The grammar of graphics is a system of rules on how to structure plots such that almost any graph can be made through combinations of a limited set of simpler elements, just as you can make any sentence by combining together letters from an alphabet (hence the term "grammar"). `ggplot2` is the implementation of this philosophy in R, and it is this modularity that underlies its flexibility. `ggplot2` comes with a limited set of elements, or *layers*, that you can pick and combine into an impressive variety of graphics, all based on the same syntax. But what are those elements?
 
-Here is the backbone of a ggplot statement (I will from now use "ggplot" to refer to an object of class `ggplot`, the output of the `ggplot` function and the object that contains our graphic), taken from the book R for Data Science:
+Here is the backbone of a ggplot statement (I will from now on use "ggplot" to refer to an object of class `ggplot`, the output of the `ggplot` function and the object that contains our graphic), taken from the book [R for Data Science](https://r4ds.had.co.nz/):
 
 ```
 ggplot(data = <DATA>) + 
@@ -138,7 +138,7 @@ ggplot(data2) +
 
 does the job (note that we replaced `fill` with `color` because our points do not have a surface to fill).
 
-Note that default `geom`-`stat` combinations are usually well thought of (density plots are a good example). Therefore, it is offten not necessary to play with stats. It may matter in some specific cases, e.g. when using `geom_bar`, but we do not cover that here (you can check out the dedicated chapter in R for Data Science for an example).
+Note that default `geom`-`stat` combinations are usually well thought of (density plots are a good example). Therefore, it is often not necessary to play with stats. It may matter in some specific cases, e.g. when using `geom_bar`, but we do not cover that here (you can check out the [dedicated chapter](https://r4ds.had.co.nz/data-visualisation.html#statistical-transformations) in R for Data Science for an example).
 
 ### Position
 
@@ -163,7 +163,7 @@ ggplot(data2) +
   geom_bar(aes(x = strain, fill = assay), position = "dodge")
 ```
 
-Those are only two examples of what can be done. Just remember that `position` exists and look into the documentation of your geom of interest to see what position adjustments are available!
+Those are only two examples of what can be done. Just remember that `position` exists and look into the examples in the documentation of your geom of interest to see what position adjustments are available!
 
 ### Other geoms
 
@@ -205,7 +205,7 @@ p + aes(color = assay)
 
 ### Plot-wide aesthetics and multiple geoms
 
-In the last example, by adding new aesthetics mapping to the ggplot using the `+` operator, we did not add these aesthetics *specifically* to the `geom_point` layer, but to all the geoms present in the plot. Similarly, one can pass aesthetic mappings to the `ggplot` command directly, not necessarilty with the `geom` statement. This saves some typing when geoms taking the same aesthetics are used, e.g. `geom_violin` and `geom_jitter`:
+In the last example, by adding new aesthetics mapping to the ggplot using the `+` operator, we did not add these aesthetics *specifically* to the `geom_point` layer, but to all the geoms present in the plot. Similarly, one can pass aesthetic mappings to the `ggplot` command directly, not necessarily with the `geom` statement. This saves some typing when geoms taking the same aesthetics are used, e.g. `geom_violin` and `geom_jitter`:
 
 ```{r}
 ggplot(data2, aes(x = factor(conc), y = ratio)) +
@@ -607,7 +607,7 @@ newdata %>%
 
 `ggplot2` is undoubtedly one of the largest chunks of the tidyverse. Here we tried to provide a global understanding of how it works, but we could not dig into all possible functions it has (this would take us days). Hopefully now you are armed with the necessary knowledge to be able to find the missing pieces you need. 
 
-Some things, however, are missing from `ggplot2`. Fortunetaly, there are litterally tons of extensions building on `ggplot2` that respect the same grammar. Some of them implement new geoms (e.g. such as `ggridges` for ridge-density plots, `ggradar` for radial plots, or `gghalves` for mixes of geoms), others combine plots (examples cited above), allow more complex themes (e.g. `ggnewscale` for multiple scales of the same type to coexist, or `ggdark` for a dark background), deal with complicated objects that are not trivial to fit in data frames (e.g. `ggtree` for tree-like objects or `ggraph` for networks), or provide shortcuts to quickly produce publication-ready figures for common plot layouts and their corresponding statistical analyses (e.g. `ggpubr` or `ggrapid`). There are even packages for animated graphics (`gganimate`), interactive plot building (`esquisse`) or 3D and surface plotting (`rayshader`). See the links below!
+Some things, however, are missing from `ggplot2`. Fortunately, there are literally tons of extensions building on `ggplot2` that respect the same grammar. Some of them implement new geoms (e.g. such as `ggridges` for ridge-density plots, `ggradar` for radial plots, or `gghalves` for mixes of geoms), others combine plots (examples cited above), allow more complex themes (e.g. `ggnewscale` for multiple scales of the same type to coexist, or `ggdark` for a dark background), deal with complicated objects that are not trivial to fit in data frames (e.g. `ggtree` for tree-like objects or `ggraph` for networks), or provide shortcuts to quickly produce publication-ready figures for common plot layouts and their corresponding statistical analyses (e.g. `ggpubr` or `ggrapid`). There are even packages for animated graphics (`gganimate`), interactive plot building (`esquisse`) or 3D and surface plotting (`rayshader`). See the links below!
 
 ## References
 
