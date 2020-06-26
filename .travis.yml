@@ -5,6 +5,8 @@ cache: packages
 
 r_packages:
   - tidyverse
+  - bookdown
+  - here
 
 install:
   - echo "Nothing to do here"
