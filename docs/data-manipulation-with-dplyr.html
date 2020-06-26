@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Section 3 Data manipulation with dplyr | TRES Tidyverse Tutorial</title>
+  <meta name="description" content="Section 3 Data manipulation with dplyr | TRES Tidyverse Tutorial" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Section 3 Data manipulation with dplyr | TRES Tidyverse Tutorial" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Section 3 Data manipulation with dplyr | TRES Tidyverse Tutorial" />
+  <meta name="github-repo" content="pratikunterwegs/tres-tidy-tutorial" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Section 3 Data manipulation with dplyr | TRES Tidyverse Tutorial" />
+  
+  <meta name="twitter:description" content="Section 3 Data manipulation with dplyr | TRES Tidyverse Tutorial" />
+  
+
+<meta name="author" content="Raphael, Pratik and Theo" />
+
+
+<meta name="date" content="2020-06-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="reshaping-data-tables-in-the-tidyverse-and-other-things.html"/>
+<link rel="next" href="working-with-lists-and-iteration.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Outline</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about"><i class="fa fa-check"></i>About</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#schedule"><i class="fa fa-check"></i>Schedule</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#possible-extras"><i class="fa fa-check"></i>Possible extras</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#join"><i class="fa fa-check"></i>Join</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html"><i class="fa fa-check"></i><b>1</b> Reading files and string manipulation</a><ul>
+<li class="chapter" data-level="1.1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#data-import-and-export-with-readr"><i class="fa fa-check"></i><b>1.1</b> Data import and export with <code>readr</code></a><ul>
+<li class="chapter" data-level="1.1.1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#reading-data"><i class="fa fa-check"></i><b>1.1.1</b> Reading data</a></li>
+<li class="chapter" data-level="1.1.2" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#writing-data"><i class="fa fa-check"></i><b>1.1.2</b> Writing data</a></li>
+<li class="chapter" data-level="1.1.3" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#reading-and-writing-lines"><i class="fa fa-check"></i><b>1.1.3</b> Reading and writing lines</a></li>
+<li class="chapter" data-level="" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#excel-files"><i class="fa fa-check"></i>Excel files</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#string-manipulation-with-stringr"><i class="fa fa-check"></i><b>1.2</b> String manipulation with <code>stringr</code></a><ul>
+<li class="chapter" data-level="1.2.1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#putting-strings-together"><i class="fa fa-check"></i><b>1.2.1</b> Putting strings together</a></li>
+<li class="chapter" data-level="1.2.2" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#detecting-strings"><i class="fa fa-check"></i><b>1.2.2</b> Detecting strings</a></li>
+<li class="chapter" data-level="1.2.3" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#matching-strings"><i class="fa fa-check"></i><b>1.2.3</b> Matching strings</a></li>
+<li class="chapter" data-level="1.2.4" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#simpler-pattern-extraction"><i class="fa fa-check"></i><b>1.2.4</b> Simpler pattern extraction</a></li>
+<li class="chapter" data-level="1.2.5" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#breaking-strings-apart"><i class="fa fa-check"></i><b>1.2.5</b> Breaking strings apart</a></li>
+<li class="chapter" data-level="1.2.6" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#replacing-string-elements"><i class="fa fa-check"></i><b>1.2.6</b> Replacing string elements</a></li>
+<li class="chapter" data-level="1.2.7" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#subsetting-within-strings"><i class="fa fa-check"></i><b>1.2.7</b> Subsetting within strings</a></li>
+<li class="chapter" data-level="1.2.8" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#padding-and-truncating-strings"><i class="fa fa-check"></i><b>1.2.8</b> Padding and truncating strings</a></li>
+<li class="chapter" data-level="1.2.9" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#stringr-aspects-not-covered-here"><i class="fa fa-check"></i><b>1.2.9</b> Stringr aspects not covered here</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#string-interpolation-with-glue"><i class="fa fa-check"></i><b>1.3</b> String interpolation with <code>glue</code></a></li>
+<li class="chapter" data-level="1.4" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#strings-in-ggplot"><i class="fa fa-check"></i><b>1.4</b> Strings in <code>ggplot</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><i class="fa fa-check"></i><b>2</b> Reshaping data tables in the tidyverse, and other things</a><ul>
+<li class="chapter" data-level="2.1" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#the-new-data-frame-tibble"><i class="fa fa-check"></i><b>2.1</b> The new data frame: tibble</a></li>
+<li class="chapter" data-level="2.2" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#the-concept-of-tidy-data"><i class="fa fa-check"></i><b>2.2</b> The concept of tidy data</a></li>
+<li class="chapter" data-level="2.3" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#reshaping-with-tidyr"><i class="fa fa-check"></i><b>2.3</b> Reshaping with <code>tidyr</code></a><ul>
+<li class="chapter" data-level="2.3.1" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#pivoting"><i class="fa fa-check"></i><b>2.3.1</b> Pivoting</a></li>
+<li class="chapter" data-level="2.3.2" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#handling-missing-values"><i class="fa fa-check"></i><b>2.3.2</b> Handling missing values</a></li>
+<li class="chapter" data-level="2.3.3" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#splitting-and-combining-cells"><i class="fa fa-check"></i><b>2.3.3</b> Splitting and combining cells</a></li>
+<li class="chapter" data-level="2.3.4" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#expanding-tables-using-combinations"><i class="fa fa-check"></i><b>2.3.4</b> Expanding tables using combinations</a></li>
+<li class="chapter" data-level="2.3.5" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#nesting"><i class="fa fa-check"></i><b>2.3.5</b> Nesting</a></li>
+<li class="chapter" data-level="2.3.6" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#what-else-can-be-tidied-up"><i class="fa fa-check"></i><b>2.3.6</b> What else can be tidied up?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#extra-factors-and-the-forcats-package"><i class="fa fa-check"></i><b>2.4</b> Extra: factors and the <code>forcats</code> package</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#change-the-order-of-the-levels"><i class="fa fa-check"></i><b>2.4.1</b> Change the order of the levels</a></li>
+<li class="chapter" data-level="2.4.2" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#change-the-levels-themselves"><i class="fa fa-check"></i><b>2.4.2</b> Change the levels themselves</a></li>
+<li class="chapter" data-level="2.4.3" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#dropping-levels"><i class="fa fa-check"></i><b>2.4.3</b> Dropping levels</a></li>
+<li class="chapter" data-level="2.4.4" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#other-things"><i class="fa fa-check"></i><b>2.4.4</b> Other things</a></li>
+<li class="chapter" data-level="2.4.5" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#take-home-message-for-forcats"><i class="fa fa-check"></i><b>2.4.5</b> Take home message for forcats</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#external-resources"><i class="fa fa-check"></i><b>2.5</b> External resources</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html"><i class="fa fa-check"></i><b>3</b> Data manipulation with <code>dplyr</code></a><ul>
+<li class="chapter" data-level="3.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#foreword-on-dplyr"><i class="fa fa-check"></i><b>3.1.1</b> Foreword on <code>dplyr</code></a></li>
+<li class="chapter" data-level="3.1.2" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#example-data"><i class="fa fa-check"></i><b>3.1.2</b> Example data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#working-with-existing-variables"><i class="fa fa-check"></i><b>3.2</b> Working with existing variables</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#renaming-variables-with-rename"><i class="fa fa-check"></i><b>3.2.1</b> Renaming variables with <code>rename()</code></a></li>
+<li class="chapter" data-level="3.2.2" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#the-pipe-operator"><i class="fa fa-check"></i><b>3.2.2</b> The pipe operator <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="3.2.3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#select-variables-with-select"><i class="fa fa-check"></i><b>3.2.3</b> Select variables with <code>select()</code></a></li>
+<li class="chapter" data-level="3.2.4" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#select-variables-with-helpers"><i class="fa fa-check"></i><b>3.2.4</b> Select variables with helpers</a></li>
+<li class="chapter" data-level="3.2.5" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#rearranging-variable-order-with-relocate"><i class="fa fa-check"></i><b>3.2.5</b> Rearranging variable order with <code>relocate()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#working-with-observations"><i class="fa fa-check"></i><b>3.3</b> Working with observations</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#ordering-rows-by-value---arrange"><i class="fa fa-check"></i><b>3.3.1</b> Ordering rows by value - <code>arrange()</code></a></li>
+<li class="chapter" data-level="3.3.2" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#subset-rows-by-position---slice"><i class="fa fa-check"></i><b>3.3.2</b> Subset rows by position - <code>slice()</code></a></li>
+<li class="chapter" data-level="3.3.3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#subsetting-rows-by-value-with-filter"><i class="fa fa-check"></i><b>3.3.3</b> Subsetting rows by value with <code>filter()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#making-new-variables"><i class="fa fa-check"></i><b>3.4</b> Making new variables</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#create-new-variables-with-mutate"><i class="fa fa-check"></i><b>3.4.1</b> Create new variables with <code>mutate()</code></a></li>
+<li class="chapter" data-level="3.4.2" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#summarise-observations-with-summarise"><i class="fa fa-check"></i><b>3.4.2</b> Summarise observations with <code>summarise()</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#grouping-observations-by-variables"><i class="fa fa-check"></i><b>3.4.3</b> Grouping observations by variables</a></li>
+<li class="chapter" data-level="3.4.4" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#grouped-data-and-other-dplyr-verbs"><i class="fa fa-check"></i><b>3.4.4</b> Grouped data and other <code>dplyr</code> verbs</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#working-with-multiple-tables"><i class="fa fa-check"></i><b>3.5</b> Working with multiple tables</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#binding-tables"><i class="fa fa-check"></i><b>3.5.1</b> Binding tables</a></li>
+<li class="chapter" data-level="3.5.2" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#combining-variables-of-two-tables-with-mutating-joins"><i class="fa fa-check"></i><b>3.5.2</b> Combining variables of two tables with mutating joins</a></li>
+<li class="chapter" data-level="3.5.3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#filtering-matching-observations-between-two-tables-wiht-filtering-joins"><i class="fa fa-check"></i><b>3.5.3</b> Filtering matching observations between two tables wiht filtering joins</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html"><i class="fa fa-check"></i><b>4</b> Working with lists and iteration</a><ul>
+<li class="chapter" data-level="4.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#list-columns-with-tidyr"><i class="fa fa-check"></i><b>4.1</b> List columns with <code>tidyr</code></a><ul>
+<li class="chapter" data-level="4.1.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#nesting-data"><i class="fa fa-check"></i><b>4.1.1</b> Nesting data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#unnesting-data"><i class="fa fa-check"></i><b>4.1.2</b> Unnesting data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#working-with-list-columns"><i class="fa fa-check"></i><b>4.1.3</b> Working with list columns</a></li>
+<li class="chapter" data-level="" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#functionals"><i class="fa fa-check"></i>Functionals</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#iteration-with-map"><i class="fa fa-check"></i><b>4.2</b> Iteration with <code>map</code></a><ul>
+<li class="chapter" data-level="4.2.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#basic-use-of-map"><i class="fa fa-check"></i><b>4.2.1</b> Basic use of <code>map</code></a></li>
+<li class="chapter" data-level="4.2.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-vectors"><i class="fa fa-check"></i><b>4.2.2</b> <code>map</code> variants returning vectors</a></li>
+<li class="chapter" data-level="4.2.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-data-frames"><i class="fa fa-check"></i><b>4.2.3</b> <code>map</code> variants returning data frames</a></li>
+<li class="chapter" data-level="4.2.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#working-with-list-columns-using-map"><i class="fa fa-check"></i><b>4.2.4</b> Working with list columns using <code>map</code></a></li>
+<li class="chapter" data-level="4.2.5" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#selective-mapping-using-map-variants"><i class="fa fa-check"></i><b>4.2.5</b> Selective mapping using <code>map</code> variants</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#more-map-variants"><i class="fa fa-check"></i><b>4.3</b> More <code>map</code> variants</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#mapping-over-two-inputs-with-map2"><i class="fa fa-check"></i><b>4.3.1</b> Mapping over two inputs with map2</a></li>
+<li class="chapter" data-level="4.3.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#mapping-over-multiple-inputs-with-pmap"><i class="fa fa-check"></i><b>4.3.2</b> Mapping over multiple inputs with pmap</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#combining-map-variants-and-tidyverse-functions"><i class="fa fa-check"></i><b>4.4</b> Combining map variants and tidyverse functions</a></li>
+<li class="chapter" data-level="4.5" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#a-return-to-map-variants"><i class="fa fa-check"></i><b>4.5</b> A return to map variants</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#iteration-without-a-return"><i class="fa fa-check"></i><b>4.5.1</b> Iteration without a return</a></li>
+<li class="chapter" data-level="4.5.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#modify-rather-than-map"><i class="fa fa-check"></i><b>4.5.2</b> Modify rather than map</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#other-functions-for-working-with-lists"><i class="fa fa-check"></i><b>4.6</b> Other functions for working with lists</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#filtering-lists"><i class="fa fa-check"></i><b>4.6.1</b> Filtering lists</a></li>
+<li class="chapter" data-level="4.6.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#summarising-lists"><i class="fa fa-check"></i><b>4.6.2</b> Summarising lists</a></li>
+<li class="chapter" data-level="4.6.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#reduction-and-accumulation"><i class="fa fa-check"></i><b>4.6.3</b> Reduction and accumulation</a></li>
+<li class="chapter" data-level="4.6.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#miscellaneous-operation"><i class="fa fa-check"></i><b>4.6.4</b> Miscellaneous operation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#lists-of-ggplots-with-patchwork"><i class="fa fa-check"></i><b>4.7</b> Lists of <code>ggplots</code> with <code>patchwork</code></a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">TRES Tidyverse Tutorial</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-manipulation-with-dplyr" class="section level1">
+<h1><span class="header-section-number">Section 3</span> Data manipulation with <code>dplyr</code></h1>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1"><span class="co"># load the tidyverse</span></a>
+<a class="sourceLine" id="cb71-2" title="2"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">3.1</span> Introduction</h2>
+<div id="foreword-on-dplyr" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Foreword on <code>dplyr</code></h3>
+<p><code>dplyr</code> is tasked with performing all sorts of transformations on a dataset.</p>
+<p>The structure of <code>dplyr</code> revolves around a set of functions, the so-called
+<strong>verbs</strong>, that share a common syntax and logic, and are meant to work with one
+another in chained operations. Chained operations are performed with the pipe
+operator (<code>%&gt;%</code>), that will be introduced in section 3.2.2.</p>
+<p>The basic syntax is <code>verb(data, variable)</code>, where <code>data</code> is a data frame and
+<code>variable</code> is the name of one or more columns containing a set of values for
+each observation.</p>
+<p>There are 5 main verbs, which names already hint at what they do: <code>rename()</code>,
+<code>select()</code>, <code>filter()</code>, <code>mutate()</code>, and <code>summarise()</code>.
+I’m going to introduce each of them (and a couple more) through the following sections.</p>
+</div>
+<div id="example-data" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> Example data</h3>
+<p>Through this tutorial, we will be using mammal trait data from the <a href="https://megapast2future.github.io/PHYLACINE_1.2/">Phylacine</a> database.
+Let’s have a peek at what it contains.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1">phylacine &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/phylacine_traits.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb72-2" title="2">phylacine</a>
+<a class="sourceLine" id="cb72-3" title="3"><span class="co">#&gt; # A tibble: 5,831 x 24</span></a>
+<a class="sourceLine" id="cb72-4" title="4"><span class="co">#&gt;   Binomial.1.2 Order.1.2 Family.1.2 Genus.1.2 Species.1.2 Terrestrial Marine</span></a>
+<a class="sourceLine" id="cb72-5" title="5"><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb72-6" title="6"><span class="co">#&gt; 1 Abditomys_l… Rodentia  Muridae    Abditomys latidens              1      0</span></a>
+<a class="sourceLine" id="cb72-7" title="7"><span class="co">#&gt; 2 Abeomelomys… Rodentia  Muridae    Abeomelo… sevia                 1      0</span></a>
+<a class="sourceLine" id="cb72-8" title="8"><span class="co">#&gt; 3 Abrawayaomy… Rodentia  Cricetidae Abrawaya… ruschii               1      0</span></a>
+<a class="sourceLine" id="cb72-9" title="9"><span class="co">#&gt; 4 Abrocoma_be… Rodentia  Abrocomid… Abrocoma  bennettii             1      0</span></a>
+<a class="sourceLine" id="cb72-10" title="10"><span class="co">#&gt; 5 Abrocoma_bo… Rodentia  Abrocomid… Abrocoma  boliviensis           1      0</span></a>
+<a class="sourceLine" id="cb72-11" title="11"><span class="co">#&gt; 6 Abrocoma_bu… Rodentia  Abrocomid… Abrocoma  budini                1      0</span></a>
+<a class="sourceLine" id="cb72-12" title="12"><span class="co">#&gt; # … with 5,825 more rows, and 17 more variables: Freshwater &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb72-13" title="13"><span class="co">#&gt; #   Aerial &lt;dbl&gt;, Life.Habit.Method &lt;chr&gt;, Life.Habit.Source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb72-14" title="14"><span class="co">#&gt; #   Mass.g &lt;dbl&gt;, Mass.Method &lt;chr&gt;, Mass.Source &lt;chr&gt;, Mass.Comparison &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb72-15" title="15"><span class="co">#&gt; #   Mass.Comparison.Source &lt;chr&gt;, Island.Endemicity &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb72-16" title="16"><span class="co">#&gt; #   IUCN.Status.1.2 &lt;chr&gt;, Added.IUCN.Status.1.2 &lt;chr&gt;, Diet.Plant &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb72-17" title="17"><span class="co">#&gt; #   Diet.Vertebrate &lt;dbl&gt;, Diet.Invertebrate &lt;dbl&gt;, Diet.Method &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb72-18" title="18"><span class="co">#&gt; #   Diet.Source &lt;chr&gt;</span></a></code></pre></div>
+<p><code>readr</code> automatically loads the data in a <code>tibble</code>, as we have seen in chapter
+1 and 2. Calling the tibble gives a nice preview of what it contains. We have
+data for 5,831 mammal species, and the variables contain information on taxonomy,
+(broad) habitat, mass, IUCN status, and diet.</p>
+<p>If you remember Section 1.2 on tidy data, you may see that this data isn’t
+exactly tidy. In fact, some columns are in wide (and messy) format, like the
+“habitat” (terrestrial, marine, etc.) and diet columns.</p>
+<p><code>dplyr</code> actually does not require your data to be strictly tidy. If you feel that your
+data satisfies the definition “one observation per row, one variable per column”,
+that’s probably good enough.</p>
+<p>I use a <code>tibble</code> here, but <code>dplyr</code> works equally well on base data frames. In
+fact, <code>dplyr</code> is built for <code>data.frame</code> objects, and tibbles are data frames.
+Therefore, tibbles are mortal.</p>
+</div>
+</div>
+<div id="working-with-existing-variables" class="section level2">
+<h2><span class="header-section-number">3.2</span> Working with existing variables</h2>
+<div id="renaming-variables-with-rename" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Renaming variables with <code>rename()</code></h3>
+<p>The variable names in the phylacine dataset are descriptive, but quite unpractical. Typing
+<code>Binomial.1.2.</code> is cumbersome and subject to typos (in fact, I just made one).
+<code>binomial</code> would be much simpler to use.</p>
+<p>Changing names is straightforward with <code>rename()</code>.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1"><span class="kw">rename</span>(<span class="dt">.data =</span> phylacine, <span class="st">&quot;binomial&quot;</span> =<span class="st"> </span>Binomial.<span class="fl">1.2</span>)</a>
+<a class="sourceLine" id="cb73-2" title="2"><span class="co">#&gt; # A tibble: 5,831 x 24</span></a>
+<a class="sourceLine" id="cb73-3" title="3"><span class="co">#&gt;   binomial Order.1.2 Family.1.2 Genus.1.2 Species.1.2 Terrestrial Marine</span></a>
+<a class="sourceLine" id="cb73-4" title="4"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb73-5" title="5"><span class="co">#&gt; 1 Abditom… Rodentia  Muridae    Abditomys latidens              1      0</span></a>
+<a class="sourceLine" id="cb73-6" title="6"><span class="co">#&gt; 2 Abeomel… Rodentia  Muridae    Abeomelo… sevia                 1      0</span></a>
+<a class="sourceLine" id="cb73-7" title="7"><span class="co">#&gt; 3 Abraway… Rodentia  Cricetidae Abrawaya… ruschii               1      0</span></a>
+<a class="sourceLine" id="cb73-8" title="8"><span class="co">#&gt; 4 Abrocom… Rodentia  Abrocomid… Abrocoma  bennettii             1      0</span></a>
+<a class="sourceLine" id="cb73-9" title="9"><span class="co">#&gt; 5 Abrocom… Rodentia  Abrocomid… Abrocoma  boliviensis           1      0</span></a>
+<a class="sourceLine" id="cb73-10" title="10"><span class="co">#&gt; 6 Abrocom… Rodentia  Abrocomid… Abrocoma  budini                1      0</span></a>
+<a class="sourceLine" id="cb73-11" title="11"><span class="co">#&gt; # … with 5,825 more rows, and 17 more variables: Freshwater &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb73-12" title="12"><span class="co">#&gt; #   Aerial &lt;dbl&gt;, Life.Habit.Method &lt;chr&gt;, Life.Habit.Source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb73-13" title="13"><span class="co">#&gt; #   Mass.g &lt;dbl&gt;, Mass.Method &lt;chr&gt;, Mass.Source &lt;chr&gt;, Mass.Comparison &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb73-14" title="14"><span class="co">#&gt; #   Mass.Comparison.Source &lt;chr&gt;, Island.Endemicity &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb73-15" title="15"><span class="co">#&gt; #   IUCN.Status.1.2 &lt;chr&gt;, Added.IUCN.Status.1.2 &lt;chr&gt;, Diet.Plant &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb73-16" title="16"><span class="co">#&gt; #   Diet.Vertebrate &lt;dbl&gt;, Diet.Invertebrate &lt;dbl&gt;, Diet.Method &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb73-17" title="17"><span class="co">#&gt; #   Diet.Source &lt;chr&gt;</span></a></code></pre></div>
+<p>The first argument is always <code>.data</code>, the data table you want to apply change to.
+Note how columns are referred to. Once the data table as been passed as an
+argument, there is no need to refer to it directly anymore, <code>dplyr</code> understands
+that you’re dealing with variables inside that data frame. So drop that
+<code>data$var</code>, <code>data[, "var"]</code>, and forget the very existence of <code>attach()</code> /
+<code>detach()</code>.</p>
+<p>You can refer to variables names either with strings or directly as objects,
+whether you’re reading or creating them:</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" title="1"><span class="kw">rename</span>(</a>
+<a class="sourceLine" id="cb74-2" title="2">  phylacine,</a>
+<a class="sourceLine" id="cb74-3" title="3">  <span class="co"># this works</span></a>
+<a class="sourceLine" id="cb74-4" title="4">  <span class="dt">binomial =</span> Binomial.<span class="fl">1.2</span></a>
+<a class="sourceLine" id="cb74-5" title="5">)</a>
+<a class="sourceLine" id="cb74-6" title="6"><span class="kw">rename</span>(</a>
+<a class="sourceLine" id="cb74-7" title="7">  phylacine,</a>
+<a class="sourceLine" id="cb74-8" title="8">  <span class="co"># this works too!</span></a>
+<a class="sourceLine" id="cb74-9" title="9">  <span class="dt">binomial =</span> <span class="st">&quot;Binomial.1.2&quot;</span></a>
+<a class="sourceLine" id="cb74-10" title="10">)</a>
+<a class="sourceLine" id="cb74-11" title="11"><span class="kw">rename</span>(</a>
+<a class="sourceLine" id="cb74-12" title="12">  phylacine,</a>
+<a class="sourceLine" id="cb74-13" title="13">  <span class="co"># guess what</span></a>
+<a class="sourceLine" id="cb74-14" title="14">  <span class="st">&quot;binomial&quot;</span> =<span class="st"> &quot;Binomial.1.2&quot;</span></a>
+<a class="sourceLine" id="cb74-15" title="15">)</a></code></pre></div>
+<p>I have applied similar changes to all variables in the dataset. Here is what the
+new names look like:</p>
+<pre><code>#&gt; # A tibble: 5,831 x 24
+#&gt;   binomial order family genus species terrestrial marine freshwater aerial
+#&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1 Abditom… Rode… Murid… Abdi… latide…           1      0          0      0
+#&gt; 2 Abeomel… Rode… Murid… Abeo… sevia             1      0          0      0
+#&gt; 3 Abraway… Rode… Crice… Abra… ruschii           1      0          0      0
+#&gt; 4 Abrocom… Rode… Abroc… Abro… bennet…           1      0          0      0
+#&gt; 5 Abrocom… Rode… Abroc… Abro… bolivi…           1      0          0      0
+#&gt; 6 Abrocom… Rode… Abroc… Abro… budini            1      0          0      0
+#&gt; # … with 5,825 more rows, and 15 more variables: life_habit_method &lt;chr&gt;,
+#&gt; #   life_habit_source &lt;chr&gt;, mass_g &lt;dbl&gt;, mass_method &lt;chr&gt;,
+#&gt; #   mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;, mass_comparison_source &lt;chr&gt;,
+#&gt; #   island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;, added_iucn_status &lt;chr&gt;,
+#&gt; #   diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;, diet_invertebrate &lt;dbl&gt;,
+#&gt; #   diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</code></pre>
+</div>
+<div id="the-pipe-operator" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> The pipe operator <code>%&gt;%</code></h3>
+<p>If you have already come across pieces of code using the tidyverse, chances are
+that you have seen this odd symbol. While the pipe is not strictly-speaking a
+part of the tidyverse (it comes from its own package, <code>magrittr</code>), it is
+imported along with each package and widely used in conjunction with its
+functions.
+What does it do? Consider the following example with <code>rename()</code>:</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" title="1">phylacine2 &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;data/phylacine_traits.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb76-2" title="2"><span class="co"># regular syntax</span></a>
+<a class="sourceLine" id="cb76-3" title="3"><span class="kw">rename</span>(phylacine2, <span class="st">&quot;binomial&quot;</span> =<span class="st"> &quot;Binomial.1.2&quot;</span>)</a>
+<a class="sourceLine" id="cb76-4" title="4"><span class="co">#&gt; # A tibble: 5,831 x 24</span></a>
+<a class="sourceLine" id="cb76-5" title="5"><span class="co">#&gt;   binomial Order.1.2 Family.1.2 Genus.1.2 Species.1.2 Terrestrial Marine</span></a>
+<a class="sourceLine" id="cb76-6" title="6"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb76-7" title="7"><span class="co">#&gt; 1 Abditom… Rodentia  Muridae    Abditomys latidens              1      0</span></a>
+<a class="sourceLine" id="cb76-8" title="8"><span class="co">#&gt; 2 Abeomel… Rodentia  Muridae    Abeomelo… sevia                 1      0</span></a>
+<a class="sourceLine" id="cb76-9" title="9"><span class="co">#&gt; 3 Abraway… Rodentia  Cricetidae Abrawaya… ruschii               1      0</span></a>
+<a class="sourceLine" id="cb76-10" title="10"><span class="co">#&gt; 4 Abrocom… Rodentia  Abrocomid… Abrocoma  bennettii             1      0</span></a>
+<a class="sourceLine" id="cb76-11" title="11"><span class="co">#&gt; 5 Abrocom… Rodentia  Abrocomid… Abrocoma  boliviensis           1      0</span></a>
+<a class="sourceLine" id="cb76-12" title="12"><span class="co">#&gt; 6 Abrocom… Rodentia  Abrocomid… Abrocoma  budini                1      0</span></a>
+<a class="sourceLine" id="cb76-13" title="13"><span class="co">#&gt; # … with 5,825 more rows, and 17 more variables: Freshwater &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb76-14" title="14"><span class="co">#&gt; #   Aerial &lt;dbl&gt;, Life.Habit.Method &lt;chr&gt;, Life.Habit.Source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb76-15" title="15"><span class="co">#&gt; #   Mass.g &lt;dbl&gt;, Mass.Method &lt;chr&gt;, Mass.Source &lt;chr&gt;, Mass.Comparison &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb76-16" title="16"><span class="co">#&gt; #   Mass.Comparison.Source &lt;chr&gt;, Island.Endemicity &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb76-17" title="17"><span class="co">#&gt; #   IUCN.Status.1.2 &lt;chr&gt;, Added.IUCN.Status.1.2 &lt;chr&gt;, Diet.Plant &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb76-18" title="18"><span class="co">#&gt; #   Diet.Vertebrate &lt;dbl&gt;, Diet.Invertebrate &lt;dbl&gt;, Diet.Method &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb76-19" title="19"><span class="co">#&gt; #   Diet.Source &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb76-20" title="20"><span class="co"># alternative syntax with the pipe operator</span></a>
+<a class="sourceLine" id="cb76-21" title="21">phylacine2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="st">&quot;binomial&quot;</span> =<span class="st"> &quot;Binomial.1.2&quot;</span>)</a>
+<a class="sourceLine" id="cb76-22" title="22"><span class="co">#&gt; # A tibble: 5,831 x 24</span></a>
+<a class="sourceLine" id="cb76-23" title="23"><span class="co">#&gt;   binomial Order.1.2 Family.1.2 Genus.1.2 Species.1.2 Terrestrial Marine</span></a>
+<a class="sourceLine" id="cb76-24" title="24"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb76-25" title="25"><span class="co">#&gt; 1 Abditom… Rodentia  Muridae    Abditomys latidens              1      0</span></a>
+<a class="sourceLine" id="cb76-26" title="26"><span class="co">#&gt; 2 Abeomel… Rodentia  Muridae    Abeomelo… sevia                 1      0</span></a>
+<a class="sourceLine" id="cb76-27" title="27"><span class="co">#&gt; 3 Abraway… Rodentia  Cricetidae Abrawaya… ruschii               1      0</span></a>
+<a class="sourceLine" id="cb76-28" title="28"><span class="co">#&gt; 4 Abrocom… Rodentia  Abrocomid… Abrocoma  bennettii             1      0</span></a>
+<a class="sourceLine" id="cb76-29" title="29"><span class="co">#&gt; 5 Abrocom… Rodentia  Abrocomid… Abrocoma  boliviensis           1      0</span></a>
+<a class="sourceLine" id="cb76-30" title="30"><span class="co">#&gt; 6 Abrocom… Rodentia  Abrocomid… Abrocoma  budini                1      0</span></a>
+<a class="sourceLine" id="cb76-31" title="31"><span class="co">#&gt; # … with 5,825 more rows, and 17 more variables: Freshwater &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb76-32" title="32"><span class="co">#&gt; #   Aerial &lt;dbl&gt;, Life.Habit.Method &lt;chr&gt;, Life.Habit.Source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb76-33" title="33"><span class="co">#&gt; #   Mass.g &lt;dbl&gt;, Mass.Method &lt;chr&gt;, Mass.Source &lt;chr&gt;, Mass.Comparison &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb76-34" title="34"><span class="co">#&gt; #   Mass.Comparison.Source &lt;chr&gt;, Island.Endemicity &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb76-35" title="35"><span class="co">#&gt; #   IUCN.Status.1.2 &lt;chr&gt;, Added.IUCN.Status.1.2 &lt;chr&gt;, Diet.Plant &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb76-36" title="36"><span class="co">#&gt; #   Diet.Vertebrate &lt;dbl&gt;, Diet.Invertebrate &lt;dbl&gt;, Diet.Method &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb76-37" title="37"><span class="co">#&gt; #   Diet.Source &lt;chr&gt;</span></a></code></pre></div>
+<p>Got it? The pipe takes the object on its left-side and silently feeds it to the
+<em>first</em> argument of the function on its right-side. It could be read as “take x,
+then do…”.
+The reason for using the pipe is because it makes code syntax closer to
+the syntax of a sentence, and therefore, easier and faster for your brain to
+process (and write!) the code. In particular, the pipe enables easy chains of
+operations, where you apply something to an object, then apply something else to
+the outcome, and so on…
+Through the later sections, you will see some examples of chained operations
+with <code>dplyr</code> functions, but
+for that I first need to introduce a couple more verbs.</p>
+<p>Using the pipe can be quite unsettling at first, because you are not used to
+think in this way. But if you push a bit for it, I promise it will make things
+a lot easier (and it’s quite addictive!). To avoid typing the tedious symbols,
+<code>magrittr</code> installs a shortcut for you in RStudio. Use <code>Ctrl + Shift + M</code> on
+Windows, and <code>Cmd + Shift + M</code> on MacOS.</p>
+<p>Finally I should emphasize that the use of the pipe isn’t limited to the
+tidyverse, but extends to almost all R functions. Remember that by default
+the piped value is always matched to the first argument of the following
+function</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" title="1"><span class="dv">5</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rep</span>(<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb77-2" title="2"><span class="co">#&gt; [1] 5 5 5</span></a>
+<a class="sourceLine" id="cb77-3" title="3"><span class="st">&quot;meow&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">cat</span>()</a>
+<a class="sourceLine" id="cb77-4" title="4"><span class="co">#&gt; meow</span></a></code></pre></div>
+<p>If you need to pass the left-hand side to an argument other than the first,
+you can use the dot place-holder <code>.</code>.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" title="1"><span class="st">&quot;meow&quot;</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">cat</span>(<span class="st">&quot;cats&quot;</span>, <span class="st">&quot;go&quot;</span>)</a>
+<a class="sourceLine" id="cb78-2" title="2"><span class="co">#&gt; meow cats go</span></a></code></pre></div>
+<p>Because of its syntax, most base R operators are not compatible with the pipe
+(but this is very rarely needed).
+If needed, <code>magrittr</code> introduces alternative functions for operators.</p>
+<p>Subsetting operators can be piped, with the dot place-holder.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" title="1"><span class="co"># 5 %&gt;% * 3 # no, won&#39;t work</span></a>
+<a class="sourceLine" id="cb79-2" title="2"><span class="co"># 5 %&gt;% .* 3 # neither</span></a>
+<a class="sourceLine" id="cb79-3" title="3"><span class="dv">5</span> <span class="op">%&gt;%</span><span class="st"> </span>magrittr<span class="op">::</span><span class="kw">multiply_by</span>(<span class="dv">3</span>) <span class="co"># yes</span></a>
+<a class="sourceLine" id="cb79-4" title="4"><span class="co">#&gt; [1] 15</span></a>
+<a class="sourceLine" id="cb79-5" title="5"></a>
+<a class="sourceLine" id="cb79-6" title="6"><span class="co"># subsetting</span></a>
+<a class="sourceLine" id="cb79-7" title="7"><span class="kw">list</span>(<span class="st">&quot;monkey see&quot;</span>, <span class="st">&quot;monkey_do&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>.[[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb79-8" title="8"><span class="co">#&gt; [1] &quot;monkey_do&quot;</span></a>
+<a class="sourceLine" id="cb79-9" title="9">phylacine <span class="op">%&gt;%</span><span class="st"> </span>.<span class="op">$</span>binomial <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</a>
+<a class="sourceLine" id="cb79-10" title="10"><span class="co">#&gt; [1] &quot;Abditomys_latidens&quot;   &quot;Abeomelomys_sevia&quot;    &quot;Abrawayaomys_ruschii&quot;</span></a>
+<a class="sourceLine" id="cb79-11" title="11"><span class="co">#&gt; [4] &quot;Abrocoma_bennettii&quot;   &quot;Abrocoma_boliviensis&quot; &quot;Abrocoma_budini&quot;</span></a></code></pre></div>
+<p>Because subsetting in this way is particularly hideous, <code>dplyr</code>
+delivers a function to extract values from a single variable. In only works on tables, though.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(binomial) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</a>
+<a class="sourceLine" id="cb80-2" title="2"><span class="co">#&gt; [1] &quot;Abditomys_latidens&quot;   &quot;Abeomelomys_sevia&quot;    &quot;Abrawayaomys_ruschii&quot;</span></a>
+<a class="sourceLine" id="cb80-3" title="3"><span class="co">#&gt; [4] &quot;Abrocoma_bennettii&quot;   &quot;Abrocoma_boliviensis&quot; &quot;Abrocoma_budini&quot;</span></a></code></pre></div>
+</div>
+<div id="select-variables-with-select" class="section level3">
+<h3><span class="header-section-number">3.2.3</span> Select variables with <code>select()</code></h3>
+<p>To extract a set of variables (i.e. columns), use the conveniently-named
+<code>select()</code>. The basic syntax is the same as <code>rename()</code>: pass your data as the
+first argument, then call the variables to select, quoted or not.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1"><span class="co"># Single variable</span></a>
+<a class="sourceLine" id="cb81-2" title="2">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(binomial)</a>
+<a class="sourceLine" id="cb81-3" title="3"><span class="co">#&gt; # A tibble: 5,831 x 1</span></a>
+<a class="sourceLine" id="cb81-4" title="4"><span class="co">#&gt;   binomial            </span></a>
+<a class="sourceLine" id="cb81-5" title="5"><span class="co">#&gt;   &lt;chr&gt;               </span></a>
+<a class="sourceLine" id="cb81-6" title="6"><span class="co">#&gt; 1 Abditomys_latidens  </span></a>
+<a class="sourceLine" id="cb81-7" title="7"><span class="co">#&gt; 2 Abeomelomys_sevia   </span></a>
+<a class="sourceLine" id="cb81-8" title="8"><span class="co">#&gt; 3 Abrawayaomys_ruschii</span></a>
+<a class="sourceLine" id="cb81-9" title="9"><span class="co">#&gt; 4 Abrocoma_bennettii  </span></a>
+<a class="sourceLine" id="cb81-10" title="10"><span class="co">#&gt; 5 Abrocoma_boliviensis</span></a>
+<a class="sourceLine" id="cb81-11" title="11"><span class="co">#&gt; 6 Abrocoma_budini     </span></a>
+<a class="sourceLine" id="cb81-12" title="12"><span class="co">#&gt; # … with 5,825 more rows</span></a>
+<a class="sourceLine" id="cb81-13" title="13"><span class="co"># A set of variables</span></a>
+<a class="sourceLine" id="cb81-14" title="14">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(genus, <span class="st">&quot;species&quot;</span>, mass_g)</a>
+<a class="sourceLine" id="cb81-15" title="15"><span class="co">#&gt; # A tibble: 5,831 x 3</span></a>
+<a class="sourceLine" id="cb81-16" title="16"><span class="co">#&gt;   genus        species     mass_g</span></a>
+<a class="sourceLine" id="cb81-17" title="17"><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;        &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb81-18" title="18"><span class="co">#&gt; 1 Abditomys    latidens      269 </span></a>
+<a class="sourceLine" id="cb81-19" title="19"><span class="co">#&gt; 2 Abeomelomys  sevia          52 </span></a>
+<a class="sourceLine" id="cb81-20" title="20"><span class="co">#&gt; 3 Abrawayaomys ruschii        63 </span></a>
+<a class="sourceLine" id="cb81-21" title="21"><span class="co">#&gt; 4 Abrocoma     bennettii     250 </span></a>
+<a class="sourceLine" id="cb81-22" title="22"><span class="co">#&gt; 5 Abrocoma     boliviensis   158 </span></a>
+<a class="sourceLine" id="cb81-23" title="23"><span class="co">#&gt; 6 Abrocoma     budini        361.</span></a>
+<a class="sourceLine" id="cb81-24" title="24"><span class="co">#&gt; # … with 5,825 more rows</span></a>
+<a class="sourceLine" id="cb81-25" title="25"><span class="co"># A range of contiguous variables</span></a>
+<a class="sourceLine" id="cb81-26" title="26">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(family<span class="op">:</span>terrestrial)</a>
+<a class="sourceLine" id="cb81-27" title="27"><span class="co">#&gt; # A tibble: 5,831 x 4</span></a>
+<a class="sourceLine" id="cb81-28" title="28"><span class="co">#&gt;   family      genus        species     terrestrial</span></a>
+<a class="sourceLine" id="cb81-29" title="29"><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;             &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb81-30" title="30"><span class="co">#&gt; 1 Muridae     Abditomys    latidens              1</span></a>
+<a class="sourceLine" id="cb81-31" title="31"><span class="co">#&gt; 2 Muridae     Abeomelomys  sevia                 1</span></a>
+<a class="sourceLine" id="cb81-32" title="32"><span class="co">#&gt; 3 Cricetidae  Abrawayaomys ruschii               1</span></a>
+<a class="sourceLine" id="cb81-33" title="33"><span class="co">#&gt; 4 Abrocomidae Abrocoma     bennettii             1</span></a>
+<a class="sourceLine" id="cb81-34" title="34"><span class="co">#&gt; 5 Abrocomidae Abrocoma     boliviensis           1</span></a>
+<a class="sourceLine" id="cb81-35" title="35"><span class="co">#&gt; 6 Abrocomidae Abrocoma     budini                1</span></a>
+<a class="sourceLine" id="cb81-36" title="36"><span class="co">#&gt; # … with 5,825 more rows</span></a></code></pre></div>
+<p>You can select by variable numbers. This is not recommended, as prone to
+errors, especially if you change the variable order.</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb82-2" title="2"><span class="co">#&gt; # A tibble: 5,831 x 1</span></a>
+<a class="sourceLine" id="cb82-3" title="3"><span class="co">#&gt;   order   </span></a>
+<a class="sourceLine" id="cb82-4" title="4"><span class="co">#&gt;   &lt;chr&gt;   </span></a>
+<a class="sourceLine" id="cb82-5" title="5"><span class="co">#&gt; 1 Rodentia</span></a>
+<a class="sourceLine" id="cb82-6" title="6"><span class="co">#&gt; 2 Rodentia</span></a>
+<a class="sourceLine" id="cb82-7" title="7"><span class="co">#&gt; 3 Rodentia</span></a>
+<a class="sourceLine" id="cb82-8" title="8"><span class="co">#&gt; 4 Rodentia</span></a>
+<a class="sourceLine" id="cb82-9" title="9"><span class="co">#&gt; 5 Rodentia</span></a>
+<a class="sourceLine" id="cb82-10" title="10"><span class="co">#&gt; 6 Rodentia</span></a>
+<a class="sourceLine" id="cb82-11" title="11"><span class="co">#&gt; # … with 5,825 more rows</span></a></code></pre></div>
+<p><code>select()</code> can also be used to <em>exclude</em> variables:</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>binomial)</a>
+<a class="sourceLine" id="cb83-2" title="2"><span class="co">#&gt; # A tibble: 5,831 x 23</span></a>
+<a class="sourceLine" id="cb83-3" title="3"><span class="co">#&gt;   order family genus species terrestrial marine freshwater aerial</span></a>
+<a class="sourceLine" id="cb83-4" title="4"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb83-5" title="5"><span class="co">#&gt; 1 Rode… Murid… Abdi… latide…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb83-6" title="6"><span class="co">#&gt; 2 Rode… Murid… Abeo… sevia             1      0          0      0</span></a>
+<a class="sourceLine" id="cb83-7" title="7"><span class="co">#&gt; 3 Rode… Crice… Abra… ruschii           1      0          0      0</span></a>
+<a class="sourceLine" id="cb83-8" title="8"><span class="co">#&gt; 4 Rode… Abroc… Abro… bennet…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb83-9" title="9"><span class="co">#&gt; 5 Rode… Abroc… Abro… bolivi…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb83-10" title="10"><span class="co">#&gt; 6 Rode… Abroc… Abro… budini            1      0          0      0</span></a>
+<a class="sourceLine" id="cb83-11" title="11"><span class="co">#&gt; # … with 5,825 more rows, and 15 more variables: life_habit_method &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb83-12" title="12"><span class="co">#&gt; #   life_habit_source &lt;chr&gt;, mass_g &lt;dbl&gt;, mass_method &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb83-13" title="13"><span class="co">#&gt; #   mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;, mass_comparison_source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb83-14" title="14"><span class="co">#&gt; #   island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;, added_iucn_status &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb83-15" title="15"><span class="co">#&gt; #   diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;, diet_invertebrate &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb83-16" title="16"><span class="co">#&gt; #   diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb83-17" title="17">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>(binomial<span class="op">:</span>species))</a>
+<a class="sourceLine" id="cb83-18" title="18"><span class="co">#&gt; # A tibble: 5,831 x 19</span></a>
+<a class="sourceLine" id="cb83-19" title="19"><span class="co">#&gt;   terrestrial marine freshwater aerial life_habit_meth… life_habit_sour… mass_g</span></a>
+<a class="sourceLine" id="cb83-20" title="20"><span class="co">#&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;             &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb83-21" title="21"><span class="co">#&gt; 1           1      0          0      0 Reported         IUCN. 2016. IUC…   269 </span></a>
+<a class="sourceLine" id="cb83-22" title="22"><span class="co">#&gt; 2           1      0          0      0 Reported         IUCN. 2016. IUC…    52 </span></a>
+<a class="sourceLine" id="cb83-23" title="23"><span class="co">#&gt; 3           1      0          0      0 Reported         IUCN. 2016. IUC…    63 </span></a>
+<a class="sourceLine" id="cb83-24" title="24"><span class="co">#&gt; 4           1      0          0      0 Reported         IUCN. 2016. IUC…   250 </span></a>
+<a class="sourceLine" id="cb83-25" title="25"><span class="co">#&gt; 5           1      0          0      0 Reported         IUCN. 2016. IUC…   158 </span></a>
+<a class="sourceLine" id="cb83-26" title="26"><span class="co">#&gt; 6           1      0          0      0 Reported         IUCN. 2016. IUC…   361.</span></a>
+<a class="sourceLine" id="cb83-27" title="27"><span class="co">#&gt; # … with 5,825 more rows, and 12 more variables: mass_method &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb83-28" title="28"><span class="co">#&gt; #   mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;, mass_comparison_source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb83-29" title="29"><span class="co">#&gt; #   island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;, added_iucn_status &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb83-30" title="30"><span class="co">#&gt; #   diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;, diet_invertebrate &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb83-31" title="31"><span class="co">#&gt; #   diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a></code></pre></div>
+<p><code>select()</code> and <code>rename()</code> are pretty similar, and in fact, <code>select()</code> can also
+rename variables along the way:</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="st">&quot;linnaeus&quot;</span> =<span class="st"> </span>binomial)</a>
+<a class="sourceLine" id="cb84-2" title="2"><span class="co">#&gt; # A tibble: 5,831 x 1</span></a>
+<a class="sourceLine" id="cb84-3" title="3"><span class="co">#&gt;   linnaeus            </span></a>
+<a class="sourceLine" id="cb84-4" title="4"><span class="co">#&gt;   &lt;chr&gt;               </span></a>
+<a class="sourceLine" id="cb84-5" title="5"><span class="co">#&gt; 1 Abditomys_latidens  </span></a>
+<a class="sourceLine" id="cb84-6" title="6"><span class="co">#&gt; 2 Abeomelomys_sevia   </span></a>
+<a class="sourceLine" id="cb84-7" title="7"><span class="co">#&gt; 3 Abrawayaomys_ruschii</span></a>
+<a class="sourceLine" id="cb84-8" title="8"><span class="co">#&gt; 4 Abrocoma_bennettii  </span></a>
+<a class="sourceLine" id="cb84-9" title="9"><span class="co">#&gt; 5 Abrocoma_boliviensis</span></a>
+<a class="sourceLine" id="cb84-10" title="10"><span class="co">#&gt; 6 Abrocoma_budini     </span></a>
+<a class="sourceLine" id="cb84-11" title="11"><span class="co">#&gt; # … with 5,825 more rows</span></a></code></pre></div>
+<p>And you can mix all of that at once:</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(</a>
+<a class="sourceLine" id="cb85-2" title="2">  <span class="st">&quot;fam&quot;</span> =<span class="st"> </span>family,</a>
+<a class="sourceLine" id="cb85-3" title="3">  genus<span class="op">:</span>freshwater,</a>
+<a class="sourceLine" id="cb85-4" title="4">  <span class="op">-</span>terrestrial</a>
+<a class="sourceLine" id="cb85-5" title="5">)</a>
+<a class="sourceLine" id="cb85-6" title="6"><span class="co">#&gt; # A tibble: 5,831 x 5</span></a>
+<a class="sourceLine" id="cb85-7" title="7"><span class="co">#&gt;   fam         genus        species     marine freshwater</span></a>
+<a class="sourceLine" id="cb85-8" title="8"><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb85-9" title="9"><span class="co">#&gt; 1 Muridae     Abditomys    latidens         0          0</span></a>
+<a class="sourceLine" id="cb85-10" title="10"><span class="co">#&gt; 2 Muridae     Abeomelomys  sevia            0          0</span></a>
+<a class="sourceLine" id="cb85-11" title="11"><span class="co">#&gt; 3 Cricetidae  Abrawayaomys ruschii          0          0</span></a>
+<a class="sourceLine" id="cb85-12" title="12"><span class="co">#&gt; 4 Abrocomidae Abrocoma     bennettii        0          0</span></a>
+<a class="sourceLine" id="cb85-13" title="13"><span class="co">#&gt; 5 Abrocomidae Abrocoma     boliviensis      0          0</span></a>
+<a class="sourceLine" id="cb85-14" title="14"><span class="co">#&gt; 6 Abrocomidae Abrocoma     budini           0          0</span></a>
+<a class="sourceLine" id="cb85-15" title="15"><span class="co">#&gt; # … with 5,825 more rows</span></a></code></pre></div>
+</div>
+<div id="select-variables-with-helpers" class="section level3">
+<h3><span class="header-section-number">3.2.4</span> Select variables with helpers</h3>
+<p>The Rstudio team just released <code>dplyr 1.0.0</code>, and along with it, some nice
+helper functions to ease the selection of a set of variables. I give three
+examples here, and encourage you to look at the documentation (<code>?select()</code>) to
+find out more.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">where</span>(is.numeric))</a>
+<a class="sourceLine" id="cb86-2" title="2"><span class="co">#&gt; # A tibble: 5,831 x 8</span></a>
+<a class="sourceLine" id="cb86-3" title="3"><span class="co">#&gt;   terrestrial marine freshwater aerial mass_g diet_plant diet_vertebrate</span></a>
+<a class="sourceLine" id="cb86-4" title="4"><span class="co">#&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;           &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb86-5" title="5"><span class="co">#&gt; 1           1      0          0      0   269         100               0</span></a>
+<a class="sourceLine" id="cb86-6" title="6"><span class="co">#&gt; 2           1      0          0      0    52          78               3</span></a>
+<a class="sourceLine" id="cb86-7" title="7"><span class="co">#&gt; 3           1      0          0      0    63          88               1</span></a>
+<a class="sourceLine" id="cb86-8" title="8"><span class="co">#&gt; 4           1      0          0      0   250         100               0</span></a>
+<a class="sourceLine" id="cb86-9" title="9"><span class="co">#&gt; 5           1      0          0      0   158         100               0</span></a>
+<a class="sourceLine" id="cb86-10" title="10"><span class="co">#&gt; 6           1      0          0      0   361.        100               0</span></a>
+<a class="sourceLine" id="cb86-11" title="11"><span class="co">#&gt; # … with 5,825 more rows, and 1 more variable: diet_invertebrate &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb86-12" title="12">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">contains</span>(<span class="st">&quot;mass&quot;</span>) <span class="op">|</span><span class="st"> </span><span class="kw">contains</span>(<span class="st">&quot;diet&quot;</span>))</a>
+<a class="sourceLine" id="cb86-13" title="13"><span class="co">#&gt; # A tibble: 5,831 x 10</span></a>
+<a class="sourceLine" id="cb86-14" title="14"><span class="co">#&gt;   mass_g mass_method mass_source mass_comparison mass_comparison… diet_plant</span></a>
+<a class="sourceLine" id="cb86-15" title="15"><span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                 &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb86-16" title="16"><span class="co">#&gt; 1   269  Reported    Smith, F. … &lt;NA&gt;            &lt;NA&gt;                    100</span></a>
+<a class="sourceLine" id="cb86-17" title="17"><span class="co">#&gt; 2    52  Reported    Smith, F. … &lt;NA&gt;            &lt;NA&gt;                     78</span></a>
+<a class="sourceLine" id="cb86-18" title="18"><span class="co">#&gt; 3    63  Reported    Smith, F. … &lt;NA&gt;            &lt;NA&gt;                     88</span></a>
+<a class="sourceLine" id="cb86-19" title="19"><span class="co">#&gt; 4   250  Reported    Smith, F. … &lt;NA&gt;            &lt;NA&gt;                    100</span></a>
+<a class="sourceLine" id="cb86-20" title="20"><span class="co">#&gt; 5   158  Reported    Smith, F. … &lt;NA&gt;            &lt;NA&gt;                    100</span></a>
+<a class="sourceLine" id="cb86-21" title="21"><span class="co">#&gt; 6   361. Assumed is… Journal of… Abrocoma_ciner… Journal of Mamm…        100</span></a>
+<a class="sourceLine" id="cb86-22" title="22"><span class="co">#&gt; # … with 5,825 more rows, and 4 more variables: diet_vertebrate &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb86-23" title="23"><span class="co">#&gt; #   diet_invertebrate &lt;dbl&gt;, diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb86-24" title="24"></a>
+<a class="sourceLine" id="cb86-25" title="25">habitats &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;terrestrial&quot;</span>, <span class="st">&quot;marine&quot;</span>, <span class="st">&quot;arboreal&quot;</span>, <span class="st">&quot;fossorial&quot;</span>, <span class="st">&quot;freshwater&quot;</span>)</a>
+<a class="sourceLine" id="cb86-26" title="26">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">any_of</span>(habitats))</a>
+<a class="sourceLine" id="cb86-27" title="27"><span class="co">#&gt; # A tibble: 5,831 x 3</span></a>
+<a class="sourceLine" id="cb86-28" title="28"><span class="co">#&gt;   terrestrial marine freshwater</span></a>
+<a class="sourceLine" id="cb86-29" title="29"><span class="co">#&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb86-30" title="30"><span class="co">#&gt; 1           1      0          0</span></a>
+<a class="sourceLine" id="cb86-31" title="31"><span class="co">#&gt; 2           1      0          0</span></a>
+<a class="sourceLine" id="cb86-32" title="32"><span class="co">#&gt; 3           1      0          0</span></a>
+<a class="sourceLine" id="cb86-33" title="33"><span class="co">#&gt; 4           1      0          0</span></a>
+<a class="sourceLine" id="cb86-34" title="34"><span class="co">#&gt; 5           1      0          0</span></a>
+<a class="sourceLine" id="cb86-35" title="35"><span class="co">#&gt; 6           1      0          0</span></a>
+<a class="sourceLine" id="cb86-36" title="36"><span class="co">#&gt; # … with 5,825 more rows</span></a></code></pre></div>
+</div>
+<div id="rearranging-variable-order-with-relocate" class="section level3">
+<h3><span class="header-section-number">3.2.5</span> Rearranging variable order with <code>relocate()</code></h3>
+<p>The order of variables seldom matters in <code>dplyr</code>, but due to popular demand,
+<code>dplyr</code> now has a dedicated verb to rearrange the order of variables. The syntax
+is identical to <code>rename()</code>, <code>select()</code>.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">relocate</span>(mass_g, <span class="dt">.before =</span> binomial)</a>
+<a class="sourceLine" id="cb87-2" title="2"><span class="co">#&gt; # A tibble: 5,831 x 24</span></a>
+<a class="sourceLine" id="cb87-3" title="3"><span class="co">#&gt;   mass_g binomial order family genus species terrestrial marine freshwater</span></a>
+<a class="sourceLine" id="cb87-4" title="4"><span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb87-5" title="5"><span class="co">#&gt; 1   269  Abditom… Rode… Murid… Abdi… latide…           1      0          0</span></a>
+<a class="sourceLine" id="cb87-6" title="6"><span class="co">#&gt; 2    52  Abeomel… Rode… Murid… Abeo… sevia             1      0          0</span></a>
+<a class="sourceLine" id="cb87-7" title="7"><span class="co">#&gt; 3    63  Abraway… Rode… Crice… Abra… ruschii           1      0          0</span></a>
+<a class="sourceLine" id="cb87-8" title="8"><span class="co">#&gt; 4   250  Abrocom… Rode… Abroc… Abro… bennet…           1      0          0</span></a>
+<a class="sourceLine" id="cb87-9" title="9"><span class="co">#&gt; 5   158  Abrocom… Rode… Abroc… Abro… bolivi…           1      0          0</span></a>
+<a class="sourceLine" id="cb87-10" title="10"><span class="co">#&gt; 6   361. Abrocom… Rode… Abroc… Abro… budini            1      0          0</span></a>
+<a class="sourceLine" id="cb87-11" title="11"><span class="co">#&gt; # … with 5,825 more rows, and 15 more variables: aerial &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb87-12" title="12"><span class="co">#&gt; #   life_habit_method &lt;chr&gt;, life_habit_source &lt;chr&gt;, mass_method &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb87-13" title="13"><span class="co">#&gt; #   mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;, mass_comparison_source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb87-14" title="14"><span class="co">#&gt; #   island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;, added_iucn_status &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb87-15" title="15"><span class="co">#&gt; #   diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;, diet_invertebrate &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb87-16" title="16"><span class="co">#&gt; #   diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb87-17" title="17">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">relocate</span>(<span class="kw">starts_with</span>(<span class="st">&quot;diet&quot;</span>), <span class="dt">.after =</span> species)</a>
+<a class="sourceLine" id="cb87-18" title="18"><span class="co">#&gt; # A tibble: 5,831 x 24</span></a>
+<a class="sourceLine" id="cb87-19" title="19"><span class="co">#&gt;   binomial order family genus species diet_plant diet_vertebrate</span></a>
+<a class="sourceLine" id="cb87-20" title="20"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt;           &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb87-21" title="21"><span class="co">#&gt; 1 Abditom… Rode… Murid… Abdi… latide…        100               0</span></a>
+<a class="sourceLine" id="cb87-22" title="22"><span class="co">#&gt; 2 Abeomel… Rode… Murid… Abeo… sevia           78               3</span></a>
+<a class="sourceLine" id="cb87-23" title="23"><span class="co">#&gt; 3 Abraway… Rode… Crice… Abra… ruschii         88               1</span></a>
+<a class="sourceLine" id="cb87-24" title="24"><span class="co">#&gt; 4 Abrocom… Rode… Abroc… Abro… bennet…        100               0</span></a>
+<a class="sourceLine" id="cb87-25" title="25"><span class="co">#&gt; 5 Abrocom… Rode… Abroc… Abro… bolivi…        100               0</span></a>
+<a class="sourceLine" id="cb87-26" title="26"><span class="co">#&gt; 6 Abrocom… Rode… Abroc… Abro… budini         100               0</span></a>
+<a class="sourceLine" id="cb87-27" title="27"><span class="co">#&gt; # … with 5,825 more rows, and 17 more variables: diet_invertebrate &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb87-28" title="28"><span class="co">#&gt; #   diet_method &lt;chr&gt;, diet_source &lt;chr&gt;, terrestrial &lt;dbl&gt;, marine &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb87-29" title="29"><span class="co">#&gt; #   freshwater &lt;dbl&gt;, aerial &lt;dbl&gt;, life_habit_method &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb87-30" title="30"><span class="co">#&gt; #   life_habit_source &lt;chr&gt;, mass_g &lt;dbl&gt;, mass_method &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb87-31" title="31"><span class="co">#&gt; #   mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;, mass_comparison_source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb87-32" title="32"><span class="co">#&gt; #   island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;, added_iucn_status &lt;chr&gt;</span></a></code></pre></div>
+</div>
+</div>
+<div id="working-with-observations" class="section level2">
+<h2><span class="header-section-number">3.3</span> Working with observations</h2>
+<div id="ordering-rows-by-value---arrange" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Ordering rows by value - <code>arrange()</code></h3>
+<p><code>arrange()</code> sorts rows in the data by <strong>ascending</strong> value for a given variable.
+Use the wrapper <code>desc()</code> to sort by descending values instead.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1"><span class="co"># Smallest mammals</span></a>
+<a class="sourceLine" id="cb88-2" title="2">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb88-3" title="3"><span class="st">  </span><span class="kw">arrange</span>(mass_g) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb88-4" title="4"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g)</a>
+<a class="sourceLine" id="cb88-5" title="5"><span class="co">#&gt; # A tibble: 5,831 x 2</span></a>
+<a class="sourceLine" id="cb88-6" title="6"><span class="co">#&gt;   binomial            mass_g</span></a>
+<a class="sourceLine" id="cb88-7" title="7"><span class="co">#&gt;   &lt;chr&gt;                &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb88-8" title="8"><span class="co">#&gt; 1 Sorex_yukonicus        1.6</span></a>
+<a class="sourceLine" id="cb88-9" title="9"><span class="co">#&gt; 2 Crocidura_levicula     1.8</span></a>
+<a class="sourceLine" id="cb88-10" title="10"><span class="co">#&gt; 3 Suncus_remyi           1.8</span></a>
+<a class="sourceLine" id="cb88-11" title="11"><span class="co">#&gt; 4 Crocidura_lusitania    2  </span></a>
+<a class="sourceLine" id="cb88-12" title="12"><span class="co">#&gt; 5 Kerivoula_minuta       2.1</span></a>
+<a class="sourceLine" id="cb88-13" title="13"><span class="co">#&gt; 6 Suncus_etruscus        2.1</span></a>
+<a class="sourceLine" id="cb88-14" title="14"><span class="co">#&gt; # … with 5,825 more rows</span></a>
+<a class="sourceLine" id="cb88-15" title="15"></a>
+<a class="sourceLine" id="cb88-16" title="16"><span class="co"># Largest mammals</span></a>
+<a class="sourceLine" id="cb88-17" title="17">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb88-18" title="18"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(mass_g)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb88-19" title="19"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g)</a>
+<a class="sourceLine" id="cb88-20" title="20"><span class="co">#&gt; # A tibble: 5,831 x 2</span></a>
+<a class="sourceLine" id="cb88-21" title="21"><span class="co">#&gt;   binomial                  mass_g</span></a>
+<a class="sourceLine" id="cb88-22" title="22"><span class="co">#&gt;   &lt;chr&gt;                      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb88-23" title="23"><span class="co">#&gt; 1 Balaenoptera_musculus  190000000</span></a>
+<a class="sourceLine" id="cb88-24" title="24"><span class="co">#&gt; 2 Balaena_mysticetus     100000000</span></a>
+<a class="sourceLine" id="cb88-25" title="25"><span class="co">#&gt; 3 Balaenoptera_physalus   70000000</span></a>
+<a class="sourceLine" id="cb88-26" title="26"><span class="co">#&gt; 4 Caperea_marginata       32000000</span></a>
+<a class="sourceLine" id="cb88-27" title="27"><span class="co">#&gt; 5 Megaptera_novaeangliae  30000000</span></a>
+<a class="sourceLine" id="cb88-28" title="28"><span class="co">#&gt; 6 Eschrichtius_robustus   28500000</span></a>
+<a class="sourceLine" id="cb88-29" title="29"><span class="co">#&gt; # … with 5,825 more rows</span></a>
+<a class="sourceLine" id="cb88-30" title="30"></a>
+<a class="sourceLine" id="cb88-31" title="31"><span class="co"># Extra variables are used to sort ties in the first variable</span></a>
+<a class="sourceLine" id="cb88-32" title="32">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb88-33" title="33"><span class="st">  </span><span class="kw">arrange</span>(mass_g, <span class="kw">desc</span>(binomial)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb88-34" title="34"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g)</a>
+<a class="sourceLine" id="cb88-35" title="35"><span class="co">#&gt; # A tibble: 5,831 x 2</span></a>
+<a class="sourceLine" id="cb88-36" title="36"><span class="co">#&gt;   binomial            mass_g</span></a>
+<a class="sourceLine" id="cb88-37" title="37"><span class="co">#&gt;   &lt;chr&gt;                &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb88-38" title="38"><span class="co">#&gt; 1 Sorex_yukonicus        1.6</span></a>
+<a class="sourceLine" id="cb88-39" title="39"><span class="co">#&gt; 2 Suncus_remyi           1.8</span></a>
+<a class="sourceLine" id="cb88-40" title="40"><span class="co">#&gt; 3 Crocidura_levicula     1.8</span></a>
+<a class="sourceLine" id="cb88-41" title="41"><span class="co">#&gt; 4 Crocidura_lusitania    2  </span></a>
+<a class="sourceLine" id="cb88-42" title="42"><span class="co">#&gt; 5 Suncus_etruscus        2.1</span></a>
+<a class="sourceLine" id="cb88-43" title="43"><span class="co">#&gt; 6 Kerivoula_minuta       2.1</span></a>
+<a class="sourceLine" id="cb88-44" title="44"><span class="co">#&gt; # … with 5,825 more rows</span></a></code></pre></div>
+<p><em>Important</em>: <code>NA</code> values, if present, are always ordered at the end!</p>
+</div>
+<div id="subset-rows-by-position---slice" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Subset rows by position - <code>slice()</code></h3>
+<p>Use <code>slice()</code> and its variants to extract particular rows.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="dv">3</span>) <span class="co"># third row</span></a>
+<a class="sourceLine" id="cb89-2" title="2"><span class="co">#&gt; # A tibble: 1 x 24</span></a>
+<a class="sourceLine" id="cb89-3" title="3"><span class="co">#&gt;   binomial order family genus species terrestrial marine freshwater aerial</span></a>
+<a class="sourceLine" id="cb89-4" title="4"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb89-5" title="5"><span class="co">#&gt; 1 Abraway… Rode… Crice… Abra… ruschii           1      0          0      0</span></a>
+<a class="sourceLine" id="cb89-6" title="6"><span class="co">#&gt; # … with 15 more variables: life_habit_method &lt;chr&gt;, life_habit_source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-7" title="7"><span class="co">#&gt; #   mass_g &lt;dbl&gt;, mass_method &lt;chr&gt;, mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-8" title="8"><span class="co">#&gt; #   mass_comparison_source &lt;chr&gt;, island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-9" title="9"><span class="co">#&gt; #   added_iucn_status &lt;chr&gt;, diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb89-10" title="10"><span class="co">#&gt; #   diet_invertebrate &lt;dbl&gt;, diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb89-11" title="11">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>) <span class="co"># fifth, first and second row</span></a>
+<a class="sourceLine" id="cb89-12" title="12"><span class="co">#&gt; # A tibble: 3 x 24</span></a>
+<a class="sourceLine" id="cb89-13" title="13"><span class="co">#&gt;   binomial order family genus species terrestrial marine freshwater aerial</span></a>
+<a class="sourceLine" id="cb89-14" title="14"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb89-15" title="15"><span class="co">#&gt; 1 Abrocom… Rode… Abroc… Abro… bolivi…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb89-16" title="16"><span class="co">#&gt; 2 Abditom… Rode… Murid… Abdi… latide…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb89-17" title="17"><span class="co">#&gt; 3 Abeomel… Rode… Murid… Abeo… sevia             1      0          0      0</span></a>
+<a class="sourceLine" id="cb89-18" title="18"><span class="co">#&gt; # … with 15 more variables: life_habit_method &lt;chr&gt;, life_habit_source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-19" title="19"><span class="co">#&gt; #   mass_g &lt;dbl&gt;, mass_method &lt;chr&gt;, mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-20" title="20"><span class="co">#&gt; #   mass_comparison_source &lt;chr&gt;, island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-21" title="21"><span class="co">#&gt; #   added_iucn_status &lt;chr&gt;, diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb89-22" title="22"><span class="co">#&gt; #   diet_invertebrate &lt;dbl&gt;, diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb89-23" title="23">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="kw">rep</span>(<span class="dv">3</span>, <span class="dv">2</span>)) <span class="co"># duplicate the third row</span></a>
+<a class="sourceLine" id="cb89-24" title="24"><span class="co">#&gt; # A tibble: 2 x 24</span></a>
+<a class="sourceLine" id="cb89-25" title="25"><span class="co">#&gt;   binomial order family genus species terrestrial marine freshwater aerial</span></a>
+<a class="sourceLine" id="cb89-26" title="26"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb89-27" title="27"><span class="co">#&gt; 1 Abraway… Rode… Crice… Abra… ruschii           1      0          0      0</span></a>
+<a class="sourceLine" id="cb89-28" title="28"><span class="co">#&gt; 2 Abraway… Rode… Crice… Abra… ruschii           1      0          0      0</span></a>
+<a class="sourceLine" id="cb89-29" title="29"><span class="co">#&gt; # … with 15 more variables: life_habit_method &lt;chr&gt;, life_habit_source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-30" title="30"><span class="co">#&gt; #   mass_g &lt;dbl&gt;, mass_method &lt;chr&gt;, mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-31" title="31"><span class="co">#&gt; #   mass_comparison_source &lt;chr&gt;, island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-32" title="32"><span class="co">#&gt; #   added_iucn_status &lt;chr&gt;, diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb89-33" title="33"><span class="co">#&gt; #   diet_invertebrate &lt;dbl&gt;, diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb89-34" title="34">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="op">-</span><span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">5830</span>)) <span class="co"># exclude all but first and last row</span></a>
+<a class="sourceLine" id="cb89-35" title="35"><span class="co">#&gt; # A tibble: 2 x 24</span></a>
+<a class="sourceLine" id="cb89-36" title="36"><span class="co">#&gt;   binomial order family genus species terrestrial marine freshwater aerial</span></a>
+<a class="sourceLine" id="cb89-37" title="37"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb89-38" title="38"><span class="co">#&gt; 1 Abditom… Rode… Murid… Abdi… latide…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb89-39" title="39"><span class="co">#&gt; 2 Zyzomys… Rode… Murid… Zyzo… woodwa…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb89-40" title="40"><span class="co">#&gt; # … with 15 more variables: life_habit_method &lt;chr&gt;, life_habit_source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-41" title="41"><span class="co">#&gt; #   mass_g &lt;dbl&gt;, mass_method &lt;chr&gt;, mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-42" title="42"><span class="co">#&gt; #   mass_comparison_source &lt;chr&gt;, island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-43" title="43"><span class="co">#&gt; #   added_iucn_status &lt;chr&gt;, diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb89-44" title="44"><span class="co">#&gt; #   diet_invertebrate &lt;dbl&gt;, diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb89-45" title="45"></a>
+<a class="sourceLine" id="cb89-46" title="46">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice_tail</span>(<span class="dt">n =</span> <span class="dv">3</span>) <span class="co"># last three rows</span></a>
+<a class="sourceLine" id="cb89-47" title="47"><span class="co">#&gt; # A tibble: 3 x 24</span></a>
+<a class="sourceLine" id="cb89-48" title="48"><span class="co">#&gt;   binomial order family genus species terrestrial marine freshwater aerial</span></a>
+<a class="sourceLine" id="cb89-49" title="49"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb89-50" title="50"><span class="co">#&gt; 1 Zyzomys… Rode… Murid… Zyzo… palata…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb89-51" title="51"><span class="co">#&gt; 2 Zyzomys… Rode… Murid… Zyzo… pedunc…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb89-52" title="52"><span class="co">#&gt; 3 Zyzomys… Rode… Murid… Zyzo… woodwa…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb89-53" title="53"><span class="co">#&gt; # … with 15 more variables: life_habit_method &lt;chr&gt;, life_habit_source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-54" title="54"><span class="co">#&gt; #   mass_g &lt;dbl&gt;, mass_method &lt;chr&gt;, mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-55" title="55"><span class="co">#&gt; #   mass_comparison_source &lt;chr&gt;, island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-56" title="56"><span class="co">#&gt; #   added_iucn_status &lt;chr&gt;, diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb89-57" title="57"><span class="co">#&gt; #   diet_invertebrate &lt;dbl&gt;, diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb89-58" title="58">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice_max</span>(mass_g) <span class="co"># largest mammal</span></a>
+<a class="sourceLine" id="cb89-59" title="59"><span class="co">#&gt; # A tibble: 1 x 24</span></a>
+<a class="sourceLine" id="cb89-60" title="60"><span class="co">#&gt;   binomial order family genus species terrestrial marine freshwater aerial</span></a>
+<a class="sourceLine" id="cb89-61" title="61"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb89-62" title="62"><span class="co">#&gt; 1 Balaeno… Ceta… Balae… Bala… muscul…           0      1          0      0</span></a>
+<a class="sourceLine" id="cb89-63" title="63"><span class="co">#&gt; # … with 15 more variables: life_habit_method &lt;chr&gt;, life_habit_source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-64" title="64"><span class="co">#&gt; #   mass_g &lt;dbl&gt;, mass_method &lt;chr&gt;, mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-65" title="65"><span class="co">#&gt; #   mass_comparison_source &lt;chr&gt;, island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb89-66" title="66"><span class="co">#&gt; #   added_iucn_status &lt;chr&gt;, diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb89-67" title="67"><span class="co">#&gt; #   diet_invertebrate &lt;dbl&gt;, diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a></code></pre></div>
+<p>You can also sample random rows in the data:</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice_sample</span>() <span class="co"># a random row</span></a>
+<a class="sourceLine" id="cb90-2" title="2"><span class="co">#&gt; # A tibble: 1 x 24</span></a>
+<a class="sourceLine" id="cb90-3" title="3"><span class="co">#&gt;   binomial order family genus species terrestrial marine freshwater aerial</span></a>
+<a class="sourceLine" id="cb90-4" title="4"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb90-5" title="5"><span class="co">#&gt; 1 Crocidu… Euli… Soric… Croc… levicu…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb90-6" title="6"><span class="co">#&gt; # … with 15 more variables: life_habit_method &lt;chr&gt;, life_habit_source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb90-7" title="7"><span class="co">#&gt; #   mass_g &lt;dbl&gt;, mass_method &lt;chr&gt;, mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb90-8" title="8"><span class="co">#&gt; #   mass_comparison_source &lt;chr&gt;, island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb90-9" title="9"><span class="co">#&gt; #   added_iucn_status &lt;chr&gt;, diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb90-10" title="10"><span class="co">#&gt; #   diet_invertebrate &lt;dbl&gt;, diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb90-11" title="11"></a>
+<a class="sourceLine" id="cb90-12" title="12"><span class="co"># bootstrap</span></a>
+<a class="sourceLine" id="cb90-13" title="13">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice_sample</span>(<span class="dt">n =</span> <span class="dv">5831</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb90-14" title="14"><span class="co">#&gt; # A tibble: 5,831 x 24</span></a>
+<a class="sourceLine" id="cb90-15" title="15"><span class="co">#&gt;   binomial order family genus species terrestrial marine freshwater aerial</span></a>
+<a class="sourceLine" id="cb90-16" title="16"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb90-17" title="17"><span class="co">#&gt; 1 Rhinolo… Chir… Rhino… Rhin… adami             0      0          0      1</span></a>
+<a class="sourceLine" id="cb90-18" title="18"><span class="co">#&gt; 2 Hylomys… Euli… Erina… Hylo… megalo…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb90-19" title="19"><span class="co">#&gt; 3 Sciurus… Rode… Sciur… Sciu… yucata…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb90-20" title="20"><span class="co">#&gt; 4 Emballo… Chir… Embal… Emba… alecto            0      0          0      1</span></a>
+<a class="sourceLine" id="cb90-21" title="21"><span class="co">#&gt; 5 Pteralo… Chir… Ptero… Pter… taki              0      0          0      1</span></a>
+<a class="sourceLine" id="cb90-22" title="22"><span class="co">#&gt; 6 Lasiorh… Dipr… Vomba… Lasi… latifr…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb90-23" title="23"><span class="co">#&gt; # … with 5,825 more rows, and 15 more variables: life_habit_method &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb90-24" title="24"><span class="co">#&gt; #   life_habit_source &lt;chr&gt;, mass_g &lt;dbl&gt;, mass_method &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb90-25" title="25"><span class="co">#&gt; #   mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;, mass_comparison_source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb90-26" title="26"><span class="co">#&gt; #   island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;, added_iucn_status &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb90-27" title="27"><span class="co">#&gt; #   diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;, diet_invertebrate &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb90-28" title="28"><span class="co">#&gt; #   diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a></code></pre></div>
+</div>
+<div id="subsetting-rows-by-value-with-filter" class="section level3">
+<h3><span class="header-section-number">3.3.3</span> Subsetting rows by value with <code>filter()</code></h3>
+<p><code>filter()</code> does a similar job as <code>slice()</code>, but extract rows that satisfy a set
+of conditions. The conditions are supplied much the same way as you would do
+for an <code>if</code> statement.</p>
+<p>Along with <code>mutate()</code> (next section), this is probably the function you are
+going to use the most.</p>
+<p>For example, I might want to extract mammals above a given mass:</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="co"># megafauna</span></a>
+<a class="sourceLine" id="cb91-2" title="2">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb91-3" title="3"><span class="st">  </span><span class="kw">filter</span>(mass_g <span class="op">&gt;</span><span class="st"> </span><span class="fl">1e5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># 100 kg</span></a>
+<a class="sourceLine" id="cb91-4" title="4"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g)</a>
+<a class="sourceLine" id="cb91-5" title="5"><span class="co">#&gt; # A tibble: 302 x 2</span></a>
+<a class="sourceLine" id="cb91-6" title="6"><span class="co">#&gt;   binomial                   mass_g</span></a>
+<a class="sourceLine" id="cb91-7" title="7"><span class="co">#&gt;   &lt;chr&gt;                       &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb91-8" title="8"><span class="co">#&gt; 1 Ailuropoda_melanoleuca    108400 </span></a>
+<a class="sourceLine" id="cb91-9" title="9"><span class="co">#&gt; 2 Alcelaphus_buselaphus     171002.</span></a>
+<a class="sourceLine" id="cb91-10" title="10"><span class="co">#&gt; 3 Alces_alces               356998 </span></a>
+<a class="sourceLine" id="cb91-11" title="11"><span class="co">#&gt; 4 Archaeoindris_fontoynonti 160000 </span></a>
+<a class="sourceLine" id="cb91-12" title="12"><span class="co">#&gt; 5 Arctocephalus_forsteri    101250 </span></a>
+<a class="sourceLine" id="cb91-13" title="13"><span class="co">#&gt; 6 Arctocephalus_pusillus    178500 </span></a>
+<a class="sourceLine" id="cb91-14" title="14"><span class="co">#&gt; # … with 296 more rows</span></a>
+<a class="sourceLine" id="cb91-15" title="15"></a>
+<a class="sourceLine" id="cb91-16" title="16"><span class="co"># non-extinct megafauna</span></a>
+<a class="sourceLine" id="cb91-17" title="17">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb91-18" title="18"><span class="st">  </span><span class="kw">filter</span>(mass_g <span class="op">&gt;</span><span class="st"> </span><span class="fl">1e5</span>, iucn_status <span class="op">!=</span><span class="st"> &quot;EP&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb91-19" title="19"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g, iucn_status)</a>
+<a class="sourceLine" id="cb91-20" title="20"><span class="co">#&gt; # A tibble: 178 x 3</span></a>
+<a class="sourceLine" id="cb91-21" title="21"><span class="co">#&gt;   binomial                 mass_g iucn_status</span></a>
+<a class="sourceLine" id="cb91-22" title="22"><span class="co">#&gt;   &lt;chr&gt;                     &lt;dbl&gt; &lt;chr&gt;      </span></a>
+<a class="sourceLine" id="cb91-23" title="23"><span class="co">#&gt; 1 Ailuropoda_melanoleuca  108400  VU         </span></a>
+<a class="sourceLine" id="cb91-24" title="24"><span class="co">#&gt; 2 Alcelaphus_buselaphus   171002. LC         </span></a>
+<a class="sourceLine" id="cb91-25" title="25"><span class="co">#&gt; 3 Alces_alces             356998  LC         </span></a>
+<a class="sourceLine" id="cb91-26" title="26"><span class="co">#&gt; 4 Arctocephalus_forsteri  101250  LC         </span></a>
+<a class="sourceLine" id="cb91-27" title="27"><span class="co">#&gt; 5 Arctocephalus_pusillus  178500  LC         </span></a>
+<a class="sourceLine" id="cb91-28" title="28"><span class="co">#&gt; 6 Arctocephalus_townsendi 105000  LC         </span></a>
+<a class="sourceLine" id="cb91-29" title="29"><span class="co">#&gt; # … with 172 more rows</span></a></code></pre></div>
+<p>Are there any flying mammals that aren’t bats?</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb92-2" title="2"><span class="st">  </span><span class="kw">filter</span>(aerial <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, order <span class="op">!=</span><span class="st"> &quot;Chiroptera&quot;</span>) </a>
+<a class="sourceLine" id="cb92-3" title="3"><span class="co">#&gt; # A tibble: 0 x 24</span></a>
+<a class="sourceLine" id="cb92-4" title="4"><span class="co">#&gt; # … with 24 variables: binomial &lt;chr&gt;, order &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb92-5" title="5"><span class="co">#&gt; #   species &lt;chr&gt;, terrestrial &lt;dbl&gt;, marine &lt;dbl&gt;, freshwater &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb92-6" title="6"><span class="co">#&gt; #   aerial &lt;dbl&gt;, life_habit_method &lt;chr&gt;, life_habit_source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb92-7" title="7"><span class="co">#&gt; #   mass_g &lt;dbl&gt;, mass_method &lt;chr&gt;, mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb92-8" title="8"><span class="co">#&gt; #   mass_comparison_source &lt;chr&gt;, island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb92-9" title="9"><span class="co">#&gt; #   added_iucn_status &lt;chr&gt;, diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb92-10" title="10"><span class="co">#&gt; #   diet_invertebrate &lt;dbl&gt;, diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a>
+<a class="sourceLine" id="cb92-11" title="11"><span class="co"># no :(</span></a></code></pre></div>
+<p>Are humans included in the table?</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(binomial <span class="op">==</span><span class="st"> &quot;Homo_sapiens&quot;</span>)</a>
+<a class="sourceLine" id="cb93-2" title="2"><span class="co">#&gt; # A tibble: 1 x 24</span></a>
+<a class="sourceLine" id="cb93-3" title="3"><span class="co">#&gt;   binomial order family genus species terrestrial marine freshwater aerial</span></a>
+<a class="sourceLine" id="cb93-4" title="4"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb93-5" title="5"><span class="co">#&gt; 1 Homo_sa… Prim… Homin… Homo  sapiens           1      0          0      0</span></a>
+<a class="sourceLine" id="cb93-6" title="6"><span class="co">#&gt; # … with 15 more variables: life_habit_method &lt;chr&gt;, life_habit_source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb93-7" title="7"><span class="co">#&gt; #   mass_g &lt;dbl&gt;, mass_method &lt;chr&gt;, mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb93-8" title="8"><span class="co">#&gt; #   mass_comparison_source &lt;chr&gt;, island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb93-9" title="9"><span class="co">#&gt; #   added_iucn_status &lt;chr&gt;, diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb93-10" title="10"><span class="co">#&gt; #   diet_invertebrate &lt;dbl&gt;, diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a></code></pre></div>
+<p><code>filter()</code> can be used to deal with NAs:</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb94-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(mass_comparison)) </a>
+<a class="sourceLine" id="cb94-3" title="3"><span class="co">#&gt; # A tibble: 754 x 24</span></a>
+<a class="sourceLine" id="cb94-4" title="4"><span class="co">#&gt;   binomial order family genus species terrestrial marine freshwater aerial</span></a>
+<a class="sourceLine" id="cb94-5" title="5"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb94-6" title="6"><span class="co">#&gt; 1 Abrocom… Rode… Abroc… Abro… budini            1      0          0      0</span></a>
+<a class="sourceLine" id="cb94-7" title="7"><span class="co">#&gt; 2 Abrocom… Rode… Abroc… Abro… famati…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb94-8" title="8"><span class="co">#&gt; 3 Abrocom… Rode… Abroc… Abro… shista…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb94-9" title="9"><span class="co">#&gt; 4 Abrocom… Rode… Abroc… Abro… uspall…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb94-10" title="10"><span class="co">#&gt; 5 Abrocom… Rode… Abroc… Abro… vaccar…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb94-11" title="11"><span class="co">#&gt; 6 Acerodo… Chir… Ptero… Acer… humilis           0      0          0      1</span></a>
+<a class="sourceLine" id="cb94-12" title="12"><span class="co">#&gt; # … with 748 more rows, and 15 more variables: life_habit_method &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb94-13" title="13"><span class="co">#&gt; #   life_habit_source &lt;chr&gt;, mass_g &lt;dbl&gt;, mass_method &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb94-14" title="14"><span class="co">#&gt; #   mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;, mass_comparison_source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb94-15" title="15"><span class="co">#&gt; #   island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;, added_iucn_status &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb94-16" title="16"><span class="co">#&gt; #   diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;, diet_invertebrate &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb94-17" title="17"><span class="co">#&gt; #   diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a></code></pre></div>
+<p>Tip: <code>dplyr</code> introduces the useful function <code>between()</code> that does exactly what the name implies</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" title="1"><span class="kw">between</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb95-2" title="2"><span class="co">#&gt; [1] FALSE  TRUE  TRUE  TRUE FALSE</span></a>
+<a class="sourceLine" id="cb95-3" title="3"></a>
+<a class="sourceLine" id="cb95-4" title="4"><span class="co"># Mesofauna</span></a>
+<a class="sourceLine" id="cb95-5" title="5">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb95-6" title="6"><span class="st">  </span><span class="kw">filter</span>(mass_g <span class="op">&gt;</span><span class="st"> </span><span class="fl">1e3</span>, mass_g <span class="op">&lt;</span><span class="st"> </span><span class="fl">1e5</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb95-7" title="7"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g)</a>
+<a class="sourceLine" id="cb95-8" title="8"><span class="co">#&gt; # A tibble: 1,126 x 2</span></a>
+<a class="sourceLine" id="cb95-9" title="9"><span class="co">#&gt;   binomial                mass_g</span></a>
+<a class="sourceLine" id="cb95-10" title="10"><span class="co">#&gt;   &lt;chr&gt;                    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb95-11" title="11"><span class="co">#&gt; 1 Acerodon_jubatus         1075 </span></a>
+<a class="sourceLine" id="cb95-12" title="12"><span class="co">#&gt; 2 Acinonyx_jubatus        46700 </span></a>
+<a class="sourceLine" id="cb95-13" title="13"><span class="co">#&gt; 3 Acratocnus_odontrigonus 22990 </span></a>
+<a class="sourceLine" id="cb95-14" title="14"><span class="co">#&gt; 4 Acratocnus_ye           21310 </span></a>
+<a class="sourceLine" id="cb95-15" title="15"><span class="co">#&gt; 5 Addax_nasomaculatus     70000.</span></a>
+<a class="sourceLine" id="cb95-16" title="16"><span class="co">#&gt; 6 Aepyceros_melampus      52500.</span></a>
+<a class="sourceLine" id="cb95-17" title="17"><span class="co">#&gt; # … with 1,120 more rows</span></a>
+<a class="sourceLine" id="cb95-18" title="18"></a>
+<a class="sourceLine" id="cb95-19" title="19"><span class="co"># same thing</span></a>
+<a class="sourceLine" id="cb95-20" title="20">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb95-21" title="21"><span class="st">  </span><span class="kw">filter</span>(mass_g <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">between</span>(<span class="fl">1e3</span>, <span class="fl">1e5</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb95-22" title="22"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g)</a>
+<a class="sourceLine" id="cb95-23" title="23"><span class="co">#&gt; # A tibble: 1,148 x 2</span></a>
+<a class="sourceLine" id="cb95-24" title="24"><span class="co">#&gt;   binomial                mass_g</span></a>
+<a class="sourceLine" id="cb95-25" title="25"><span class="co">#&gt;   &lt;chr&gt;                    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb95-26" title="26"><span class="co">#&gt; 1 Acerodon_jubatus         1075 </span></a>
+<a class="sourceLine" id="cb95-27" title="27"><span class="co">#&gt; 2 Acinonyx_jubatus        46700 </span></a>
+<a class="sourceLine" id="cb95-28" title="28"><span class="co">#&gt; 3 Acratocnus_odontrigonus 22990 </span></a>
+<a class="sourceLine" id="cb95-29" title="29"><span class="co">#&gt; 4 Acratocnus_ye           21310 </span></a>
+<a class="sourceLine" id="cb95-30" title="30"><span class="co">#&gt; 5 Addax_nasomaculatus     70000.</span></a>
+<a class="sourceLine" id="cb95-31" title="31"><span class="co">#&gt; 6 Aepyceros_melampus      52500.</span></a>
+<a class="sourceLine" id="cb95-32" title="32"><span class="co">#&gt; # … with 1,142 more rows</span></a></code></pre></div>
+<p>Note that you can pipe operations inside function arguments as in the last line
+above (arguments are expressions, after all!).</p>
+</div>
+</div>
+<div id="making-new-variables" class="section level2">
+<h2><span class="header-section-number">3.4</span> Making new variables</h2>
+<div id="create-new-variables-with-mutate" class="section level3">
+<h3><span class="header-section-number">3.4.1</span> Create new variables with <code>mutate()</code></h3>
+<p>Very often in data analysis, you will want to create new variables, or edit
+existing ones. This is done easily through <code>mutate()</code>. For example, consider
+the diet data:</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1">diet &lt;-<span class="st"> </span>phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb96-2" title="2"><span class="st">  </span><span class="kw">select</span>(</a>
+<a class="sourceLine" id="cb96-3" title="3">    binomial,</a>
+<a class="sourceLine" id="cb96-4" title="4">    <span class="kw">contains</span>(<span class="st">&quot;diet&quot;</span>) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">contains</span>(<span class="kw">c</span>(<span class="st">&quot;method&quot;</span>, <span class="st">&quot;source&quot;</span>))</a>
+<a class="sourceLine" id="cb96-5" title="5">  )</a>
+<a class="sourceLine" id="cb96-6" title="6">diet</a>
+<a class="sourceLine" id="cb96-7" title="7"><span class="co">#&gt; # A tibble: 5,831 x 4</span></a>
+<a class="sourceLine" id="cb96-8" title="8"><span class="co">#&gt;   binomial             diet_plant diet_vertebrate diet_invertebrate</span></a>
+<a class="sourceLine" id="cb96-9" title="9"><span class="co">#&gt;   &lt;chr&gt;                     &lt;dbl&gt;           &lt;dbl&gt;             &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb96-10" title="10"><span class="co">#&gt; 1 Abditomys_latidens          100               0                 0</span></a>
+<a class="sourceLine" id="cb96-11" title="11"><span class="co">#&gt; 2 Abeomelomys_sevia            78               3                19</span></a>
+<a class="sourceLine" id="cb96-12" title="12"><span class="co">#&gt; 3 Abrawayaomys_ruschii         88               1                11</span></a>
+<a class="sourceLine" id="cb96-13" title="13"><span class="co">#&gt; 4 Abrocoma_bennettii          100               0                 0</span></a>
+<a class="sourceLine" id="cb96-14" title="14"><span class="co">#&gt; 5 Abrocoma_boliviensis        100               0                 0</span></a>
+<a class="sourceLine" id="cb96-15" title="15"><span class="co">#&gt; 6 Abrocoma_budini             100               0                 0</span></a>
+<a class="sourceLine" id="cb96-16" title="16"><span class="co">#&gt; # … with 5,825 more rows</span></a></code></pre></div>
+<p>These three variables show the percentage of each category of food that make the
+diet of that species. They should sum to 100, unless the authors made a typo or
+other entry error. To assert this, I’m going to create a new variable,
+<code>total_diet</code>.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1">diet &lt;-<span class="st"> </span>diet <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb97-2" title="2">  <span class="st">&quot;total_diet&quot;</span> =<span class="st"> </span>diet_vertebrate <span class="op">+</span><span class="st"> </span>diet_invertebrate <span class="op">+</span><span class="st"> </span>diet_plant</a>
+<a class="sourceLine" id="cb97-3" title="3">)</a>
+<a class="sourceLine" id="cb97-4" title="4">diet</a>
+<a class="sourceLine" id="cb97-5" title="5"><span class="co">#&gt; # A tibble: 5,831 x 5</span></a>
+<a class="sourceLine" id="cb97-6" title="6"><span class="co">#&gt;   binomial             diet_plant diet_vertebrate diet_invertebrate total_diet</span></a>
+<a class="sourceLine" id="cb97-7" title="7"><span class="co">#&gt;   &lt;chr&gt;                     &lt;dbl&gt;           &lt;dbl&gt;             &lt;dbl&gt;      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb97-8" title="8"><span class="co">#&gt; 1 Abditomys_latidens          100               0                 0        100</span></a>
+<a class="sourceLine" id="cb97-9" title="9"><span class="co">#&gt; 2 Abeomelomys_sevia            78               3                19        100</span></a>
+<a class="sourceLine" id="cb97-10" title="10"><span class="co">#&gt; 3 Abrawayaomys_ruschii         88               1                11        100</span></a>
+<a class="sourceLine" id="cb97-11" title="11"><span class="co">#&gt; 4 Abrocoma_bennettii          100               0                 0        100</span></a>
+<a class="sourceLine" id="cb97-12" title="12"><span class="co">#&gt; 5 Abrocoma_boliviensis        100               0                 0        100</span></a>
+<a class="sourceLine" id="cb97-13" title="13"><span class="co">#&gt; 6 Abrocoma_budini             100               0                 0        100</span></a>
+<a class="sourceLine" id="cb97-14" title="14"><span class="co">#&gt; # … with 5,825 more rows</span></a>
+<a class="sourceLine" id="cb97-15" title="15"></a>
+<a class="sourceLine" id="cb97-16" title="16"><span class="kw">all</span>(diet<span class="op">$</span>total_diet <span class="op">==</span><span class="st"> </span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb97-17" title="17"><span class="co">#&gt; [1] TRUE</span></a>
+<a class="sourceLine" id="cb97-18" title="18"><span class="co"># cool and good</span></a></code></pre></div>
+<p><code>mutate()</code> adds a variable to the table, and keeps all other variables.
+Sometimes you may want to just keep the new variable, and drop the other ones.
+That’s the job of <code>mutate()</code>’s twin sibling, <code>transmute()</code>. For example,
+I want to combine <code>diet_invertebrate</code> and <code>diet_vertebrate</code> together:</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1">diet <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb98-2" title="2"><span class="st">  </span><span class="kw">transmute</span>(</a>
+<a class="sourceLine" id="cb98-3" title="3">    <span class="st">&quot;diet_animal&quot;</span> =<span class="st"> </span>diet_invertebrate <span class="op">+</span><span class="st"> </span>diet_vertebrate</a>
+<a class="sourceLine" id="cb98-4" title="4">  )</a>
+<a class="sourceLine" id="cb98-5" title="5"><span class="co">#&gt; # A tibble: 5,831 x 1</span></a>
+<a class="sourceLine" id="cb98-6" title="6"><span class="co">#&gt;   diet_animal</span></a>
+<a class="sourceLine" id="cb98-7" title="7"><span class="co">#&gt;         &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb98-8" title="8"><span class="co">#&gt; 1           0</span></a>
+<a class="sourceLine" id="cb98-9" title="9"><span class="co">#&gt; 2          22</span></a>
+<a class="sourceLine" id="cb98-10" title="10"><span class="co">#&gt; 3          12</span></a>
+<a class="sourceLine" id="cb98-11" title="11"><span class="co">#&gt; 4           0</span></a>
+<a class="sourceLine" id="cb98-12" title="12"><span class="co">#&gt; 5           0</span></a>
+<a class="sourceLine" id="cb98-13" title="13"><span class="co">#&gt; 6           0</span></a>
+<a class="sourceLine" id="cb98-14" title="14"><span class="co">#&gt; # … with 5,825 more rows</span></a></code></pre></div>
+<p>You may want to keep some variables and drop others. You could pipe <code>mutate()</code>
+and <code>select()</code> to do so, or you could just pass the variables to keep to
+<code>transmute()</code>.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1">diet <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb99-2" title="2"><span class="st">  </span><span class="kw">transmute</span>(</a>
+<a class="sourceLine" id="cb99-3" title="3">    <span class="st">&quot;diet_animal&quot;</span> =<span class="st"> </span>diet_invertebrate <span class="op">+</span><span class="st"> </span>diet_vertebrate,</a>
+<a class="sourceLine" id="cb99-4" title="4">    diet_plant</a>
+<a class="sourceLine" id="cb99-5" title="5">  )</a>
+<a class="sourceLine" id="cb99-6" title="6"><span class="co">#&gt; # A tibble: 5,831 x 2</span></a>
+<a class="sourceLine" id="cb99-7" title="7"><span class="co">#&gt;   diet_animal diet_plant</span></a>
+<a class="sourceLine" id="cb99-8" title="8"><span class="co">#&gt;         &lt;dbl&gt;      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb99-9" title="9"><span class="co">#&gt; 1           0        100</span></a>
+<a class="sourceLine" id="cb99-10" title="10"><span class="co">#&gt; 2          22         78</span></a>
+<a class="sourceLine" id="cb99-11" title="11"><span class="co">#&gt; 3          12         88</span></a>
+<a class="sourceLine" id="cb99-12" title="12"><span class="co">#&gt; 4           0        100</span></a>
+<a class="sourceLine" id="cb99-13" title="13"><span class="co">#&gt; 5           0        100</span></a>
+<a class="sourceLine" id="cb99-14" title="14"><span class="co">#&gt; 6           0        100</span></a>
+<a class="sourceLine" id="cb99-15" title="15"><span class="co">#&gt; # … with 5,825 more rows</span></a></code></pre></div>
+<p>You can also refer to variables you’re creating to derive new variables from
+them as part of the same operation, this is not an issue.</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1">diet <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb100-2" title="2"><span class="st">  </span><span class="kw">transmute</span>(</a>
+<a class="sourceLine" id="cb100-3" title="3">    <span class="st">&quot;diet_animal&quot;</span> =<span class="st"> </span>diet_invertebrate <span class="op">+</span><span class="st"> </span>diet_vertebrate,</a>
+<a class="sourceLine" id="cb100-4" title="4">    diet_plant,</a>
+<a class="sourceLine" id="cb100-5" title="5">    <span class="st">&quot;total_diet&quot;</span> =<span class="st"> </span>diet_animal <span class="op">+</span><span class="st"> </span>diet_plant</a>
+<a class="sourceLine" id="cb100-6" title="6">  )</a>
+<a class="sourceLine" id="cb100-7" title="7"><span class="co">#&gt; # A tibble: 5,831 x 3</span></a>
+<a class="sourceLine" id="cb100-8" title="8"><span class="co">#&gt;   diet_animal diet_plant total_diet</span></a>
+<a class="sourceLine" id="cb100-9" title="9"><span class="co">#&gt;         &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb100-10" title="10"><span class="co">#&gt; 1           0        100        100</span></a>
+<a class="sourceLine" id="cb100-11" title="11"><span class="co">#&gt; 2          22         78        100</span></a>
+<a class="sourceLine" id="cb100-12" title="12"><span class="co">#&gt; 3          12         88        100</span></a>
+<a class="sourceLine" id="cb100-13" title="13"><span class="co">#&gt; 4           0        100        100</span></a>
+<a class="sourceLine" id="cb100-14" title="14"><span class="co">#&gt; 5           0        100        100</span></a>
+<a class="sourceLine" id="cb100-15" title="15"><span class="co">#&gt; 6           0        100        100</span></a>
+<a class="sourceLine" id="cb100-16" title="16"><span class="co">#&gt; # … with 5,825 more rows</span></a></code></pre></div>
+<p>Sometimes, you may need to perform an operation based on the row number
+(I don’t have a good example in mind). <code>tibble</code> has a built-in function to do
+just that:</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb101-2" title="2"><span class="st">  </span><span class="kw">select</span>(binomial) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb101-3" title="3"><span class="st">  </span>tibble<span class="op">::</span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;row_nb&quot;</span>)</a>
+<a class="sourceLine" id="cb101-4" title="4"><span class="co">#&gt; # A tibble: 5,831 x 2</span></a>
+<a class="sourceLine" id="cb101-5" title="5"><span class="co">#&gt;   row_nb binomial            </span></a>
+<a class="sourceLine" id="cb101-6" title="6"><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;               </span></a>
+<a class="sourceLine" id="cb101-7" title="7"><span class="co">#&gt; 1 1      Abditomys_latidens  </span></a>
+<a class="sourceLine" id="cb101-8" title="8"><span class="co">#&gt; 2 2      Abeomelomys_sevia   </span></a>
+<a class="sourceLine" id="cb101-9" title="9"><span class="co">#&gt; 3 3      Abrawayaomys_ruschii</span></a>
+<a class="sourceLine" id="cb101-10" title="10"><span class="co">#&gt; 4 4      Abrocoma_bennettii  </span></a>
+<a class="sourceLine" id="cb101-11" title="11"><span class="co">#&gt; 5 5      Abrocoma_boliviensis</span></a>
+<a class="sourceLine" id="cb101-12" title="12"><span class="co">#&gt; 6 6      Abrocoma_budini     </span></a>
+<a class="sourceLine" id="cb101-13" title="13"><span class="co">#&gt; # … with 5,825 more rows</span></a></code></pre></div>
+</div>
+<div id="summarise-observations-with-summarise" class="section level3">
+<h3><span class="header-section-number">3.4.2</span> Summarise observations with <code>summarise()</code></h3>
+<p><code>mutate()</code> applies operations to all observations in a table. By contrast,
+<code>summarise()</code> applies operations to <em>groups</em> of observations, and returns, er,
+summaries. The default grouping unit is the entire table:</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb102-2" title="2"><span class="st">  </span><span class="kw">summarise</span>(</a>
+<a class="sourceLine" id="cb102-3" title="3">    <span class="st">&quot;nb_species&quot;</span> =<span class="st"> </span><span class="kw">n</span>(), <span class="co"># counts observations</span></a>
+<a class="sourceLine" id="cb102-4" title="4">    <span class="st">&quot;nb_terrestrial&quot;</span> =<span class="st"> </span><span class="kw">sum</span>(terrestrial),</a>
+<a class="sourceLine" id="cb102-5" title="5">    <span class="st">&quot;nb_marine&quot;</span> =<span class="st"> </span><span class="kw">sum</span>(marine),</a>
+<a class="sourceLine" id="cb102-6" title="6">    <span class="st">&quot;nb_freshwater&quot;</span> =<span class="st"> </span><span class="kw">sum</span>(freshwater),</a>
+<a class="sourceLine" id="cb102-7" title="7">    <span class="st">&quot;nb_aerial&quot;</span> =<span class="st"> </span><span class="kw">sum</span>(aerial),</a>
+<a class="sourceLine" id="cb102-8" title="8">    <span class="st">&quot;mean_mass_g&quot;</span> =<span class="st"> </span><span class="kw">mean</span>(mass_g)</a>
+<a class="sourceLine" id="cb102-9" title="9">  )</a>
+<a class="sourceLine" id="cb102-10" title="10"><span class="co">#&gt; # A tibble: 1 x 6</span></a>
+<a class="sourceLine" id="cb102-11" title="11"><span class="co">#&gt;   nb_species nb_terrestrial nb_marine nb_freshwater nb_aerial mean_mass_g</span></a>
+<a class="sourceLine" id="cb102-12" title="12"><span class="co">#&gt;        &lt;int&gt;          &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb102-13" title="13"><span class="co">#&gt; 1       5831           4575       135           156      1162     156882.</span></a></code></pre></div>
+<p>Above you can see that bats account for a large portion of mammal species
+diversity (<code>nb_aerial</code>). How much exactly? Just as with <code>mutate()</code>, you can
+perform operations on the variables you just created, in the same statement:</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb103-2" title="2"><span class="st">  </span><span class="kw">summarise</span>(</a>
+<a class="sourceLine" id="cb103-3" title="3">    <span class="st">&quot;nb_species&quot;</span> =<span class="st"> </span><span class="kw">n</span>(),</a>
+<a class="sourceLine" id="cb103-4" title="4">    <span class="st">&quot;nb_aerial&quot;</span> =<span class="st"> </span><span class="kw">sum</span>(aerial), <span class="co"># bats</span></a>
+<a class="sourceLine" id="cb103-5" title="5">    <span class="st">&quot;prop_aerial&quot;</span> =<span class="st"> </span>nb_aerial <span class="op">/</span><span class="st"> </span>nb_species</a>
+<a class="sourceLine" id="cb103-6" title="6">  )</a>
+<a class="sourceLine" id="cb103-7" title="7"><span class="co">#&gt; # A tibble: 1 x 3</span></a>
+<a class="sourceLine" id="cb103-8" title="8"><span class="co">#&gt;   nb_species nb_aerial prop_aerial</span></a>
+<a class="sourceLine" id="cb103-9" title="9"><span class="co">#&gt;        &lt;int&gt;     &lt;dbl&gt;       &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb103-10" title="10"><span class="co">#&gt; 1       5831      1162       0.199</span></a></code></pre></div>
+<p>One fifth!</p>
+<p>If the british spelling bothers you, <code>summarize()</code> exists and is strictly
+equivalent.</p>
+<p>Here’s a simple trick with logical (TRUE / FALSE) variables. Their sum is the
+count of observations that evaluate to <code>TRUE</code> (because <code>TRUE</code> is taken as 1 and
+<code>FALSE</code> as 0) and their mean is the proportion of <code>TRUE</code> observations. This can
+be exploited to count the number of observations that satisfy a condition:</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb104-2" title="2"><span class="st">  </span><span class="kw">summarise</span>(</a>
+<a class="sourceLine" id="cb104-3" title="3">    <span class="st">&quot;nb_species&quot;</span> =<span class="st"> </span><span class="kw">n</span>(),</a>
+<a class="sourceLine" id="cb104-4" title="4">    <span class="st">&quot;nb_megafauna&quot;</span> =<span class="st"> </span><span class="kw">sum</span>(mass_g <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span>),</a>
+<a class="sourceLine" id="cb104-5" title="5">    <span class="st">&quot;p_megafauna&quot;</span> =<span class="st"> </span><span class="kw">mean</span>(mass_g <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span>)</a>
+<a class="sourceLine" id="cb104-6" title="6">  )</a>
+<a class="sourceLine" id="cb104-7" title="7"><span class="co">#&gt; # A tibble: 1 x 3</span></a>
+<a class="sourceLine" id="cb104-8" title="8"><span class="co">#&gt;   nb_species nb_megafauna p_megafauna</span></a>
+<a class="sourceLine" id="cb104-9" title="9"><span class="co">#&gt;        &lt;int&gt;        &lt;int&gt;       &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb104-10" title="10"><span class="co">#&gt; 1       5831          302      0.0518</span></a></code></pre></div>
+<p>There are more summaries that just means and counts
+(see <code>?summarise()</code> for some helpful functions). In fact, summarise can
+use any function or expression that evaluates to a single value or a <em>vector</em>
+of values. This includes base R <code>max()</code>, <code>quantiles</code>, etc.</p>
+<p><code>mutate()</code> and <code>transmute()</code> can compute summaries as well, but they will
+return the summary once for each observation, in a new column.</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb105-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="st">&quot;nb_species&quot;</span> =<span class="st"> </span><span class="kw">n</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb105-3" title="3"><span class="st">  </span><span class="kw">select</span>(binomial, nb_species)</a>
+<a class="sourceLine" id="cb105-4" title="4"><span class="co">#&gt; # A tibble: 5,831 x 2</span></a>
+<a class="sourceLine" id="cb105-5" title="5"><span class="co">#&gt;   binomial             nb_species</span></a>
+<a class="sourceLine" id="cb105-6" title="6"><span class="co">#&gt;   &lt;chr&gt;                     &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb105-7" title="7"><span class="co">#&gt; 1 Abditomys_latidens         5831</span></a>
+<a class="sourceLine" id="cb105-8" title="8"><span class="co">#&gt; 2 Abeomelomys_sevia          5831</span></a>
+<a class="sourceLine" id="cb105-9" title="9"><span class="co">#&gt; 3 Abrawayaomys_ruschii       5831</span></a>
+<a class="sourceLine" id="cb105-10" title="10"><span class="co">#&gt; 4 Abrocoma_bennettii         5831</span></a>
+<a class="sourceLine" id="cb105-11" title="11"><span class="co">#&gt; 5 Abrocoma_boliviensis       5831</span></a>
+<a class="sourceLine" id="cb105-12" title="12"><span class="co">#&gt; 6 Abrocoma_budini            5831</span></a>
+<a class="sourceLine" id="cb105-13" title="13"><span class="co">#&gt; # … with 5,825 more rows</span></a></code></pre></div>
+</div>
+<div id="grouping-observations-by-variables" class="section level3">
+<h3><span class="header-section-number">3.4.3</span> Grouping observations by variables</h3>
+<p>In most cases you don’t want to run summary operations on the entire set of observations, but instead on observations that share a common value, i.e. groups.
+For example, I want to run the summary displayed above, but for each Order of mammals.</p>
+<p><code>distinct()</code> extracts all the unique values of a variable</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(order)</a>
+<a class="sourceLine" id="cb106-2" title="2"><span class="co">#&gt; # A tibble: 29 x 1</span></a>
+<a class="sourceLine" id="cb106-3" title="3"><span class="co">#&gt;   order          </span></a>
+<a class="sourceLine" id="cb106-4" title="4"><span class="co">#&gt;   &lt;chr&gt;          </span></a>
+<a class="sourceLine" id="cb106-5" title="5"><span class="co">#&gt; 1 Rodentia       </span></a>
+<a class="sourceLine" id="cb106-6" title="6"><span class="co">#&gt; 2 Chiroptera     </span></a>
+<a class="sourceLine" id="cb106-7" title="7"><span class="co">#&gt; 3 Carnivora      </span></a>
+<a class="sourceLine" id="cb106-8" title="8"><span class="co">#&gt; 4 Pilosa         </span></a>
+<a class="sourceLine" id="cb106-9" title="9"><span class="co">#&gt; 5 Diprotodontia  </span></a>
+<a class="sourceLine" id="cb106-10" title="10"><span class="co">#&gt; 6 Cetartiodactyla</span></a>
+<a class="sourceLine" id="cb106-11" title="11"><span class="co">#&gt; # … with 23 more rows</span></a></code></pre></div>
+<p>I could work my way with what we have already seen, filtering observations (<code>filter(order == "Rodentia")</code>) and then pipeing the output to <code>summarise()</code>, and do it again for each Order. But that would be tedious.</p>
+<p>Instead, I can use <code>group_by()</code> to pool observations by <code>order</code>.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb107-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(order)</a>
+<a class="sourceLine" id="cb107-3" title="3"><span class="co">#&gt; # A tibble: 5,831 x 24</span></a>
+<a class="sourceLine" id="cb107-4" title="4"><span class="co">#&gt; # Groups:   order [29]</span></a>
+<a class="sourceLine" id="cb107-5" title="5"><span class="co">#&gt;   binomial order family genus species terrestrial marine freshwater aerial</span></a>
+<a class="sourceLine" id="cb107-6" title="6"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb107-7" title="7"><span class="co">#&gt; 1 Abditom… Rode… Murid… Abdi… latide…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb107-8" title="8"><span class="co">#&gt; 2 Abeomel… Rode… Murid… Abeo… sevia             1      0          0      0</span></a>
+<a class="sourceLine" id="cb107-9" title="9"><span class="co">#&gt; 3 Abraway… Rode… Crice… Abra… ruschii           1      0          0      0</span></a>
+<a class="sourceLine" id="cb107-10" title="10"><span class="co">#&gt; 4 Abrocom… Rode… Abroc… Abro… bennet…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb107-11" title="11"><span class="co">#&gt; 5 Abrocom… Rode… Abroc… Abro… bolivi…           1      0          0      0</span></a>
+<a class="sourceLine" id="cb107-12" title="12"><span class="co">#&gt; 6 Abrocom… Rode… Abroc… Abro… budini            1      0          0      0</span></a>
+<a class="sourceLine" id="cb107-13" title="13"><span class="co">#&gt; # … with 5,825 more rows, and 15 more variables: life_habit_method &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb107-14" title="14"><span class="co">#&gt; #   life_habit_source &lt;chr&gt;, mass_g &lt;dbl&gt;, mass_method &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb107-15" title="15"><span class="co">#&gt; #   mass_source &lt;chr&gt;, mass_comparison &lt;chr&gt;, mass_comparison_source &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb107-16" title="16"><span class="co">#&gt; #   island_endemicity &lt;chr&gt;, iucn_status &lt;chr&gt;, added_iucn_status &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb107-17" title="17"><span class="co">#&gt; #   diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;, diet_invertebrate &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb107-18" title="18"><span class="co">#&gt; #   diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a></code></pre></div>
+<p>At first glance, nothing has changed, apart from an extra line of information in the output that tells me the observations have been grouped. But now here’s what happen if I run the same <code>summarise()</code> statement on an ungrouped and a grouped table</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb108-2" title="2"><span class="st">  </span><span class="kw">summarise</span>(</a>
+<a class="sourceLine" id="cb108-3" title="3">    <span class="st">&quot;n_species&quot;</span> =<span class="st"> </span><span class="kw">n</span>(),</a>
+<a class="sourceLine" id="cb108-4" title="4">    <span class="st">&quot;mean_mass_g&quot;</span> =<span class="st"> </span><span class="kw">mean</span>(mass_g)</a>
+<a class="sourceLine" id="cb108-5" title="5">  )</a>
+<a class="sourceLine" id="cb108-6" title="6"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
+<a class="sourceLine" id="cb108-7" title="7"><span class="co">#&gt;   n_species mean_mass_g</span></a>
+<a class="sourceLine" id="cb108-8" title="8"><span class="co">#&gt;       &lt;int&gt;       &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb108-9" title="9"><span class="co">#&gt; 1      5831     156882.</span></a>
+<a class="sourceLine" id="cb108-10" title="10"></a>
+<a class="sourceLine" id="cb108-11" title="11">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb108-12" title="12"><span class="st">  </span><span class="kw">group_by</span>(order) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb108-13" title="13"><span class="st">  </span><span class="kw">summarise</span>(</a>
+<a class="sourceLine" id="cb108-14" title="14">    <span class="st">&quot;n_species&quot;</span> =<span class="st"> </span><span class="kw">n</span>(),</a>
+<a class="sourceLine" id="cb108-15" title="15">    <span class="st">&quot;mean_mass_g&quot;</span> =<span class="st"> </span><span class="kw">mean</span>(mass_g)</a>
+<a class="sourceLine" id="cb108-16" title="16">  )</a>
+<a class="sourceLine" id="cb108-17" title="17"><span class="co">#&gt; # A tibble: 29 x 3</span></a>
+<a class="sourceLine" id="cb108-18" title="18"><span class="co">#&gt;   order           n_species mean_mass_g</span></a>
+<a class="sourceLine" id="cb108-19" title="19"><span class="co">#&gt;   &lt;chr&gt;               &lt;int&gt;       &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb108-20" title="20"><span class="co">#&gt; 1 Afrosoricida           57       306. </span></a>
+<a class="sourceLine" id="cb108-21" title="21"><span class="co">#&gt; 2 Carnivora             313     47905. </span></a>
+<a class="sourceLine" id="cb108-22" title="22"><span class="co">#&gt; 3 Cetartiodactyla       392   1854811. </span></a>
+<a class="sourceLine" id="cb108-23" title="23"><span class="co">#&gt; 4 Chiroptera           1162        49.1</span></a>
+<a class="sourceLine" id="cb108-24" title="24"><span class="co">#&gt; 5 Cingulata              39    235529. </span></a>
+<a class="sourceLine" id="cb108-25" title="25"><span class="co">#&gt; 6 Dasyuromorphia         74       748. </span></a>
+<a class="sourceLine" id="cb108-26" title="26"><span class="co">#&gt; # … with 23 more rows</span></a></code></pre></div>
+<p>I get one value for each group.</p>
+<p>Observations can be grouped by multiple variables, which will output a summary for every unique combination of groups.</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb109-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(order, iucn_status) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb109-3" title="3"><span class="st">  </span><span class="kw">summarise</span>(</a>
+<a class="sourceLine" id="cb109-4" title="4">    <span class="st">&quot;n_species&quot;</span> =<span class="st"> </span><span class="kw">n</span>()</a>
+<a class="sourceLine" id="cb109-5" title="5">  )</a>
+<a class="sourceLine" id="cb109-6" title="6"><span class="co">#&gt; # A tibble: 138 x 3</span></a>
+<a class="sourceLine" id="cb109-7" title="7"><span class="co">#&gt; # Groups:   order [29]</span></a>
+<a class="sourceLine" id="cb109-8" title="8"><span class="co">#&gt;   order        iucn_status n_species</span></a>
+<a class="sourceLine" id="cb109-9" title="9"><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;           &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb109-10" title="10"><span class="co">#&gt; 1 Afrosoricida CR                  1</span></a>
+<a class="sourceLine" id="cb109-11" title="11"><span class="co">#&gt; 2 Afrosoricida DD                  4</span></a>
+<a class="sourceLine" id="cb109-12" title="12"><span class="co">#&gt; 3 Afrosoricida EN                  7</span></a>
+<a class="sourceLine" id="cb109-13" title="13"><span class="co">#&gt; 4 Afrosoricida EP                  2</span></a>
+<a class="sourceLine" id="cb109-14" title="14"><span class="co">#&gt; 5 Afrosoricida LC                 32</span></a>
+<a class="sourceLine" id="cb109-15" title="15"><span class="co">#&gt; 6 Afrosoricida NT                  3</span></a>
+<a class="sourceLine" id="cb109-16" title="16"><span class="co">#&gt; # … with 132 more rows</span></a></code></pre></div>
+<p>Whenever you call <code>summarise()</code>, the last level of grouping is dropped. Note how in the output table above, observations are still grouped by order, and no longer by IUCN status. If I summarise observations again:</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb110-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(order, iucn_status) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb110-3" title="3"><span class="st">  </span><span class="kw">summarise</span>(</a>
+<a class="sourceLine" id="cb110-4" title="4">    <span class="st">&quot;n_species&quot;</span> =<span class="st"> </span><span class="kw">n</span>()</a>
+<a class="sourceLine" id="cb110-5" title="5">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb110-6" title="6"><span class="st">  </span><span class="kw">summarise</span>(</a>
+<a class="sourceLine" id="cb110-7" title="7">    <span class="st">&quot;n_species_2&quot;</span> =<span class="st"> </span><span class="kw">n</span>()</a>
+<a class="sourceLine" id="cb110-8" title="8">  )</a>
+<a class="sourceLine" id="cb110-9" title="9"><span class="co">#&gt; # A tibble: 29 x 2</span></a>
+<a class="sourceLine" id="cb110-10" title="10"><span class="co">#&gt;   order           n_species_2</span></a>
+<a class="sourceLine" id="cb110-11" title="11"><span class="co">#&gt;   &lt;chr&gt;                 &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb110-12" title="12"><span class="co">#&gt; 1 Afrosoricida              7</span></a>
+<a class="sourceLine" id="cb110-13" title="13"><span class="co">#&gt; 2 Carnivora                 8</span></a>
+<a class="sourceLine" id="cb110-14" title="14"><span class="co">#&gt; 3 Cetartiodactyla           9</span></a>
+<a class="sourceLine" id="cb110-15" title="15"><span class="co">#&gt; 4 Chiroptera                8</span></a>
+<a class="sourceLine" id="cb110-16" title="16"><span class="co">#&gt; 5 Cingulata                 5</span></a>
+<a class="sourceLine" id="cb110-17" title="17"><span class="co">#&gt; 6 Dasyuromorphia            7</span></a>
+<a class="sourceLine" id="cb110-18" title="18"><span class="co">#&gt; # … with 23 more rows</span></a></code></pre></div>
+<p>I get the summary across orders, and the table is no longer grouped at all. This is useful to consider if you need to work on summaries across different levels of the data.</p>
+<p>For example, I would like to know how the species in each order are distributed between the different levels of threat in the IUCN classification. To get these proportions, I need to first get the count of each number of species in a level of threat inside an order, and divide that by the number of species in that order.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb111-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(order, iucn_status) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb111-3" title="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="st">&quot;n_order_iucn&quot;</span> =<span class="st"> </span><span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb111-4" title="4"><span class="st">  </span><span class="co"># grouping by iucn_status silently dropped</span></a>
+<a class="sourceLine" id="cb111-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb111-6" title="6">    <span class="st">&quot;n_order&quot;</span> =<span class="st"> </span><span class="kw">sum</span>(n_order_iucn),</a>
+<a class="sourceLine" id="cb111-7" title="7">    <span class="st">&quot;p_iucn&quot;</span> =<span class="st"> </span>n_order_iucn <span class="op">/</span><span class="st"> </span>n_order</a>
+<a class="sourceLine" id="cb111-8" title="8">  )</a>
+<a class="sourceLine" id="cb111-9" title="9"><span class="co">#&gt; # A tibble: 138 x 5</span></a>
+<a class="sourceLine" id="cb111-10" title="10"><span class="co">#&gt; # Groups:   order [29]</span></a>
+<a class="sourceLine" id="cb111-11" title="11"><span class="co">#&gt;   order        iucn_status n_order_iucn n_order p_iucn</span></a>
+<a class="sourceLine" id="cb111-12" title="12"><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;              &lt;int&gt;   &lt;int&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb111-13" title="13"><span class="co">#&gt; 1 Afrosoricida CR                     1      57 0.0175</span></a>
+<a class="sourceLine" id="cb111-14" title="14"><span class="co">#&gt; 2 Afrosoricida DD                     4      57 0.0702</span></a>
+<a class="sourceLine" id="cb111-15" title="15"><span class="co">#&gt; 3 Afrosoricida EN                     7      57 0.123 </span></a>
+<a class="sourceLine" id="cb111-16" title="16"><span class="co">#&gt; 4 Afrosoricida EP                     2      57 0.0351</span></a>
+<a class="sourceLine" id="cb111-17" title="17"><span class="co">#&gt; 5 Afrosoricida LC                    32      57 0.561 </span></a>
+<a class="sourceLine" id="cb111-18" title="18"><span class="co">#&gt; 6 Afrosoricida NT                     3      57 0.0526</span></a>
+<a class="sourceLine" id="cb111-19" title="19"><span class="co">#&gt; # … with 132 more rows</span></a></code></pre></div>
+<p>10.2% of Carnivores are Endangered (“EN”).</p>
+</div>
+<div id="grouped-data-and-other-dplyr-verbs" class="section level3">
+<h3><span class="header-section-number">3.4.4</span> Grouped data and other <code>dplyr</code> verbs</h3>
+<p>Grouping does not only affect the behaviour of <code>summarise</code>, but under circumstances, other verbs can (and will!) perform operations by groups.</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" title="1"><span class="co"># Species with a higher mass than the mammal mean</span></a>
+<a class="sourceLine" id="cb112-2" title="2">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb112-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="st">&quot;binomial&quot;</span>, <span class="st">&quot;mass_g&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb112-4" title="4"><span class="st">  </span><span class="kw">filter</span>(mass_g <span class="op">&gt;</span><span class="st"> </span><span class="kw">mean</span>(mass_g, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb112-5" title="5"><span class="co">#&gt; # A tibble: 234 x 2</span></a>
+<a class="sourceLine" id="cb112-6" title="6"><span class="co">#&gt;   binomial                      mass_g</span></a>
+<a class="sourceLine" id="cb112-7" title="7"><span class="co">#&gt;   &lt;chr&gt;                          &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb112-8" title="8"><span class="co">#&gt; 1 Alcelaphus_buselaphus        171002.</span></a>
+<a class="sourceLine" id="cb112-9" title="9"><span class="co">#&gt; 2 Alces_alces                  356998 </span></a>
+<a class="sourceLine" id="cb112-10" title="10"><span class="co">#&gt; 3 Archaeoindris_fontoynonti    160000 </span></a>
+<a class="sourceLine" id="cb112-11" title="11"><span class="co">#&gt; 4 Arctocephalus_pusillus       178500 </span></a>
+<a class="sourceLine" id="cb112-12" title="12"><span class="co">#&gt; 5 Arctodus_simus               709500 </span></a>
+<a class="sourceLine" id="cb112-13" title="13"><span class="co">#&gt; 6 Balaena_mysticetus        100000000 </span></a>
+<a class="sourceLine" id="cb112-14" title="14"><span class="co">#&gt; # … with 228 more rows</span></a>
+<a class="sourceLine" id="cb112-15" title="15"></a>
+<a class="sourceLine" id="cb112-16" title="16"><span class="co"># Species with a higher mass than the mean in their order</span></a>
+<a class="sourceLine" id="cb112-17" title="17">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb112-18" title="18"><span class="st">  </span><span class="kw">group_by</span>(order) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb112-19" title="19"><span class="st">  </span><span class="kw">select</span>(<span class="st">&quot;binomial&quot;</span>, <span class="st">&quot;mass_g&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb112-20" title="20"><span class="st">  </span><span class="kw">filter</span>(mass_g <span class="op">&gt;</span><span class="st"> </span><span class="kw">mean</span>(mass_g, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb112-21" title="21"><span class="co">#&gt; # A tibble: 890 x 3</span></a>
+<a class="sourceLine" id="cb112-22" title="22"><span class="co">#&gt; # Groups:   order [27]</span></a>
+<a class="sourceLine" id="cb112-23" title="23"><span class="co">#&gt;   order      binomial             mass_g</span></a>
+<a class="sourceLine" id="cb112-24" title="24"><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;                 &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb112-25" title="25"><span class="co">#&gt; 1 Chiroptera Acerodon_celebensis    390 </span></a>
+<a class="sourceLine" id="cb112-26" title="26"><span class="co">#&gt; 2 Chiroptera Acerodon_humilis       600.</span></a>
+<a class="sourceLine" id="cb112-27" title="27"><span class="co">#&gt; 3 Chiroptera Acerodon_jubatus      1075 </span></a>
+<a class="sourceLine" id="cb112-28" title="28"><span class="co">#&gt; 4 Chiroptera Acerodon_leucotis      513.</span></a>
+<a class="sourceLine" id="cb112-29" title="29"><span class="co">#&gt; 5 Chiroptera Acerodon_mackloti      470.</span></a>
+<a class="sourceLine" id="cb112-30" title="30"><span class="co">#&gt; 6 Rodentia   Aeretes_melanopterus   732.</span></a>
+<a class="sourceLine" id="cb112-31" title="31"><span class="co">#&gt; # … with 884 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" title="1"><span class="co"># Largest mammal</span></a>
+<a class="sourceLine" id="cb113-2" title="2">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb113-3" title="3"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb113-4" title="4"><span class="st">  </span><span class="kw">slice_max</span>(mass_g) </a>
+<a class="sourceLine" id="cb113-5" title="5"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
+<a class="sourceLine" id="cb113-6" title="6"><span class="co">#&gt;   binomial                 mass_g</span></a>
+<a class="sourceLine" id="cb113-7" title="7"><span class="co">#&gt;   &lt;chr&gt;                     &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb113-8" title="8"><span class="co">#&gt; 1 Balaenoptera_musculus 190000000</span></a>
+<a class="sourceLine" id="cb113-9" title="9"><span class="co"># Largest species in each order</span></a>
+<a class="sourceLine" id="cb113-10" title="10">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb113-11" title="11"><span class="st">  </span><span class="kw">group_by</span>(order) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb113-12" title="12"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb113-13" title="13"><span class="st">  </span><span class="kw">slice_max</span>(mass_g) </a>
+<a class="sourceLine" id="cb113-14" title="14"><span class="co">#&gt; # A tibble: 30 x 3</span></a>
+<a class="sourceLine" id="cb113-15" title="15"><span class="co">#&gt; # Groups:   order [29]</span></a>
+<a class="sourceLine" id="cb113-16" title="16"><span class="co">#&gt;   order           binomial                             mass_g</span></a>
+<a class="sourceLine" id="cb113-17" title="17"><span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;                                 &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb113-18" title="18"><span class="co">#&gt; 1 Afrosoricida    Plesiorycteropus_madagascariensis     13220</span></a>
+<a class="sourceLine" id="cb113-19" title="19"><span class="co">#&gt; 2 Carnivora       Mirounga_leonina                    1600000</span></a>
+<a class="sourceLine" id="cb113-20" title="20"><span class="co">#&gt; 3 Cetartiodactyla Balaenoptera_musculus             190000000</span></a>
+<a class="sourceLine" id="cb113-21" title="21"><span class="co">#&gt; 4 Chiroptera      Acerodon_jubatus                       1075</span></a>
+<a class="sourceLine" id="cb113-22" title="22"><span class="co">#&gt; 5 Cingulata       Glyptodon_clavipes                  2000000</span></a>
+<a class="sourceLine" id="cb113-23" title="23"><span class="co">#&gt; 6 Dasyuromorphia  Thylacinus_cynocephalus               30000</span></a>
+<a class="sourceLine" id="cb113-24" title="24"><span class="co">#&gt; # … with 24 more rows</span></a></code></pre></div>
+<p>To avoid grouped operations, you can simply drop grouping with <code>ungroup()</code>.</p>
+</div>
+</div>
+<div id="working-with-multiple-tables" class="section level2">
+<h2><span class="header-section-number">3.5</span> Working with multiple tables</h2>
+<div id="binding-tables" class="section level3">
+<h3><span class="header-section-number">3.5.1</span> Binding tables</h3>
+<p><code>dplyr</code> introduces <code>bind_rows()</code> and <code>bind_cols()</code>, which are equivalent to base
+R <code>rbind()</code> and <code>cbind()</code>, with a few extra feature. They are faster, and can
+bind many tables at once, and bind data frames with vectors or lists.</p>
+<p><code>bind_rows()</code> has an option to pass a variable specifying which dataset each
+observation originates from.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" title="1">porpoises &lt;-<span class="st"> </span>phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb114-2" title="2"><span class="st">  </span><span class="kw">filter</span>(family <span class="op">==</span><span class="st"> &quot;Phocoenidae&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb114-3" title="3"><span class="st">  </span><span class="kw">select</span>(binomial, iucn_status)</a>
+<a class="sourceLine" id="cb114-4" title="4">echidnas &lt;-<span class="st"> </span>phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb114-5" title="5"><span class="st">  </span><span class="kw">filter</span>(family <span class="op">==</span><span class="st"> &quot;Tachyglossidae&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb114-6" title="6"><span class="st">  </span><span class="kw">select</span>(binomial, iucn_status)</a>
+<a class="sourceLine" id="cb114-7" title="7"></a>
+<a class="sourceLine" id="cb114-8" title="8"><span class="kw">bind_rows</span>(</a>
+<a class="sourceLine" id="cb114-9" title="9">  <span class="st">&quot;porpoise&quot;</span> =<span class="st"> </span>porpoises, </a>
+<a class="sourceLine" id="cb114-10" title="10">  <span class="st">&quot;echidna&quot;</span> =<span class="st"> </span>echidnas, </a>
+<a class="sourceLine" id="cb114-11" title="11">  <span class="dt">.id =</span> <span class="st">&quot;kind&quot;</span></a>
+<a class="sourceLine" id="cb114-12" title="12">)</a>
+<a class="sourceLine" id="cb114-13" title="13"><span class="co">#&gt; # A tibble: 13 x 3</span></a>
+<a class="sourceLine" id="cb114-14" title="14"><span class="co">#&gt;   kind     binomial                    iucn_status</span></a>
+<a class="sourceLine" id="cb114-15" title="15"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;                       &lt;chr&gt;      </span></a>
+<a class="sourceLine" id="cb114-16" title="16"><span class="co">#&gt; 1 porpoise Neophocaena_asiaeorientalis VU         </span></a>
+<a class="sourceLine" id="cb114-17" title="17"><span class="co">#&gt; 2 porpoise Neophocaena_phocaenoides    VU         </span></a>
+<a class="sourceLine" id="cb114-18" title="18"><span class="co">#&gt; 3 porpoise Phocoena_dioptrica          DD         </span></a>
+<a class="sourceLine" id="cb114-19" title="19"><span class="co">#&gt; 4 porpoise Phocoena_phocoena           LC         </span></a>
+<a class="sourceLine" id="cb114-20" title="20"><span class="co">#&gt; 5 porpoise Phocoena_sinus              CR         </span></a>
+<a class="sourceLine" id="cb114-21" title="21"><span class="co">#&gt; 6 porpoise Phocoena_spinipinnis        DD         </span></a>
+<a class="sourceLine" id="cb114-22" title="22"><span class="co">#&gt; # … with 7 more rows</span></a></code></pre></div>
+</div>
+<div id="combining-variables-of-two-tables-with-mutating-joins" class="section level3">
+<h3><span class="header-section-number">3.5.2</span> Combining variables of two tables with mutating joins</h3>
+<p>Mutating joins are tailored to combine tables that share a set of observations
+but have different variables.</p>
+<p>As an example, let’s split the <code>phylacine</code> dataset in two smaller datasets,
+one containing information on diet and one on the dominant habitat.</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" title="1">diet &lt;-<span class="st"> </span>phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb115-2" title="2"><span class="st">  </span><span class="kw">select</span>(binomial, diet_plant<span class="op">:</span>diet_invertebrate) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb115-3" title="3"><span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb115-4" title="4">diet</a>
+<a class="sourceLine" id="cb115-5" title="5"><span class="co">#&gt; # A tibble: 5 x 4</span></a>
+<a class="sourceLine" id="cb115-6" title="6"><span class="co">#&gt;   binomial             diet_plant diet_vertebrate diet_invertebrate</span></a>
+<a class="sourceLine" id="cb115-7" title="7"><span class="co">#&gt;   &lt;chr&gt;                     &lt;dbl&gt;           &lt;dbl&gt;             &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb115-8" title="8"><span class="co">#&gt; 1 Abditomys_latidens          100               0                 0</span></a>
+<a class="sourceLine" id="cb115-9" title="9"><span class="co">#&gt; 2 Abeomelomys_sevia            78               3                19</span></a>
+<a class="sourceLine" id="cb115-10" title="10"><span class="co">#&gt; 3 Abrawayaomys_ruschii         88               1                11</span></a>
+<a class="sourceLine" id="cb115-11" title="11"><span class="co">#&gt; 4 Abrocoma_bennettii          100               0                 0</span></a>
+<a class="sourceLine" id="cb115-12" title="12"><span class="co">#&gt; 5 Abrocoma_boliviensis        100               0                 0</span></a>
+<a class="sourceLine" id="cb115-13" title="13"></a>
+<a class="sourceLine" id="cb115-14" title="14">life_habit &lt;-<span class="st"> </span>phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(binomial, terrestrial<span class="op">:</span>aerial) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb115-15" title="15"><span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">6</span><span class="op">:</span><span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb115-16" title="16">life_habit</a>
+<a class="sourceLine" id="cb115-17" title="17"><span class="co">#&gt; # A tibble: 5 x 5</span></a>
+<a class="sourceLine" id="cb115-18" title="18"><span class="co">#&gt;   binomial             terrestrial marine freshwater aerial</span></a>
+<a class="sourceLine" id="cb115-19" title="19"><span class="co">#&gt;   &lt;chr&gt;                      &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb115-20" title="20"><span class="co">#&gt; 1 Abditomys_latidens             1      0          0      0</span></a>
+<a class="sourceLine" id="cb115-21" title="21"><span class="co">#&gt; 2 Abeomelomys_sevia              1      0          0      0</span></a>
+<a class="sourceLine" id="cb115-22" title="22"><span class="co">#&gt; 3 Abrawayaomys_ruschii           1      0          0      0</span></a>
+<a class="sourceLine" id="cb115-23" title="23"><span class="co">#&gt; 4 Abrocoma_budini                1      0          0      0</span></a>
+<a class="sourceLine" id="cb115-24" title="24"><span class="co">#&gt; 5 Abrocoma_cinerea               1      0          0      0</span></a></code></pre></div>
+<p>The two datasets each contain 5 species, the first three are shared, and the
+two last differ between the two.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" title="1"><span class="kw">intersect</span>(diet<span class="op">$</span>binomial, life_habit<span class="op">$</span>binomial)</a>
+<a class="sourceLine" id="cb116-2" title="2"><span class="co">#&gt; [1] &quot;Abditomys_latidens&quot;   &quot;Abeomelomys_sevia&quot;    &quot;Abrawayaomys_ruschii&quot;</span></a>
+<a class="sourceLine" id="cb116-3" title="3"><span class="kw">setdiff</span>(diet<span class="op">$</span>binomial, life_habit<span class="op">$</span>binomial)</a>
+<a class="sourceLine" id="cb116-4" title="4"><span class="co">#&gt; [1] &quot;Abrocoma_bennettii&quot;   &quot;Abrocoma_boliviensis&quot;</span></a></code></pre></div>
+<p>To use mutate-joins, both tables need to have a <strong>key</strong>, a variable that
+identifies each observation. Here, that would be <code>binomial</code>, the sepcies names.
+If your table doesn’t have such a key and the rows between the tables match
+one another, remember you can create a row number variable easily with
+<code>tibble::column_to_rownames()</code>.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" title="1"><span class="kw">inner_join</span>(diet, life_habit, <span class="dt">by =</span> <span class="st">&quot;binomial&quot;</span>)</a>
+<a class="sourceLine" id="cb117-2" title="2"><span class="co">#&gt; # A tibble: 3 x 8</span></a>
+<a class="sourceLine" id="cb117-3" title="3"><span class="co">#&gt;   binomial diet_plant diet_vertebrate diet_invertebra… terrestrial marine</span></a>
+<a class="sourceLine" id="cb117-4" title="4"><span class="co">#&gt;   &lt;chr&gt;         &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb117-5" title="5"><span class="co">#&gt; 1 Abditom…        100               0                0           1      0</span></a>
+<a class="sourceLine" id="cb117-6" title="6"><span class="co">#&gt; 2 Abeomel…         78               3               19           1      0</span></a>
+<a class="sourceLine" id="cb117-7" title="7"><span class="co">#&gt; 3 Abraway…         88               1               11           1      0</span></a>
+<a class="sourceLine" id="cb117-8" title="8"><span class="co">#&gt; # … with 2 more variables: freshwater &lt;dbl&gt;, aerial &lt;dbl&gt;</span></a></code></pre></div>
+<p><code>inner_join</code> combined the variables, and dropped the observations that weren’t
+matched between the two tables. There are three other variations of mutating
+joins, differing in what they do with unmatching variables.</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" title="1"><span class="kw">left_join</span>(diet, life_habit, <span class="dt">by =</span> <span class="st">&quot;binomial&quot;</span>)</a>
+<a class="sourceLine" id="cb118-2" title="2"><span class="co">#&gt; # A tibble: 5 x 8</span></a>
+<a class="sourceLine" id="cb118-3" title="3"><span class="co">#&gt;   binomial diet_plant diet_vertebrate diet_invertebra… terrestrial marine</span></a>
+<a class="sourceLine" id="cb118-4" title="4"><span class="co">#&gt;   &lt;chr&gt;         &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb118-5" title="5"><span class="co">#&gt; 1 Abditom…        100               0                0           1      0</span></a>
+<a class="sourceLine" id="cb118-6" title="6"><span class="co">#&gt; 2 Abeomel…         78               3               19           1      0</span></a>
+<a class="sourceLine" id="cb118-7" title="7"><span class="co">#&gt; 3 Abraway…         88               1               11           1      0</span></a>
+<a class="sourceLine" id="cb118-8" title="8"><span class="co">#&gt; 4 Abrocom…        100               0                0          NA     NA</span></a>
+<a class="sourceLine" id="cb118-9" title="9"><span class="co">#&gt; 5 Abrocom…        100               0                0          NA     NA</span></a>
+<a class="sourceLine" id="cb118-10" title="10"><span class="co">#&gt; # … with 2 more variables: freshwater &lt;dbl&gt;, aerial &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb118-11" title="11"><span class="kw">right_join</span>(diet, life_habit, <span class="dt">by =</span> <span class="st">&quot;binomial&quot;</span>)</a>
+<a class="sourceLine" id="cb118-12" title="12"><span class="co">#&gt; # A tibble: 5 x 8</span></a>
+<a class="sourceLine" id="cb118-13" title="13"><span class="co">#&gt;   binomial diet_plant diet_vertebrate diet_invertebra… terrestrial marine</span></a>
+<a class="sourceLine" id="cb118-14" title="14"><span class="co">#&gt;   &lt;chr&gt;         &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb118-15" title="15"><span class="co">#&gt; 1 Abditom…        100               0                0           1      0</span></a>
+<a class="sourceLine" id="cb118-16" title="16"><span class="co">#&gt; 2 Abeomel…         78               3               19           1      0</span></a>
+<a class="sourceLine" id="cb118-17" title="17"><span class="co">#&gt; 3 Abraway…         88               1               11           1      0</span></a>
+<a class="sourceLine" id="cb118-18" title="18"><span class="co">#&gt; 4 Abrocom…         NA              NA               NA           1      0</span></a>
+<a class="sourceLine" id="cb118-19" title="19"><span class="co">#&gt; 5 Abrocom…         NA              NA               NA           1      0</span></a>
+<a class="sourceLine" id="cb118-20" title="20"><span class="co">#&gt; # … with 2 more variables: freshwater &lt;dbl&gt;, aerial &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb118-21" title="21"><span class="kw">full_join</span>(diet, life_habit, <span class="dt">by =</span> <span class="st">&quot;binomial&quot;</span>)</a>
+<a class="sourceLine" id="cb118-22" title="22"><span class="co">#&gt; # A tibble: 7 x 8</span></a>
+<a class="sourceLine" id="cb118-23" title="23"><span class="co">#&gt;   binomial diet_plant diet_vertebrate diet_invertebra… terrestrial marine</span></a>
+<a class="sourceLine" id="cb118-24" title="24"><span class="co">#&gt;   &lt;chr&gt;         &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb118-25" title="25"><span class="co">#&gt; 1 Abditom…        100               0                0           1      0</span></a>
+<a class="sourceLine" id="cb118-26" title="26"><span class="co">#&gt; 2 Abeomel…         78               3               19           1      0</span></a>
+<a class="sourceLine" id="cb118-27" title="27"><span class="co">#&gt; 3 Abraway…         88               1               11           1      0</span></a>
+<a class="sourceLine" id="cb118-28" title="28"><span class="co">#&gt; 4 Abrocom…        100               0                0          NA     NA</span></a>
+<a class="sourceLine" id="cb118-29" title="29"><span class="co">#&gt; 5 Abrocom…        100               0                0          NA     NA</span></a>
+<a class="sourceLine" id="cb118-30" title="30"><span class="co">#&gt; 6 Abrocom…         NA              NA               NA           1      0</span></a>
+<a class="sourceLine" id="cb118-31" title="31"><span class="co">#&gt; # … with 1 more row, and 2 more variables: freshwater &lt;dbl&gt;, aerial &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb118-32" title="32"></a>
+<a class="sourceLine" id="cb118-33" title="33"><span class="kw">semi_join</span>(diet, life_habit, <span class="dt">by  =</span> <span class="st">&quot;binomial&quot;</span>)</a>
+<a class="sourceLine" id="cb118-34" title="34"><span class="co">#&gt; # A tibble: 3 x 4</span></a>
+<a class="sourceLine" id="cb118-35" title="35"><span class="co">#&gt;   binomial             diet_plant diet_vertebrate diet_invertebrate</span></a>
+<a class="sourceLine" id="cb118-36" title="36"><span class="co">#&gt;   &lt;chr&gt;                     &lt;dbl&gt;           &lt;dbl&gt;             &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb118-37" title="37"><span class="co">#&gt; 1 Abditomys_latidens          100               0                 0</span></a>
+<a class="sourceLine" id="cb118-38" title="38"><span class="co">#&gt; 2 Abeomelomys_sevia            78               3                19</span></a>
+<a class="sourceLine" id="cb118-39" title="39"><span class="co">#&gt; 3 Abrawayaomys_ruschii         88               1                11</span></a>
+<a class="sourceLine" id="cb118-40" title="40"><span class="kw">anti_join</span>(diet, life_habit, <span class="dt">by  =</span> <span class="st">&quot;binomial&quot;</span>)</a>
+<a class="sourceLine" id="cb118-41" title="41"><span class="co">#&gt; # A tibble: 2 x 4</span></a>
+<a class="sourceLine" id="cb118-42" title="42"><span class="co">#&gt;   binomial             diet_plant diet_vertebrate diet_invertebrate</span></a>
+<a class="sourceLine" id="cb118-43" title="43"><span class="co">#&gt;   &lt;chr&gt;                     &lt;dbl&gt;           &lt;dbl&gt;             &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb118-44" title="44"><span class="co">#&gt; 1 Abrocoma_bennettii          100               0                 0</span></a>
+<a class="sourceLine" id="cb118-45" title="45"><span class="co">#&gt; 2 Abrocoma_boliviensis        100               0                 0</span></a></code></pre></div>
+</div>
+<div id="filtering-matching-observations-between-two-tables-wiht-filtering-joins" class="section level3">
+<h3><span class="header-section-number">3.5.3</span> Filtering matching observations between two tables wiht filtering joins</h3>
+<p>So-called filtering joins return row from the first table that are matched
+(or not, for <code>anti_join()</code>) in the second.</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" title="1"><span class="kw">semi_join</span>(diet, life_habit, <span class="dt">by  =</span> <span class="st">&quot;binomial&quot;</span>)</a>
+<a class="sourceLine" id="cb119-2" title="2"><span class="co">#&gt; # A tibble: 3 x 4</span></a>
+<a class="sourceLine" id="cb119-3" title="3"><span class="co">#&gt;   binomial             diet_plant diet_vertebrate diet_invertebrate</span></a>
+<a class="sourceLine" id="cb119-4" title="4"><span class="co">#&gt;   &lt;chr&gt;                     &lt;dbl&gt;           &lt;dbl&gt;             &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb119-5" title="5"><span class="co">#&gt; 1 Abditomys_latidens          100               0                 0</span></a>
+<a class="sourceLine" id="cb119-6" title="6"><span class="co">#&gt; 2 Abeomelomys_sevia            78               3                19</span></a>
+<a class="sourceLine" id="cb119-7" title="7"><span class="co">#&gt; 3 Abrawayaomys_ruschii         88               1                11</span></a>
+<a class="sourceLine" id="cb119-8" title="8"><span class="kw">anti_join</span>(diet, life_habit, <span class="dt">by  =</span> <span class="st">&quot;binomial&quot;</span>)</a>
+<a class="sourceLine" id="cb119-9" title="9"><span class="co">#&gt; # A tibble: 2 x 4</span></a>
+<a class="sourceLine" id="cb119-10" title="10"><span class="co">#&gt;   binomial             diet_plant diet_vertebrate diet_invertebrate</span></a>
+<a class="sourceLine" id="cb119-11" title="11"><span class="co">#&gt;   &lt;chr&gt;                     &lt;dbl&gt;           &lt;dbl&gt;             &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb119-12" title="12"><span class="co">#&gt; 1 Abrocoma_bennettii          100               0                 0</span></a>
+<a class="sourceLine" id="cb119-13" title="13"><span class="co">#&gt; 2 Abrocoma_boliviensis        100               0                 0</span></a></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="working-with-lists-and-iteration.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pratikunterwegs/tres-tidy-tutorial/edit/master/03_data_manipulation_with_dplyr.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["TRES-Tidy-Tutorial.pdf"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
