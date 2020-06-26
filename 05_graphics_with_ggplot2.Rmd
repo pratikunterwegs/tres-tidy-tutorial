@@ -1,6 +1,6 @@
 ---
 editor_options:
-  chunk_output_type: inline
+  chunk_output_type: console
 ---
 
 # `ggplot2` and the grammar of graphics
