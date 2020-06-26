@@ -1,0 +1,11 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+# Regular expressions and testthat
+
+![](opening-image.png)
+
+In this tutorial we will learn ...
+
