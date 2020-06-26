@@ -5,5 +5,71 @@ editor_options:
 
 # Regular expressions and testthat
 
-In this tutorial we will learn ...
+## Goal
+
+In this chapter, you will learn:
+
+ * How to express your ideas as a regular expression
+ * Verify that you indeed did so
+
+## Why is this important?
+
+Knowing the basics of regular expressions, prevents you having
+to hand-craft functions to detect patterns in any text.
+
+Being able to verify your own assumptions allows you to speed
+up any development of any code. It is estimated that 80-90%
+of all the time, we are debugging our code. Being good at 
+testing, is the way to become faster.
+
+## Overview
+
+In this chapter, we will first start by writing and
+testing code to detect a Dutch zip code.
+
+After this, we will learn some more complex expressions,
+so you understand most when searching the internet.
+
+## What are regular expressions?
+
+A regular expression 'is a sequence of characters that define a 
+search pattern'. Such a pattern may be a zip code, a date,
+or any other text of which you can say: 'this is not just text,
+it is a [something]'.
+
+For example, take a Dutch zip code: `9747 AG`. Dutch zip
+code have four digits, a space and then two uppercase 
+alphabet characters.
+
+## Our first test
+
+The `testthat` package is the Tidyverse package to write tests.
+
+```{r}
+library(testthat)
+```
+
+All test functions start with `expect_`, for example:
+
+```{r}
+expect_true("cat" != "dog")
+expect_equal(1 + 1, 2)
+```
+
+## Our first Dutch zip code tests
+
+We will be writing the function `is_dutch_zip_code`
+to determine if a piece of text matches a Dutch zip code.
+
+First, as is good practice, we will be writing the tests:
+
+```
+expect_true(is_dutch_zip_code("1234 AA"))
+expect_true(!is_dutch_zip_code("1234AA"))
+expect_true(!is_dutch_zip_code(" 1234 AA"))
+expect_true(!is_dutch_zip_code("1234 AA "))
+expect_true(!is_dutch_zip_code("1234 aa"))
+expect_true(!is_dutch_zip_code("nonsense"))
+```
+
 
