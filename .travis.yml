@@ -3,13 +3,6 @@
 language: R
 cache: packages
 
-r_packages:
-  - tidyverse
-  - bookdown
-  - here
-
-install:
-  - echo "Nothing to do here"
 
 script:
   - ./render_books.sh
