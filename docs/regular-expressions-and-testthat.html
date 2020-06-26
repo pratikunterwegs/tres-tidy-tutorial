@@ -4,21 +4,21 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>TRES Tidyverse Tutorial</title>
-  <meta name="description" content="TRES Tidyverse Tutorial" />
+  <title>Section 6 Regular expressions and testthat | TRES Tidyverse Tutorial</title>
+  <meta name="description" content="Section 6 Regular expressions and testthat | TRES Tidyverse Tutorial" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="TRES Tidyverse Tutorial" />
+  <meta property="og:title" content="Section 6 Regular expressions and testthat | TRES Tidyverse Tutorial" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="TRES Tidyverse Tutorial" />
+  <meta property="og:description" content="Section 6 Regular expressions and testthat | TRES Tidyverse Tutorial" />
   <meta name="github-repo" content="pratikunterwegs/tres-tidy-tutorial" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="TRES Tidyverse Tutorial" />
+  <meta name="twitter:title" content="Section 6 Regular expressions and testthat | TRES Tidyverse Tutorial" />
   
-  <meta name="twitter:description" content="TRES Tidyverse Tutorial" />
+  <meta name="twitter:description" content="Section 6 Regular expressions and testthat | TRES Tidyverse Tutorial" />
   
 
 <meta name="author" content="Raphael, Pratik, Theo and Richèl" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="ggplot2-and-the-grammar-of-graphics.html"/>
 
-<link rel="next" href="reading-files-and-string-manipulation.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -286,99 +286,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">TRES Tidyverse Tutorial</h1>
-<p class="author"><em>Raphael, Pratik, Theo and Richèl</em></p>
-<p class="date"><em>2020-06-26</em></p>
-</div>
-<div id="outline" class="section level1 unnumbered">
-<h1>Outline</h1>
-<p>This is the readable version of the TRES <a href="https://www.tidyverse.org/">tidyverse</a> tutorial. A convenient PDF version can be downloaded by clicking the PDF document icon in the header bar.</p>
-<div id="about" class="section level2 unnumbered">
-<h2>About</h2>
-<p>The TRES tidyverse tutorial is an online workshop on how to use the tidyverse, a set of packages in the R computing language designed at making data handling and plotting easier.</p>
-<p>This tutorial will take the form of a one hour per week video stream via Google Meet, every Friday morning at 10.00 (Groningen time) starting from the 29th of May, 2020 and lasting for a couple of weeks (depending on the number of topics we want to cover, but there should be at least 5).</p>
-<p><strong>PhD students from outside our department are welcome to attend.</strong></p>
-</div>
-<div id="schedule" class="section level2 unnumbered">
-<h2>Schedule</h2>
-<table>
-<thead>
-<tr class="header">
-<th>Topic</th>
-<th>Package</th>
-<th>Instructor</th>
-<th>Date*</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Reading data and string manipulation</td>
-<td><a href="https://readr.tidyverse.org/">readr</a>, <a href="https://stringr.tidyverse.org/">stringr</a>, <a href="https://github.com/tidyverse/glue">glue</a></td>
-<td>Pratik</td>
-<td>29/05/20</td>
-</tr>
-<tr class="even">
-<td>Data and reshaping</td>
-<td><a href="https://tibble.tidyverse.org/">tibble</a>, <a href="https://tidyr.tidyverse.org/">tidyr</a></td>
-<td>Raphael</td>
-<td>05/06/20</td>
-</tr>
-<tr class="odd">
-<td>Manipulating data</td>
-<td><a href="https://dplyr.tidyverse.org/">dplyr</a></td>
-<td>Theo</td>
-<td>12/06/20</td>
-</tr>
-<tr class="even">
-<td>Working with lists and iteration</td>
-<td><a href="https://purrr.tidyverse.org/">purrr</a></td>
-<td>Pratik</td>
-<td>19/06/20</td>
-</tr>
-<tr class="odd">
-<td>Plotting</td>
-<td><a href="https://ggplot2.tidyverse.org/">ggplot2</a></td>
-<td>Raphael</td>
-<td>26/06/20</td>
-</tr>
-<tr class="even">
-<td>Regular expressions</td>
-<td><a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html">regex</a></td>
-<td>Richel</td>
-<td>03/07/20</td>
-</tr>
-<tr class="odd">
-<td>Programming with the tidyverse</td>
-<td><a href="https://rlang.r-lib.org/">rlang</a></td>
-<td>Pratik</td>
-<td>10/07/20</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="possible-extras" class="section level2 unnumbered">
-<h2>Possible extras</h2>
-<ul>
-<li>Reproducibility and package-making (with e.g. <a href="https://usethis.r-lib.org/">usethis</a>)<br />
-</li>
-<li>Embedding C++ code with <a href="http://adv-r.had.co.nz/Rcpp.html">Rcpp</a></li>
-</ul>
-</div>
-<div id="join" class="section level2 unnumbered">
-<h2>Join</h2>
-<p>Join the Slack <a href="https://join.slack.com/t/trestidytorial/shared_invite/zt-ejgr3tow-3zisGwPg1JDeTJD33DWb2A">by clicking this link (Slack account required)</a>.</p>
-<p>*Tentative dates.</p>
+<div id="regular-expressions-and-testthat" class="section level1">
+<h1><span class="header-section-number">Section 6</span> Regular expressions and testthat</h1>
+<p><img src="opening-image.png" /></p>
+<p>In this tutorial we will learn …</p>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="ggplot2-and-the-grammar-of-graphics.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="reading-files-and-string-manipulation.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -400,7 +320,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/pratikunterwegs/tres-tidy-tutorial/edit/master/index.rmd",
+"link": "https://github.com/pratikunterwegs/tres-tidy-tutorial/edit/master/06_regex_and_testthat.Rmd",
 "text": "Edit"
 },
 "history": {
