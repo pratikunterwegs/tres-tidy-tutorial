@@ -4,7 +4,7 @@ language: R
 cache: packages
 
 install:
-   - ./travis-tool.sh install_aptget r-cran-tidyverse r-cran-bookdown r-cran-here
+  - ./travis-tool.sh install_aptget r-cran-tidyverse r-cran-bookdown r-cran-here
 
 script:
   - ./render_books.sh
