@@ -9,7 +9,7 @@ The TRES tidyverse tutorial is an online workshop on how to use the tidyverse, a
 
 This tutorial will take the form of a one hour per week video stream via Google Meet, every Friday morning at 10.00 (Groningen time) starting from the 29th of May, 2020 and lasting for a couple of weeks (depending on the number of topics we want to cover, but there should be at least 5). 
 
-**PhD students from outside our department are welcome to attend.**
+**People from outside our department are welcome to attend.**
 
 ## Schedule
 
