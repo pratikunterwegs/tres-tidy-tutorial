@@ -20,9 +20,8 @@ Data and reshaping|[tibble](https://tibble.tidyverse.org/), [tidyr](https://tidy
 Manipulating data|[dplyr](https://dplyr.tidyverse.org/)|Theo|12/06/20
 Working with lists and iteration|[purrr](https://purrr.tidyverse.org/)|Pratik|19/06/20
 Plotting|[ggplot2](https://ggplot2.tidyverse.org/)|Raphael|26/06/20
-Regular expressions|[regex](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html)|Richel|03/07/20
 Programming with the tidyverse|[rlang](https://rlang.r-lib.org/)|Pratik|10/07/20
-
+Regular expressions|[regex](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html)|_to be decided_|17/07/20
 
 ## Possible extras
 
