@@ -5,6 +5,82 @@ editor_options:
 
 # Regular expressions and testthat
 
+```
+are_fasta_filenames <- function() {
+  # ...
+  pattern = ".*\\.(fas|fasta|FAS|FASTA)$"
+  # ...
+}
+
+is_xml_opening_tag <- function() {
+  # ...
+  pattern = "<[A-Za-z_]* "
+  # ...
+}
+
+is_xml_closing_tag <- function() {
+  # ...
+  pattern = "</[A-Za-z_]*>"
+  # ...
+}
+
+is_ns_mcmc <- function() {
+  # ...
+  pattern = ".*beast.gss.NS.*"
+  # ...
+}
+
+
+is_dna_seq <- fucntion() {
+  # ...
+  pattern = "[acgt]*")[1, 1]
+  # ...
+}
+
+
+time_str_to_n_sec <- function() {
+  # ...
+  pattern = "((.)-)?(..):(..):(..)"
+  # ...
+}
+
+is_on_peregrine_worker_node <- function() {
+  pattern = "pg-node[0-9]{3}"
+}
+
+is_relevant_title <-function() {
+  pattern = "(evolutio|immunolo|speciation)"
+}
+
+is_jar_path <- function() {
+  pattern = "(.*/)?(launcher|beast)\\.jar$")
+}
+
+get_mhcnuggets_version <- function() {
+  pattern = "Version: (.*)"
+}
+
+get_pureseqtm_version.R <- function() {
+  pattern = "v[[:digit:]]\\.[[:digit:]]{1,2}"
+}
+
+create_covid_fig <- function() {
+  pattern = "..\\|.*\\|(.*)_SARS2"
+}
+
+collect_run_times <- function() {
+  pattern = "State.*: (CANCELLED|COMPLETED|RUNNING)"
+}
+
+collect_run_times <- function() {
+  pattern = "Used CPU time .*:.*((.-)?..:..:..) "
+}
+
+thesis_synthesis_create_figures <- function() {
+  pattern = "^.*\\.(R|Rmd|java|cpp|h)$"
+}
+```
+
 ## Goal
 
 In this chapter, you will learn:
