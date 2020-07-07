@@ -3,6 +3,43 @@ editor_options:
   chunk_output_type: console
 ---
 
+# Applications
+
+```
+>KU215420.1|Felinecoronavirus|Feliscatus|Belgium|2013|Envelope
+ATGATGTTTCCTAGGGCATTTACTATCATAGATGACCATGGTATGGTTGTTAGTGTCTTC
+>KP143511.1|Felinecoronavirus|Feliscatus|UnitedKingdom|2013|Envelope
+ATGATGTTTCCTAGGGCATTTACTATCATAGACGACCATGGTATGGTTGTTAGTGTCTTC
+```
+
+
+```
+>sp|P0DTC2|SPIKE_SARS2 Spike glycoprotein OS=Severe acute respiratory syndrome coronavirus 2 OX=2697049 GN=S PE=1 SV=1
+MFVFLVLLPLVSSQCVNLTTRTQLPPAYTNSFTRGVYYPDKVFRSSVLHSTQDLFLPFFS
+>sp|P0DTC5|VME1_SARS2 Membrane protein OS=Severe acute respiratory syndrome coronavirus 2 OX=2697049 PE=3 SV=1
+MADSNGTITVEELKKLLEQWNLVIGFLFLTWICLLQFAYANRNRFLYIIKLIFLWLLWPV
+``
+
+# Not just R
+
+ * egrep
+ * sed
+ * ls
+
+# Dialects
+
+Different flavors!
+
+ * POSIX
+ * perl
+
+# Many in R
+
+ * `egrep`
+ * `gsub`
+ * `std::string_`
+
+
 # Regular expressions and testthat
 
 ```
