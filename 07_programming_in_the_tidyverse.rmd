@@ -15,25 +15,262 @@ library(tidyverse)
 library(rlang)
 ```
 
-## Filtering using expressions
+## An exlanation of the problem
 
-Consider a case in which you want to filter a dataset, but you don't know what this dataset looks like, nor how you might want to filter it.
+### What the issue is
+
+Get some data from _Phylacine_, and attempt to select or filter.
 
 ```{r}
-# make some data to filter
-data = as_tibble(mtcars)
+# read in phylacine data
+data = read_csv("data/phylacine_traits.csv")
+
+# regular filtering
+small_mammals = data %>% 
+  filter(Mass.g < 1000)
+```
+
+```{r}
+# filtering on a string
+small_mammals_too = data %>% 
+  filter("Mass.g" < 1000)
+```
+
+Examine `small_mammals` and `small_mammals_too` to check whether they are as expected.
+
+```{r}
+# count rows
+map_int(list(sm_1 = small_mammals, sm2 = small_mammals_too),
+        nrow)
+```
+
+The difference in the number of rows is because `dplyr::filter` could not understand the string `"Mass.g"` as a variable in the dataframe.
+
+This is because the `tidyverse`, through its `tidyselect` package, makes a distinction between quoted variables such as `"Mass.g"`, and unquoted variables such as `Mass.g`.
+
+A better explanation of (some of) the theory behind this can be found here: [Programming with dplyr](https://dplyr.tidyverse.org/articles/programming.html#setting-variable-names).
+
+The same issue arises with functions such as `dplyr::summarise` and `dplyr::group_by`.
+
+```{r warning=TRUE}
+# summarise using an unquoted variable
+summarise(data,
+          mean_mass = mean(Mass.g))
+
+# this will print a warning
+summarise(data,
+          mean_mass = mean("Mass.g"))
+```
+
+### Why the issue is a problem
+
+Consider an analysis pipeline as follows.
+
+`data %>% select variables %>% summarise by groups`
+
+```{r}
+data %>% 
+  select(Mass.g, Diet.Plant, Order.1.2) %>% 
+  group_by(Order.1.2) %>% 
+  summarise_all(.funs = mean) %>% 
+  head()
+```
+
+Now consider that this analysis pipeline is repeated many times in your document. Consider also that a well intentioned person has renamed the dataframe columns.
+
+```{r}
+data <- data %>% 
+  `colnames<-`(str_replace_all(colnames(data), "\\.", "_") %>% 
+                 str_to_lower %>% 
+                 str_remove("_1_2"))
+```
+
+The group-summarise code above will no longer work.
+
+```{r}
+tryCatch(
+  expr = { 
+    data %>% 
+      select(Mass.g, Diet.Plant, Order.1.2) %>% 
+      group_by(Order.1.2) %>% 
+      summarise_all(.funs = mean) %>% 
+      head()
+  },
+  
+  # pay no heed to this section, look at the error
+  error = function(e) {
+    message(as.character(e))
+  }
+)
+```
+
+This illustrates the problem in part: when the columns to be operated upon are _unknown to the programmer_, much of basic `tidyverse` code cannot be generalised to be used with any dataframe.
+
+### Passing variables as strings is (also) an issue
+
+The variables to be operated on could be given as strings, perhaps as the argument to a function, or as a global variables. This way, a single global vector could contain the grouping variables for all further `summarise` procedures.
+
+This runs into the problem identified earlier.
+
+```{r}
+# choose some variables
+vars_to_select = c("Mass.g", "Diet.Plant")
+vars_to_group = c("Order.1.2")
+
+# attempt to select and summarise on group
+# the tidyverse will not be pleased
+tryCatch(
+  expr = { 
+
+    data %>% 
+      select(vars_to_select) %>% # this works with a warning
+      group_by(vars_to_group) %>% 
+      summarise(mean_mass = mean(Mass.g),
+                mean_plant = mean(Diet.Plant))
+    },
+  
+  # do not pay attention to this part of the code
+  # read the errors printed
+  error = function(e) { 
+    
+    message(as.character(e))
+    message(rlang::last_error())
+    
+    }
+)
+```
+
+## Flexible selection
+
+`dplyr::select` appears to work on both quoted and unquoted variables, so the example above does not fail at the `select` step. It does issue a warning that some useful `select` helpers such as `dplyr::all_of` should be used. These helper functions significantly expand `select`'s flexibility and ease of use, and are not covered here. See the `select` help for more information.
+
+## Flexible grouping
+
+### Grouping by one variable
+
+Select some grouping variables.
+
+```{r}
+# which variables to group by
+vars_to_group = c("order")
+```
+
+Evaluate this as an expression using `rlang::parse_expr`.
+
+```{r}
+vars_to_group = enquo(vars_to_group)
+```
+
+The expression is then **unquoted** using `!!`.
+
+```{r}
+# place !! before vars to group
+# then examine what the grouping variables are
+data %>% 
+  group_by(vars_to_group) %>% 
+  group_vars()
+```
+
+### Grouping by multiple variables
+
+```{r}
+# add multiple groups
+vars_to_group = c("order", "iucn_status")
+
+# evaluate as expressions, and note the exprs
+vars_to_group = rlang::parse_exprs(vars_to_group)
+
+# group and examine groups in data
+data %>% 
+  group_by(!!!(vars_to_group)) %>% 
+  summarise(mean_mass = mean(mass_g))
+```
+
+#### A general rule {-}
+
+Use `rlang::parse_expr` and `!!` for single variables, and `rlang::parse_exprs` and `!!!` for multiple variables.
+
+## Filtering using string expressions
+
+The same logic can be applied to `dplyr::filter`.
+
+```{r}
+# make some filters
+filters = c("mass_g < 1000", "diet_plant > 50")
 ```
 
 Prepare the filters.
 
 ```{r}
 # prepare filters as a character vector
-filters <- c("cyl > 6", "mpg > 14")
+filters = c("cyl > 6", "mpg > 14")
 
 # convert the filters to expressions
-filters <- parse_exprs(filters)
+filters = parse_exprs(filters)
 
 # apply the filtrs using
-filter(data, !!!filters)
+data %>%
+  filter(!!!filters) %>% 
+  head()
+```
+
+## Summarising using string expressions
+
+### Using `dplyr::summarise_at`
+
+`dplyr::summarise` has the inbuilt variant `dplyr::summarise_at` which accepts strings as arguments.
+
+```{r}
+# prepare variables to summarise
+vars_to_summarise = c("mass_g", "diet_plant")
+
+# and functions to apply
+funs_to_use = c("mean", "sd")
+
+
+data %>% 
+  group_by(!!!(vars_to_group)) %>% 
+  summarise_at(.vars = vars_to_summarise, 
+               .funs = funs_to_use) %>% 
+  
+  head()
+```
+
+### Flexible summarise
+
+Here we pass a set of different function - variable combinations.
+
+```{r}
+# prepare a character vector of summary stats
+summary_expressions = c("mean_mass = mean(mass_g)",
+                        "sd_plant_diet = sd(diet_plant)")
+
+# parse these expressions
+summary_expressions = parse_exprs(summary_expressions)
+
+data %>% 
+  group_by(!!!(vars_to_group)) %>% 
+  summarise(!!!summary_expressions) %>% 
+  
+  head()
+```
+
+Names can be specified using `glue`.
+
+```{r}
+# prepare variables and functions
+variables = c("mass_g", "diet_plant")
+functions = c("mean", "sd")
+
+# prepare the oeprations
+operations = glue::glue('{functions}({variables})')
+result_name = glue::glue("{functions}_{variables}")
+
+operations = parse_exprs(operations)
+result_name = as_label(result_name)
+
+data %>% 
+  group_by(!!!(vars_to_group)) %>% 
+  summarise(!!result_name := mean(!!variables))
 ```
 
