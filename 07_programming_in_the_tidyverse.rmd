@@ -15,6 +15,20 @@ library(tidyverse)
 library(rlang)
 ```
 
+```{r}
+try_this <- function(ex) {
+  tryCatch(
+    expr = {
+      ex
+    },
+    error = function(e) {
+      message(as.character(e))
+    }
+  )
+}
+```
+
+
 ## An exlanation of the problem
 
 ### What the issue is
@@ -46,7 +60,7 @@ map_int(list(sm_1 = small_mammals, sm2 = small_mammals_too),
 
 The difference in the number of rows is because `dplyr::filter` could not understand the string `"Mass.g"` as a variable in the dataframe.
 
-This is because the `tidyverse`, through its `tidyselect` package, makes a distinction between quoted variables such as `"Mass.g"`, and unquoted variables such as `Mass.g`.
+This is because the `tidyverse`, through its `tidyselect` package, makes a distinction between `"Mass.g"`, and `Mass.g`.
 
 A better explanation of (some of) the theory behind this can be found here: [Programming with dplyr](https://dplyr.tidyverse.org/articles/programming.html#setting-variable-names).
 
@@ -90,6 +104,7 @@ The group-summarise code above will no longer work.
 ```{r}
 tryCatch(
   expr = { 
+    
     data %>% 
       select(Mass.g, Diet.Plant, Order.1.2) %>% 
       group_by(Order.1.2) %>% 
@@ -140,13 +155,195 @@ tryCatch(
 )
 ```
 
-## Flexible selection
+## Writing a flexible function
 
-`dplyr::select` appears to work on both quoted and unquoted variables, so the example above does not fail at the `select` step. It does issue a warning that some useful `select` helpers such as `dplyr::all_of` should be used. These helper functions significantly expand `select`'s flexibility and ease of use, and are not covered here. See the `select` help for more information.
+Any operation which is expected to be repeated multiple times with only minor tweaks should be written as a function.
 
-## Flexible grouping
+In the case of the `filter %>% group %>% summarise` pipeline, the function's operations are evident. It must filter a dataframe based on a/some column(s), and then summarise by groups. The filter to be applied, the variables to group by, and the variables to be summarised should be passed as function arguments --- just how this is to be done is not immediately obvious.
 
-### Grouping by one variable
+## A first attempt at a flexible function
+
+The attempt below to write such a function, which gives the mean and confidence intervals of groups is likely to fail.
+
+```{r}
+# define a ci function
+ci <- function(x, ci = 95) {
+  qnorm(1 - (1 - ci / 100)/2) * sd(x, na.rm = TRUE) / sqrt(length(x))
+}
+```
+
+```{r}
+custom_summary <- function(data, filters, grouping_vars, summary_vars) {
+  
+  data %>% 
+    filter(filters) %>% 
+    group_by(grouping_vars) %>% 
+    summarise(mean = mean(summary_vars),
+              ci = ci(summary_vars))
+  
+}
+```
+
+### Failure of the first attempt
+
+```{r}
+# this is going to fail, so look at the error message
+try_this(ex = custom_summary(data, 
+                   filters = list(mass_g > 1000), 
+                   grouping_vars = list(order, family),
+                   summary_vars = list(diet_plant))
+         )
+```
+
+This version of the function failed because `filter` could not find `mass_g` in the dataframe. This is because `mass_g` is treated as an independent `R` object, while the function should instead treat it as a variable in a dataframe.
+
+The difference between so-called `data` and `environment` variables is explained better at the `rlang` and `tidyeval` websites and tutorials linked at the end of this chapter. It is this difference that prevents filter from correctly interpreting `mass_g`.
+
+### Passing filter argument as string doesn't help
+
+The example below tries to get `filter` to work. What could be tried? One option is to attempt passing the filtering process as a string argument, i.e., `"mass_g > 1000"`.
+
+```{r}
+# it doesn't matter whether filters is a vector or list
+try_this(ex = custom_summary(data, 
+                   filters = c("mass_g > 1000"), 
+                   grouping_vars = list(order, family),
+                   summary_vars = list(diet_plant)))
+```
+
+While this doesn't work, it is on the right track, which is that the filters argument needs some extra work beyond changing the type.
+
+## Second attempt at a flexible function
+
+The next thing to try is to change how `filter` uses the argument passed to it.
+Here, the argument `filters` is passed as a character vector, and is set by default to filter out mammals with masses below 1 kg.
+
+The argument could be passed as a list, but the `rlang::parse_exprs` function works on vectors, not lists.
+
+#### A brief detour: `rlang::parse_exprs` {-}
+
+What does `rlang::parse_exprs` do? It interprets a string as an `R` command.
+Consider the following.
+
+```{r}
+# a is assigned
+a = 3
+
+# parsed but not evaluated
+parse_expr("a + 3")
+
+# evaluated
+parse_expr("a + 3") %>% eval
+```
+
+#### Unquoting with `!!!`
+
+```{r}
+custom_summary = function(data, 
+                          filters = c("mass_g > 1000"), 
+                          grouping_vars, 
+                          summary_vars) {
+  
+  # THIS IS THE IMPORTANT BIT
+  filters = rlang::parse_exprs(filters)
+  
+  data %>% 
+    filter(!!!filters) %>% 
+    group_by(grouping_vars) %>% 
+    summarise(mean = mean(summary_vars),
+              ci = ci(summary_vars))
+  
+}
+```
+
+The new function can be tried to see whether it works. Hint: It won't.
+
+```{r}
+try_this(ex = custom_summary(data, 
+                   filters = c("mass_g > 1000"), 
+                   grouping_vars = list(order, family),
+                   summary_vars = list(diet_plant))
+         )
+
+```
+
+There is good news: the function failed at a step further than `filter`, so that's out of the way. Verify this in the example below.
+
+```{r}
+# get some filters
+filters = c("mass_g > 1000", "diet_plant < 10")
+
+# apply the filters as in the function
+data %>% 
+  select(mass_g, diet_plant, order) %>% 
+  
+  # this is important
+  filter(!!!parse_exprs(filters)) %>% 
+  
+  head()
+```
+
+## A third attempt at flexible functions
+
+### Flexible grouping using NSE
+
+The function now fails at the `group_by` stage. This can be fixed relatively easily, with slight differences depending on the number of grouping variables.
+
+```{r}
+custom_summary = function(data, 
+                          filters = c("mass_g > 1000"), 
+                          grouping_vars, 
+                          summary_vars) {
+  # deal with groups
+  grouping_vars = enquos(grouping_vars)
+  
+  data %>% 
+    filter(!!!parse_exprs(filters)) %>%
+    
+    # this is the important bit
+    group_by(!!!grouping_vars) %>% 
+    
+    summarise(mean = mean(summary_vars),
+              ci = ci(summary_vars))
+}
+```
+
+Try the function again. It isn't going to work, yet.
+
+```{r}
+try_this(ex = custom_summary(data, 
+                   filters = c("mass_g > 1000"), 
+                   grouping_vars = list(order, family),
+                   summary_vars = list(diet_plant))
+         )
+```
+
+### Grouping variables as strings
+
+In the previous example, the grouping variables were passed as unquoted variables, then `enquo`-ted and parsed, after which they were applied.
+
+```{r}
+custom_summary = function(data, 
+                          filters = c("mass_g > 1000"), 
+                          grouping_vars = c("order", "family"), 
+                          summary_vars) {
+  # deal with groups
+  grouping_vars = enquos(grouping_vars)
+  
+  data %>% 
+    filter(!!!parse_exprs(filters)) %>%
+    
+    # this is the important bit
+    group_by(!!!grouping_vars) %>% 
+    
+    summarise(mean = mean(summary_vars),
+              ci = ci(summary_vars))
+}
+```
+
+# WIP HERE
+
+#### Grouping by one variable
 
 Select some grouping variables.
 
@@ -190,6 +387,14 @@ data %>%
 
 Use `rlang::parse_expr` and `!!` for single variables, and `rlang::parse_exprs` and `!!!` for multiple variables.
 
+## Flexible selection
+
+`dplyr::select` appears to work on both quoted and unquoted variables, so the example above does not fail at the `select` step. It does issue a warning that some useful `select` helpers such as `dplyr::all_of` should be used. These helper functions significantly expand `select`'s flexibility and ease of use, and are not covered here. See the `select` help for more information.
+
+## Flexibly grouping data
+
+
+
 ## Filtering using string expressions
 
 The same logic can be applied to `dplyr::filter`.
@@ -202,9 +407,6 @@ filters = c("mass_g < 1000", "diet_plant > 50")
 Prepare the filters.
 
 ```{r}
-# prepare filters as a character vector
-filters = c("cyl > 6", "mpg > 14")
-
 # convert the filters to expressions
 filters = parse_exprs(filters)
 
@@ -236,7 +438,7 @@ data %>%
   head()
 ```
 
-### Flexible summarise
+### Flexible summarise using variable unquoting
 
 Here we pass a set of different function - variable combinations.
 
@@ -255,22 +457,30 @@ data %>%
   head()
 ```
 
-Names can be specified using `glue`.
+### Writing a custom summarise function
+
+The tools shown above can be combined to produce very flexible functions. The example below shows how to write a function for a common task when dealing with groups in the data, which is to find the mean and the 95% confidence interval.
 
 ```{r}
-# prepare variables and functions
-variables = c("mass_g", "diet_plant")
-functions = c("mean", "sd")
+# define a ci function
+ci <- function(x, ci) {
+  qnorm(1 - (1 - ci)/2) * sd(x, na.rm = TRUE) / sqrt(length(x))
+}
+```
 
-# prepare the oeprations
-operations = glue::glue('{functions}({variables})')
-result_name = glue::glue("{functions}_{variables}")
 
-operations = parse_exprs(operations)
-result_name = as_label(result_name)
+```{r}
+custom_summary <- function(data, ..., var_summarise) {
+  
+  var_groups <- enquos(...)
+  
+  data %>% 
+    group_by(!!!var_groups) %>% 
+    summarise(mean = mean(!!enquo(var_summarise)))
+  
+}
 
-data %>% 
-  group_by(!!!(vars_to_group)) %>% 
-  summarise(!!result_name := mean(!!variables))
+custom_summary(data, order, family, var_summarise = diet_plant)
+
 ```
 
