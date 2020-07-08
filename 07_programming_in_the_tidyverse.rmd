@@ -1,0 +1,39 @@
+---
+editor_options:
+  chunk_output_type: console
+---
+
+# Programming in the *tidyverse*
+
+![](opening-image.png)
+
+
+Load the packages for the day.
+
+```{r}
+library(tidyverse)
+library(rlang)
+```
+
+## Filtering using expressions
+
+Consider a case in which you want to filter a dataset, but you don't know what this dataset looks like, nor how you might want to filter it.
+
+```{r}
+# make some data to filter
+data = as_tibble(mtcars)
+```
+
+Prepare the filters.
+
+```{r}
+# prepare filters as a character vector
+filters <- c("cyl > 6", "mpg > 14")
+
+# convert the filters to expressions
+filters <- parse_exprs(filters)
+
+# apply the filtrs using
+filter(data, !!!filters)
+```
+
