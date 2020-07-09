@@ -143,7 +143,7 @@
 
 \title{TRES Tidyverse Tutorial}
 \author{Raphael, Pratik and Theo}
-\date{2020-07-08}
+\date{2020-07-09}
 
 \begin{document}
 \maketitle
@@ -5078,6 +5078,831 @@ Some things, however, are missing from \texttt{ggplot2}. Fortunately, there are 
   The \texttt{patchwork} \href{https://patchwork.data-imaginist.com/}{documentation}
 \item
   The \href{https://guangchuangyu.github.io/ggtree-book/chapter-ggtree.html}{\texttt{ggtree}} and \href{https://www.data-imaginist.com/2017/ggraph-introduction-layouts/}{\texttt{ggraph}} packages
+\end{itemize}
+
+\hypertarget{programming-in-the-tidyverse}{%
+\chapter{\texorpdfstring{Programming in the \emph{tidyverse}}{Programming in the tidyverse}}\label{programming-in-the-tidyverse}}
+
+\includegraphics{opening-image.png}
+
+Load the packages for the day.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\KeywordTok{library}\NormalTok{(rlang)}
+\end{Highlighting}
+\end{Shaded}
+
+A function to look at errors.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{try_this <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(ex) \{}
+  \KeywordTok{tryCatch}\NormalTok{(}
+    \DataTypeTok{expr =}\NormalTok{ \{}
+\NormalTok{      ex}
+\NormalTok{    \},}
+    \DataTypeTok{error =} \ControlFlowTok{function}\NormalTok{(e) \{}
+      \KeywordTok{print}\NormalTok{(glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\KeywordTok{as.character}\NormalTok{(e), }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{))}
+\NormalTok{    \}}
+\NormalTok{  )}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{an-exlanation-of-the-problem}{%
+\section{An exlanation of the problem}\label{an-exlanation-of-the-problem}}
+
+\hypertarget{what-the-issue-is}{%
+\subsection{What the issue is}\label{what-the-issue-is}}
+
+Get some data from \emph{Phylacine}, and attempt to select or filter.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# read in phylacine data}
+\NormalTok{data =}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/phylacine_traits.csv"}\NormalTok{)}
+
+\CommentTok{# regular filtering}
+\NormalTok{small_mammals =}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Mass.g }\OperatorTok{<}\StringTok{ }\DecValTok{1000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# filtering on a string}
+\NormalTok{small_mammals_too =}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\StringTok{"Mass.g"} \OperatorTok{<}\StringTok{ }\DecValTok{1000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Examine \texttt{small\_mammals} and \texttt{small\_mammals\_too} to check whether they are as expected.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# count rows}
+\KeywordTok{map_int}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{sm_1 =}\NormalTok{ small_mammals, }\DataTypeTok{sm2 =}\NormalTok{ small_mammals_too),}
+\NormalTok{        nrow)}
+\CommentTok{#> sm_1  sm2 }
+\CommentTok{#> 4381    0}
+\end{Highlighting}
+\end{Shaded}
+
+The difference in the number of rows is because \texttt{dplyr::filter} could not understand the string \texttt{"Mass.g"} as a variable in the dataframe.
+
+This is because the \texttt{tidyverse}, through its \texttt{tidyselect} package, makes a distinction between \texttt{"Mass.g"}, and \texttt{Mass.g}.
+
+A better explanation of (some of) the theory behind this can be found here: \href{https://dplyr.tidyverse.org/articles/programming.html\#setting-variable-names}{Programming with dplyr}.
+
+The same issue arises with functions such as \texttt{dplyr::summarise} and \texttt{dplyr::group\_by}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# summarise using an unquoted variable}
+\KeywordTok{summarise}\NormalTok{(data,}
+          \DataTypeTok{mean_mass =} \KeywordTok{mean}\NormalTok{(Mass.g))}
+\CommentTok{#> # A tibble: 1 x 1}
+\CommentTok{#>   mean_mass}
+\CommentTok{#>       <dbl>}
+\CommentTok{#> 1   156882.}
+
+\CommentTok{# this will print a warning}
+\KeywordTok{summarise}\NormalTok{(data,}
+          \DataTypeTok{mean_mass =} \KeywordTok{mean}\NormalTok{(}\StringTok{"Mass.g"}\NormalTok{))}
+\CommentTok{#> Warning in mean.default("Mass.g"): argument is not numeric or logical: returning}
+\CommentTok{#> NA}
+\CommentTok{#> # A tibble: 1 x 1}
+\CommentTok{#>   mean_mass}
+\CommentTok{#>       <dbl>}
+\CommentTok{#> 1        NA}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{why-the-issue-is-a-problem}{%
+\subsection{Why the issue is a problem}\label{why-the-issue-is-a-problem}}
+
+Consider an analysis pipeline as follows.
+
+\texttt{data\ \%\textgreater{}\%\ select\ variables\ \%\textgreater{}\%\ summarise\ by\ groups}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(Mass.g, Diet.Plant, Order.}\FloatTok{1.2}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Order.}\FloatTok{1.2}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise_all}\NormalTok{(}\DataTypeTok{.funs =}\NormalTok{ mean) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 3}
+\CommentTok{#>   Order.1.2          Mass.g Diet.Plant}
+\CommentTok{#>   <chr>               <dbl>      <dbl>}
+\CommentTok{#> 1 Afrosoricida        306.       0.947}
+\CommentTok{#> 2 Carnivora         47905.      14.1  }
+\CommentTok{#> 3 Cetartiodactyla 1854811.      76.2  }
+\CommentTok{#> 4 Chiroptera           49.1     27.3  }
+\CommentTok{#> 5 Cingulata        235529.      43.0  }
+\CommentTok{#> 6 Dasyuromorphia      748.       1.09}
+\end{Highlighting}
+\end{Shaded}
+
+Now consider that this analysis pipeline is repeated many times in your document. Consider also that a well intentioned person has renamed the dataframe columns.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data <-}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  `}\DataTypeTok{colnames<-}\StringTok{`}\NormalTok{(}\KeywordTok{str_replace_all}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(data), }\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{."}\NormalTok{, }\StringTok{"_"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{                 }\NormalTok{str_to_lower }\OperatorTok{%>%}\StringTok{ }
+\StringTok{                 }\KeywordTok{str_remove}\NormalTok{(}\StringTok{"_1_2"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+The group-summarise code above will no longer work.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{try_this}\NormalTok{(}\DataTypeTok{ex =} 
+           
+\NormalTok{    data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{select}\NormalTok{(Mass.g, Diet.Plant, Order.}\FloatTok{1.2}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{group_by}\NormalTok{(Order.}\FloatTok{1.2}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{summarise_all}\NormalTok{(}\DataTypeTok{.funs =}\NormalTok{ mean) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{head}\NormalTok{()}
+\NormalTok{)}
+\CommentTok{#> Error: Can't subset columns that don't exist.}
+\CommentTok{#> x Column `Mass.g` doesn't exist.}
+\end{Highlighting}
+\end{Shaded}
+
+This illustrates the problem in part: when the columns to be operated upon are \emph{unknown to the programmer}, much of basic \texttt{tidyverse} code cannot be generalised to be used with any dataframe.
+
+\hypertarget{passing-variables-as-strings-is-also-an-issue}{%
+\subsection{Passing variables as strings is (also) an issue}\label{passing-variables-as-strings-is-also-an-issue}}
+
+The variables to be operated on could be given as strings, perhaps as the argument to a function, or as a global variable. This way, a single global vector could contain the grouping variables for all further \texttt{summarise} procedures.
+
+This runs into the problem identified earlier.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# choose some variables}
+\NormalTok{vars_to_select =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Mass.g"}\NormalTok{, }\StringTok{"Diet.Plant"}\NormalTok{)}
+\NormalTok{vars_to_group =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Order.1.2"}\NormalTok{)}
+
+\CommentTok{# attempt to select and summarise on group}
+\CommentTok{# the tidyverse will not be pleased}
+\KeywordTok{try_this}\NormalTok{(}\DataTypeTok{ex =} 
+           
+\NormalTok{    data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{select}\NormalTok{(vars_to_select) }\OperatorTok{%>%}\StringTok{ }\CommentTok{# this works with a warning}
+\StringTok{      }\KeywordTok{group_by}\NormalTok{(vars_to_group) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_mass =} \KeywordTok{mean}\NormalTok{(Mass.g),}
+                \DataTypeTok{mean_plant =} \KeywordTok{mean}\NormalTok{(Diet.Plant))}
+\NormalTok{)}
+\CommentTok{#> Error: Can't subset columns that don't exist.}
+\CommentTok{#> x Columns `Mass.g` and `Diet.Plant` don't exist.}
+\end{Highlighting}
+\end{Shaded}
+
+In the case of a standard \texttt{filter\ \%\textgreater{}\%\ group\ \%\textgreater{}\%\ summarise} pipeline, the function's operations are evident. It must filter a dataframe based on a/some column(s), and then summarise by groups. The filter to be applied, the variables to group by, and the variables to be summarised should be passed as function arguments --- just how this is to be done is not immediately obvious.
+
+\hypertarget{flexible-selection-is-easy}{%
+\section{Flexible selection is easy}\label{flexible-selection-is-easy}}
+
+Selection often precedes data operations, but is not part of the pipeline dealt with further.
+
+This is because \texttt{dplyr::select} appears to work on both quoted and unquoted variables, but in general some useful \texttt{select} helpers such as \texttt{dplyr::all\_of} should be used. These straightforward helper functions significantly expand \texttt{select}'s flexibility and ease of use, and are not covered here. See the \texttt{select} help for more information.
+
+\hypertarget{a-first-attempt-at-a-flexible-function}{%
+\section{A first attempt at a flexible function}\label{a-first-attempt-at-a-flexible-function}}
+
+The attempt below to write such a function, which gives the mean and confidence intervals of groups is likely to fail.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# define a ci function}
+\NormalTok{ci <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, }\DataTypeTok{ci =} \DecValTok{95}\NormalTok{) \{}
+  \KeywordTok{qnorm}\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{ci }\OperatorTok{/}\StringTok{ }\DecValTok{100}\NormalTok{)}\OperatorTok{/}\DecValTok{2}\NormalTok{) }\OperatorTok{*}\StringTok{ }\KeywordTok{sd}\NormalTok{(x, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{/}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{length}\NormalTok{(x))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, filters, grouping_vars, summary_vars) \{}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(filters) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(grouping_vars) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean =} \KeywordTok{mean}\NormalTok{(summary_vars),}
+              \DataTypeTok{ci =} \KeywordTok{ci}\NormalTok{(summary_vars))}
+  
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{failure-of-the-first-attempt}{%
+\subsection{Failure of the first attempt}\label{failure-of-the-first-attempt}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# this is going to fail, so look at the error message}
+\KeywordTok{try_this}\NormalTok{(}\DataTypeTok{ex =} \KeywordTok{custom_summary}\NormalTok{(data, }
+                   \DataTypeTok{filters =} \KeywordTok{list}\NormalTok{(mass_g }\OperatorTok{>}\StringTok{ }\DecValTok{1000}\NormalTok{), }
+                   \DataTypeTok{grouping_vars =} \KeywordTok{list}\NormalTok{(order, family),}
+                   \DataTypeTok{summary_vars =} \KeywordTok{list}\NormalTok{(diet_plant))}
+\NormalTok{         )}
+\CommentTok{#> Error: Problem with `filter()` input `..1`.}
+\CommentTok{#> x object 'mass_g' not found}
+\CommentTok{#> i Input `..1` is `filters`.}
+\end{Highlighting}
+\end{Shaded}
+
+This function initially failed because \texttt{filter} could not find \texttt{mass\_g} in the dataframe. This is because \texttt{mass\_g} is treated as an independent \texttt{R} object, while the function should instead treat it as a variable in a dataframe.
+
+The difference between so-called \texttt{data} and \texttt{environment} variables is explained better at the \texttt{rlang} and \texttt{tidyeval} websites and tutorials linked at the end of this chapter. It is this difference that prevents filter from correctly interpreting \texttt{mass\_g}.
+
+\hypertarget{passing-arguments-as-strings-doesnt-help}{%
+\subsection{Passing arguments as strings doesn't help}\label{passing-arguments-as-strings-doesnt-help}}
+
+The example below tries to get \texttt{filter} to work. What could be tried? One option is to attempt passing the filtering process as a string argument, i.e., \texttt{"mass\_g\ \textgreater{}\ 1000"}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# it doesn't matter whether filters is a vector or list}
+\KeywordTok{try_this}\NormalTok{(}\DataTypeTok{ex =} \KeywordTok{custom_summary}\NormalTok{(data, }
+                   \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+                   \DataTypeTok{grouping_vars =} \KeywordTok{list}\NormalTok{(order, family),}
+                   \DataTypeTok{summary_vars =} \KeywordTok{list}\NormalTok{(diet_plant))}
+\NormalTok{         )}
+\CommentTok{#> Error: Problem with `filter()` input `..1`.}
+\CommentTok{#> x Input `..1` must be a logical vector, not a character.}
+\CommentTok{#> i Input `..1` is `filters`.}
+\end{Highlighting}
+\end{Shaded}
+
+While this doesn't work, it is on the right track, which is that the \texttt{filters} argument needs some extra work beyond changing the type.
+
+\hypertarget{none-of-the-other-arguments-will-be-successful}{%
+\subsection{None of the other arguments will be successful}\label{none-of-the-other-arguments-will-be-successful}}
+
+\texttt{filter} was the first failure, after which it stopped further evaluation, but none of the steps of the custom function would have worked, for the same reason filter would not have worked: all the arguments need some work before they can be passed to their respective functions.
+
+\hypertarget{flexible-filtering-in-a-function}{%
+\section{Flexible filtering in a function}\label{flexible-filtering-in-a-function}}
+
+The first thing to try is to change how \texttt{filter} uses the argument passed to it.
+Here, the argument \texttt{filters} is passed as a character vector, and is set by default to filter out mammals with masses below 1 kg.
+
+The argument could be passed as a list, but the \texttt{rlang::parse\_exprs} function works on vectors, not lists. The conversion between them is trivial for single level lists with atomic types (\texttt{purrr::as\_vector}).
+
+\hypertarget{a-brief-detour-expressions-in-r}{%
+\subsubsection*{A brief detour: Expressions in R}\label{a-brief-detour-expressions-in-r}}
+\addcontentsline{toc}{subsubsection}{A brief detour: Expressions in R}
+
+A full explanation of \texttt{R} works under the hood would take a very long time. A working knowledge of how this working can be exploited is usually sufficient to use most of \texttt{R}'s functionality.
+
+\texttt{R} expressions are one such. They represent a promise of \texttt{R} code, but without being evaluated. Any string can be parsed (interpreted) as an \texttt{R} expression.
+
+What does \texttt{rlang::parse\_exprs} do? It interprets a string as an \texttt{R} command.
+This expression can then be evaluated later. Consider the following, where \texttt{a} is assigned the \texttt{numeric} value 3.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# a is assigned}
+\NormalTok{a =}\StringTok{ }\DecValTok{3}
+
+\CommentTok{# parsed but not evaluated}
+\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_expr}\NormalTok{(}\StringTok{"a + 3"}\NormalTok{)}
+\CommentTok{#> a + 3}
+
+\CommentTok{# evaluated}
+\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_expr}\NormalTok{(}\StringTok{"a + 3"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\NormalTok{eval}
+\CommentTok{#> [1] 6}
+\end{Highlighting}
+\end{Shaded}
+
+Here, \texttt{a\ +\ 3} was converted to an expression in the second command, and only evaluated in the third.
+
+\hypertarget{unquoting-with}{%
+\subsubsection*{\texorpdfstring{Unquoting with \texttt{!!!}}{Unquoting with !!!}}\label{unquoting-with}}
+\addcontentsline{toc}{subsubsection}{Unquoting with \texttt{!!!}}
+
+\texttt{R} expressions underlie \texttt{R} code. Their evaluation can be forced inside another function using the special operators \texttt{!!} and \texttt{!!!}, for single and multiple \texttt{R} expressions respectively.
+
+\hypertarget{flexible-filtering-using-expressions}{%
+\subsection{Flexible filtering using expressions}\label{flexible-filtering-using-expressions}}
+
+Consider the case where mammals below 1 kg body mass are to be excluded. The \texttt{dplyr} code would look like this:
+
+\texttt{filter(data,\ mass\_g\ \textgreater{}\ 1000)}
+
+This fixes both the variable to be filtered by, as well as the cut-off value. This can be made flexible for a custom function that allows any kind of filtering.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{)) \{}
+  
+  \CommentTok{# THIS IS THE IMPORTANT BIT}
+\NormalTok{  filters =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{filters)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Try this function with single and multiple filters.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# mammals above a kilo}
+\KeywordTok{custom_summary}\NormalTok{(data, }
+               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+
+\StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 2}
+\CommentTok{#>   binomial                mass_g}
+\CommentTok{#>   <chr>                    <dbl>}
+\CommentTok{#> 1 Acerodon_jubatus         1075 }
+\CommentTok{#> 2 Acinonyx_jubatus        46700 }
+\CommentTok{#> 3 Acratocnus_odontrigonus 22990 }
+\CommentTok{#> 4 Acratocnus_ye           21310 }
+\CommentTok{#> 5 Addax_nasomaculatus     70000.}
+\CommentTok{#> 6 Aepyceros_melampus      52500.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# mammals between 250 and 500 g and which are mostly carnivorous}
+\KeywordTok{custom_summary}\NormalTok{(data, }
+               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"between(mass_g, 250, 500)"}\NormalTok{,}
+                           \StringTok{"diet_plant < 10"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+
+\StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g, diet_plant) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 3}
+\CommentTok{#>   binomial                mass_g diet_plant}
+\CommentTok{#>   <chr>                    <dbl>      <dbl>}
+\CommentTok{#> 1 Chrysospalax_trevelyani   426.          0}
+\CommentTok{#> 2 Cyclopes_didactylus       330.          0}
+\CommentTok{#> 3 Desmana_moschata          383           0}
+\CommentTok{#> 4 Dologale_dybowskii        350           0}
+\CommentTok{#> 5 Hydromys_chrysogaster     480.          0}
+\CommentTok{#> 6 Hyosciurus_heinrichi      296           0}
+\end{Highlighting}
+\end{Shaded}
+
+The function \texttt{filter} correctly processes the string passed to filter the data.
+
+\hypertarget{flexible-grouping-in-a-function}{%
+\section{Flexible grouping in a function}\label{flexible-grouping-in-a-function}}
+
+Just as the exact filtering approach can be controlled from a single string vector in the example above, the grouping variables can also be stored and passed as arguments using the \texttt{...} (dots) argument. Dots are a convenient way of referring to all unnamed arguments of a function.
+Here, they are used to accept the grouping variables.
+
+\hypertarget{using-...-and-forwarding}{%
+\subsection{\texorpdfstring{Using \texttt{...} and `forwarding'}{Using ... and `forwarding'}}\label{using-...-and-forwarding}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{),}
+\NormalTok{                          ...) \{}
+  \CommentTok{# deal with groups}
+\NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{enquos}\NormalTok{(...)}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
+\StringTok{    }
+\StringTok{    }\CommentTok{# this is the important bit}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Try the function again, and check the grouping variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{custom_summary}\NormalTok{(data, }
+               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+\NormalTok{               order, family) }\OperatorTok{%>%}\StringTok{ }
+
+\StringTok{  }\KeywordTok{group_vars}\NormalTok{()}
+\CommentTok{#> [1] "order"  "family"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{passing-grouping-variables-as-strings}{%
+\subsection{Passing grouping variables as strings}\label{passing-grouping-variables-as-strings}}
+
+In the previous example, the grouping variables were passed as unquoted variables, then \texttt{enquo}-ted and parsed, after which they were applied.
+An alternative way of passing arguments to a function is as a string vector, i.e, \texttt{grouping\_vars\ =\ c("var\_a",\ "var\_b)}.
+
+This can be done by interpreting the string vector as \texttt{R} symbols using \texttt{rlang::syms}. It could also be done by treating them as a full expression using the previously covered \texttt{rlang::parse\_exprs}. However, both methods must use an unquoting-splice (\texttt{!!!}), i.e., force the evaluation of a list of \texttt{R} expressions.
+
+\hypertarget{using-rlangsyms}{%
+\subsection{\texorpdfstring{Using \texttt{rlang::syms}}{Using rlang::syms}}\label{using-rlangsyms}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+\NormalTok{                          grouping_vars) \{}
+  \CommentTok{# deal with groups}
+\NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{syms}\NormalTok{(grouping_vars)}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
+\StringTok{    }
+\StringTok{    }\CommentTok{# this is the important bit}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{custom_summary}\NormalTok{(data, }
+               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+               \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"order"}\NormalTok{, }\StringTok{"family"}\NormalTok{)}
+\NormalTok{              ) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_mass =} \KeywordTok{mean}\NormalTok{(mass_g)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 3}
+\CommentTok{#> # Groups:   order [2]}
+\CommentTok{#>   order        family      mean_mass}
+\CommentTok{#>   <chr>        <chr>           <dbl>}
+\CommentTok{#> 1 Afrosoricida Tenrecidae     13220 }
+\CommentTok{#> 2 Carnivora    Ailuridae       4900 }
+\CommentTok{#> 3 Carnivora    Canidae        10502.}
+\CommentTok{#> 4 Carnivora    Eupleridae      5853.}
+\CommentTok{#> 5 Carnivora    Felidae        52801.}
+\CommentTok{#> 6 Carnivora    Herpestidae     2334.}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{using-rlangparse_exprs}{%
+\subsection{\texorpdfstring{Using \texttt{rlang::parse\_exprs}}{Using rlang::parse\_exprs}}\label{using-rlangparse_exprs}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+\NormalTok{                          grouping_vars) \{}
+  \CommentTok{# deal with groups}
+\NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
+\StringTok{    }
+\StringTok{    }\CommentTok{# this is the important bit}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{custom_summary}\NormalTok{(data, }
+               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+               \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"family"}\NormalTok{, }\StringTok{"iucn_status"}\NormalTok{)}
+\NormalTok{              ) }\OperatorTok{%>%}\StringTok{ }
+
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_mass =} \KeywordTok{mean}\NormalTok{(mass_g)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 3}
+\CommentTok{#> # Groups:   family [5]}
+\CommentTok{#>   family         iucn_status mean_mass}
+\CommentTok{#>   <chr>          <chr>           <dbl>}
+\CommentTok{#> 1 Ailuridae      EN              4900 }
+\CommentTok{#> 2 Anomaluridae   DD              1770 }
+\CommentTok{#> 3 Antilocapridae EP             40503.}
+\CommentTok{#> 4 Antilocapridae LC             46083.}
+\CommentTok{#> 5 Aotidae        LC              1060 }
+\CommentTok{#> 6 Aplodontiidae  LC              1004}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{flexible-summarising-in-a-function}{%
+\section{Flexible summarising in a function}\label{flexible-summarising-in-a-function}}
+
+Summarising using string expressions has been around in the \texttt{tidyverse} for a very long time, and \texttt{summarise\_at} is a function most users are familiar with, along with its variants \texttt{summarise\_if}, \texttt{summarise\_all}
+
+\hypertarget{using-dplyrsummarise_at}{%
+\subsection{\texorpdfstring{Using \texttt{dplyr::summarise\_at}}{Using dplyr::summarise\_at}}\label{using-dplyrsummarise_at}}
+
+Simply pass a string vector to the \texttt{.vars} argument of \texttt{summarise\_at}, while passing a list, named or otherwise, of functions to the \texttt{.funs} argument.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+\NormalTok{                          grouping_vars,}
+\NormalTok{                          summary_vars,}
+\NormalTok{                          summary_funs) \{}
+  \CommentTok{# deal with groups}
+\NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }
+\StringTok{    }\CommentTok{# important bit}
+\StringTok{    }\KeywordTok{summarise_at}\NormalTok{(}\DataTypeTok{.vars =}\NormalTok{ summary_vars, }
+                 \DataTypeTok{.funs =}\NormalTok{ summary_funs)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{custom_summary}\NormalTok{(data,}
+               \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"order"}\NormalTok{, }\StringTok{"family"}\NormalTok{),}
+               \DataTypeTok{summary_vars =} \StringTok{"mass_g"}\NormalTok{,}
+               \DataTypeTok{summary_funs =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{this_is_a_mean =}\NormalTok{ mean, sd))}
+\CommentTok{#> # A tibble: 113 x 4}
+\CommentTok{#> # Groups:   order [24]}
+\CommentTok{#>   order        family      this_is_a_mean    fn1}
+\CommentTok{#>   <chr>        <chr>                <dbl>  <dbl>}
+\CommentTok{#> 1 Afrosoricida Tenrecidae          13220     NA }
+\CommentTok{#> 2 Carnivora    Ailuridae            4900     NA }
+\CommentTok{#> 3 Carnivora    Canidae             10502. 11618.}
+\CommentTok{#> 4 Carnivora    Eupleridae           5853.  6234.}
+\CommentTok{#> 5 Carnivora    Felidae             52801. 88201.}
+\CommentTok{#> 6 Carnivora    Herpestidae          2334.   937.}
+\CommentTok{#> # ... with 107 more rows}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{using-the-across-argument-for-summary-variables}{%
+\subsection{\texorpdfstring{Using the \texttt{across} argument for summary variables}{Using the across argument for summary variables}}\label{using-the-across-argument-for-summary-variables}}
+
+\texttt{dplyr\ 1.0.0} had \texttt{summarise\_*} superseded by the \texttt{across} argument to \texttt{summarise}. This works somewhat differently.
+The example below shows how the \texttt{mean} of a trait of mammal groups can be found.
+
+This example makes use of embracing using \texttt{\{\{\ \}\}}, where the double curly braces indicate a \href{https://adv-r.hadley.nz/functions.html\#lazy-evaluation}{promise}, i.e., an expectation that such a variable will exist in the function environment.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+\NormalTok{                          grouping_vars,}
+\NormalTok{                          summary_vars) \{}
+  \CommentTok{# deal with groups}
+\NormalTok{  grouping_vars =}\StringTok{ }\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }
+\StringTok{    }\CommentTok{# important bit}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\KeywordTok{across}\NormalTok{(\{\{ summary_vars \}\},}
+              \OperatorTok{~}\StringTok{ }\KeywordTok{mean}\NormalTok{(.)))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{custom_summary}\NormalTok{(data,}
+               \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"order"}\NormalTok{, }\StringTok{"family"}\NormalTok{),}
+               \DataTypeTok{summary_vars =} \KeywordTok{c}\NormalTok{(mass_g, diet_plant)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 4}
+\CommentTok{#> # Groups:   order [2]}
+\CommentTok{#>   order        family      mass_g diet_plant}
+\CommentTok{#>   <chr>        <chr>        <dbl>      <dbl>}
+\CommentTok{#> 1 Afrosoricida Tenrecidae  13220       4    }
+\CommentTok{#> 2 Carnivora    Ailuridae    4900      80    }
+\CommentTok{#> 3 Carnivora    Canidae     10502.     15.0  }
+\CommentTok{#> 4 Carnivora    Eupleridae   5853.      2.67 }
+\CommentTok{#> 5 Carnivora    Felidae     52801.      0.348}
+\CommentTok{#> 6 Carnivora    Herpestidae  2334.      9.86}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{across} also accepts multiple functions just as \texttt{summarise\_} did. This works as follows.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# mean and sd}
+\NormalTok{data }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(order, family) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\KeywordTok{across}\NormalTok{(}\KeywordTok{c}\NormalTok{(mass_g, diet_plant),}
+                   \KeywordTok{list}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{mean}\NormalTok{(.),}
+                        \OperatorTok{~}\StringTok{ }\KeywordTok{sd}\NormalTok{(.))}
+\NormalTok{                   )}
+\NormalTok{            ) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 6}
+\CommentTok{#> # Groups:   order [2]}
+\CommentTok{#>   order        family          mass_g_1 mass_g_2 diet_plant_1 diet_plant_2}
+\CommentTok{#>   <chr>        <chr>              <dbl>    <dbl>        <dbl>        <dbl>}
+\CommentTok{#> 1 Afrosoricida Chrysochloridae     60.7     86.6        0             0   }
+\CommentTok{#> 2 Afrosoricida Tenrecidae         449.    2197.         1.5           6.83}
+\CommentTok{#> 3 Carnivora    Ailuridae         4900       NA         80            NA   }
+\CommentTok{#> 4 Carnivora    Canidae          10268.   11568.        16.0          18.0 }
+\CommentTok{#> 5 Carnivora    Eupleridae        3777.    5364.         4.6           6.72}
+\CommentTok{#> 6 Carnivora    Felidae          52801.   88201.         0.348         2.36}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{summarise-multiple-variables-using-...}{%
+\subsection{\texorpdfstring{Summarise multiple variables using \texttt{...}}{Summarise multiple variables using ...}}\label{summarise-multiple-variables-using-...}}
+
+Here, the unquoted and unnamed variables passed to the function are captured by \texttt{...} and \texttt{enquos}-ed, i.e, their evaluation is delayed.
+Then the variables are forcibly evaluated within the \texttt{mean} function, and this expression is captured using \texttt{expr}. Since there are multiple variables to summarise, these expressions are stored as a list.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+\NormalTok{                          grouping_vars,}
+\NormalTok{                          filters,}
+\NormalTok{                          ...) \{}
+  \CommentTok{# deal with groups}
+\NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
+  
+  \CommentTok{# deal with summary variables}
+\NormalTok{  summary_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{enquos}\NormalTok{(...)}
+  
+  \CommentTok{# apply the summary function to the variables}
+\NormalTok{  summary_vars <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map}\NormalTok{(summary_vars, }\ControlFlowTok{function}\NormalTok{(var) \{}
+\NormalTok{    rlang}\OperatorTok{::}\KeywordTok{expr}\NormalTok{(}\KeywordTok{mean}\NormalTok{(}\OperatorTok{!!}\NormalTok{var, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{))}
+\NormalTok{  \})}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }
+\StringTok{    }\CommentTok{# important bit}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\OperatorTok{!!!}\NormalTok{summary_vars)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{custom_summary}\NormalTok{(data,}
+               \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"order"}\NormalTok{, }\StringTok{"family"}\NormalTok{),}
+               \DataTypeTok{filters =} \StringTok{"mass_g > 10"}\NormalTok{,}
+\NormalTok{               mass_g, diet_plant) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 4}
+\CommentTok{#> # Groups:   order [2]}
+\CommentTok{#>   order       family        `mean(mass_g, na.rm = T~ `mean(diet_plant, na.rm = ~}
+\CommentTok{#>   <chr>       <chr>                            <dbl>                       <dbl>}
+\CommentTok{#> 1 Afrosorici~ Chrysochlori~                     60.7                       0    }
+\CommentTok{#> 2 Afrosorici~ Tenrecidae                       597.                        2    }
+\CommentTok{#> 3 Carnivora   Ailuridae                       4900                        80    }
+\CommentTok{#> 4 Carnivora   Canidae                        10268.                       16.0  }
+\CommentTok{#> 5 Carnivora   Eupleridae                      3777.                        4.6  }
+\CommentTok{#> 6 Carnivora   Felidae                        52801.                        0.348}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{expr-and-enquo}{%
+\subsubsection*{\texorpdfstring{\texttt{expr} and \texttt{enquo}}{expr and enquo}}\label{expr-and-enquo}}
+\addcontentsline{toc}{subsubsection}{\texttt{expr} and \texttt{enquo}}
+
+\texttt{expr} and \texttt{enquo} are essentially the same, defusing/quoting (delaying evaluation) of \texttt{R} code. \texttt{expr} works on expressions supplied by the primary user, while \texttt{enquo} works on arguments passed to a function. When in doubt, ask whether the expression to be quoted has entered the function environment as an argument. If yes, use \texttt{enquo}, and if not \texttt{expr}. The plural forms \texttt{enquos} and \texttt{exprs} exist for multiple arguments.
+
+\hypertarget{correct-the-names-of-summary-variables}{%
+\subsubsection{Correct the names of summary variables}\label{correct-the-names-of-summary-variables}}
+
+The example above returns summary variables that are not assigned a name.
+The \texttt{enquos} function can assign the name from the variable names, so \texttt{mean(mass\_g)} is returned as \texttt{mass\_g}.
+Since it is useful to add a tag to make clear what the summary variable is (mean, variance etc.) an extra \texttt{glue} step is added to assign informative names to the summary variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+\NormalTok{                          grouping_vars,}
+\NormalTok{                          filters,}
+\NormalTok{                          ...) \{}
+  \CommentTok{# deal with groups}
+\NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
+  
+  \CommentTok{# deal with summary variables}
+\NormalTok{  summary_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{enquos}\NormalTok{(..., }\DataTypeTok{.named =} \OtherTok{TRUE}\NormalTok{)}
+  
+  \CommentTok{# apply the summary function to the variables}
+\NormalTok{  summary_vars <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map}\NormalTok{(summary_vars, }\ControlFlowTok{function}\NormalTok{(var) \{}
+\NormalTok{    rlang}\OperatorTok{::}\KeywordTok{expr}\NormalTok{(}\KeywordTok{mean}\NormalTok{(}\OperatorTok{!!}\NormalTok{var, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{))}
+\NormalTok{  \})}
+  
+  \CommentTok{# add a prefix to the summary variables}
+  \KeywordTok{names}\NormalTok{(summary_vars) <-}\StringTok{ }\NormalTok{glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\StringTok{'mean_\{names(summary_vars)\}'}\NormalTok{)}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }
+\StringTok{    }\CommentTok{# important bit}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\OperatorTok{!!!}\NormalTok{summary_vars)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{custom_summary}\NormalTok{(data,}
+               \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"order"}\NormalTok{, }\StringTok{"family"}\NormalTok{),}
+               \DataTypeTok{filters =} \StringTok{"mass_g > 10"}\NormalTok{,}
+\NormalTok{               mass_g, diet_plant) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 4}
+\CommentTok{#> # Groups:   order [2]}
+\CommentTok{#>   order        family          mean_mass_g mean_diet_plant}
+\CommentTok{#>   <chr>        <chr>                 <dbl>           <dbl>}
+\CommentTok{#> 1 Afrosoricida Chrysochloridae        60.7           0    }
+\CommentTok{#> 2 Afrosoricida Tenrecidae            597.            2    }
+\CommentTok{#> 3 Carnivora    Ailuridae            4900            80    }
+\CommentTok{#> 4 Carnivora    Canidae             10268.           16.0  }
+\CommentTok{#> 5 Carnivora    Eupleridae           3777.            4.6  }
+\CommentTok{#> 6 Carnivora    Felidae             52801.            0.348}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{summarise-with-multiple-functions}{%
+\subsection{Summarise with multiple functions}\label{summarise-with-multiple-functions}}
+
+The final step is to pass multiple summary functions to the summary variables.
+Unlike the earlier example using \texttt{summarise(across(vars,\ funs))}, the goal here is to apply one function to each variable.
+
+This is done by passing the functions and the variables on which they should operate as strings, and using string interpolation via \texttt{glue} to construct a coherent \texttt{R} expression. This expression is then named and evaluated.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+\NormalTok{                          grouping_vars,}
+\NormalTok{                          filters,}
+\NormalTok{                          functions,}
+\NormalTok{                          summary_vars) \{}
+  \CommentTok{# deal with groups}
+\NormalTok{  grouping_vars =}\StringTok{ }\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
+  
+  \CommentTok{# deal with summary variables}
+  \CommentTok{# summary_vars = # enquos(..., .named = TRUE)}
+  
+  \CommentTok{# apply the summary function to the variables}
+\NormalTok{  summary_exprs <-}\StringTok{ }\KeywordTok{parse_exprs}\NormalTok{(glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\StringTok{'\{functions\}(\{summary_vars\}, na.rm = TRUE)'}\NormalTok{))}
+  
+  \CommentTok{# add a prefix to the summary variables}
+  \KeywordTok{names}\NormalTok{(summary_exprs) <-}\StringTok{ }\NormalTok{glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\StringTok{'\{functions\}_\{summary_vars\}'}\NormalTok{)}
+  
+\NormalTok{  data }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}
+
+\StringTok{    }\CommentTok{# important bit}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\OperatorTok{!!!}\NormalTok{summary_exprs)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{custom_summary}\NormalTok{(data,}
+               \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"order"}\NormalTok{, }\StringTok{"family"}\NormalTok{),}
+               \DataTypeTok{filters =} \StringTok{"mass_g > 10"}\NormalTok{,}
+               \DataTypeTok{functions =} \KeywordTok{c}\NormalTok{(}\StringTok{"mean"}\NormalTok{, }\StringTok{"var"}\NormalTok{),}
+               \DataTypeTok{summary_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g"}\NormalTok{, }\StringTok{"diet_plant"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 4}
+\CommentTok{#> # Groups:   order [2]}
+\CommentTok{#>   order        family          mean_mass_g var_diet_plant}
+\CommentTok{#>   <chr>        <chr>                 <dbl>          <dbl>}
+\CommentTok{#> 1 Afrosoricida Chrysochloridae        60.7           0   }
+\CommentTok{#> 2 Afrosoricida Tenrecidae            597.           61.8 }
+\CommentTok{#> 3 Carnivora    Ailuridae            4900            NA   }
+\CommentTok{#> 4 Carnivora    Canidae             10268.          325.  }
+\CommentTok{#> 5 Carnivora    Eupleridae           3777.           45.2 }
+\CommentTok{#> 6 Carnivora    Felidae             52801.            5.57}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{further-resources}{%
+\section{Further resources}\label{further-resources}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{dplyr}: \url{https://dplyr.tidyverse.org/index.html}
+\item
+  Tidy evaluation: Superseded and archived, but still useful \url{https://tidyeval.tidyverse.org/}
+\item
+  \texttt{rlang}: \url{https://rlang.r-lib.org/}
 \end{itemize}
 
 \end{document}
