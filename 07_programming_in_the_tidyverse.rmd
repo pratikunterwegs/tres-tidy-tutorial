@@ -14,6 +14,7 @@ Load the packages for the day.
 library(tidyverse)
 library(rlang)
 ```
+A function to look at errors.
 
 ```{r}
 try_this <- function(ex) {
@@ -22,12 +23,11 @@ try_this <- function(ex) {
       ex
     },
     error = function(e) {
-      message(as.character(e))
+      print(glue::glue(as.character(e), "\n"))
     }
   )
 }
 ```
-
 
 ## An exlanation of the problem
 
@@ -116,7 +116,7 @@ This illustrates the problem in part: when the columns to be operated upon are _
 
 ### Passing variables as strings is (also) an issue
 
-The variables to be operated on could be given as strings, perhaps as the argument to a function, or as a global variables. This way, a single global vector could contain the grouping variables for all further `summarise` procedures.
+The variables to be operated on could be given as strings, perhaps as the argument to a function, or as a global variable. This way, a single global vector could contain the grouping variables for all further `summarise` procedures.
 
 This runs into the problem identified earlier.
 
@@ -127,33 +127,19 @@ vars_to_group = c("Order.1.2")
 
 # attempt to select and summarise on group
 # the tidyverse will not be pleased
-tryCatch(
-  expr = { 
-
+try_this(ex = 
+           
     data %>% 
       select(vars_to_select) %>% # this works with a warning
       group_by(vars_to_group) %>% 
       summarise(mean_mass = mean(Mass.g),
                 mean_plant = mean(Diet.Plant))
-    },
-  
-  # do not pay attention to this part of the code
-  # read the errors printed
-  error = function(e) { 
-    
-    message(as.character(e))
-    
-    }
 )
 ```
 
-## Writing a flexible function
+In the case of a standard `filter %>% group %>% summarise` pipeline, the function's operations are evident. It must filter a dataframe based on a/some column(s), and then summarise by groups. The filter to be applied, the variables to group by, and the variables to be summarised should be passed as function arguments --- just how this is to be done is not immediately obvious.
 
-Any operation which is expected to be repeated multiple times with only minor tweaks should be written as a function.
-
-In the case of the `filter %>% group %>% summarise` pipeline, the function's operations are evident. It must filter a dataframe based on a/some column(s), and then summarise by groups. The filter to be applied, the variables to group by, and the variables to be summarised should be passed as function arguments --- just how this is to be done is not immediately obvious.
-
-## Flexible selection
+## Flexible selection is easy
 
 Selection often precedes data operations, but is not part of the pipeline dealt with further.
 
@@ -197,7 +183,7 @@ This function initially failed because `filter` could not find `mass_g` in the d
 
 The difference between so-called `data` and `environment` variables is explained better at the `rlang` and `tidyeval` websites and tutorials linked at the end of this chapter. It is this difference that prevents filter from correctly interpreting `mass_g`.
 
-### Passing filter argument as string doesn't help
+### Passing arguments as strings doesn't help
 
 The example below tries to get `filter` to work. What could be tried? One option is to attempt passing the filtering process as a string argument, i.e., `"mass_g > 1000"`.
 
@@ -212,11 +198,11 @@ try_this(ex = custom_summary(data,
 
 While this doesn't work, it is on the right track, which is that the `filters` argument needs some extra work beyond changing the type.
 
-#### None of the other arguments will be successful {-}
+### None of the other arguments will be successful
 
-`filter` was the first failure, after which it stopped further evaluation, but none of the steps of the custom function would have worked, for the same reason filter would not have worked: all the arguments need soms work before they can be passed to their respective functions.
+`filter` was the first failure, after which it stopped further evaluation, but none of the steps of the custom function would have worked, for the same reason filter would not have worked: all the arguments need some work before they can be passed to their respective functions.
 
-## Building a flexible function stepwise
+## Flexible filtering in a function
 
 The first thing to try is to change how `filter` uses the argument passed to it.
 Here, the argument `filters` is passed as a character vector, and is set by default to filter out mammals with masses below 1 kg.
@@ -247,7 +233,7 @@ Here, `a + 3` was converted to an expression in the second command, and only eva
 
 #### Unquoting with `!!!` {-}
 
-`R` expressions underly `R` code. Their evaluation can be forced inside another function using the special operators `!!` and `!!!`, for single and multiple `R` expressions respectively.
+`R` expressions underlie `R` code. Their evaluation can be forced inside another function using the special operators `!!` and `!!!`, for single and multiple `R` expressions respectively.
 
 ### Flexible filtering using expressions
 
@@ -292,9 +278,9 @@ custom_summary(data,
 
 ```
 
-The function `filter`correctly processes the string passed to filter the data.
+The function `filter` correctly processes the string passed to filter the data.
 
-## Flexible grouping
+## Flexible grouping in a function
 
 Just as the exact filtering approach can be controlled from a single string vector in the example above, the grouping variables can also be stored and passed as arguments using the `...` (dots) argument. Dots are a convenient way of referring to all unnamed arguments of a function.
 Here, they are used to accept the grouping variables.
@@ -387,7 +373,7 @@ custom_summary(data,
   head()
 ```
 
-## Summarising using string expressions
+## Flexible summarising in a function
 
 Summarising using string expressions has been around in the `tidyverse` for a very long time, and `summarise_at` is a function most users are familiar with, along with its variants `summarise_if`, `summarise_all`
 
@@ -593,7 +579,7 @@ custom_summary(data,
                grouping_vars = c("order", "family"),
                filters = "mass_g > 10",
                functions = c("mean", "var"),
-               mass_g, diet_plant) %>% 
+               summary_vars = c("mass_g", "diet_plant")) %>% 
   
   head()
 ```
@@ -603,5 +589,3 @@ custom_summary(data,
 - `dplyr`: https://dplyr.tidyverse.org/index.html
 - Tidy evaluation: Superseded and archived, but still useful https://tidyeval.tidyverse.org/
 - `rlang`: https://rlang.r-lib.org/
-
-
