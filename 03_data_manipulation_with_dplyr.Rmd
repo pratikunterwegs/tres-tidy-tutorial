@@ -733,7 +733,3 @@ So-called filtering joins return row from the first table that are matched
 semi_join(diet, life_habit, by  = "binomial")
 anti_join(diet, life_habit, by  = "binomial")
 ```
-
-
-
-

@@ -521,4 +521,3 @@ The example below shows the latter, with the `data` data frame from earlier.
 # use patchwork on list
 patchwork::wrap_plots(nested_data$plot[1:5])
 ```
-
