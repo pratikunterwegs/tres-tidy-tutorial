@@ -24,7 +24,7 @@
 <meta name="author" content="Raphael, Pratik and Theo" />
 
 
-<meta name="date" content="2020-06-26" />
+<meta name="date" content="2020-07-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="working-with-lists-and-iteration.html"/>
-
+<link rel="next" href="programming-in-the-tidyverse.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -239,6 +239,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a><ul>
 <li class="chapter" data-level="5.1.1" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#what-is-ggplot2-and-why-use-it"><i class="fa fa-check"></i><b>5.1.1</b> What is <code>ggplot2</code> and why use it?</a></li>
 <li class="chapter" data-level="5.1.2" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#what-is-the-grammar-of-graphics"><i class="fa fa-check"></i><b>5.1.2</b> What is the grammar of graphics?</a></li>
+<li class="chapter" data-level="5.1.3" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#quick-plot"><i class="fa fa-check"></i><b>5.1.3</b> Quick plot</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#but-first-the-data"><i class="fa fa-check"></i><b>5.2</b> But first, the data</a></li>
 <li class="chapter" data-level="5.3" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#geom-layers"><i class="fa fa-check"></i><b>5.3</b> Geom layers</a><ul>
@@ -253,20 +254,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#coordinate-system"><i class="fa fa-check"></i><b>5.4</b> Coordinate-system</a></li>
 <li class="chapter" data-level="5.5" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#facetting"><i class="fa fa-check"></i><b>5.5</b> Facetting</a></li>
-<li class="chapter" data-level="5.6" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#the-right-format-for-the-dataset"><i class="fa fa-check"></i><b>5.6</b> The right format for the dataset</a><ul>
-<li class="chapter" data-level="5.6.1" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#plotting-as-part-of-a-pipeline"><i class="fa fa-check"></i><b>5.6.1</b> Plotting as part of a pipeline</a></li>
+<li class="chapter" data-level="5.6" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#the-right-format-for-the-dataset"><i class="fa fa-check"></i><b>5.6</b> The right format for the dataset</a></li>
+<li class="chapter" data-level="5.7" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#plotting-as-part-of-a-pipeline"><i class="fa fa-check"></i><b>5.7</b> Plotting as part of a pipeline</a></li>
+<li class="chapter" data-level="5.8" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#customization"><i class="fa fa-check"></i><b>5.8</b> Customization</a><ul>
+<li class="chapter" data-level="5.8.1" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#scales"><i class="fa fa-check"></i><b>5.8.1</b> Scales</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#labels"><i class="fa fa-check"></i><b>5.8.2</b> Labels</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#themes"><i class="fa fa-check"></i><b>5.8.3</b> Themes</a></li>
+<li class="chapter" data-level="5.8.4" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#legend"><i class="fa fa-check"></i><b>5.8.4</b> Legend</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#customization"><i class="fa fa-check"></i><b>5.7</b> Customization</a><ul>
-<li class="chapter" data-level="5.7.1" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#scales"><i class="fa fa-check"></i><b>5.7.1</b> Scales</a></li>
-<li class="chapter" data-level="5.7.2" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#labels"><i class="fa fa-check"></i><b>5.7.2</b> Labels</a></li>
-<li class="chapter" data-level="5.7.3" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#themes"><i class="fa fa-check"></i><b>5.7.3</b> Themes</a></li>
-<li class="chapter" data-level="5.7.4" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#custom-legend"><i class="fa fa-check"></i><b>5.7.4</b> Custom legend</a></li>
+<li class="chapter" data-level="5.9" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#combining-plots"><i class="fa fa-check"></i><b>5.9</b> Combining plots</a></li>
+<li class="chapter" data-level="5.10" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#saving-a-plot"><i class="fa fa-check"></i><b>5.10</b> Saving a plot</a></li>
+<li class="chapter" data-level="5.11" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#high-throughput-plotting-workflow"><i class="fa fa-check"></i><b>5.11</b> High throughput plotting workflow</a></li>
+<li class="chapter" data-level="5.12" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#want-more"><i class="fa fa-check"></i><b>5.12</b> Want more?</a></li>
+<li class="chapter" data-level="5.13" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#references"><i class="fa fa-check"></i><b>5.13</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="5.8" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#combining-plots"><i class="fa fa-check"></i><b>5.8</b> Combining plots</a></li>
-<li class="chapter" data-level="5.9" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#saving-a-plot"><i class="fa fa-check"></i><b>5.9</b> Saving a plot</a></li>
-<li class="chapter" data-level="5.10" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#high-throughput-plotting-workflow"><i class="fa fa-check"></i><b>5.10</b> High throughput plotting workflow</a></li>
-<li class="chapter" data-level="5.11" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#want-more"><i class="fa fa-check"></i><b>5.11</b> Want more?</a></li>
-<li class="chapter" data-level="5.12" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#references"><i class="fa fa-check"></i><b>5.12</b> References</a></li>
+<li class="chapter" data-level="6" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html"><i class="fa fa-check"></i><b>6</b> Programming in the <em>tidyverse</em></a><ul>
+<li class="chapter" data-level="6.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#an-exlanation-of-the-problem"><i class="fa fa-check"></i><b>6.1</b> An exlanation of the problem</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#what-the-issue-is"><i class="fa fa-check"></i><b>6.1.1</b> What the issue is</a></li>
+<li class="chapter" data-level="6.1.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#why-the-issue-is-a-problem"><i class="fa fa-check"></i><b>6.1.2</b> Why the issue is a problem</a></li>
+<li class="chapter" data-level="6.1.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-variables-as-strings-is-also-an-issue"><i class="fa fa-check"></i><b>6.1.3</b> Passing variables as strings is (also) an issue</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-selection-is-easy"><i class="fa fa-check"></i><b>6.2</b> Flexible selection is easy</a></li>
+<li class="chapter" data-level="6.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#a-first-attempt-at-a-flexible-function"><i class="fa fa-check"></i><b>6.3</b> A first attempt at a flexible function</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#failure-of-the-first-attempt"><i class="fa fa-check"></i><b>6.3.1</b> Failure of the first attempt</a></li>
+<li class="chapter" data-level="6.3.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-arguments-as-strings-doesnt-help"><i class="fa fa-check"></i><b>6.3.2</b> Passing arguments as strings doesn’t help</a></li>
+<li class="chapter" data-level="6.3.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#none-of-the-other-arguments-will-be-successful"><i class="fa fa-check"></i><b>6.3.3</b> None of the other arguments will be successful</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-filtering-in-a-function"><i class="fa fa-check"></i><b>6.4</b> Flexible filtering in a function</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-filtering-using-expressions"><i class="fa fa-check"></i><b>6.4.1</b> Flexible filtering using expressions</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-grouping-in-a-function"><i class="fa fa-check"></i><b>6.5</b> Flexible grouping in a function</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-...-and-forwarding"><i class="fa fa-check"></i><b>6.5.1</b> Using <code>...</code> and ‘forwarding’</a></li>
+<li class="chapter" data-level="6.5.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-grouping-variables-as-strings"><i class="fa fa-check"></i><b>6.5.2</b> Passing grouping variables as strings</a></li>
+<li class="chapter" data-level="6.5.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-rlangsyms"><i class="fa fa-check"></i><b>6.5.3</b> Using <code>rlang::syms</code></a></li>
+<li class="chapter" data-level="6.5.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-rlangparse_exprs"><i class="fa fa-check"></i><b>6.5.4</b> Using <code>rlang::parse_exprs</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-summarising-in-a-function"><i class="fa fa-check"></i><b>6.6</b> Flexible summarising in a function</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-dplyrsummarise_at"><i class="fa fa-check"></i><b>6.6.1</b> Using <code>dplyr::summarise_at</code></a></li>
+<li class="chapter" data-level="6.6.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-the-across-argument-for-summary-variables"><i class="fa fa-check"></i><b>6.6.2</b> Using the <code>across</code> argument for summary variables</a></li>
+<li class="chapter" data-level="6.6.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#summarise-multiple-variables-using-..."><i class="fa fa-check"></i><b>6.6.3</b> Summarise multiple variables using <code>...</code></a></li>
+<li class="chapter" data-level="6.6.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#summarise-with-multiple-functions"><i class="fa fa-check"></i><b>6.6.4</b> Summarise with multiple functions</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#further-resources"><i class="fa fa-check"></i><b>6.7</b> Further resources</a></li>
 </ul></li>
 </ul>
 
@@ -287,17 +316,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="ggplot2-and-the-grammar-of-graphics" class="section level1">
 <h1><span class="header-section-number">Section 5</span> <code>ggplot2</code> and the grammar of graphics</h1>
+<p>By Raphael Scherrer, data from Anne-Marie Veenstra-Skirl</p>
 <p><img src="opening-image.png" /></p>
-<p>In this tutorial we will learn how to make nice graphics using <code>ggplot2</code>, perhaps the most well-known member of the tidyverse. So well-known, in fact, that people often know <code>ggplot2</code> before they get to know about the tidyverse. We will first learn about the philosophy behind <code>ggplot2</code> and then follow that recipe to build more and more customized plots through some examples.</p>
+<p>In this tutorial we will learn how to make nice graphics using <code>ggplot2</code>, perhaps the most well-known member of the tidyverse. So well-known, in fact, that people often know <code>ggplot2</code> before they get to know about the tidyverse. We will first learn about the philosophy behind <code>ggplot2</code> and then follow that recipe to build more complex customized plots through some examples.</p>
 <div id="introduction-1" class="section level2">
 <h2><span class="header-section-number">5.1</span> Introduction</h2>
 <div id="what-is-ggplot2-and-why-use-it" class="section level3">
 <h3><span class="header-section-number">5.1.1</span> What is <code>ggplot2</code> and why use it?</h3>
-<p>There are many ways of making graphics in base R. For example, <code>plot</code> is used for scatterplots, <code>hist</code> is used for histograms, <code>boxplot</code> is self-explanatory, and <code>image</code> can be used for heatmaps. However, those functions are often developed by different people with different logics in mind, which makes them often inconsistent with each other: one has to learn what the arguments of each function are. <code>ggplot2</code> is aimed at solving this problem and making plotting <em>flexible</em>, allowing to build any graph using a common standard, the <em>grammar of graphics</em> (which is what “gg” stands for). By building on a single reference grammar, <code>ggplot2</code> therefore fits nicely into the tidyverse, and as part of it, it also follows the same rule as <code>tidyr</code>, <code>dplyr</code> or <code>purrr</code>, making the integration between all those packages very smooth.</p>
+<p>There are many ways of making graphics in base R. For example, <code>plot</code> is used for scatterplots, <code>hist</code> is used for histograms, <code>boxplot</code> is self-explanatory, and <code>image</code> can be used for heatmaps. However, those functions are often developed by different people with different logics in mind, which can make them inconsistent with each other, e.g. one has to learn what the arguments of each function are and switching from one type of visualization to another may not be very easy. <code>ggplot2</code> is aimed at solving this problem and making plotting <em>flexible</em>, allowing to build virtually any graph using a common standard, the <em>grammar of graphics</em> (which is what “gg” stands for). By building on a single reference grammar, <code>ggplot2</code> fits nicely into the tidyverse, and as part of it, it also follows the same rule as <code>tidyr</code>, <code>dplyr</code> or <code>purrr</code>, making the integration between all those packages very smooth.</p>
 </div>
 <div id="what-is-the-grammar-of-graphics" class="section level3">
 <h3><span class="header-section-number">5.1.2</span> What is the grammar of graphics?</h3>
-<p>The grammar of graphics is a system of rules on how to structure plots such that almost any graph can be made through combinations of a limited set of simpler elements, just as you can make any sentence by combining together letters from an alphabet (hence the term “grammar”). <code>ggplot2</code> is the implementation of this philosophy in R, and it is this modularity that underlies its flexibility. <code>ggplot2</code> comes with a limited set of elements, or <em>layers</em>, that you can pick and combine into an impressive variety of graphics, all based on the same syntax. But what are those elements?</p>
+<p>The grammar of graphics is a system of rules on how to structure plots such that almost any graph can be made through combinations of a limited set of simpler elements, just as you can make any sentence by combining together letters from an alphabet. <code>ggplot2</code> is the implementation of this philosophy in R, and comes with a limited set of <em>layers</em>, that you can pick and combine into an impressive variety of graphics, all based on the same syntax. But what are those elements?</p>
 <p>Here is the backbone of a ggplot statement (I will from now on use “ggplot” to refer to an object of class <code>ggplot</code>, the output of the <code>ggplot</code> function and the object that contains our graphic), taken from the book <a href="https://r4ds.had.co.nz/">R for Data Science</a>:</p>
 <pre><code>ggplot(data = &lt;DATA&gt;) + 
   &lt;GEOM_FUNCTION&gt;(
@@ -307,7 +337,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   ) +
   &lt;COORDINATE_FUNCTION&gt; +
   &lt;FACET_FUNCTION&gt;</code></pre>
-<p>This pseudocode snippet illustrates a fundamental aspect of <code>ggplot2</code>, which is that plots are built by <em>successive</em> commands, each corresponding to a layer, assembled together using the <code>+</code> operator. This might seem less practical than having a plot made in a single call to the <code>plot</code> function, but it is this modularity that actually gives <code>ggplot2</code> its flexibility.</p>
+<p>This pseudocode snippet illustrates a fundamental aspect of <code>ggplot2</code>, which is that plots are built by <em>successive</em> commands, each corresponding to a layer, assembled together using the <code>+</code> operator. This might seem less practical than having a whole plot made in a single call to the <code>plot</code> function, but it is this modularity that actually gives <code>ggplot2</code> its flexibility.</p>
 <p>This means that in <code>ggplot2</code> you will typically need multiple commands to make a plot. All ggplots are made of at least the two following basic ingredients:</p>
 <ul>
 <li>A call to the <code>ggplot</code> function, with the relevant data frame passed to it (this data frame contains our data to plot)</li>
@@ -319,6 +349,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-106-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 <p>will not show anything. A <code>ggplot</code> object is there, but it has no layers yet.</p>
 <p>Plots can then be customized with statistical transformations, re-positioning, changes in coordinate system, facetting, and more. We will now go through the different elements.</p>
+</div>
+<div id="quick-plot" class="section level3">
+<h3><span class="header-section-number">5.1.3</span> Quick plot</h3>
+<p>Note that the <code>qplot</code> function, which stands for “quick plot”, will show a plot when called on your dataset. It is a wrapper around <code>ggplot2</code> layers that allows to quickly get a visualization, just like using <code>plot</code> from base R. However, it is less flexible than combining your ggplot yourself, so here we will make sure that you understand how the different layers are assembled.</p>
 </div>
 </div>
 <div id="but-first-the-data" class="section level2">
@@ -336,7 +370,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb152-10" title="10"><span class="co">#&gt; 5 strain 1 test 1     1 11.8  T0     377928804 0.321</span></a>
 <a class="sourceLine" id="cb152-11" title="11"><span class="co">#&gt; 6 strain 1 test 1     1 11.8  T1    1511715216 0.914</span></a>
 <a class="sourceLine" id="cb152-12" title="12"><span class="co">#&gt; # … with 304 more rows</span></a></code></pre></div>
-<p>The different strains of bacteria were grown in two different assays, whose details are irrelevant for the purpose of this tutorial. <code>cfu</code> is the number of colony forming units while <code>OD600</code> is the optical density at 600nm wavelength; both are estimates of bacterial population density. <code>ratio</code> represents the ratio in mutants between two time points, T0 and T1 (encoded in <code>time</code>).</p>
+<p>The different strains of bacteria were grown in two different <code>assay</code>s, whose details are irrelevant for the purpose of this tutorial. <code>cfu</code> is the number of colony forming units while <code>OD600</code> is the optical density at 600nm wavelength; both are estimates of bacterial population density. <code>ratio</code> represents the ratio in mutants between two time points, T0 and T1 (encoded in <code>time</code>).</p>
 <p>In this table, the unit of observation is the time point (T0 and T1 are on different rows), therefore the values of <code>ratio</code>, which are attributed to each T0-T1 pair, are duplicated to yield one value per time point. To make our life easier with later plotting and to stay within the <em>tidy</em> spirit of the tidyverse (where one table should have one unit of observation), we use the tools we have already learnt to make a ratio-wise table:</p>
 <div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" title="1">data2 &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb153-2" title="2"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> <span class="st">&quot;time&quot;</span>, <span class="dt">values_from =</span> <span class="kw">c</span>(<span class="st">&quot;cfu&quot;</span>,  <span class="st">&quot;OD600&quot;</span>))</a>
@@ -369,398 +403,427 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" title="1"><span class="kw">ggplot</span>(data2) <span class="op">+</span></a>
 <a class="sourceLine" id="cb155-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain, <span class="dt">shape =</span> assay))</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-110-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>Do you want to map several variables to a single aesthetic? Then <code>interaction</code> from base R can be used within a <code>ggplot</code>:</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" title="1"><span class="kw">ggplot</span>(data2) <span class="op">+</span></a>
+<a class="sourceLine" id="cb156-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(</a>
+<a class="sourceLine" id="cb156-3" title="3">    <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> <span class="kw">interaction</span>(strain, assay))</a>
+<a class="sourceLine" id="cb156-4" title="4">  )</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-111-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 </div>
 <div id="fixed-aesthetics" class="section level3">
 <h3><span class="header-section-number">5.3.2</span> Fixed aesthetics</h3>
 <p>Fixed graphical parameters (i.e. that are not mapped to a variable) should be added as arguments of the geom <em>outside</em> the <code>aes</code> command. For example, to make <em>all</em> points a little bigger and more transparent, we can use</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" title="1"><span class="kw">ggplot</span>(data2) <span class="op">+</span></a>
-<a class="sourceLine" id="cb156-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(</a>
-<a class="sourceLine" id="cb156-3" title="3">    <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain, <span class="dt">shape =</span> assay),</a>
-<a class="sourceLine" id="cb156-4" title="4">    <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span></a>
-<a class="sourceLine" id="cb156-5" title="5">  )</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-111-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1"><span class="kw">ggplot</span>(data2) <span class="op">+</span></a>
+<a class="sourceLine" id="cb157-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(</a>
+<a class="sourceLine" id="cb157-3" title="3">    <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain, <span class="dt">shape =</span> assay),</a>
+<a class="sourceLine" id="cb157-4" title="4">    <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span></a>
+<a class="sourceLine" id="cb157-5" title="5">  )</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-112-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 </div>
 <div id="statistical-transformation" class="section level3">
 <h3><span class="header-section-number">5.3.3</span> Statistical transformation</h3>
 <p>Statistical transformations, or <code>stat</code> functions, can be applied to the data within a <code>geom</code> call. Actually, statistical transformations are <em>always</em> applied within a <code>geom</code> call, but most of the time the identity function is used. To illustrate, consider the following plot showing a distribution of <code>ratio</code> for different strains:</p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1"><span class="kw">ggplot</span>(data2) <span class="op">+</span></a>
-<a class="sourceLine" id="cb157-2" title="2"><span class="st">  </span><span class="kw">stat_density</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ratio, <span class="dt">fill =</span> strain), <span class="dt">alpha =</span> <span class="fl">0.5</span>)</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-112-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>Here, the <code>density</code> axis is not part of the original dataset <code>data2</code>; it was computed from the data, for each value of <code>ratio</code>, by using a density-estimation algorithm. This shows that <code>stat_density</code>, and not <code>stat_identity</code>, is the default <code>stat</code> used in <code>geom_density</code>. Every <code>geom</code> comes with its default <code>stat</code>.</p>
-<p>Similarly, <code>stat</code> functions can be used in place of <code>geom</code> because every <code>stat</code> has a default <code>geom</code> associated to it. So, we can call:</p>
 <div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" title="1"><span class="kw">ggplot</span>(data2) <span class="op">+</span></a>
-<a class="sourceLine" id="cb158-2" title="2"><span class="st">  </span><span class="kw">stat_density</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ratio, <span class="dt">fill =</span> strain), <span class="dt">alpha =</span> <span class="fl">0.5</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb158-2" title="2"><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ratio, <span class="dt">fill =</span> strain), <span class="dt">alpha =</span> <span class="fl">0.5</span>)</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-113-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>Here, the <code>density</code> axis is not part of the original dataset <code>data2</code>; it was computed from the data, for each value of <code>ratio</code>, by using a density-estimation algorithm. This shows that <code>stat_density</code> (and not <code>stat_identity</code>) is the default <code>stat</code> used in <code>geom_density</code>. Every <code>geom</code> comes with its default <code>stat</code>.</p>
+<p>Similarly, <code>stat</code> functions can be used in place of <code>geom</code> because every <code>stat</code> has a default <code>geom</code> associated to it. So, we can call:</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1"><span class="kw">ggplot</span>(data2) <span class="op">+</span></a>
+<a class="sourceLine" id="cb159-2" title="2"><span class="st">  </span><span class="kw">stat_density</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ratio, <span class="dt">fill =</span> strain), <span class="dt">alpha =</span> <span class="fl">0.5</span>)</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-114-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 <p>which has <code>geom_density</code> as default <code>geom.</code></p>
 <p>It is possible to override the default <code>stat</code> using the <code>stat</code> argument of <code>geom</code>, and conversely, it is possible to change the default <code>geom</code> associated with a given <code>stat</code>. For example, say we want to plot our densities as points. Then,</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1"><span class="kw">ggplot</span>(data2) <span class="op">+</span></a>
-<a class="sourceLine" id="cb159-2" title="2"><span class="st">  </span><span class="kw">stat_density</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ratio, <span class="dt">color =</span> strain), <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>)</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-114-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" title="1"><span class="kw">ggplot</span>(data2) <span class="op">+</span></a>
+<a class="sourceLine" id="cb160-2" title="2"><span class="st">  </span><span class="kw">stat_density</span>(<span class="kw">aes</span>(<span class="dt">x =</span> ratio, <span class="dt">color =</span> strain), <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>)</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-115-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 <p>does the job (note that we replaced <code>fill</code> with <code>color</code> because our points do not have a surface to fill).</p>
 <p>Note that default <code>geom</code>-<code>stat</code> combinations are usually well thought of (density plots are a good example). Therefore, it is often not necessary to play with stats. It may matter in some specific cases, e.g. when using <code>geom_bar</code>, but we do not cover that here (you can check out the <a href="https://r4ds.had.co.nz/data-visualisation.html#statistical-transformations">dedicated chapter</a> in R for Data Science for an example).</p>
 </div>
 <div id="position" class="section level3">
 <h3><span class="header-section-number">5.3.4</span> Position</h3>
 <p>The <code>position</code> argument of geoms allows to adjust the positioning of the geom’s elements. It has a few variants, but the possibilities depend on the geom used. We illustrate those available to <code>geom_bar</code>. By default, <code>geom_bar</code> uses the <code>stat_count</code> statistical transformation, meaning that it will show us the number of observations into each category of a factor, e.g. <code>strain</code>, splitted into categories of another factor, e.g. <code>assay</code>:</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" title="1"><span class="kw">ggplot</span>(data2) <span class="op">+</span></a>
-<a class="sourceLine" id="cb160-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> strain, <span class="dt">fill =</span> assay))</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-115-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>If we wanted to visualize proportions instead of numbers, we could use the <code>fill</code> value of the <code>position</code> argument:</p>
 <div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" title="1"><span class="kw">ggplot</span>(data2) <span class="op">+</span></a>
-<a class="sourceLine" id="cb161-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> strain, <span class="dt">fill =</span> assay), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb161-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> strain, <span class="dt">fill =</span> assay))</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-116-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>Alternatively we could use the <code>dodge</code> option to show the different categories side-by-side:</p>
+<p>If we wanted to visualize proportions instead of numbers, we could use the <code>fill</code> value of the <code>position</code> argument:</p>
 <div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" title="1"><span class="kw">ggplot</span>(data2) <span class="op">+</span></a>
-<a class="sourceLine" id="cb162-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> strain, <span class="dt">fill =</span> assay), <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb162-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> strain, <span class="dt">fill =</span> assay), <span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>)</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-117-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>Those are only two examples of what can be done. Just remember that <code>position</code> exists and look into the examples in the documentation of your geom of interest to see what position adjustments are available!</p>
+<p>Alternatively we could use the <code>dodge</code> option to show the different categories side-by-side:</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1"><span class="kw">ggplot</span>(data2) <span class="op">+</span></a>
+<a class="sourceLine" id="cb163-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> strain, <span class="dt">fill =</span> assay), <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-118-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>Those are only two examples of what can be done. Just remember that <code>position</code> exists and look into the documentation of your geom of interest to see what position adjustments are available! (Check out <code>geom_jitter</code> as a nice wrapper around <code>geom_point</code> with a <code>jitter</code> position adjustment, perfect to overlay with boxplots or violin plots.)</p>
 </div>
 <div id="other-geoms" class="section level3">
 <h3><span class="header-section-number">5.3.5</span> Other geoms</h3>
 <p>The most common <code>geoms</code> you may encounter are:</p>
 <ul>
-<li><code>geom_point</code> for scatter plots and <code>geom_jitter</code> for the dodge equivalent</li>
+<li><code>geom_point</code> for scatter plots and <code>geom_jitter</code> for the dodged equivalent</li>
 <li><code>geom_bar</code> for a barplot</li>
 <li><code>geom_text</code> for a scatter plot of labels</li>
 <li><code>geom_histogram</code> and <code>geom_density</code>, self-explanatory</li>
 <li><code>geom_boxplot</code> and <code>geom_violin</code></li>
-<li><code>geom_line</code> and <code>geom_path</code></li>
-<li><code>geom_segment</code>, <code>geom_hline</code>, <code>geom_vline</code> and <code>geom_abline</code> that may come handy</li>
+<li><code>geom_line</code>, <code>geom_path</code> (a <code>line</code> never goes backwards along the x-axis, while a <code>path</code> can) and <code>geom_smooth</code> (local regression smoothing)</li>
+<li><code>geom_segment</code>, <code>geom_hline</code>, <code>geom_vline</code> and <code>geom_abline</code> that may come handy as annotations</li>
 <li><code>geom_tile</code> for heatmaps</li>
 </ul>
-<p>There are litterally tons of geoms and ways to use them. In this tutorial, we emphasize the understanding of the grammar and how to assemble the different ingredients, rather than the ingredients themselves. For this reason, here we are not giving an exhaustive sample of each geom and what they look like. So, keep this list of names in mind as a reminder that whatever plot you want to make, there probably is a <code>geom</code> for it. To explore a gallery of examples, check out the R graph gallery.</p>
+<p>There are litterally tons of geoms and ways to use them. In this tutorial, we emphasize the understanding of the grammar and how to assemble the different ingredients, rather than the ingredients themselves. For this reason, here we are not giving an exhaustive sample of each geom and what they look like. So, keep this list of names in mind as a reminder that whatever plot you want to make, there probably is a <code>geom</code> for it. To explore a gallery of examples, check out the <a href="https://www.r-graph-gallery.com/">R graph gallery</a>.</p>
 </div>
 <div id="extra-on-aesthetics" class="section level3">
 <h3><span class="header-section-number">5.3.6</span> Extra on aesthetics</h3>
 <p>It is possible to use the <code>+</code> operators, not only to add layers but also to modify previous layers. You might wonder why not to write the layer correctly in the first place. This starts making more sense in cases e.g. where a plot can be modified in different ways. For example, consider this plot:</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb163-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-118-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>We may want to color-code the points based on <code>strain</code> or <code>assay</code>, or both, thus requiring two plots building on this single one. An important property of <code>ggplot</code> objects is that they can be assigned to variables, e.g.</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" title="1">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio)) <span class="op">+</span></a>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb164-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-119-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>We may want to color-code the points based on <code>strain</code> or <code>assay</code>, or both, thus requiring two plots building on this single one. An important property of <code>ggplot</code> objects is that they can be assigned to variables, e.g.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" title="1">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb165-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p>Note that we have to call the object <code>p</code> for the plot to be displayed. If we just assign the plot to <code>p</code>, the plot does not show. We can subsequently add differential aesthetics to different copies of <code>p</code>:</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" title="1">p <span class="op">+</span><span class="st"> </span><span class="kw">aes</span>(<span class="dt">color =</span> strain)</a>
-<a class="sourceLine" id="cb165-2" title="2">p <span class="op">+</span><span class="st"> </span><span class="kw">aes</span>(<span class="dt">color =</span> assay)</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-120-1.png" width="\textwidth" style="display: block; margin: auto;" /><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-120-2.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" title="1">p <span class="op">+</span><span class="st"> </span><span class="kw">aes</span>(<span class="dt">color =</span> strain)</a>
+<a class="sourceLine" id="cb166-2" title="2">p <span class="op">+</span><span class="st"> </span><span class="kw">aes</span>(<span class="dt">color =</span> assay)</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-121-1.png" width="\textwidth" style="display: block; margin: auto;" /><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-121-2.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 </div>
 <div id="plot-wide-aesthetics-and-multiple-geoms" class="section level3">
 <h3><span class="header-section-number">5.3.7</span> Plot-wide aesthetics and multiple geoms</h3>
 <p>In the last example, by adding new aesthetics mapping to the ggplot using the <code>+</code> operator, we did not add these aesthetics <em>specifically</em> to the <code>geom_point</code> layer, but to all the geoms present in the plot. Similarly, one can pass aesthetic mappings to the <code>ggplot</code> command directly, not necessarily with the <code>geom</code> statement. This saves some typing when geoms taking the same aesthetics are used, e.g. <code>geom_violin</code> and <code>geom_jitter</code>:</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(conc), <span class="dt">y =</span> ratio)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb166-2" title="2"><span class="st">  </span><span class="kw">geom_violin</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb166-3" title="3"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb166-4" title="4"> <span class="co"># x is made categorical here</span></a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-121-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>This shows a nice example of multiple geoms combined in a single plot. If, however, the aesthetics used in some geoms are geom-specific, better pass them to their respective <code>geom</code>. For example, if you want to color only the points by not the violins, use:</p>
 <div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(conc), <span class="dt">y =</span> ratio)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb167-2" title="2"><span class="st">  </span><span class="kw">geom_violin</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb167-3" title="3"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> strain), <span class="dt">width =</span> <span class="fl">0.2</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb167-3" title="3"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb167-4" title="4"> <span class="co"># x is made categorical here</span></a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-122-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>This shows a nice example of multiple geoms combined in a single plot. If, however, the aesthetics used in some geoms are geom-specific, better pass them to their respective <code>geom</code>. For example, if you want to color only the points but not the violins, use:</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(conc), <span class="dt">y =</span> ratio)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb168-2" title="2"><span class="st">  </span><span class="kw">geom_violin</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb168-3" title="3"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> strain), <span class="dt">width =</span> <span class="fl">0.2</span>)</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-123-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multiple-geoms-with-different-datasets" class="section level3">
 <h3><span class="header-section-number">5.3.8</span> Multiple geoms with different datasets</h3>
 <p>Just as aesthetics can vary from geom to geom, so do datasets. In other words, the dataset does not have to be passed to the <code>ggplot</code> command necessarily, and can be passed to a <code>geom</code> instead, for example:</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb168-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(data2, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain))</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-123-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb169-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(data2, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain))</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-124-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 <p>This means that different geoms can be based on different datasets. This allows quite some complexification of the plots and illustrates very well the usefulness of the other packages of the tidyverse. Say, for example, that we want to add to this plot a line going through the means at each value of <code>conc</code>. These mean values are not yet present in our dataset, and we need to come up with a mean-wise dataset. <code>dplyr</code> is our friend for this task:</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1">data3 &lt;-<span class="st"> </span>data2 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb169-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(conc, strain) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb169-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">ratio =</span> <span class="kw">mean</span>(ratio))</a>
-<a class="sourceLine" id="cb169-4" title="4">data3</a>
-<a class="sourceLine" id="cb169-5" title="5"><span class="co">#&gt; # A tibble: 24 x 3</span></a>
-<a class="sourceLine" id="cb169-6" title="6"><span class="co">#&gt; # Groups:   conc [8]</span></a>
-<a class="sourceLine" id="cb169-7" title="7"><span class="co">#&gt;    conc strain   ratio</span></a>
-<a class="sourceLine" id="cb169-8" title="8"><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb169-9" title="9"><span class="co">#&gt; 1     1 control   2.21</span></a>
-<a class="sourceLine" id="cb169-10" title="10"><span class="co">#&gt; 2     1 strain 1  7.09</span></a>
-<a class="sourceLine" id="cb169-11" title="11"><span class="co">#&gt; 3     1 strain 2  9.16</span></a>
-<a class="sourceLine" id="cb169-12" title="12"><span class="co">#&gt; 4     5 control   2.50</span></a>
-<a class="sourceLine" id="cb169-13" title="13"><span class="co">#&gt; 5     5 strain 1  7.17</span></a>
-<a class="sourceLine" id="cb169-14" title="14"><span class="co">#&gt; 6     5 strain 2  6.89</span></a>
-<a class="sourceLine" id="cb169-15" title="15"><span class="co">#&gt; # … with 18 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" title="1">data3 &lt;-<span class="st"> </span>data2 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb170-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(conc, strain) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb170-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">ratio =</span> <span class="kw">mean</span>(ratio))</a>
+<a class="sourceLine" id="cb170-4" title="4">data3</a>
+<a class="sourceLine" id="cb170-5" title="5"><span class="co">#&gt; # A tibble: 24 x 3</span></a>
+<a class="sourceLine" id="cb170-6" title="6"><span class="co">#&gt; # Groups:   conc [8]</span></a>
+<a class="sourceLine" id="cb170-7" title="7"><span class="co">#&gt;    conc strain   ratio</span></a>
+<a class="sourceLine" id="cb170-8" title="8"><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb170-9" title="9"><span class="co">#&gt; 1     1 control   2.21</span></a>
+<a class="sourceLine" id="cb170-10" title="10"><span class="co">#&gt; 2     1 strain 1  7.09</span></a>
+<a class="sourceLine" id="cb170-11" title="11"><span class="co">#&gt; 3     1 strain 2  9.16</span></a>
+<a class="sourceLine" id="cb170-12" title="12"><span class="co">#&gt; 4     5 control   2.50</span></a>
+<a class="sourceLine" id="cb170-13" title="13"><span class="co">#&gt; 5     5 strain 1  7.17</span></a>
+<a class="sourceLine" id="cb170-14" title="14"><span class="co">#&gt; 6     5 strain 2  6.89</span></a>
+<a class="sourceLine" id="cb170-15" title="15"><span class="co">#&gt; # … with 18 more rows</span></a></code></pre></div>
 <p>Let us now add an extra layer of information based on this latest, summary dataset:</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" title="1"> <span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb170-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> data2, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb170-3" title="3"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> data3, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain))</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-125-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>Here, we could save some typing by writing:</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1"> <span class="kw">ggplot</span>(data2, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb171-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb171-3" title="3"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> data3)</a></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb171-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> data2, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb171-3" title="3"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> data3, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain))</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-126-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>Here, we could save some typing by writing:</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" title="1"> <span class="kw">ggplot</span>(data2, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb172-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb172-3" title="3"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> data3)</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-127-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 <p>where <code>geom_line</code> inherits the same aesthetic mapping as <code>geom_point</code>. But then, you have to make sure that <code>data3</code> contains all the aesthetics that the <code>ggplot</code> call expects to see in each of its <code>geoms</code> (here <code>x</code>, <code>y</code> and <code>color</code>).</p>
 </div>
 </div>
 <div id="coordinate-system" class="section level2">
 <h2><span class="header-section-number">5.4</span> Coordinate-system</h2>
-<p>The default way that the plotting window is organized is with an orthogonal space with a horizontal x-axis and a vertical y-axis. Use the <code>coord</code> commands to deviate from this. For example, <code>coord_flip</code> will revert the order of the axes:</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(conc), <span class="dt">y =</span> ratio)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb172-2" title="2"><span class="st">  </span><span class="kw">geom_violin</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb172-3" title="3"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-127-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>while <code>coord_fixed</code> will fix the aspect ratio between the axes, thus showing them on the same scale. For example, the following plot of the optical density between two time points,</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> OD600_T0, <span class="dt">y =</span> OD600_T1)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb173-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p>The default way that the plotting window is organized is an orthogonal space with a horizontal x-axis and a vertical y-axis. Use the <code>coord</code> commands to deviate from this. For example, <code>coord_flip</code> will flip the axes:</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(conc), <span class="dt">y =</span> ratio)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb173-2" title="2"><span class="st">  </span><span class="kw">geom_violin</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb173-3" title="3"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-128-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>becomes:</p>
+<p>while <code>coord_fixed</code> will fix the aspect ratio between the axes, thus showing them on the same scale. For example, the following plot of the optical density between two time points,</p>
 <div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> OD600_T0, <span class="dt">y =</span> OD600_T1)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb174-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb174-3" title="3"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb174-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-129-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>becomes:</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> OD600_T0, <span class="dt">y =</span> OD600_T1)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb175-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb175-3" title="3"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-130-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 <p>when both axes are shown on the same scale.</p>
 <p>Other coordinate systems exist, depending on the need, including <code>coord_polar</code> for radial plots or <code>coord_quickmap</code>, tailored at latitude-longitude plotting.</p>
 </div>
 <div id="facetting" class="section level2">
 <h2><span class="header-section-number">5.5</span> Facetting</h2>
-<p>One of the most powerful features of <code>ggplot2</code> is its easy-to-use way of splitting a plot into multiple subplots, or facets.</p>
+<p>One of the most powerful features of <code>ggplot2</code> is its easy way of splitting a plot into multiple subplots, or <em>facets</em>.</p>
 <p>There are two functions for facetting: <code>facet_grid</code> and <code>facet_wrap</code>. <code>facet_grid</code> will arrange the plot in rows and columns depending on variables that the user defines:</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb175-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb175-3" title="3"><span class="st">  </span><span class="kw">facet_grid</span>(strain <span class="op">~</span><span class="st"> </span>assay)</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-130-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>Here the tilde (<code>~</code>) symbolizes a <em>formula</em>, a type of expression in R with a left and right-hand side, which here are interpreted as variables to use for rows and columns, respectively. If using only one variable for facetting, use <code>.</code> or nothing on the other side of the tilde.</p>
-<p>Note that facets are plotted on the same scale. We can use the <code>scales</code> argument to allow free scales, for example:</p>
 <div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb176-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb176-3" title="3"><span class="st">  </span><span class="kw">facet_grid</span>(strain <span class="op">~</span><span class="st"> </span>assay, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb176-3" title="3"><span class="st">  </span><span class="kw">facet_grid</span>(strain <span class="op">~</span><span class="st"> </span>assay)</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-131-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p><code>facet_wrap</code> is similar to <code>facet_grid</code>, except that it does not organize the facets in rows and columns but rather as an array of facets that fill the screen by row, like when filling a matrix with numbers:</p>
+<p>Here the tilde (<code>~</code>) symbolizes a <em>formula</em>, a type of expression in R with a left and right-hand side, which here are interpreted as variables to use for rows and columns, respectively. If using only one variable for facetting, use <code>.</code> or nothing on the other side of the tilde.</p>
+<p>Note that facets are plotted on the same scale. We can use the <code>scales</code> argument to allow free scales, for example:</p>
 <div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb177-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb177-3" title="3"><span class="st">  </span><span class="kw">facet_wrap</span>(strain <span class="op">~</span><span class="st"> </span>assay)</a></code></pre></div>
+<a class="sourceLine" id="cb177-3" title="3"><span class="st">  </span><span class="kw">facet_grid</span>(strain <span class="op">~</span><span class="st"> </span>assay, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>)</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-132-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p><code>facet_wrap</code> is similar to <code>facet_grid</code>, except that it does not organize the facets in rows and columns but rather as an array of facets that fill the screen by row, like when filling a matrix with numbers:</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb178-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb178-3" title="3"><span class="st">  </span><span class="kw">facet_wrap</span>(strain <span class="op">~</span><span class="st"> </span>assay)</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-133-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 <p>where the position of the variables relative to the <code>~</code> becomes irrelevant.</p>
 <p>Note that a facetted ggplot is still <em>one</em> ggplot, not a combination of ggplots, which we will cover later.</p>
 <p>Custom-labelling the strips of the facets is done with the <code>labeller</code> argument. The way this is used is a little complicated, but essentially looks like this:</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb178-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb178-3" title="3"><span class="st">  </span><span class="kw">facet_grid</span>(strain <span class="op">~</span><span class="st"> </span>assay, <span class="dt">labeller =</span> <span class="kw">labeller</span>(<span class="dt">.rows =</span> label_both))</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-133-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>Here, the <code>label_both</code> function is applied to the variable facetting by row, which is <code>strain</code>. <code>label_both</code> tells the <code>labeller</code> to label the strips with the name of the variable (<code>strain</code>) followed by its value, separated by a colon. We will not cover labelling in details here, but keep in mind that the <code>labeller</code> argument is what to play with, and that it takes the output of the <code>labeller</code> function as input, which itself takes labelling functions, such as <code>label_both</code>, as arguments. Other labelling functions include <code>label_value</code>, which just shows the value in the strip (that is the default) and <code>label_parsed</code>, which is used for showing mathematical expressions in strip labels (e.g. greek letters, exponents etc.). For more information on customizing facet strip lables, visit this link().</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb179-3" title="3"><span class="st">  </span><span class="kw">facet_grid</span>(strain <span class="op">~</span><span class="st"> </span>assay, <span class="dt">labeller =</span> <span class="kw">labeller</span>(<span class="dt">.rows =</span> label_both))</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-134-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>Here, the <code>label_both</code> function is applied to the variable facetting by row, which is <code>strain</code>. <code>label_both</code> tells the <code>labeller</code> to label the strips with the name of the variable (<code>strain</code>) followed by its value, separated by a colon. We will not cover labelling in details here, but keep in mind that the <code>labeller</code> argument is what to play with, and that it takes the output of the <code>labeller</code> function as input, which itself takes labelling functions, such as <code>label_both</code>, as arguments. Other labelling functions include <code>label_value</code>, which just shows the value in the strip (that is the default) and <code>label_parsed</code>, which is used for showing mathematical expressions in strip labels (e.g. greek letters, exponents etc.). It is possible to provide custom names too. For more information on customizing facet strip lables, visit this <a href="https://www.datanovia.com/en/blog/how-to-change-ggplot-facet-labels/">link</a>.</p>
 <p>Note: I made a package called <code>ggsim</code>, yet another extension of <code>ggplot2</code> with a few functions coming handy for simulation data. One of the functions, <code>facettize</code>, is aimed at making your life easier when labelling the strips of your facets (i.e. not going into the nitty gritty of the <code>labeller</code> function), especially when some facets include parsing mathematical expressions. Feel free to install it from GitHub by using:</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;rscherrer/ggsim&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" title="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;rscherrer/ggsim&quot;</span>)</a></code></pre></div>
 </div>
 <div id="the-right-format-for-the-dataset" class="section level2">
 <h2><span class="header-section-number">5.6</span> The right format for the dataset</h2>
-<p>One question that may come to your mind is: what is the right format of a dataset for use in <code>ggplot</code>, especially since it is part of the tidyverse? The answer is: it depends, and this is where the intergration with other tidyverse tools makes our live easier. If, for example, we want to use a variable for facetting or as an aesthetics, it is important to have this variable as a single column. For example, in the original <code>data</code> dataset, we could have compared the optical density between the two time point:</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" title="1"><span class="kw">ggplot</span>(data, <span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">y =</span> OD600)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb180-2" title="2"><span class="st">  </span><span class="kw">geom_violin</span>()</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-135-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>However, if we want to plot the optical density of time point 1 <em>versus</em> that of time point 0, then we need these two time points in separate columns, which is exactly what <code>OD600_T0</code> and <code>OD600_T1</code>, in the <code>data2</code> dataset, are:</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> OD600_T0, <span class="dt">y  =</span> OD600_T1)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb181-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p>One question that may come to your mind is: what is the right format of a dataset for use in <code>ggplot</code>, especially since it is part of the tidyverse? The answer is: it depends, and this is where the intergration with other tidyverse tools makes our life easier. If, for example, we want to use a variable for facetting or as an aesthetics, it is important to have this variable as a single column. For example, in the original <code>data</code> dataset, we could have compared the optical density between the two time point:</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" title="1"><span class="kw">ggplot</span>(data, <span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">y =</span> OD600)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb181-2" title="2"><span class="st">  </span><span class="kw">geom_violin</span>()</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-136-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<div id="plotting-as-part-of-a-pipeline" class="section level3">
-<h3><span class="header-section-number">5.6.1</span> Plotting as part of a pipeline</h3>
-<p>What we just saw means that sometimes reformating of a dataset is needed (e.g. using <code>pivot_longer</code> or <code>pivot_wider</code> from <code>tidyr</code>) to get this one plot done that requires it. If reformatting and storing into a whole new data frame is too cumbersome for a single plot, one can use <code>ggplot</code> as final part of a tidyverse pipeline in which the data is being reformatted. For example, starting from the original data:</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1">data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb182-2" title="2"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> <span class="st">&quot;time&quot;</span>, <span class="dt">values_from =</span> <span class="kw">c</span>(<span class="st">&quot;cfu&quot;</span>, <span class="st">&quot;OD600&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb182-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> OD600_T0, <span class="dt">y =</span> OD600_T1)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb182-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p>where <code>time</code> is both an aesthetic (<code>x</code>) and its own column. However, if we want to plot the optical density of time point T1 <em>versus</em> that of time point T0, then we need these two time points in separate columns, which is exactly what <code>OD600_T0</code> and <code>OD600_T1</code>, in the <code>data2</code> dataset, are (remember we got those using <code>tidyr::pivot_wider</code>):</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> OD600_T0, <span class="dt">y  =</span> OD600_T1)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb182-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-137-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>Notice the use of the pipe <code>%&gt;%</code> to pass the resulting data frame on to the <code>ggplot</code> command. Because <code>ggplot</code> is called with a pipe, its first argument is already passed (it is the data frame coming through the pipe), so we only need to pass the second argument, the aesthetics mapping, to the <code>ggplot</code> function.</p>
 </div>
+<div id="plotting-as-part-of-a-pipeline" class="section level2">
+<h2><span class="header-section-number">5.7</span> Plotting as part of a pipeline</h2>
+<p>What we just saw means that sometimes reformatting of a dataset is needed (e.g. using <code>pivot_longer</code> or <code>pivot_wider</code> from <code>tidyr</code>) to get this one plot done that requires reshaping. If you do not want to spend space storing a reformatted data frame into a whole new object, just to make a single plot, you can use <code>ggplot</code> as final part of a tidyverse pipeline. For example, starting from the original data:</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" title="1">data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb183-2" title="2"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> <span class="st">&quot;time&quot;</span>, <span class="dt">values_from =</span> <span class="kw">c</span>(<span class="st">&quot;cfu&quot;</span>, <span class="st">&quot;OD600&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb183-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> OD600_T0, <span class="dt">y =</span> OD600_T1)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb183-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-138-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>Notice the use of the pipe <code>%&gt;%</code> to pass the resulting data frame on to the <code>ggplot</code> command. Because <code>ggplot</code> is called with a pipe, its first argument is already passed (it is the data frame coming through the pipe), so we only need to pass the second argument, i.e. the aesthetics mapping, to the <code>ggplot</code> function.</p>
 </div>
 <div id="customization" class="section level2">
-<h2><span class="header-section-number">5.7</span> Customization</h2>
+<h2><span class="header-section-number">5.8</span> Customization</h2>
 <p>Now that we saw everything there is to know about structuring a <code>ggplot</code>, it is time to learn how to polish it (the easiest and most rewarding part!).</p>
 <div id="scales" class="section level3">
-<h3><span class="header-section-number">5.7.1</span> Scales</h3>
-<p>Every aesthetics can be scaled. This includes specifying what values an aesthetics can take (e.g. what colors to pick, or what range of transparencies to use) or possible break points along the legend. Use the <code>scale_*</code> family of functions for that. There are many such functions, because many aesthetics can be modified, but the logic behind their naming is always the same:</p>
+<h3><span class="header-section-number">5.8.1</span> Scales</h3>
+<p>Every aesthetics can be scaled. This includes specifying what values an aesthetics can take (e.g. what colors to pick, or what range of transparencies to use), possible break points along the legend, or legend titles and labels, among others. Use the <code>scale_*</code> family of functions for that. There are many such functions, because many aesthetics can be modified, but the logic behind their naming is always the same:</p>
 <pre><code>scale_&lt;AESTHETIC&gt;_&lt;TYPE&gt;</code></pre>
 <p>where <code>&lt;AESTHETIC&gt;</code> is replaced by the aesthetic you want to scale (e.g. <code>color</code>, <code>size</code>, <code>alpha</code>) and <code>&lt;TYPE&gt;</code> is the type of variable that is mapped to this aesthetic (common types are <code>continuous</code>, <code>discrete</code> and <code>manual</code>). Some scaling functions do not take a <code>&lt;TYPE&gt;</code> but just an <code>&lt;AESTHETIC&gt;</code> in their name, e.g. <code>scale_alpha</code>.</p>
 <p>In our example, if we color-code points according to their <code>strain</code>, which is a categorical variable, we can use <code>scale_color_manual</code> (aka <code>scale_colour_manual</code>) to manually pick the colors we want:</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb184-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb184-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>() <span class="op">+</span><span class="st"> </span><span class="co"># just to spice up our use of geoms</span></a>
-<a class="sourceLine" id="cb184-4" title="4"><span class="st">  </span><span class="kw">facet_grid</span>(strain <span class="op">~</span><span class="st"> </span>assay) <span class="op">+</span></a>
-<a class="sourceLine" id="cb184-5" title="5"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;forestgreen&quot;</span>, <span class="st">&quot;goldenrod&quot;</span>, <span class="st">&quot;mediumseagreen&quot;</span>))</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-138-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>Alternatively, we could color-code the points based on their number of CFU at time point T1, <code>cfu_T1</code>, which is a continuous variable, using <code>scale_color_continuous</code>. Without scaling:</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> cfu_T1)) <span class="op">+</span></a>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb185-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb185-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>() <span class="op">+</span><span class="st"> </span><span class="co"># just to spice up our use of geoms</span></a>
-<a class="sourceLine" id="cb185-4" title="4"><span class="st">  </span><span class="kw">facet_grid</span>(strain <span class="op">~</span><span class="st"> </span>assay)</a></code></pre></div>
+<a class="sourceLine" id="cb185-4" title="4"><span class="st">  </span><span class="kw">facet_grid</span>(strain <span class="op">~</span><span class="st"> </span>assay) <span class="op">+</span></a>
+<a class="sourceLine" id="cb185-5" title="5"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;forestgreen&quot;</span>, <span class="st">&quot;goldenrod&quot;</span>, <span class="st">&quot;mediumseagreen&quot;</span>))</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-139-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>With scaling:</p>
+<p>Alternatively, we could color-code the points based on their number of CFU at time point T1, <code>cfu_T1</code>, which is a continuous variable, using <code>scale_color_continuous</code>. Without scaling:</p>
 <div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> cfu_T1)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb186-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb186-3" title="3"><span class="st">  </span><span class="kw">facet_grid</span>(strain <span class="op">~</span><span class="st"> </span>assay) <span class="op">+</span></a>
-<a class="sourceLine" id="cb186-4" title="4"><span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">type =</span> <span class="st">&quot;viridis&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb186-3" title="3"><span class="st">  </span><span class="kw">facet_grid</span>(strain <span class="op">~</span><span class="st"> </span>assay)</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-140-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>The arguments that are taken by the <code>scale_</code> function really depend on the use case, e.g. <code>scale_color_manual</code> expects discrete <code>values</code>, <code>scale_color_continuous</code> expects a <code>type</code> of built-in continuous color gradient, and <code>scale_color_gradient</code> expects a <code>low</code> and <code>high</code> color boundaries (and also a <code>mid</code>-gradient color in the case of <code>scale_color_gradient2</code>). But the logic shown here is similar across many aesthetics, e.g. <code>scale_alpha_continuous</code> and <code>scale_size_continuous</code> work in similar ways, but then taking a <code>range</code> argument. So, lots of scaling functions to play with, and we do not provide an exhaustive list here.</p>
-<p>Mandatory aesthetics, such as <code>x</code> and <code>y</code>, also have their scaling functions. If <code>x</code> or <code>y</code> is continuous, one can e.g. use <code>scale_x_log10</code> to show this axis on a logarithmic scale, without having to log-tansform the data before plotting, e.g.</p>
+<p>With scaling:</p>
 <div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> cfu_T1)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb187-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb187-3" title="3"><span class="st">  </span><span class="kw">facet_grid</span>(strain <span class="op">~</span><span class="st"> </span>assay) <span class="op">+</span></a>
-<a class="sourceLine" id="cb187-4" title="4"><span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">type =</span> <span class="st">&quot;viridis&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb187-5" title="5"><span class="st">  </span><span class="kw">scale_x_log10</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb187-4" title="4"><span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">type =</span> <span class="st">&quot;viridis&quot;</span>)</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-141-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-</div>
-<div id="labels" class="section level3">
-<h3><span class="header-section-number">5.7.2</span> Labels</h3>
-<p>The functions <code>ggtitle</code>, <code>xlab</code>, <code>ylab</code> and <code>labs</code> allow you to customize the labels shown for each aesthetics (remember that the x- and y-axes are aesthetics too), and for the main title of the plot. On to a full-fledge example:</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" title="1">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> cfu_T1)) <span class="op">+</span></a>
+<p>The arguments that are taken by the <code>scale_</code> function really depend on the use case, e.g. <code>scale_color_manual</code> expects discrete <code>values</code>, <code>scale_color_continuous</code> expects a <code>type</code> of built-in continuous color gradient, and <code>scale_color_gradient</code> expects a <code>low</code> and <code>high</code> color boundaries (and also a <code>mid</code>-gradient color in the case of <code>scale_color_gradient2</code>). But the logic shown here is similar across many aesthetics, e.g. <code>scale_alpha_continuous</code> and <code>scale_size_continuous</code> work in similar ways, both taking a <code>range</code> argument. So, lots of scaling functions to play with, of which we do not provide an exhaustive list here.</p>
+<p>Mandatory aesthetics, such as <code>x</code> and <code>y</code>, also have their scaling functions. If <code>x</code> or <code>y</code> is continuous, one can e.g. use <code>scale_x_log10</code> to show this axis on a logarithmic scale, without having to log-tansform the data before plotting, e.g.</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> cfu_T1)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb188-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb188-3" title="3"><span class="st">  </span><span class="kw">facet_grid</span>(strain <span class="op">~</span><span class="st"> </span>assay) <span class="op">+</span></a>
 <a class="sourceLine" id="cb188-4" title="4"><span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">type =</span> <span class="st">&quot;viridis&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb188-5" title="5"><span class="st">  </span><span class="kw">scale_x_log10</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb188-6" title="6"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Nisin concentration (mmol/mL)&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb188-7" title="7"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Mutational ratio&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb188-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color =</span> <span class="kw">parse</span>(<span class="dt">text =</span> <span class="st">&quot;&#39;CFU at &#39;~T[1]&quot;</span>)) <span class="op">+</span><span class="st"> </span><span class="co"># plotmath expression</span></a>
-<a class="sourceLine" id="cb188-9" title="9"><span class="st">  </span><span class="kw">ggtitle</span>(</a>
-<a class="sourceLine" id="cb188-10" title="10">    <span class="st">&quot;A very important experiment&quot;</span>, </a>
-<a class="sourceLine" id="cb188-11" title="11">    <span class="st">&quot;So important it deserves a subtitle&quot;</span></a>
-<a class="sourceLine" id="cb188-12" title="12">  )</a>
-<a class="sourceLine" id="cb188-13" title="13">p</a></code></pre></div>
+<a class="sourceLine" id="cb188-5" title="5"><span class="st">  </span><span class="kw">scale_x_log10</span>()</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-142-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>More on re-scaling legend titles and labels further down.</p>
+</div>
+<div id="labels" class="section level3">
+<h3><span class="header-section-number">5.8.2</span> Labels</h3>
+<p>The functions <code>ggtitle</code>, <code>xlab</code>, <code>ylab</code> and <code>labs</code> allow you to customize the labels shown for each aesthetics (remember that the x- and y-axes are aesthetics too), and for the main title of the plot. On to a full-fledge example:</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" title="1">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> cfu_T1)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb189-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb189-3" title="3"><span class="st">  </span><span class="kw">facet_grid</span>(strain <span class="op">~</span><span class="st"> </span>assay) <span class="op">+</span></a>
+<a class="sourceLine" id="cb189-4" title="4"><span class="st">  </span><span class="kw">scale_color_continuous</span>(<span class="dt">type =</span> <span class="st">&quot;viridis&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb189-5" title="5"><span class="st">  </span><span class="kw">scale_x_log10</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb189-6" title="6"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Nisin concentration (mmol/mL)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb189-7" title="7"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Mutational ratio&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb189-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color =</span> <span class="kw">parse</span>(<span class="dt">text =</span> <span class="st">&quot;&#39;CFU at &#39;~T[1]&quot;</span>)) <span class="op">+</span><span class="st"> </span><span class="co"># plotmath expression</span></a>
+<a class="sourceLine" id="cb189-9" title="9"><span class="st">  </span><span class="kw">ggtitle</span>(</a>
+<a class="sourceLine" id="cb189-10" title="10">    <span class="st">&quot;A very important experiment&quot;</span>, </a>
+<a class="sourceLine" id="cb189-11" title="11">    <span class="st">&quot;So important it deserves a subtitle&quot;</span></a>
+<a class="sourceLine" id="cb189-12" title="12">  )</a>
+<a class="sourceLine" id="cb189-13" title="13">p</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-143-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 <p>Note that <code>xlab</code> and <code>ylab</code> are wrappers around <code>labs</code>, meaning that we could have provided <code>labs</code> with <code>x = ...</code> and <code>y = ...</code> in addition to <code>color = ...</code>, its arguments just need to take the names of the aesthetics. If you want no labels, use e.g. <code>xlab(NULL)</code> or <code>ylab(NULL)</code>.</p>
-<p>Also notice the use of <code>parse</code> to display mathemetical notations using the <code>plotmath</code> syntax. This is not part of the tidyverse though, so it is a story for another day, feel free to look it up!</p>
+<p>Also notice the use of <code>parse</code> to display mathemetical notations using the <code>plotmath</code> syntax. This is not part of the tidyverse though, so it is a story for another day, feel free to look it up (type <code>?bquote</code>)!</p>
 </div>
 <div id="themes" class="section level3">
-<h3><span class="header-section-number">5.7.3</span> Themes</h3>
+<h3><span class="header-section-number">5.8.3</span> Themes</h3>
 <p>You may be already frustrated that all plots have this same grey default <code>ggplot2</code> background. Of course, it is possible to change this too by playing with the <code>theme</code> functions. There are other built-in themes than the default grey one, such as <code>theme_bw</code> or <code>theme_classic</code>:</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" title="1">p <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>()</a>
-<a class="sourceLine" id="cb189-2" title="2">p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-143-1.png" width="\textwidth" style="display: block; margin: auto;" /><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-143-2.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" title="1">p <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>()</a>
+<a class="sourceLine" id="cb190-2" title="2">p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-144-1.png" width="\textwidth" style="display: block; margin: auto;" /><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-144-2.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 <p>The individual elements of the theme, e.g. the background grid or the color of the panel, can be customized using the arguments in the <code>theme</code> function. The <code>theme</code> function can also be used to modify stuff related to the legend or the axes of the plots. For example:</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" title="1">p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb190-2" title="2"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb190-3" title="3"><span class="st">  </span><span class="kw">theme</span>(</a>
-<a class="sourceLine" id="cb190-4" title="4">    <span class="dt">legend.position =</span> <span class="st">&quot;left&quot;</span>, </a>
-<a class="sourceLine" id="cb190-5" title="5">    <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">60</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb190-6" title="6">  )</a>
-<a class="sourceLine" id="cb190-7" title="7">p</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-144-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1">p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb191-2" title="2"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb191-3" title="3"><span class="st">  </span><span class="kw">theme</span>(</a>
+<a class="sourceLine" id="cb191-4" title="4">    <span class="dt">legend.position =</span> <span class="st">&quot;left&quot;</span>, </a>
+<a class="sourceLine" id="cb191-5" title="5">    <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">60</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb191-6" title="6">  )</a>
+<a class="sourceLine" id="cb191-7" title="7">p</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-145-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 <p>Here, <code>legend.position</code> is sort of self-explanatory, but <code>axis.text.x</code> is a bit more subtle. Some elements of the theme, such as the text of the axes, need a series of graphical parameters in order to be modified, and the graphical parameters that can be used depend on the type of object those theme elements are (are they <code>text</code>, <code>rect</code> or <code>line</code>?). We use the <code>element_*</code> family of functions to pass those graphical parameters to our theme elements of interest. Here, we use <code>element_text</code> to transform the <code>text</code> on the x-axis by rotating it by an <code>angle</code> of 60 degrees, and then align each label to the right (<code>hjust</code> stands for “horizontal justification”). Again, lots of combinations are possible. Explore!</p>
 </div>
-<div id="custom-legend" class="section level3">
-<h3><span class="header-section-number">5.7.4</span> Custom legend</h3>
+<div id="legend" class="section level3">
+<h3><span class="header-section-number">5.8.4</span> Legend</h3>
 <p>The one thing I Google the most, without a doubt, is “custom legend in ggplot”, because I always forget how to choose which legend to show, e.g. if I want to display the color legend but not the alpha legend. So here it is: to hide <em>all</em> the legends, use:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1">p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-145-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>And to selectively hide <em>some</em> legends, use <code>guides</code>:</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1">p <span class="op">+</span><span class="st"> </span><span class="kw">guides</span>(<span class="dt">color =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1">p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-146-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>Want more? Do like me and visit over and over this page (link).</p>
+<p>And to selectively hide <em>some</em> legends, use <code>guides</code>:</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" title="1">p <span class="op">+</span><span class="st"> </span><span class="kw">guides</span>(<span class="dt">color =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-147-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>It is also important to remember that <code>ggplot2</code> will try to combine legends together whenever it can. If the same variable is mapped to two different aesthetics, e.g. shape and color, only one legend will appear:</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain, <span class="dt">shape =</span> strain)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb194-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb194-3" title="3"><span class="st">  </span><span class="kw">facet_grid</span>(strain <span class="op">~</span><span class="st"> </span>assay) <span class="op">+</span></a>
+<a class="sourceLine" id="cb194-4" title="4"><span class="st">  </span><span class="kw">scale_x_log10</span>()</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-148-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>But this behavior can be controlled. You can use the arguments of the <code>scale_</code> functions to pass custom titles and labels to the legends. And if the legends mapping to the same variable have different titles or labels, they will be shown separately:</p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> conc, <span class="dt">y =</span> ratio, <span class="dt">color =</span> strain, <span class="dt">shape =</span> strain)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb195-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb195-3" title="3"><span class="st">  </span><span class="kw">facet_grid</span>(strain <span class="op">~</span><span class="st"> </span>assay) <span class="op">+</span></a>
+<a class="sourceLine" id="cb195-4" title="4"><span class="st">  </span><span class="kw">scale_x_log10</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb195-5" title="5"><span class="st">  </span><span class="kw">scale_color_manual</span>(</a>
+<a class="sourceLine" id="cb195-6" title="6">    <span class="st">&quot;color legend&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;forestgreen&quot;</span>, <span class="st">&quot;goldenrod&quot;</span>, <span class="st">&quot;mediumseagreen&quot;</span>)</a>
+<a class="sourceLine" id="cb195-7" title="7">  ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb195-8" title="8"><span class="st">  </span><span class="kw">scale_shape_manual</span>(</a>
+<a class="sourceLine" id="cb195-9" title="9">    <span class="st">&quot;shape legend&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>), </a>
+<a class="sourceLine" id="cb195-10" title="10">    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Control&quot;</span>, <span class="st">&quot;Strain 1&quot;</span>, <span class="st">&quot;Strain 2&quot;</span>)</a>
+<a class="sourceLine" id="cb195-11" title="11">  )</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-149-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>Note that you can also use this trick to combine different legends together, by giving them the same titles and labels.</p>
 </div>
 </div>
 <div id="combining-plots" class="section level2">
-<h2><span class="header-section-number">5.8</span> Combining plots</h2>
-<p>This was more or less what you need to know to be operational when plotting <em>single</em> ggplots. But what if the facetting option is not enough, and you want to combine actual multiple plots into a single figure? <code>ggplot2</code> itself does not do that, but the good news is, there are many packages that do it. Those include <code>patchwork</code>, <code>cowplot</code>, <code>grid</code>, <code>gridExtra</code>, <code>egg</code> or <code>aplot</code> (and probably more).</p>
-<p>One term that these packages often use is <code>grob</code>. A <code>grob</code> is a ggplot-like object, such as a <code>ggplot</code> but could also be a single a single text label in the middle of a plotting window. These packages essentially assemble grobs together.</p>
-<p><code>patchwork</code> is personally my favorite so I will focus on this one here. It has the advantage to automatically align the frames of the different plots across the different subplots. It also has an excellent, succinct documentation.</p>
+<h2><span class="header-section-number">5.9</span> Combining plots</h2>
+<p>This was more or less what you need to know to be operational when plotting <em>single</em> ggplots. But what if the facetting option is not enough, and you want to combine multiple plots into a single figure? <code>ggplot2</code> itself does not do that, but the good news is, there are many packages that do. Those include <code>patchwork</code>, <code>cowplot</code>, <code>grid</code>, <code>gridExtra</code>, <code>egg</code> or <code>aplot</code> (and probably more).</p>
+<p>One term that these packages often use is <code>grob</code>. A <code>grob</code> is a ggplot-like object, such as a <code>ggplot</code> but could also be a single text label in the middle of a plotting window. These packages essentially assemble grobs together.</p>
+<p><code>patchwork</code> is personally my favorite so I will focus on this one here. It has the advantage to automatically align the frames of the different plots across the different subplots (I found that this is not entirely true when combining <code>ggtree</code> objects with other plots, <code>aplot</code> is better for this specific case). It also has an excellent, succinct <a href="https://patchwork.data-imaginist.com/">documentation</a>.</p>
 <p>Let us look at an example, where we assign the previous plot to <code>p1</code> and make a new plot to combine it with, called <code>p2</code>:</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" title="1">p1 &lt;-<span class="st"> </span>p</a>
-<a class="sourceLine" id="cb193-2" title="2">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> strain, <span class="dt">y =</span> OD600_T1, <span class="dt">color =</span> strain)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb193-3" title="3"><span class="st">  </span><span class="kw">geom_violin</span>(<span class="dt">draw_quantiles =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb193-4" title="4"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="fl">0.2</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb193-5" title="5"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb193-6" title="6"><span class="st">  </span><span class="kw">xlab</span>(<span class="ot">NULL</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb193-7" title="7"><span class="st">  </span><span class="kw">ylab</span>(<span class="kw">parse</span>(<span class="dt">text =</span> <span class="st">&quot;&#39;Optial density at 600nm at&#39;~T[1]&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb193-8" title="8"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</a>
-<a class="sourceLine" id="cb193-9" title="9">p2</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-147-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" title="1">p1 &lt;-<span class="st"> </span>p</a>
+<a class="sourceLine" id="cb196-2" title="2">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> strain, <span class="dt">y =</span> OD600_T1, <span class="dt">color =</span> strain)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb196-3" title="3"><span class="st">  </span><span class="kw">geom_violin</span>(<span class="dt">draw_quantiles =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb196-4" title="4"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="fl">0.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb196-5" title="5"><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb196-6" title="6"><span class="st">  </span><span class="kw">xlab</span>(<span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb196-7" title="7"><span class="st">  </span><span class="kw">ylab</span>(<span class="kw">parse</span>(<span class="dt">text =</span> <span class="st">&quot;&#39;Optial density at 600nm at&#39;~T[1]&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb196-8" title="8"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</a>
+<a class="sourceLine" id="cb196-9" title="9">p2</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-150-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 <p>In <code>patchwork</code>, we would combine both using:</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" title="1"><span class="kw">library</span>(patchwork)</a>
-<a class="sourceLine" id="cb194-2" title="2">p1 <span class="op">+</span><span class="st"> </span>p2</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-148-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" title="1"><span class="kw">library</span>(patchwork)</a>
+<a class="sourceLine" id="cb197-2" title="2">p1 <span class="op">+</span><span class="st"> </span>p2</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-151-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 <p><code>patchwork</code> uses operators such as <code>+</code>, <code>/</code> or <code>|</code> to assemble the plots in various layouts. It looks simple, but a caveat of this approach is that it may become tedious when assembling, e.g. 15 small plots, or plots from a list of unknown length. The programmatic equivalent of the above example is:</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" title="1"><span class="kw">wrap_plots</span>(p1, p2) <span class="co"># or even more programmatic, wrap_plots(list(p1, p2))</span></a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-149-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p>More customization can be added to the previous combination of plots, such as layout specifications, e.g. controlling the position and dimension of the different plots, or annotations, e.g. global title, labelling each plot or capturing the legends of all the plots and show it as one global legend). But this is a <code>ggplot2</code> tutorial and we just want you to know that <code>patchwork</code> and friends exist, so go there to know more about what they can do!</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" title="1"><span class="kw">wrap_plots</span>(p1, p2) <span class="co"># or even more programmatic, wrap_plots(list(p1, p2))</span></a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-152-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>More customization can be added to the previous combination of plots, such as layout specifications, e.g. controlling the position and dimension of the different plots, or annotations, e.g. global title, labelling each plot or capturing the legends of all the plots and show it as one global legend). But this is a <code>ggplot2</code> tutorial and we just want you to know that <code>patchwork</code> and friends exist, so go check them out to know more about what they can do!</p>
 </div>
 <div id="saving-a-plot" class="section level2">
-<h2><span class="header-section-number">5.9</span> Saving a plot</h2>
-<p>Last but not least, ggplots have their own saving function: <code>ggsave</code> (it also works on combinations of ggplots made by <code>patchwork</code> or <code>cowplot</code>), which guesses the extension of your figure (e.g. <code>.png</code> or <code>.pdf</code>) from the file name you provide. You can also given it specific <code>width</code>, <code>height</code> and <code>dpi</code> (resolution – journals like 300dpi I’ve heard) parameter values.</p>
+<h2><span class="header-section-number">5.10</span> Saving a plot</h2>
+<p>Last but not least, ggplots have their own saving function: <code>ggsave</code> (it also works on combinations of ggplots made by <code>patchwork</code> or <code>cowplot</code>), which guesses the extension of your figure (e.g. <code>.png</code> or <code>.pdf</code>) from the file name you provide. You can also give it specific <code>width</code>, <code>height</code> and <code>dpi</code> (resolution) parameter values.</p>
 </div>
 <div id="high-throughput-plotting-workflow" class="section level2">
-<h2><span class="header-section-number">5.10</span> High throughput plotting workflow</h2>
+<h2><span class="header-section-number">5.11</span> High throughput plotting workflow</h2>
 <p>As we mentioned in the part about combining plots, sometimes we want to do things many times (in my case I often make 100 times the same figure, just for different replicate simulations). Of course we would not copy and paste many times the same snippet of code, or write 100 times <code>+</code> to assemble some plots (by now we are advanced R users, after all). This is where we can make use, again, of the combination of tidyverse tools, and especially <code>purrr</code>.</p>
 <p>Let us make a function that plots the number of CFU against the optical density, facetted by time point (so, that function expects a time point-wise dataset, such as <code>data</code>):</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" title="1">plot_this &lt;-<span class="st"> </span><span class="cf">function</span>(data) {</a>
-<a class="sourceLine" id="cb196-2" title="2">  <span class="kw">ggplot</span>(data, <span class="kw">aes</span>(<span class="dt">x =</span> OD600, <span class="dt">y =</span> cfu, <span class="dt">color =</span> cfu)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb196-3" title="3"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb196-4" title="4"><span class="st">    </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>time) <span class="op">+</span></a>
-<a class="sourceLine" id="cb196-5" title="5"><span class="st">    </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb196-6" title="6"><span class="st">    </span><span class="kw">scale_color_continuous</span>(<span class="dt">type =</span> <span class="st">&quot;viridis&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb196-7" title="7"><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb196-8" title="8"><span class="st">    </span><span class="kw">xlab</span>(<span class="kw">parse</span>(<span class="dt">text =</span> <span class="st">&quot;&#39;Optical density at 600nm at&#39;~T[1]&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb196-9" title="9"><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;CFU&quot;</span>)</a>
-<a class="sourceLine" id="cb196-10" title="10">}</a></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" title="1">plot_this &lt;-<span class="st"> </span><span class="cf">function</span>(data) {</a>
+<a class="sourceLine" id="cb199-2" title="2">  <span class="kw">ggplot</span>(data, <span class="kw">aes</span>(<span class="dt">x =</span> OD600, <span class="dt">y =</span> cfu, <span class="dt">color =</span> cfu)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb199-3" title="3"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb199-4" title="4"><span class="st">    </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>time) <span class="op">+</span></a>
+<a class="sourceLine" id="cb199-5" title="5"><span class="st">    </span><span class="kw">theme_classic</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb199-6" title="6"><span class="st">    </span><span class="kw">scale_color_continuous</span>(<span class="dt">type =</span> <span class="st">&quot;viridis&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb199-7" title="7"><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb199-8" title="8"><span class="st">    </span><span class="kw">xlab</span>(<span class="kw">parse</span>(<span class="dt">text =</span> <span class="st">&quot;&#39;OD at 600nm at&#39;~T[1]&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb199-9" title="9"><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;CFU&quot;</span>)</a>
+<a class="sourceLine" id="cb199-10" title="10">}</a></code></pre></div>
+<p>Note that this does not plot anything, it is just a function that will if called on a dataset.</p>
 <p>The objective is to apply this function to each <code>strain</code>-<code>assay</code> combination, thus getting <em>one plot</em> per combination. We can check that this function works as expected for a single combination using our friend <code>dplyr</code>:</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" title="1">data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb197-2" title="2"><span class="st">  </span><span class="kw">filter</span>(strain <span class="op">==</span><span class="st"> &quot;control&quot;</span>, assay <span class="op">==</span><span class="st"> &quot;test 1&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb197-3" title="3"><span class="st">  </span><span class="kw">plot_this</span>()</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-151-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" title="1">data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb200-2" title="2"><span class="st">  </span><span class="kw">filter</span>(strain <span class="op">==</span><span class="st"> &quot;control&quot;</span>, assay <span class="op">==</span><span class="st"> &quot;test 1&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb200-3" title="3"><span class="st">  </span><span class="kw">plot_this</span>()</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-154-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 <p>which works because <code>plot_this</code> takes a data frame as first argument.</p>
-<p>Now that we are happy with out single-plot function, we use <code>purrr</code> to <code>nest</code> our data frame into all the relevant combinations of <code>strain</code> and <code>assay</code>, and we <code>map</code> through the resulting list-column to produce many ggplots in one go:</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" title="1">newdata &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb198-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(assay, strain) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb198-3" title="3"><span class="st">  </span><span class="kw">nest</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb198-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fig =</span> <span class="kw">map</span>(data, plot_this))</a>
-<a class="sourceLine" id="cb198-5" title="5">newdata</a>
-<a class="sourceLine" id="cb198-6" title="6"><span class="co">#&gt; # A tibble: 6 x 4</span></a>
-<a class="sourceLine" id="cb198-7" title="7"><span class="co">#&gt; # Groups:   strain, assay [6]</span></a>
-<a class="sourceLine" id="cb198-8" title="8"><span class="co">#&gt;   strain   assay  data              fig   </span></a>
-<a class="sourceLine" id="cb198-9" title="9"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;list&gt;            &lt;list&gt;</span></a>
-<a class="sourceLine" id="cb198-10" title="10"><span class="co">#&gt; 1 strain 1 test 1 &lt;tibble [72 × 5]&gt; &lt;gg&gt;  </span></a>
-<a class="sourceLine" id="cb198-11" title="11"><span class="co">#&gt; 2 control  test 1 &lt;tibble [48 × 5]&gt; &lt;gg&gt;  </span></a>
-<a class="sourceLine" id="cb198-12" title="12"><span class="co">#&gt; 3 strain 2 test 1 &lt;tibble [48 × 5]&gt; &lt;gg&gt;  </span></a>
-<a class="sourceLine" id="cb198-13" title="13"><span class="co">#&gt; 4 strain 2 test 2 &lt;tibble [46 × 5]&gt; &lt;gg&gt;  </span></a>
-<a class="sourceLine" id="cb198-14" title="14"><span class="co">#&gt; 5 strain 1 test 2 &lt;tibble [48 × 5]&gt; &lt;gg&gt;  </span></a>
-<a class="sourceLine" id="cb198-15" title="15"><span class="co">#&gt; 6 control  test 2 &lt;tibble [48 × 5]&gt; &lt;gg&gt;</span></a></code></pre></div>
+<p>Now that we are happy with out single-plot function, we <code>tidyr::nest</code> our data frame into all the relevant combinations of <code>strain</code> and <code>assay</code>, and we <code>purrr::map</code> through the resulting list-column to produce many ggplots in one go:</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" title="1">newdata &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb201-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(assay, strain) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb201-3" title="3"><span class="st">  </span><span class="kw">nest</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb201-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fig =</span> <span class="kw">map</span>(data, plot_this))</a>
+<a class="sourceLine" id="cb201-5" title="5">newdata</a>
+<a class="sourceLine" id="cb201-6" title="6"><span class="co">#&gt; # A tibble: 6 x 4</span></a>
+<a class="sourceLine" id="cb201-7" title="7"><span class="co">#&gt; # Groups:   strain, assay [6]</span></a>
+<a class="sourceLine" id="cb201-8" title="8"><span class="co">#&gt;   strain   assay  data              fig   </span></a>
+<a class="sourceLine" id="cb201-9" title="9"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;list&gt;            &lt;list&gt;</span></a>
+<a class="sourceLine" id="cb201-10" title="10"><span class="co">#&gt; 1 strain 1 test 1 &lt;tibble [72 × 5]&gt; &lt;gg&gt;  </span></a>
+<a class="sourceLine" id="cb201-11" title="11"><span class="co">#&gt; 2 control  test 1 &lt;tibble [48 × 5]&gt; &lt;gg&gt;  </span></a>
+<a class="sourceLine" id="cb201-12" title="12"><span class="co">#&gt; 3 strain 2 test 1 &lt;tibble [48 × 5]&gt; &lt;gg&gt;  </span></a>
+<a class="sourceLine" id="cb201-13" title="13"><span class="co">#&gt; 4 strain 2 test 2 &lt;tibble [46 × 5]&gt; &lt;gg&gt;  </span></a>
+<a class="sourceLine" id="cb201-14" title="14"><span class="co">#&gt; 5 strain 1 test 2 &lt;tibble [48 × 5]&gt; &lt;gg&gt;  </span></a>
+<a class="sourceLine" id="cb201-15" title="15"><span class="co">#&gt; 6 control  test 2 &lt;tibble [48 × 5]&gt; &lt;gg&gt;</span></a></code></pre></div>
 <p>where the new list-column <code>fig</code> is a list of <code>ggplot</code> objects, that we can check individually:</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" title="1">newdata<span class="op">$</span>fig[[<span class="dv">1</span>]]</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-153-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
-<p><code>purrr</code>fect.</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" title="1">newdata<span class="op">$</span>fig[[<span class="dv">1</span>]]</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-156-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<p>Looks <code>purrr</code>fect.</p>
 <p>If you ask yourself why going through this hassle whith only two assays and three strains, just think about a case where you would have hundreds of e.g. simulations, sequences, field sites or study species.</p>
 <p>Let us go a bit further. Now we want to combine plots for each <code>strain</code> into one figure per <code>assay</code>. We also want to give the resulting combined plot a figure file name, and save all the figures. There we go:</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" title="1">newdata &lt;-<span class="st"> </span>newdata <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb200-2" title="2"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>data) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># just to clean up a bit</span></a>
-<a class="sourceLine" id="cb200-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(assay) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb200-4" title="4"><span class="st">  </span><span class="kw">nest</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb200-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">combifig =</span> <span class="kw">map</span>(data, <span class="op">~</span><span class="st"> </span><span class="kw">wrap_plots</span>(.x<span class="op">$</span>fig))) </a>
-<a class="sourceLine" id="cb200-6" title="6">newdata</a>
-<a class="sourceLine" id="cb200-7" title="7"><span class="co">#&gt; # A tibble: 2 x 3</span></a>
-<a class="sourceLine" id="cb200-8" title="8"><span class="co">#&gt; # Groups:   assay [2]</span></a>
-<a class="sourceLine" id="cb200-9" title="9"><span class="co">#&gt;   assay  data             combifig  </span></a>
-<a class="sourceLine" id="cb200-10" title="10"><span class="co">#&gt;   &lt;chr&gt;  &lt;list&gt;           &lt;list&gt;    </span></a>
-<a class="sourceLine" id="cb200-11" title="11"><span class="co">#&gt; 1 test 1 &lt;tibble [3 × 2]&gt; &lt;patchwrk&gt;</span></a>
-<a class="sourceLine" id="cb200-12" title="12"><span class="co">#&gt; 2 test 2 &lt;tibble [3 × 2]&gt; &lt;patchwrk&gt;</span></a></code></pre></div>
-<p>Note that we use the <em>formula</em>-way of passing functions to <code>map</code>, which is more succinct than the <em>lambda</em> way (<code>function(x) wrap_plots(x)</code>), and where <code>.x</code> is interpreted as an element of the list we iterate through (here the list-column <code>data</code>). Please refer to the <code>purrr</code> documentation for more details.</p>
-<p>As we can see, we have created a new list-column <code>combifig</code>, filled with <code>patchwork</code> objects:</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" title="1">newdata<span class="op">$</span>combifig[[<span class="dv">1</span>]]</a></code></pre></div>
-<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-155-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" title="1">newdata &lt;-<span class="st"> </span>newdata <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb203-2" title="2"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>data) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># just to clean up a bit</span></a>
+<a class="sourceLine" id="cb203-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(assay) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb203-4" title="4"><span class="st">  </span><span class="kw">nest</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb203-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">combifig =</span> <span class="kw">map</span>(data, <span class="op">~</span><span class="st"> </span><span class="kw">wrap_plots</span>(.x<span class="op">$</span>fig))) </a>
+<a class="sourceLine" id="cb203-6" title="6">newdata</a>
+<a class="sourceLine" id="cb203-7" title="7"><span class="co">#&gt; # A tibble: 2 x 3</span></a>
+<a class="sourceLine" id="cb203-8" title="8"><span class="co">#&gt; # Groups:   assay [2]</span></a>
+<a class="sourceLine" id="cb203-9" title="9"><span class="co">#&gt;   assay  data             combifig  </span></a>
+<a class="sourceLine" id="cb203-10" title="10"><span class="co">#&gt;   &lt;chr&gt;  &lt;list&gt;           &lt;list&gt;    </span></a>
+<a class="sourceLine" id="cb203-11" title="11"><span class="co">#&gt; 1 test 1 &lt;tibble [3 × 2]&gt; &lt;patchwrk&gt;</span></a>
+<a class="sourceLine" id="cb203-12" title="12"><span class="co">#&gt; 2 test 2 &lt;tibble [3 × 2]&gt; &lt;patchwrk&gt;</span></a></code></pre></div>
+<p>Note that we use the <em>formula</em>-way of passing functions to <code>map</code> (using <code>~</code>), which is more succinct than the <em>lambda</em> way (using an anonymous function <code>function(x) wrap_plots(x)</code>), and where <code>.x</code> is interpreted as an element of the list we iterate through (here the list-column <code>data</code>). Please refer to the <code>purrr</code> documentation for more details.</p>
+<p>As we can see, we have created a new list-column <code>combifig</code>, filled with <code>patchwork</code> objects, i.e. combined plots:</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" title="1">newdata<span class="op">$</span>combifig[[<span class="dv">1</span>]]</a></code></pre></div>
+<p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-158-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 <p>We could of course further customize the assembly of plots, but we refer the reader to the <code>patchwork</code> documentation for this.</p>
-<p>Last step, preparing file names and saving the figures, using other old friends from the tidyverse:</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" title="1"><span class="kw">library</span>(glue)</a>
-<a class="sourceLine" id="cb202-2" title="2">newdata <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb202-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">figname =</span> <span class="kw">glue</span>(<span class="st">&quot;data/figure_{str_replace(assay, &#39; &#39;, &#39;_&#39;)}.png&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb202-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">saved =</span> <span class="kw">walk2</span>(figname, combifig, ggsave))</a>
-<a class="sourceLine" id="cb202-5" title="5"><span class="co">#&gt; # A tibble: 2 x 5</span></a>
-<a class="sourceLine" id="cb202-6" title="6"><span class="co">#&gt; # Groups:   assay [2]</span></a>
-<a class="sourceLine" id="cb202-7" title="7"><span class="co">#&gt;   assay  data             combifig   figname               saved                </span></a>
-<a class="sourceLine" id="cb202-8" title="8"><span class="co">#&gt;   &lt;chr&gt;  &lt;list&gt;           &lt;list&gt;     &lt;glue&gt;                &lt;glue&gt;               </span></a>
-<a class="sourceLine" id="cb202-9" title="9"><span class="co">#&gt; 1 test 1 &lt;tibble [3 × 2]&gt; &lt;patchwrk&gt; data/figure_test_1.p… data/figure_test_1.p…</span></a>
-<a class="sourceLine" id="cb202-10" title="10"><span class="co">#&gt; 2 test 2 &lt;tibble [3 × 2]&gt; &lt;patchwrk&gt; data/figure_test_2.p… data/figure_test_2.p…</span></a></code></pre></div>
+<p>Last step, preparing file names and saving the figures, using old friends from the tidyverse:</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" title="1"><span class="kw">library</span>(glue)</a>
+<a class="sourceLine" id="cb205-2" title="2">newdata <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb205-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">figname =</span> <span class="kw">glue</span>(<span class="st">&quot;data/figure_{str_replace(assay, &#39; &#39;, &#39;_&#39;)}.png&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb205-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">saved =</span> <span class="kw">walk2</span>(figname, combifig, ggsave))</a>
+<a class="sourceLine" id="cb205-5" title="5"><span class="co">#&gt; # A tibble: 2 x 5</span></a>
+<a class="sourceLine" id="cb205-6" title="6"><span class="co">#&gt; # Groups:   assay [2]</span></a>
+<a class="sourceLine" id="cb205-7" title="7"><span class="co">#&gt;   assay  data             combifig   figname               saved                </span></a>
+<a class="sourceLine" id="cb205-8" title="8"><span class="co">#&gt;   &lt;chr&gt;  &lt;list&gt;           &lt;list&gt;     &lt;glue&gt;                &lt;glue&gt;               </span></a>
+<a class="sourceLine" id="cb205-9" title="9"><span class="co">#&gt; 1 test 1 &lt;tibble [3 × 2]&gt; &lt;patchwrk&gt; data/figure_test_1.p… data/figure_test_1.p…</span></a>
+<a class="sourceLine" id="cb205-10" title="10"><span class="co">#&gt; 2 test 2 &lt;tibble [3 × 2]&gt; &lt;patchwrk&gt; data/figure_test_2.p… data/figure_test_2.p…</span></a></code></pre></div>
 </div>
 <div id="want-more" class="section level2">
-<h2><span class="header-section-number">5.11</span> Want more?</h2>
+<h2><span class="header-section-number">5.12</span> Want more?</h2>
 <p><code>ggplot2</code> is undoubtedly one of the largest chunks of the tidyverse. Here we tried to provide a global understanding of how it works, but we could not dig into all possible functions it has (this would take us days). Hopefully now you are armed with the necessary knowledge to be able to find the missing pieces you need.</p>
-<p>Some things, however, are missing from <code>ggplot2</code>. Fortunately, there are literally tons of extensions building on <code>ggplot2</code> that respect the same grammar. Some of them implement new geoms (e.g. such as <code>ggridges</code> for ridge-density plots, <code>ggradar</code> for radial plots, or <code>gghalves</code> for mixes of geoms), others combine plots (examples cited above), allow more complex themes (e.g. <code>ggnewscale</code> for multiple scales of the same type to coexist, or <code>ggdark</code> for a dark background), deal with complicated objects that are not trivial to fit in data frames (e.g. <code>ggtree</code> for tree-like objects or <code>ggraph</code> for networks), or provide shortcuts to quickly produce publication-ready figures for common plot layouts and their corresponding statistical analyses (e.g. <code>ggpubr</code> or <code>ggrapid</code>). There are even packages for animated graphics (<code>gganimate</code>), interactive plot building (<code>esquisse</code>) or 3D and surface plotting (<code>rayshader</code>). See the links below!</p>
+<p>Some things, however, are missing from <code>ggplot2</code>. Fortunately, there are many of extensions building on <code>ggplot2</code> that respect the same grammar. Some of them implement new geoms (e.g. such as <code>ggridges</code> for ridge-density plots, <code>ggradar</code> for radial plots, or <code>gghalves</code> for mixes of geoms), others combine plots together (examples cited above), offer more complex themes (e.g. <code>ggnewscale</code> for multiple scales of the same type to coexist, or <code>ggdark</code> for a dark background), deal with complicated objects that are not trivial to fit in data frames (e.g. <code>ggtree</code> for tree-like objects or <code>ggraph</code> for networks), or provide shortcuts to quickly produce publication-ready figures for common plot layouts and their corresponding statistical analyses (e.g. <code>ggpubr</code>, <code>ggrapid</code> or <code>GGally</code>). There are even packages for animated graphics (<code>gganimate</code>), interactive plot building (<code>esquisse</code>) or 3D surface plotting (<code>rayshader</code>). See the links below!</p>
 </div>
 <div id="references" class="section level2">
-<h2><span class="header-section-number">5.12</span> References</h2>
-<p>The ggplot2 website: <a href="https://ggplot2.tidyverse.org/" class="uri">https://ggplot2.tidyverse.org/</a> –&gt; links to other resources there
-The ggplot2 cheatsheet: <a href="https://rstudio.com/resources/cheatsheets/" class="uri">https://rstudio.com/resources/cheatsheets/</a>
-The ggplot2 book
-The dedicated chapter in R for Data Science <a href="https://r4ds.had.co.nz/data-visualisation.html" class="uri">https://r4ds.had.co.nz/data-visualisation.html</a>
-A non-exhaustive list of extensions: <a href="https://exts.ggplot2.tidyverse.org/gallery/" class="uri">https://exts.ggplot2.tidyverse.org/gallery/</a>
-The R graph gallery for inspiration <a href="https://www.r-graph-gallery.com/" class="uri">https://www.r-graph-gallery.com/</a>
-The grammar of graphics article by hadley <a href="https://vita.had.co.nz/papers/layered-grammar.html" class="uri">https://vita.had.co.nz/papers/layered-grammar.html</a></p>
+<h2><span class="header-section-number">5.13</span> References</h2>
+<ul>
+<li>The <code>ggplot2</code> <a href="https://ggplot2.tidyverse.org/">website</a> where you can find links to other resources</li>
+<li>The <code>ggplot2</code> <a href="https://rstudio.com/resources/cheatsheets/">cheatsheet</a></li>
+<li>The <a href="https://r4ds.had.co.nz/data-visualisation.html">dedicated chapter</a> in R for Data Science</li>
+<li>A non-exhaustive list of extensions at this <a href="https://exts.ggplot2.tidyverse.org/gallery/">link</a></li>
+<li>The <a href="https://www.r-graph-gallery.com/">R graph gallery</a> for inspiration</li>
+<li>Hadley’s <a href="https://vita.had.co.nz/papers/layered-grammar.html">article</a> explaining the grammar of graphics</li>
+<li>The <code>patchwork</code> <a href="https://patchwork.data-imaginist.com/">documentation</a></li>
+<li>The <a href="https://guangchuangyu.github.io/ggtree-book/chapter-ggtree.html"><code>ggtree</code></a> and <a href="https://www.data-imaginist.com/2017/ggraph-introduction-layouts/"><code>ggraph</code></a> packages</li>
+</ul>
 
 </div>
 </div>
@@ -769,8 +832,8 @@ The grammar of graphics article by hadley <a href="https://vita.had.co.nz/papers
           </div>
         </div>
       </div>
-<a href="working-with-lists-and-iteration.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="working-with-lists-and-iteration.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="programming-in-the-tidyverse.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

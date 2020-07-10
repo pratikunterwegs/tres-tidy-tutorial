@@ -143,7 +143,7 @@
 
 \title{TRES Tidyverse Tutorial}
 \author{Raphael, Pratik and Theo}
-\date{2020-06-26}
+\date{2020-07-09}
 
 \begin{document}
 \maketitle
@@ -4116,9 +4116,11 @@ The example below shows the latter, with the \texttt{data} data frame from earli
 \hypertarget{ggplot2-and-the-grammar-of-graphics}{%
 \chapter{\texorpdfstring{\texttt{ggplot2} and the grammar of graphics}{ggplot2 and the grammar of graphics}}\label{ggplot2-and-the-grammar-of-graphics}}
 
+By Raphael Scherrer, data from Anne-Marie Veenstra-Skirl
+
 \includegraphics{opening-image.png}
 
-In this tutorial we will learn how to make nice graphics using \texttt{ggplot2}, perhaps the most well-known member of the tidyverse. So well-known, in fact, that people often know \texttt{ggplot2} before they get to know about the tidyverse. We will first learn about the philosophy behind \texttt{ggplot2} and then follow that recipe to build more and more customized plots through some examples.
+In this tutorial we will learn how to make nice graphics using \texttt{ggplot2}, perhaps the most well-known member of the tidyverse. So well-known, in fact, that people often know \texttt{ggplot2} before they get to know about the tidyverse. We will first learn about the philosophy behind \texttt{ggplot2} and then follow that recipe to build more complex customized plots through some examples.
 
 \hypertarget{introduction-1}{%
 \section{Introduction}\label{introduction-1}}
@@ -4126,12 +4128,12 @@ In this tutorial we will learn how to make nice graphics using \texttt{ggplot2},
 \hypertarget{what-is-ggplot2-and-why-use-it}{%
 \subsection{\texorpdfstring{What is \texttt{ggplot2} and why use it?}{What is ggplot2 and why use it?}}\label{what-is-ggplot2-and-why-use-it}}
 
-There are many ways of making graphics in base R. For example, \texttt{plot} is used for scatterplots, \texttt{hist} is used for histograms, \texttt{boxplot} is self-explanatory, and \texttt{image} can be used for heatmaps. However, those functions are often developed by different people with different logics in mind, which makes them often inconsistent with each other: one has to learn what the arguments of each function are. \texttt{ggplot2} is aimed at solving this problem and making plotting \emph{flexible}, allowing to build any graph using a common standard, the \emph{grammar of graphics} (which is what ``gg'' stands for). By building on a single reference grammar, \texttt{ggplot2} therefore fits nicely into the tidyverse, and as part of it, it also follows the same rule as \texttt{tidyr}, \texttt{dplyr} or \texttt{purrr}, making the integration between all those packages very smooth.
+There are many ways of making graphics in base R. For example, \texttt{plot} is used for scatterplots, \texttt{hist} is used for histograms, \texttt{boxplot} is self-explanatory, and \texttt{image} can be used for heatmaps. However, those functions are often developed by different people with different logics in mind, which can make them inconsistent with each other, e.g.~one has to learn what the arguments of each function are and switching from one type of visualization to another may not be very easy. \texttt{ggplot2} is aimed at solving this problem and making plotting \emph{flexible}, allowing to build virtually any graph using a common standard, the \emph{grammar of graphics} (which is what ``gg'' stands for). By building on a single reference grammar, \texttt{ggplot2} fits nicely into the tidyverse, and as part of it, it also follows the same rule as \texttt{tidyr}, \texttt{dplyr} or \texttt{purrr}, making the integration between all those packages very smooth.
 
 \hypertarget{what-is-the-grammar-of-graphics}{%
 \subsection{What is the grammar of graphics?}\label{what-is-the-grammar-of-graphics}}
 
-The grammar of graphics is a system of rules on how to structure plots such that almost any graph can be made through combinations of a limited set of simpler elements, just as you can make any sentence by combining together letters from an alphabet (hence the term ``grammar''). \texttt{ggplot2} is the implementation of this philosophy in R, and it is this modularity that underlies its flexibility. \texttt{ggplot2} comes with a limited set of elements, or \emph{layers}, that you can pick and combine into an impressive variety of graphics, all based on the same syntax. But what are those elements?
+The grammar of graphics is a system of rules on how to structure plots such that almost any graph can be made through combinations of a limited set of simpler elements, just as you can make any sentence by combining together letters from an alphabet. \texttt{ggplot2} is the implementation of this philosophy in R, and comes with a limited set of \emph{layers}, that you can pick and combine into an impressive variety of graphics, all based on the same syntax. But what are those elements?
 
 Here is the backbone of a ggplot statement (I will from now on use ``ggplot'' to refer to an object of class \texttt{ggplot}, the output of the \texttt{ggplot} function and the object that contains our graphic), taken from the book \href{https://r4ds.had.co.nz/}{R for Data Science}:
 
@@ -4146,7 +4148,7 @@ ggplot(data = <DATA>) +
   <FACET_FUNCTION>
 \end{verbatim}
 
-This pseudocode snippet illustrates a fundamental aspect of \texttt{ggplot2}, which is that plots are built by \emph{successive} commands, each corresponding to a layer, assembled together using the \texttt{+} operator. This might seem less practical than having a plot made in a single call to the \texttt{plot} function, but it is this modularity that actually gives \texttt{ggplot2} its flexibility.
+This pseudocode snippet illustrates a fundamental aspect of \texttt{ggplot2}, which is that plots are built by \emph{successive} commands, each corresponding to a layer, assembled together using the \texttt{+} operator. This might seem less practical than having a whole plot made in a single call to the \texttt{plot} function, but it is this modularity that actually gives \texttt{ggplot2} its flexibility.
 
 This means that in \texttt{ggplot2} you will typically need multiple commands to make a plot. All ggplots are made of at least the two following basic ingredients:
 
@@ -4173,6 +4175,11 @@ will not show anything. A \texttt{ggplot} object is there, but it has no layers 
 
 Plots can then be customized with statistical transformations, re-positioning, changes in coordinate system, facetting, and more. We will now go through the different elements.
 
+\hypertarget{quick-plot}{%
+\subsection{Quick plot}\label{quick-plot}}
+
+Note that the \texttt{qplot} function, which stands for ``quick plot'', will show a plot when called on your dataset. It is a wrapper around \texttt{ggplot2} layers that allows to quickly get a visualization, just like using \texttt{plot} from base R. However, it is less flexible than combining your ggplot yourself, so here we will make sure that you understand how the different layers are assembled.
+
 \hypertarget{but-first-the-data}{%
 \section{But first, the data}\label{but-first-the-data}}
 
@@ -4195,7 +4202,7 @@ In this chapter we will use the data from \texttt{bacterial\_experiment.csv}, fo
 \end{Highlighting}
 \end{Shaded}
 
-The different strains of bacteria were grown in two different assays, whose details are irrelevant for the purpose of this tutorial. \texttt{cfu} is the number of colony forming units while \texttt{OD600} is the optical density at 600nm wavelength; both are estimates of bacterial population density. \texttt{ratio} represents the ratio in mutants between two time points, T0 and T1 (encoded in \texttt{time}).
+The different strains of bacteria were grown in two different \texttt{assay}s, whose details are irrelevant for the purpose of this tutorial. \texttt{cfu} is the number of colony forming units while \texttt{OD600} is the optical density at 600nm wavelength; both are estimates of bacterial population density. \texttt{ratio} represents the ratio in mutants between two time points, T0 and T1 (encoded in \texttt{time}).
 
 In this table, the unit of observation is the time point (T0 and T1 are on different rows), therefore the values of \texttt{ratio}, which are attributed to each T0-T1 pair, are duplicated to yield one value per time point. To make our life easier with later plotting and to stay within the \emph{tidy} spirit of the tidyverse (where one table should have one unit of observation), we use the tools we have already learnt to make a ratio-wise table:
 
@@ -4255,6 +4262,19 @@ We can use the other available aesthetics to show more aspects of the data, or t
 
 \begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-110-1} \end{center}
 
+Do you want to map several variables to a single aesthetic? Then \texttt{interaction} from base R can be used within a \texttt{ggplot}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(data2) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}
+    \DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ conc, }\DataTypeTok{y =}\NormalTok{ ratio, }\DataTypeTok{color =} \KeywordTok{interaction}\NormalTok{(strain, assay))}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-111-1} \end{center}
+
 \hypertarget{fixed-aesthetics}{%
 \subsection{Fixed aesthetics}\label{fixed-aesthetics}}
 
@@ -4270,7 +4290,7 @@ Fixed graphical parameters (i.e.~that are not mapped to a variable) should be ad
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-111-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-112-1} \end{center}
 
 \hypertarget{statistical-transformation}{%
 \subsection{Statistical transformation}\label{statistical-transformation}}
@@ -4280,13 +4300,13 @@ Statistical transformations, or \texttt{stat} functions, can be applied to the d
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(data2) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{stat_density}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ ratio, }\DataTypeTok{fill =}\NormalTok{ strain), }\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{)}
+\StringTok{  }\KeywordTok{geom_density}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ ratio, }\DataTypeTok{fill =}\NormalTok{ strain), }\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-112-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-113-1} \end{center}
 
-Here, the \texttt{density} axis is not part of the original dataset \texttt{data2}; it was computed from the data, for each value of \texttt{ratio}, by using a density-estimation algorithm. This shows that \texttt{stat\_density}, and not \texttt{stat\_identity}, is the default \texttt{stat} used in \texttt{geom\_density}. Every \texttt{geom} comes with its default \texttt{stat}.
+Here, the \texttt{density} axis is not part of the original dataset \texttt{data2}; it was computed from the data, for each value of \texttt{ratio}, by using a density-estimation algorithm. This shows that \texttt{stat\_density} (and not \texttt{stat\_identity}) is the default \texttt{stat} used in \texttt{geom\_density}. Every \texttt{geom} comes with its default \texttt{stat}.
 
 Similarly, \texttt{stat} functions can be used in place of \texttt{geom} because every \texttt{stat} has a default \texttt{geom} associated to it. So, we can call:
 
@@ -4297,7 +4317,7 @@ Similarly, \texttt{stat} functions can be used in place of \texttt{geom} because
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-113-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-114-1} \end{center}
 
 which has \texttt{geom\_density} as default \texttt{geom.}
 
@@ -4310,7 +4330,7 @@ It is possible to override the default \texttt{stat} using the \texttt{stat} arg
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-114-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-115-1} \end{center}
 
 does the job (note that we replaced \texttt{fill} with \texttt{color} because our points do not have a surface to fill).
 
@@ -4328,7 +4348,7 @@ The \texttt{position} argument of geoms allows to adjust the positioning of the 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-115-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-116-1} \end{center}
 
 If we wanted to visualize proportions instead of numbers, we could use the \texttt{fill} value of the \texttt{position} argument:
 
@@ -4339,7 +4359,7 @@ If we wanted to visualize proportions instead of numbers, we could use the \text
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-116-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-117-1} \end{center}
 
 Alternatively we could use the \texttt{dodge} option to show the different categories side-by-side:
 
@@ -4350,9 +4370,9 @@ Alternatively we could use the \texttt{dodge} option to show the different categ
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-117-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-118-1} \end{center}
 
-Those are only two examples of what can be done. Just remember that \texttt{position} exists and look into the examples in the documentation of your geom of interest to see what position adjustments are available!
+Those are only two examples of what can be done. Just remember that \texttt{position} exists and look into the documentation of your geom of interest to see what position adjustments are available! (Check out \texttt{geom\_jitter} as a nice wrapper around \texttt{geom\_point} with a \texttt{jitter} position adjustment, perfect to overlay with boxplots or violin plots.)
 
 \hypertarget{other-geoms}{%
 \subsection{Other geoms}\label{other-geoms}}
@@ -4362,7 +4382,7 @@ The most common \texttt{geoms} you may encounter are:
 \begin{itemize}
 \tightlist
 \item
-  \texttt{geom\_point} for scatter plots and \texttt{geom\_jitter} for the dodge equivalent
+  \texttt{geom\_point} for scatter plots and \texttt{geom\_jitter} for the dodged equivalent
 \item
   \texttt{geom\_bar} for a barplot
 \item
@@ -4372,14 +4392,14 @@ The most common \texttt{geoms} you may encounter are:
 \item
   \texttt{geom\_boxplot} and \texttt{geom\_violin}
 \item
-  \texttt{geom\_line} and \texttt{geom\_path}
+  \texttt{geom\_line}, \texttt{geom\_path} (a \texttt{line} never goes backwards along the x-axis, while a \texttt{path} can) and \texttt{geom\_smooth} (local regression smoothing)
 \item
-  \texttt{geom\_segment}, \texttt{geom\_hline}, \texttt{geom\_vline} and \texttt{geom\_abline} that may come handy
+  \texttt{geom\_segment}, \texttt{geom\_hline}, \texttt{geom\_vline} and \texttt{geom\_abline} that may come handy as annotations
 \item
   \texttt{geom\_tile} for heatmaps
 \end{itemize}
 
-There are litterally tons of geoms and ways to use them. In this tutorial, we emphasize the understanding of the grammar and how to assemble the different ingredients, rather than the ingredients themselves. For this reason, here we are not giving an exhaustive sample of each geom and what they look like. So, keep this list of names in mind as a reminder that whatever plot you want to make, there probably is a \texttt{geom} for it. To explore a gallery of examples, check out the R graph gallery.
+There are litterally tons of geoms and ways to use them. In this tutorial, we emphasize the understanding of the grammar and how to assemble the different ingredients, rather than the ingredients themselves. For this reason, here we are not giving an exhaustive sample of each geom and what they look like. So, keep this list of names in mind as a reminder that whatever plot you want to make, there probably is a \texttt{geom} for it. To explore a gallery of examples, check out the \href{https://www.r-graph-gallery.com/}{R graph gallery}.
 
 \hypertarget{extra-on-aesthetics}{%
 \subsection{Extra on aesthetics}\label{extra-on-aesthetics}}
@@ -4393,7 +4413,7 @@ It is possible to use the \texttt{+} operators, not only to add layers but also 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-118-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-119-1} \end{center}
 
 We may want to color-code the points based on \texttt{strain} or \texttt{assay}, or both, thus requiring two plots building on this single one. An important property of \texttt{ggplot} objects is that they can be assigned to variables, e.g.
 
@@ -4413,7 +4433,7 @@ Note that we have to call the object \texttt{p} for the plot to be displayed. If
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-120-1} \includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-120-2} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-121-1} \includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-121-2} \end{center}
 
 \hypertarget{plot-wide-aesthetics-and-multiple-geoms}{%
 \subsection{Plot-wide aesthetics and multiple geoms}\label{plot-wide-aesthetics-and-multiple-geoms}}
@@ -4429,9 +4449,9 @@ In the last example, by adding new aesthetics mapping to the ggplot using the \t
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-121-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-122-1} \end{center}
 
-This shows a nice example of multiple geoms combined in a single plot. If, however, the aesthetics used in some geoms are geom-specific, better pass them to their respective \texttt{geom}. For example, if you want to color only the points by not the violins, use:
+This shows a nice example of multiple geoms combined in a single plot. If, however, the aesthetics used in some geoms are geom-specific, better pass them to their respective \texttt{geom}. For example, if you want to color only the points but not the violins, use:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4441,7 +4461,7 @@ This shows a nice example of multiple geoms combined in a single plot. If, howev
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-122-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-123-1} \end{center}
 
 \hypertarget{multiple-geoms-with-different-datasets}{%
 \subsection{Multiple geoms with different datasets}\label{multiple-geoms-with-different-datasets}}
@@ -4455,7 +4475,7 @@ Just as aesthetics can vary from geom to geom, so do datasets. In other words, t
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-123-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-124-1} \end{center}
 
 This means that different geoms can be based on different datasets. This allows quite some complexification of the plots and illustrates very well the usefulness of the other packages of the tidyverse. Say, for example, that we want to add to this plot a line going through the means at each value of \texttt{conc}. These mean values are not yet present in our dataset, and we need to come up with a mean-wise dataset. \texttt{dplyr} is our friend for this task:
 
@@ -4483,13 +4503,13 @@ Let us now add an extra layer of information based on this latest, summary datas
 
 \begin{Shaded}
 \begin{Highlighting}[]
- \KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}
+\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ data2, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ conc, }\DataTypeTok{y =}\NormalTok{ ratio, }\DataTypeTok{color =}\NormalTok{ strain)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ data3, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ conc, }\DataTypeTok{y =}\NormalTok{ ratio, }\DataTypeTok{color =}\NormalTok{ strain))}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-125-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-126-1} \end{center}
 
 Here, we could save some typing by writing:
 
@@ -4501,14 +4521,14 @@ Here, we could save some typing by writing:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-126-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-127-1} \end{center}
 
 where \texttt{geom\_line} inherits the same aesthetic mapping as \texttt{geom\_point}. But then, you have to make sure that \texttt{data3} contains all the aesthetics that the \texttt{ggplot} call expects to see in each of its \texttt{geoms} (here \texttt{x}, \texttt{y} and \texttt{color}).
 
 \hypertarget{coordinate-system}{%
 \section{Coordinate-system}\label{coordinate-system}}
 
-The default way that the plotting window is organized is with an orthogonal space with a horizontal x-axis and a vertical y-axis. Use the \texttt{coord} commands to deviate from this. For example, \texttt{coord\_flip} will revert the order of the axes:
+The default way that the plotting window is organized is an orthogonal space with a horizontal x-axis and a vertical y-axis. Use the \texttt{coord} commands to deviate from this. For example, \texttt{coord\_flip} will flip the axes:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4518,7 +4538,7 @@ The default way that the plotting window is organized is with an orthogonal spac
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-127-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-128-1} \end{center}
 
 while \texttt{coord\_fixed} will fix the aspect ratio between the axes, thus showing them on the same scale. For example, the following plot of the optical density between two time points,
 
@@ -4529,7 +4549,7 @@ while \texttt{coord\_fixed} will fix the aspect ratio between the axes, thus sho
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-128-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-129-1} \end{center}
 
 becomes:
 
@@ -4541,7 +4561,7 @@ becomes:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-129-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-130-1} \end{center}
 
 when both axes are shown on the same scale.
 
@@ -4550,7 +4570,7 @@ Other coordinate systems exist, depending on the need, including \texttt{coord\_
 \hypertarget{facetting}{%
 \section{Facetting}\label{facetting}}
 
-One of the most powerful features of \texttt{ggplot2} is its easy-to-use way of splitting a plot into multiple subplots, or facets.
+One of the most powerful features of \texttt{ggplot2} is its easy way of splitting a plot into multiple subplots, or \emph{facets}.
 
 There are two functions for facetting: \texttt{facet\_grid} and \texttt{facet\_wrap}. \texttt{facet\_grid} will arrange the plot in rows and columns depending on variables that the user defines:
 
@@ -4562,7 +4582,7 @@ There are two functions for facetting: \texttt{facet\_grid} and \texttt{facet\_w
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-130-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-131-1} \end{center}
 
 Here the tilde (\texttt{\textasciitilde{}}) symbolizes a \emph{formula}, a type of expression in R with a left and right-hand side, which here are interpreted as variables to use for rows and columns, respectively. If using only one variable for facetting, use \texttt{.} or nothing on the other side of the tilde.
 
@@ -4576,7 +4596,7 @@ Note that facets are plotted on the same scale. We can use the \texttt{scales} a
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-131-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-132-1} \end{center}
 
 \texttt{facet\_wrap} is similar to \texttt{facet\_grid}, except that it does not organize the facets in rows and columns but rather as an array of facets that fill the screen by row, like when filling a matrix with numbers:
 
@@ -4588,7 +4608,7 @@ Note that facets are plotted on the same scale. We can use the \texttt{scales} a
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-132-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-133-1} \end{center}
 
 where the position of the variables relative to the \texttt{\textasciitilde{}} becomes irrelevant.
 
@@ -4604,9 +4624,9 @@ Custom-labelling the strips of the facets is done with the \texttt{labeller} arg
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-133-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-134-1} \end{center}
 
-Here, the \texttt{label\_both} function is applied to the variable facetting by row, which is \texttt{strain}. \texttt{label\_both} tells the \texttt{labeller} to label the strips with the name of the variable (\texttt{strain}) followed by its value, separated by a colon. We will not cover labelling in details here, but keep in mind that the \texttt{labeller} argument is what to play with, and that it takes the output of the \texttt{labeller} function as input, which itself takes labelling functions, such as \texttt{label\_both}, as arguments. Other labelling functions include \texttt{label\_value}, which just shows the value in the strip (that is the default) and \texttt{label\_parsed}, which is used for showing mathematical expressions in strip labels (e.g.~greek letters, exponents etc.). For more information on customizing facet strip lables, visit this link().
+Here, the \texttt{label\_both} function is applied to the variable facetting by row, which is \texttt{strain}. \texttt{label\_both} tells the \texttt{labeller} to label the strips with the name of the variable (\texttt{strain}) followed by its value, separated by a colon. We will not cover labelling in details here, but keep in mind that the \texttt{labeller} argument is what to play with, and that it takes the output of the \texttt{labeller} function as input, which itself takes labelling functions, such as \texttt{label\_both}, as arguments. Other labelling functions include \texttt{label\_value}, which just shows the value in the strip (that is the default) and \texttt{label\_parsed}, which is used for showing mathematical expressions in strip labels (e.g.~greek letters, exponents etc.). It is possible to provide custom names too. For more information on customizing facet strip lables, visit this \href{https://www.datanovia.com/en/blog/how-to-change-ggplot-facet-labels/}{link}.
 
 Note: I made a package called \texttt{ggsim}, yet another extension of \texttt{ggplot2} with a few functions coming handy for simulation data. One of the functions, \texttt{facettize}, is aimed at making your life easier when labelling the strips of your facets (i.e.~not going into the nitty gritty of the \texttt{labeller} function), especially when some facets include parsing mathematical expressions. Feel free to install it from GitHub by using:
 
@@ -4619,7 +4639,7 @@ Note: I made a package called \texttt{ggsim}, yet another extension of \texttt{g
 \hypertarget{the-right-format-for-the-dataset}{%
 \section{The right format for the dataset}\label{the-right-format-for-the-dataset}}
 
-One question that may come to your mind is: what is the right format of a dataset for use in \texttt{ggplot}, especially since it is part of the tidyverse? The answer is: it depends, and this is where the intergration with other tidyverse tools makes our live easier. If, for example, we want to use a variable for facetting or as an aesthetics, it is important to have this variable as a single column. For example, in the original \texttt{data} dataset, we could have compared the optical density between the two time point:
+One question that may come to your mind is: what is the right format of a dataset for use in \texttt{ggplot}, especially since it is part of the tidyverse? The answer is: it depends, and this is where the intergration with other tidyverse tools makes our life easier. If, for example, we want to use a variable for facetting or as an aesthetics, it is important to have this variable as a single column. For example, in the original \texttt{data} dataset, we could have compared the optical density between the two time point:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4628,9 +4648,9 @@ One question that may come to your mind is: what is the right format of a datase
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-135-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-136-1} \end{center}
 
-However, if we want to plot the optical density of time point 1 \emph{versus} that of time point 0, then we need these two time points in separate columns, which is exactly what \texttt{OD600\_T0} and \texttt{OD600\_T1}, in the \texttt{data2} dataset, are:
+where \texttt{time} is both an aesthetic (\texttt{x}) and its own column. However, if we want to plot the optical density of time point T1 \emph{versus} that of time point T0, then we need these two time points in separate columns, which is exactly what \texttt{OD600\_T0} and \texttt{OD600\_T1}, in the \texttt{data2} dataset, are (remember we got those using \texttt{tidyr::pivot\_wider}):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4639,12 +4659,12 @@ However, if we want to plot the optical density of time point 1 \emph{versus} th
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-136-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-137-1} \end{center}
 
 \hypertarget{plotting-as-part-of-a-pipeline}{%
-\subsection{Plotting as part of a pipeline}\label{plotting-as-part-of-a-pipeline}}
+\section{Plotting as part of a pipeline}\label{plotting-as-part-of-a-pipeline}}
 
-What we just saw means that sometimes reformating of a dataset is needed (e.g.~using \texttt{pivot\_longer} or \texttt{pivot\_wider} from \texttt{tidyr}) to get this one plot done that requires it. If reformatting and storing into a whole new data frame is too cumbersome for a single plot, one can use \texttt{ggplot} as final part of a tidyverse pipeline in which the data is being reformatted. For example, starting from the original data:
+What we just saw means that sometimes reformatting of a dataset is needed (e.g.~using \texttt{pivot\_longer} or \texttt{pivot\_wider} from \texttt{tidyr}) to get this one plot done that requires reshaping. If you do not want to spend space storing a reformatted data frame into a whole new object, just to make a single plot, you can use \texttt{ggplot} as final part of a tidyverse pipeline. For example, starting from the original data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4655,9 +4675,9 @@ What we just saw means that sometimes reformating of a dataset is needed (e.g.~u
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-137-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-138-1} \end{center}
 
-Notice the use of the pipe \texttt{\%\textgreater{}\%} to pass the resulting data frame on to the \texttt{ggplot} command. Because \texttt{ggplot} is called with a pipe, its first argument is already passed (it is the data frame coming through the pipe), so we only need to pass the second argument, the aesthetics mapping, to the \texttt{ggplot} function.
+Notice the use of the pipe \texttt{\%\textgreater{}\%} to pass the resulting data frame on to the \texttt{ggplot} command. Because \texttt{ggplot} is called with a pipe, its first argument is already passed (it is the data frame coming through the pipe), so we only need to pass the second argument, i.e.~the aesthetics mapping, to the \texttt{ggplot} function.
 
 \hypertarget{customization}{%
 \section{Customization}\label{customization}}
@@ -4667,7 +4687,7 @@ Now that we saw everything there is to know about structuring a \texttt{ggplot},
 \hypertarget{scales}{%
 \subsection{Scales}\label{scales}}
 
-Every aesthetics can be scaled. This includes specifying what values an aesthetics can take (e.g.~what colors to pick, or what range of transparencies to use) or possible break points along the legend. Use the \texttt{scale\_*} family of functions for that. There are many such functions, because many aesthetics can be modified, but the logic behind their naming is always the same:
+Every aesthetics can be scaled. This includes specifying what values an aesthetics can take (e.g.~what colors to pick, or what range of transparencies to use), possible break points along the legend, or legend titles and labels, among others. Use the \texttt{scale\_*} family of functions for that. There are many such functions, because many aesthetics can be modified, but the logic behind their naming is always the same:
 
 \begin{verbatim}
 scale_<AESTHETIC>_<TYPE>
@@ -4687,7 +4707,7 @@ In our example, if we color-code points according to their \texttt{strain}, whic
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-138-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-139-1} \end{center}
 
 Alternatively, we could color-code the points based on their number of CFU at time point T1, \texttt{cfu\_T1}, which is a continuous variable, using \texttt{scale\_color\_continuous}. Without scaling:
 
@@ -4695,12 +4715,11 @@ Alternatively, we could color-code the points based on their number of CFU at ti
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(data2, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ conc, }\DataTypeTok{y =}\NormalTok{ ratio, }\DataTypeTok{color =}\NormalTok{ cfu_T1)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{() }\OperatorTok{+}\StringTok{ }\CommentTok{# just to spice up our use of geoms}
 \StringTok{  }\KeywordTok{facet_grid}\NormalTok{(strain }\OperatorTok{~}\StringTok{ }\NormalTok{assay)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-139-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-140-1} \end{center}
 
 With scaling:
 
@@ -4713,9 +4732,9 @@ With scaling:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-140-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-141-1} \end{center}
 
-The arguments that are taken by the \texttt{scale\_} function really depend on the use case, e.g.~\texttt{scale\_color\_manual} expects discrete \texttt{values}, \texttt{scale\_color\_continuous} expects a \texttt{type} of built-in continuous color gradient, and \texttt{scale\_color\_gradient} expects a \texttt{low} and \texttt{high} color boundaries (and also a \texttt{mid}-gradient color in the case of \texttt{scale\_color\_gradient2}). But the logic shown here is similar across many aesthetics, e.g.~\texttt{scale\_alpha\_continuous} and \texttt{scale\_size\_continuous} work in similar ways, but then taking a \texttt{range} argument. So, lots of scaling functions to play with, and we do not provide an exhaustive list here.
+The arguments that are taken by the \texttt{scale\_} function really depend on the use case, e.g.~\texttt{scale\_color\_manual} expects discrete \texttt{values}, \texttt{scale\_color\_continuous} expects a \texttt{type} of built-in continuous color gradient, and \texttt{scale\_color\_gradient} expects a \texttt{low} and \texttt{high} color boundaries (and also a \texttt{mid}-gradient color in the case of \texttt{scale\_color\_gradient2}). But the logic shown here is similar across many aesthetics, e.g.~\texttt{scale\_alpha\_continuous} and \texttt{scale\_size\_continuous} work in similar ways, both taking a \texttt{range} argument. So, lots of scaling functions to play with, of which we do not provide an exhaustive list here.
 
 Mandatory aesthetics, such as \texttt{x} and \texttt{y}, also have their scaling functions. If \texttt{x} or \texttt{y} is continuous, one can e.g.~use \texttt{scale\_x\_log10} to show this axis on a logarithmic scale, without having to log-tansform the data before plotting, e.g.
 
@@ -4729,7 +4748,9 @@ Mandatory aesthetics, such as \texttt{x} and \texttt{y}, also have their scaling
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-141-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-142-1} \end{center}
+
+More on re-scaling legend titles and labels further down.
 
 \hypertarget{labels}{%
 \subsection{Labels}\label{labels}}
@@ -4754,11 +4775,11 @@ The functions \texttt{ggtitle}, \texttt{xlab}, \texttt{ylab} and \texttt{labs} a
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-142-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-143-1} \end{center}
 
 Note that \texttt{xlab} and \texttt{ylab} are wrappers around \texttt{labs}, meaning that we could have provided \texttt{labs} with \texttt{x\ =\ ...} and \texttt{y\ =\ ...} in addition to \texttt{color\ =\ ...}, its arguments just need to take the names of the aesthetics. If you want no labels, use e.g.~\texttt{xlab(NULL)} or \texttt{ylab(NULL)}.
 
-Also notice the use of \texttt{parse} to display mathemetical notations using the \texttt{plotmath} syntax. This is not part of the tidyverse though, so it is a story for another day, feel free to look it up!
+Also notice the use of \texttt{parse} to display mathemetical notations using the \texttt{plotmath} syntax. This is not part of the tidyverse though, so it is a story for another day, feel free to look it up (type \texttt{?bquote})!
 
 \hypertarget{themes}{%
 \subsection{Themes}\label{themes}}
@@ -4772,7 +4793,7 @@ You may be already frustrated that all plots have this same grey default \texttt
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-143-1} \includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-143-2} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-144-1} \includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-144-2} \end{center}
 
 The individual elements of the theme, e.g.~the background grid or the color of the panel, can be customized using the arguments in the \texttt{theme} function. The \texttt{theme} function can also be used to modify stuff related to the legend or the axes of the plots. For example:
 
@@ -4788,12 +4809,12 @@ The individual elements of the theme, e.g.~the background grid or the color of t
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-144-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-145-1} \end{center}
 
 Here, \texttt{legend.position} is sort of self-explanatory, but \texttt{axis.text.x} is a bit more subtle. Some elements of the theme, such as the text of the axes, need a series of graphical parameters in order to be modified, and the graphical parameters that can be used depend on the type of object those theme elements are (are they \texttt{text}, \texttt{rect} or \texttt{line}?). We use the \texttt{element\_*} family of functions to pass those graphical parameters to our theme elements of interest. Here, we use \texttt{element\_text} to transform the \texttt{text} on the x-axis by rotating it by an \texttt{angle} of 60 degrees, and then align each label to the right (\texttt{hjust} stands for ``horizontal justification''). Again, lots of combinations are possible. Explore!
 
-\hypertarget{custom-legend}{%
-\subsection{Custom legend}\label{custom-legend}}
+\hypertarget{legend}{%
+\subsection{Legend}\label{legend}}
 
 The one thing I Google the most, without a doubt, is ``custom legend in ggplot'', because I always forget how to choose which legend to show, e.g.~if I want to display the color legend but not the alpha legend. So here it is: to hide \emph{all} the legends, use:
 
@@ -4803,7 +4824,7 @@ The one thing I Google the most, without a doubt, is ``custom legend in ggplot''
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-145-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-146-1} \end{center}
 
 And to selectively hide \emph{some} legends, use \texttt{guides}:
 
@@ -4813,18 +4834,51 @@ And to selectively hide \emph{some} legends, use \texttt{guides}:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-146-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-147-1} \end{center}
 
-Want more? Do like me and visit over and over this page (link).
+It is also important to remember that \texttt{ggplot2} will try to combine legends together whenever it can. If the same variable is mapped to two different aesthetics, e.g.~shape and color, only one legend will appear:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(data2, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ conc, }\DataTypeTok{y =}\NormalTok{ ratio, }\DataTypeTok{color =}\NormalTok{ strain, }\DataTypeTok{shape =}\NormalTok{ strain)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(strain }\OperatorTok{~}\StringTok{ }\NormalTok{assay) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_x_log10}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-148-1} \end{center}
+
+But this behavior can be controlled. You can use the arguments of the \texttt{scale\_} functions to pass custom titles and labels to the legends. And if the legends mapping to the same variable have different titles or labels, they will be shown separately:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(data2, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ conc, }\DataTypeTok{y =}\NormalTok{ ratio, }\DataTypeTok{color =}\NormalTok{ strain, }\DataTypeTok{shape =}\NormalTok{ strain)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(strain }\OperatorTok{~}\StringTok{ }\NormalTok{assay) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_x_log10}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}
+    \StringTok{"color legend"}\NormalTok{, }\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"forestgreen"}\NormalTok{, }\StringTok{"goldenrod"}\NormalTok{, }\StringTok{"mediumseagreen"}\NormalTok{)}
+\NormalTok{  ) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_shape_manual}\NormalTok{(}
+    \StringTok{"shape legend"}\NormalTok{, }\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\DecValTok{16}\NormalTok{, }\DecValTok{17}\NormalTok{, }\DecValTok{18}\NormalTok{), }
+    \DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"Control"}\NormalTok{, }\StringTok{"Strain 1"}\NormalTok{, }\StringTok{"Strain 2"}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-149-1} \end{center}
+
+Note that you can also use this trick to combine different legends together, by giving them the same titles and labels.
 
 \hypertarget{combining-plots}{%
 \section{Combining plots}\label{combining-plots}}
 
-This was more or less what you need to know to be operational when plotting \emph{single} ggplots. But what if the facetting option is not enough, and you want to combine actual multiple plots into a single figure? \texttt{ggplot2} itself does not do that, but the good news is, there are many packages that do it. Those include \texttt{patchwork}, \texttt{cowplot}, \texttt{grid}, \texttt{gridExtra}, \texttt{egg} or \texttt{aplot} (and probably more).
+This was more or less what you need to know to be operational when plotting \emph{single} ggplots. But what if the facetting option is not enough, and you want to combine multiple plots into a single figure? \texttt{ggplot2} itself does not do that, but the good news is, there are many packages that do. Those include \texttt{patchwork}, \texttt{cowplot}, \texttt{grid}, \texttt{gridExtra}, \texttt{egg} or \texttt{aplot} (and probably more).
 
-One term that these packages often use is \texttt{grob}. A \texttt{grob} is a ggplot-like object, such as a \texttt{ggplot} but could also be a single a single text label in the middle of a plotting window. These packages essentially assemble grobs together.
+One term that these packages often use is \texttt{grob}. A \texttt{grob} is a ggplot-like object, such as a \texttt{ggplot} but could also be a single text label in the middle of a plotting window. These packages essentially assemble grobs together.
 
-\texttt{patchwork} is personally my favorite so I will focus on this one here. It has the advantage to automatically align the frames of the different plots across the different subplots. It also has an excellent, succinct documentation.
+\texttt{patchwork} is personally my favorite so I will focus on this one here. It has the advantage to automatically align the frames of the different plots across the different subplots (I found that this is not entirely true when combining \texttt{ggtree} objects with other plots, \texttt{aplot} is better for this specific case). It also has an excellent, succinct \href{https://patchwork.data-imaginist.com/}{documentation}.
 
 Let us look at an example, where we assign the previous plot to \texttt{p1} and make a new plot to combine it with, called \texttt{p2}:
 
@@ -4842,7 +4896,7 @@ Let us look at an example, where we assign the previous plot to \texttt{p1} and 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-147-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-150-1} \end{center}
 
 In \texttt{patchwork}, we would combine both using:
 
@@ -4853,7 +4907,7 @@ In \texttt{patchwork}, we would combine both using:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-148-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-151-1} \end{center}
 
 \texttt{patchwork} uses operators such as \texttt{+}, \texttt{/} or \texttt{\textbar{}} to assemble the plots in various layouts. It looks simple, but a caveat of this approach is that it may become tedious when assembling, e.g.~15 small plots, or plots from a list of unknown length. The programmatic equivalent of the above example is:
 
@@ -4863,14 +4917,14 @@ In \texttt{patchwork}, we would combine both using:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-149-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-152-1} \end{center}
 
-More customization can be added to the previous combination of plots, such as layout specifications, e.g.~controlling the position and dimension of the different plots, or annotations, e.g.~global title, labelling each plot or capturing the legends of all the plots and show it as one global legend). But this is a \texttt{ggplot2} tutorial and we just want you to know that \texttt{patchwork} and friends exist, so go there to know more about what they can do!
+More customization can be added to the previous combination of plots, such as layout specifications, e.g.~controlling the position and dimension of the different plots, or annotations, e.g.~global title, labelling each plot or capturing the legends of all the plots and show it as one global legend). But this is a \texttt{ggplot2} tutorial and we just want you to know that \texttt{patchwork} and friends exist, so go check them out to know more about what they can do!
 
 \hypertarget{saving-a-plot}{%
 \section{Saving a plot}\label{saving-a-plot}}
 
-Last but not least, ggplots have their own saving function: \texttt{ggsave} (it also works on combinations of ggplots made by \texttt{patchwork} or \texttt{cowplot}), which guesses the extension of your figure (e.g.~\texttt{.png} or \texttt{.pdf}) from the file name you provide. You can also given it specific \texttt{width}, \texttt{height} and \texttt{dpi} (resolution -- journals like 300dpi I've heard) parameter values.
+Last but not least, ggplots have their own saving function: \texttt{ggsave} (it also works on combinations of ggplots made by \texttt{patchwork} or \texttt{cowplot}), which guesses the extension of your figure (e.g.~\texttt{.png} or \texttt{.pdf}) from the file name you provide. You can also give it specific \texttt{width}, \texttt{height} and \texttt{dpi} (resolution) parameter values.
 
 \hypertarget{high-throughput-plotting-workflow}{%
 \section{High throughput plotting workflow}\label{high-throughput-plotting-workflow}}
@@ -4888,11 +4942,13 @@ Let us make a function that plots the number of CFU against the optical density,
 \StringTok{    }\KeywordTok{theme_classic}\NormalTok{() }\OperatorTok{+}
 \StringTok{    }\KeywordTok{scale_color_continuous}\NormalTok{(}\DataTypeTok{type =} \StringTok{"viridis"}\NormalTok{) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{xlab}\NormalTok{(}\KeywordTok{parse}\NormalTok{(}\DataTypeTok{text =} \StringTok{"'Optical density at 600nm at'~T[1]"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{xlab}\NormalTok{(}\KeywordTok{parse}\NormalTok{(}\DataTypeTok{text =} \StringTok{"'OD at 600nm at'~T[1]"}\NormalTok{)) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{ylab}\NormalTok{(}\StringTok{"CFU"}\NormalTok{)}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
+
+Note that this does not plot anything, it is just a function that will if called on a dataset.
 
 The objective is to apply this function to each \texttt{strain}-\texttt{assay} combination, thus getting \emph{one plot} per combination. We can check that this function works as expected for a single combination using our friend \texttt{dplyr}:
 
@@ -4904,11 +4960,11 @@ The objective is to apply this function to each \texttt{strain}-\texttt{assay} c
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-151-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-154-1} \end{center}
 
 which works because \texttt{plot\_this} takes a data frame as first argument.
 
-Now that we are happy with out single-plot function, we use \texttt{purrr} to \texttt{nest} our data frame into all the relevant combinations of \texttt{strain} and \texttt{assay}, and we \texttt{map} through the resulting list-column to produce many ggplots in one go:
+Now that we are happy with out single-plot function, we \texttt{tidyr::nest} our data frame into all the relevant combinations of \texttt{strain} and \texttt{assay}, and we \texttt{purrr::map} through the resulting list-column to produce many ggplots in one go:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4938,9 +4994,9 @@ where the new list-column \texttt{fig} is a list of \texttt{ggplot} objects, tha
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-153-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-156-1} \end{center}
 
-\texttt{purrr}fect.
+Looks \texttt{purrr}fect.
 
 If you ask yourself why going through this hassle whith only two assays and three strains, just think about a case where you would have hundreds of e.g.~simulations, sequences, field sites or study species.
 
@@ -4963,9 +5019,9 @@ Let us go a bit further. Now we want to combine plots for each \texttt{strain} i
 \end{Highlighting}
 \end{Shaded}
 
-Note that we use the \emph{formula}-way of passing functions to \texttt{map}, which is more succinct than the \emph{lambda} way (\texttt{function(x)\ wrap\_plots(x)}), and where \texttt{.x} is interpreted as an element of the list we iterate through (here the list-column \texttt{data}). Please refer to the \texttt{purrr} documentation for more details.
+Note that we use the \emph{formula}-way of passing functions to \texttt{map} (using \texttt{\textasciitilde{}}), which is more succinct than the \emph{lambda} way (using an anonymous function \texttt{function(x)\ wrap\_plots(x)}), and where \texttt{.x} is interpreted as an element of the list we iterate through (here the list-column \texttt{data}). Please refer to the \texttt{purrr} documentation for more details.
 
-As we can see, we have created a new list-column \texttt{combifig}, filled with \texttt{patchwork} objects:
+As we can see, we have created a new list-column \texttt{combifig}, filled with \texttt{patchwork} objects, i.e.~combined plots:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4973,11 +5029,11 @@ As we can see, we have created a new list-column \texttt{combifig}, filled with 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-155-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{TRES-Tidy-Tutorial_files/figure-latex/unnamed-chunk-158-1} \end{center}
 
 We could of course further customize the assembly of plots, but we refer the reader to the \texttt{patchwork} documentation for this.
 
-Last step, preparing file names and saving the figures, using other old friends from the tidyverse:
+Last step, preparing file names and saving the figures, using old friends from the tidyverse:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4999,17 +5055,854 @@ Last step, preparing file names and saving the figures, using other old friends 
 
 \texttt{ggplot2} is undoubtedly one of the largest chunks of the tidyverse. Here we tried to provide a global understanding of how it works, but we could not dig into all possible functions it has (this would take us days). Hopefully now you are armed with the necessary knowledge to be able to find the missing pieces you need.
 
-Some things, however, are missing from \texttt{ggplot2}. Fortunately, there are literally tons of extensions building on \texttt{ggplot2} that respect the same grammar. Some of them implement new geoms (e.g.~such as \texttt{ggridges} for ridge-density plots, \texttt{ggradar} for radial plots, or \texttt{gghalves} for mixes of geoms), others combine plots (examples cited above), allow more complex themes (e.g.~\texttt{ggnewscale} for multiple scales of the same type to coexist, or \texttt{ggdark} for a dark background), deal with complicated objects that are not trivial to fit in data frames (e.g.~\texttt{ggtree} for tree-like objects or \texttt{ggraph} for networks), or provide shortcuts to quickly produce publication-ready figures for common plot layouts and their corresponding statistical analyses (e.g.~\texttt{ggpubr} or \texttt{ggrapid}). There are even packages for animated graphics (\texttt{gganimate}), interactive plot building (\texttt{esquisse}) or 3D and surface plotting (\texttt{rayshader}). See the links below!
+Some things, however, are missing from \texttt{ggplot2}. Fortunately, there are many of extensions building on \texttt{ggplot2} that respect the same grammar. Some of them implement new geoms (e.g.~such as \texttt{ggridges} for ridge-density plots, \texttt{ggradar} for radial plots, or \texttt{gghalves} for mixes of geoms), others combine plots together (examples cited above), offer more complex themes (e.g.~\texttt{ggnewscale} for multiple scales of the same type to coexist, or \texttt{ggdark} for a dark background), deal with complicated objects that are not trivial to fit in data frames (e.g.~\texttt{ggtree} for tree-like objects or \texttt{ggraph} for networks), or provide shortcuts to quickly produce publication-ready figures for common plot layouts and their corresponding statistical analyses (e.g.~\texttt{ggpubr}, \texttt{ggrapid} or \texttt{GGally}). There are even packages for animated graphics (\texttt{gganimate}), interactive plot building (\texttt{esquisse}) or 3D surface plotting (\texttt{rayshader}). See the links below!
 
 \hypertarget{references}{%
 \section{References}\label{references}}
 
-The ggplot2 website: \url{https://ggplot2.tidyverse.org/} --\textgreater{} links to other resources there
-The ggplot2 cheatsheet: \url{https://rstudio.com/resources/cheatsheets/}
-The ggplot2 book
-The dedicated chapter in R for Data Science \url{https://r4ds.had.co.nz/data-visualisation.html}
-A non-exhaustive list of extensions: \url{https://exts.ggplot2.tidyverse.org/gallery/}
-The R graph gallery for inspiration \url{https://www.r-graph-gallery.com/}
-The grammar of graphics article by hadley \url{https://vita.had.co.nz/papers/layered-grammar.html}
+\begin{itemize}
+\tightlist
+\item
+  The \texttt{ggplot2} \href{https://ggplot2.tidyverse.org/}{website} where you can find links to other resources
+\item
+  The \texttt{ggplot2} \href{https://rstudio.com/resources/cheatsheets/}{cheatsheet}
+\item
+  The \href{https://r4ds.had.co.nz/data-visualisation.html}{dedicated chapter} in R for Data Science
+\item
+  A non-exhaustive list of extensions at this \href{https://exts.ggplot2.tidyverse.org/gallery/}{link}
+\item
+  The \href{https://www.r-graph-gallery.com/}{R graph gallery} for inspiration
+\item
+  Hadley's \href{https://vita.had.co.nz/papers/layered-grammar.html}{article} explaining the grammar of graphics
+\item
+  The \texttt{patchwork} \href{https://patchwork.data-imaginist.com/}{documentation}
+\item
+  The \href{https://guangchuangyu.github.io/ggtree-book/chapter-ggtree.html}{\texttt{ggtree}} and \href{https://www.data-imaginist.com/2017/ggraph-introduction-layouts/}{\texttt{ggraph}} packages
+\end{itemize}
+
+\hypertarget{programming-in-the-tidyverse}{%
+\chapter{\texorpdfstring{Programming in the \emph{tidyverse}}{Programming in the tidyverse}}\label{programming-in-the-tidyverse}}
+
+\includegraphics{opening-image.png}
+
+Load the packages for the day.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\KeywordTok{library}\NormalTok{(rlang)}
+\end{Highlighting}
+\end{Shaded}
+
+A function to look at errors.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{try_this <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(ex) \{}
+  \KeywordTok{tryCatch}\NormalTok{(}
+    \DataTypeTok{expr =}\NormalTok{ \{}
+\NormalTok{      ex}
+\NormalTok{    \},}
+    \DataTypeTok{error =} \ControlFlowTok{function}\NormalTok{(e) \{}
+      \KeywordTok{print}\NormalTok{(glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\KeywordTok{as.character}\NormalTok{(e), }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{))}
+\NormalTok{    \}}
+\NormalTok{  )}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{an-exlanation-of-the-problem}{%
+\section{An exlanation of the problem}\label{an-exlanation-of-the-problem}}
+
+\hypertarget{what-the-issue-is}{%
+\subsection{What the issue is}\label{what-the-issue-is}}
+
+Get some data from \emph{Phylacine}, and attempt to select or filter.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# read in phylacine data}
+\NormalTok{data =}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/phylacine_traits.csv"}\NormalTok{)}
+
+\CommentTok{# regular filtering}
+\NormalTok{small_mammals =}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Mass.g }\OperatorTok{<}\StringTok{ }\DecValTok{1000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# filtering on a string}
+\NormalTok{small_mammals_too =}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\StringTok{"Mass.g"} \OperatorTok{<}\StringTok{ }\DecValTok{1000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Examine \texttt{small\_mammals} and \texttt{small\_mammals\_too} to check whether they are as expected.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# count rows}
+\KeywordTok{map_int}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{sm_1 =}\NormalTok{ small_mammals, }\DataTypeTok{sm2 =}\NormalTok{ small_mammals_too),}
+\NormalTok{        nrow)}
+\CommentTok{#> sm_1  sm2 }
+\CommentTok{#> 4381    0}
+\end{Highlighting}
+\end{Shaded}
+
+The difference in the number of rows is because \texttt{dplyr::filter} could not understand the string \texttt{"Mass.g"} as a variable in the dataframe.
+
+This is because the \texttt{tidyverse}, through its \texttt{tidyselect} package, makes a distinction between \texttt{"Mass.g"}, and \texttt{Mass.g}.
+
+A better explanation of (some of) the theory behind this can be found here: \href{https://dplyr.tidyverse.org/articles/programming.html\#setting-variable-names}{Programming with dplyr}.
+
+The same issue arises with functions such as \texttt{dplyr::summarise} and \texttt{dplyr::group\_by}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# summarise using an unquoted variable}
+\KeywordTok{summarise}\NormalTok{(data,}
+          \DataTypeTok{mean_mass =} \KeywordTok{mean}\NormalTok{(Mass.g))}
+\CommentTok{#> # A tibble: 1 x 1}
+\CommentTok{#>   mean_mass}
+\CommentTok{#>       <dbl>}
+\CommentTok{#> 1   156882.}
+
+\CommentTok{# this will print a warning}
+\KeywordTok{summarise}\NormalTok{(data,}
+          \DataTypeTok{mean_mass =} \KeywordTok{mean}\NormalTok{(}\StringTok{"Mass.g"}\NormalTok{))}
+\CommentTok{#> Warning in mean.default("Mass.g"): argument is not numeric or logical: returning}
+\CommentTok{#> NA}
+\CommentTok{#> # A tibble: 1 x 1}
+\CommentTok{#>   mean_mass}
+\CommentTok{#>       <dbl>}
+\CommentTok{#> 1        NA}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{why-the-issue-is-a-problem}{%
+\subsection{Why the issue is a problem}\label{why-the-issue-is-a-problem}}
+
+Consider an analysis pipeline as follows.
+
+\texttt{data\ \%\textgreater{}\%\ select\ variables\ \%\textgreater{}\%\ summarise\ by\ groups}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(Mass.g, Diet.Plant, Order.}\FloatTok{1.2}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Order.}\FloatTok{1.2}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise_all}\NormalTok{(}\DataTypeTok{.funs =}\NormalTok{ mean) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 3}
+\CommentTok{#>   Order.1.2          Mass.g Diet.Plant}
+\CommentTok{#>   <chr>               <dbl>      <dbl>}
+\CommentTok{#> 1 Afrosoricida        306.       0.947}
+\CommentTok{#> 2 Carnivora         47905.      14.1  }
+\CommentTok{#> 3 Cetartiodactyla 1854811.      76.2  }
+\CommentTok{#> 4 Chiroptera           49.1     27.3  }
+\CommentTok{#> 5 Cingulata        235529.      43.0  }
+\CommentTok{#> 6 Dasyuromorphia      748.       1.09}
+\end{Highlighting}
+\end{Shaded}
+
+Now consider that this analysis pipeline is repeated many times in your document. Consider also that a well intentioned person has renamed the dataframe columns.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data <-}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  `}\DataTypeTok{colnames<-}\StringTok{`}\NormalTok{(}\KeywordTok{str_replace_all}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(data), }\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{."}\NormalTok{, }\StringTok{"_"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{                 }\NormalTok{str_to_lower }\OperatorTok{%>%}\StringTok{ }
+\StringTok{                 }\KeywordTok{str_remove}\NormalTok{(}\StringTok{"_1_2"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+The group-summarise code above will no longer work.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{try_this}\NormalTok{(}\DataTypeTok{ex =} 
+           
+\NormalTok{    data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{select}\NormalTok{(Mass.g, Diet.Plant, Order.}\FloatTok{1.2}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{group_by}\NormalTok{(Order.}\FloatTok{1.2}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{summarise_all}\NormalTok{(}\DataTypeTok{.funs =}\NormalTok{ mean) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{head}\NormalTok{()}
+\NormalTok{)}
+\CommentTok{#> Error: Can't subset columns that don't exist.}
+\CommentTok{#> x Column `Mass.g` doesn't exist.}
+\end{Highlighting}
+\end{Shaded}
+
+This illustrates the problem in part: when the columns to be operated upon are \emph{unknown to the programmer}, much of basic \texttt{tidyverse} code cannot be generalised to be used with any dataframe.
+
+\hypertarget{passing-variables-as-strings-is-also-an-issue}{%
+\subsection{Passing variables as strings is (also) an issue}\label{passing-variables-as-strings-is-also-an-issue}}
+
+The variables to be operated on could be given as strings, perhaps as the argument to a function, or as a global variable. This way, a single global vector could contain the grouping variables for all further \texttt{summarise} procedures.
+
+This runs into the problem identified earlier.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# choose some variables}
+\NormalTok{vars_to_select =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Mass.g"}\NormalTok{, }\StringTok{"Diet.Plant"}\NormalTok{)}
+\NormalTok{vars_to_group =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Order.1.2"}\NormalTok{)}
+
+\CommentTok{# attempt to select and summarise on group}
+\CommentTok{# the tidyverse will not be pleased}
+\KeywordTok{try_this}\NormalTok{(}\DataTypeTok{ex =} 
+           
+\NormalTok{    data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{select}\NormalTok{(vars_to_select) }\OperatorTok{%>%}\StringTok{ }\CommentTok{# this works with a warning}
+\StringTok{      }\KeywordTok{group_by}\NormalTok{(vars_to_group) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_mass =} \KeywordTok{mean}\NormalTok{(Mass.g),}
+                \DataTypeTok{mean_plant =} \KeywordTok{mean}\NormalTok{(Diet.Plant))}
+\NormalTok{)}
+\CommentTok{#> Error: Can't subset columns that don't exist.}
+\CommentTok{#> x Columns `Mass.g` and `Diet.Plant` don't exist.}
+\end{Highlighting}
+\end{Shaded}
+
+In the case of a standard \texttt{filter\ \%\textgreater{}\%\ group\ \%\textgreater{}\%\ summarise} pipeline, the function's operations are evident. It must filter a dataframe based on a/some column(s), and then summarise by groups. The filter to be applied, the variables to group by, and the variables to be summarised should be passed as function arguments --- just how this is to be done is not immediately obvious.
+
+\hypertarget{flexible-selection-is-easy}{%
+\section{Flexible selection is easy}\label{flexible-selection-is-easy}}
+
+Selection often precedes data operations, but is not part of the pipeline dealt with further.
+
+This is because \texttt{dplyr::select} appears to work on both quoted and unquoted variables, but in general some useful \texttt{select} helpers such as \texttt{dplyr::all\_of} should be used. These straightforward helper functions significantly expand \texttt{select}'s flexibility and ease of use, and are not covered here. See the \texttt{select} help for more information.
+
+\hypertarget{a-first-attempt-at-a-flexible-function}{%
+\section{A first attempt at a flexible function}\label{a-first-attempt-at-a-flexible-function}}
+
+The attempt below to write such a function, which gives the mean and confidence intervals of groups is likely to fail.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# define a ci function}
+\NormalTok{ci <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, }\DataTypeTok{ci =} \DecValTok{95}\NormalTok{) \{}
+  \KeywordTok{qnorm}\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{ci }\OperatorTok{/}\StringTok{ }\DecValTok{100}\NormalTok{)}\OperatorTok{/}\DecValTok{2}\NormalTok{) }\OperatorTok{*}\StringTok{ }\KeywordTok{sd}\NormalTok{(x, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{/}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{length}\NormalTok{(x))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, filters, grouping_vars, summary_vars) \{}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(filters) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(grouping_vars) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean =} \KeywordTok{mean}\NormalTok{(summary_vars),}
+              \DataTypeTok{ci =} \KeywordTok{ci}\NormalTok{(summary_vars))}
+  
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{failure-of-the-first-attempt}{%
+\subsection{Failure of the first attempt}\label{failure-of-the-first-attempt}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# this is going to fail, so look at the error message}
+\KeywordTok{try_this}\NormalTok{(}\DataTypeTok{ex =} \KeywordTok{custom_summary}\NormalTok{(data, }
+                   \DataTypeTok{filters =} \KeywordTok{list}\NormalTok{(mass_g }\OperatorTok{>}\StringTok{ }\DecValTok{1000}\NormalTok{), }
+                   \DataTypeTok{grouping_vars =} \KeywordTok{list}\NormalTok{(order, family),}
+                   \DataTypeTok{summary_vars =} \KeywordTok{list}\NormalTok{(diet_plant))}
+\NormalTok{         )}
+\CommentTok{#> Error: Problem with `filter()` input `..1`.}
+\CommentTok{#> x object 'mass_g' not found}
+\CommentTok{#> i Input `..1` is `filters`.}
+\end{Highlighting}
+\end{Shaded}
+
+This function initially failed because \texttt{filter} could not find \texttt{mass\_g} in the dataframe. This is because \texttt{mass\_g} is treated as an independent \texttt{R} object, while the function should instead treat it as a variable in a dataframe.
+
+The difference between so-called \texttt{data} and \texttt{environment} variables is explained better at the \texttt{rlang} and \texttt{tidyeval} websites and tutorials linked at the end of this chapter. It is this difference that prevents filter from correctly interpreting \texttt{mass\_g}.
+
+\hypertarget{passing-arguments-as-strings-doesnt-help}{%
+\subsection{Passing arguments as strings doesn't help}\label{passing-arguments-as-strings-doesnt-help}}
+
+The example below tries to get \texttt{filter} to work. What could be tried? One option is to attempt passing the filtering process as a string argument, i.e., \texttt{"mass\_g\ \textgreater{}\ 1000"}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# it doesn't matter whether filters is a vector or list}
+\KeywordTok{try_this}\NormalTok{(}\DataTypeTok{ex =} \KeywordTok{custom_summary}\NormalTok{(data, }
+                   \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+                   \DataTypeTok{grouping_vars =} \KeywordTok{list}\NormalTok{(order, family),}
+                   \DataTypeTok{summary_vars =} \KeywordTok{list}\NormalTok{(diet_plant))}
+\NormalTok{         )}
+\CommentTok{#> Error: Problem with `filter()` input `..1`.}
+\CommentTok{#> x Input `..1` must be a logical vector, not a character.}
+\CommentTok{#> i Input `..1` is `filters`.}
+\end{Highlighting}
+\end{Shaded}
+
+While this doesn't work, it is on the right track, which is that the \texttt{filters} argument needs some extra work beyond changing the type.
+
+\hypertarget{none-of-the-other-arguments-will-be-successful}{%
+\subsection{None of the other arguments will be successful}\label{none-of-the-other-arguments-will-be-successful}}
+
+\texttt{filter} was the first failure, after which it stopped further evaluation, but none of the steps of the custom function would have worked, for the same reason filter would not have worked: all the arguments need some work before they can be passed to their respective functions.
+
+\hypertarget{flexible-filtering-in-a-function}{%
+\section{Flexible filtering in a function}\label{flexible-filtering-in-a-function}}
+
+The first thing to try is to change how \texttt{filter} uses the argument passed to it.
+Here, the argument \texttt{filters} is passed as a character vector, and is set by default to filter out mammals with masses below 1 kg.
+
+The argument could be passed as a list, but the \texttt{rlang::parse\_exprs} function works on vectors, not lists. The conversion between them is trivial for single level lists with atomic types (\texttt{purrr::as\_vector}).
+
+\hypertarget{a-brief-detour-expressions-in-r}{%
+\subsubsection*{A brief detour: Expressions in R}\label{a-brief-detour-expressions-in-r}}
+\addcontentsline{toc}{subsubsection}{A brief detour: Expressions in R}
+
+A full explanation of \texttt{R} works under the hood would take a very long time. A working knowledge of how this working can be exploited is usually sufficient to use most of \texttt{R}'s functionality.
+
+\texttt{R} expressions are one such. They represent a promise of \texttt{R} code, but without being evaluated. Any string can be parsed (interpreted) as an \texttt{R} expression.
+
+What does \texttt{rlang::parse\_exprs} do? It interprets a string as an \texttt{R} command.
+This expression can then be evaluated later. Consider the following, where \texttt{a} is assigned the \texttt{numeric} value 3.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# a is assigned}
+\NormalTok{a =}\StringTok{ }\DecValTok{3}
+
+\CommentTok{# parsed but not evaluated}
+\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_expr}\NormalTok{(}\StringTok{"a + 3"}\NormalTok{)}
+\CommentTok{#> a + 3}
+
+\CommentTok{# evaluated}
+\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_expr}\NormalTok{(}\StringTok{"a + 3"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\NormalTok{eval}
+\CommentTok{#> [1] 6}
+\end{Highlighting}
+\end{Shaded}
+
+Here, \texttt{a\ +\ 3} was converted to an expression in the second command, and only evaluated in the third.
+
+\hypertarget{unquoting-with}{%
+\subsubsection*{\texorpdfstring{Unquoting with \texttt{!!!}}{Unquoting with !!!}}\label{unquoting-with}}
+\addcontentsline{toc}{subsubsection}{Unquoting with \texttt{!!!}}
+
+\texttt{R} expressions underlie \texttt{R} code. Their evaluation can be forced inside another function using the special operators \texttt{!!} and \texttt{!!!}, for single and multiple \texttt{R} expressions respectively.
+
+\hypertarget{flexible-filtering-using-expressions}{%
+\subsection{Flexible filtering using expressions}\label{flexible-filtering-using-expressions}}
+
+Consider the case where mammals below 1 kg body mass are to be excluded. The \texttt{dplyr} code would look like this:
+
+\texttt{filter(data,\ mass\_g\ \textgreater{}\ 1000)}
+
+This fixes both the variable to be filtered by, as well as the cut-off value. This can be made flexible for a custom function that allows any kind of filtering.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{)) \{}
+  
+  \CommentTok{# THIS IS THE IMPORTANT BIT}
+\NormalTok{  filters =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{filters)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Try this function with single and multiple filters.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# mammals above a kilo}
+\KeywordTok{custom_summary}\NormalTok{(data, }
+               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+
+\StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 2}
+\CommentTok{#>   binomial                mass_g}
+\CommentTok{#>   <chr>                    <dbl>}
+\CommentTok{#> 1 Acerodon_jubatus         1075 }
+\CommentTok{#> 2 Acinonyx_jubatus        46700 }
+\CommentTok{#> 3 Acratocnus_odontrigonus 22990 }
+\CommentTok{#> 4 Acratocnus_ye           21310 }
+\CommentTok{#> 5 Addax_nasomaculatus     70000.}
+\CommentTok{#> 6 Aepyceros_melampus      52500.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# mammals between 250 and 500 g and which are mostly carnivorous}
+\KeywordTok{custom_summary}\NormalTok{(data, }
+               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"between(mass_g, 250, 500)"}\NormalTok{,}
+                           \StringTok{"diet_plant < 10"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+
+\StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g, diet_plant) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 3}
+\CommentTok{#>   binomial                mass_g diet_plant}
+\CommentTok{#>   <chr>                    <dbl>      <dbl>}
+\CommentTok{#> 1 Chrysospalax_trevelyani   426.          0}
+\CommentTok{#> 2 Cyclopes_didactylus       330.          0}
+\CommentTok{#> 3 Desmana_moschata          383           0}
+\CommentTok{#> 4 Dologale_dybowskii        350           0}
+\CommentTok{#> 5 Hydromys_chrysogaster     480.          0}
+\CommentTok{#> 6 Hyosciurus_heinrichi      296           0}
+\end{Highlighting}
+\end{Shaded}
+
+The function \texttt{filter} correctly processes the string passed to filter the data.
+
+\hypertarget{flexible-grouping-in-a-function}{%
+\section{Flexible grouping in a function}\label{flexible-grouping-in-a-function}}
+
+Just as the exact filtering approach can be controlled from a single string vector in the example above, the grouping variables can also be stored and passed as arguments using the \texttt{...} (dots) argument. Dots are a convenient way of referring to all unnamed arguments of a function.
+Here, they are used to accept the grouping variables.
+
+\hypertarget{using-...-and-forwarding}{%
+\subsection{\texorpdfstring{Using \texttt{...} and `forwarding'}{Using ... and `forwarding'}}\label{using-...-and-forwarding}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{),}
+\NormalTok{                          ...) \{}
+  \CommentTok{# deal with groups}
+\NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{enquos}\NormalTok{(...)}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
+\StringTok{    }
+\StringTok{    }\CommentTok{# this is the important bit}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Try the function again, and check the grouping variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{custom_summary}\NormalTok{(data, }
+               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+\NormalTok{               order, family) }\OperatorTok{%>%}\StringTok{ }
+
+\StringTok{  }\KeywordTok{group_vars}\NormalTok{()}
+\CommentTok{#> [1] "order"  "family"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{passing-grouping-variables-as-strings}{%
+\subsection{Passing grouping variables as strings}\label{passing-grouping-variables-as-strings}}
+
+In the previous example, the grouping variables were passed as unquoted variables, then \texttt{enquo}-ted and parsed, after which they were applied.
+An alternative way of passing arguments to a function is as a string vector, i.e, \texttt{grouping\_vars\ =\ c("var\_a",\ "var\_b)}.
+
+This can be done by interpreting the string vector as \texttt{R} symbols using \texttt{rlang::syms}. It could also be done by treating them as a full expression using the previously covered \texttt{rlang::parse\_exprs}. However, both methods must use an unquoting-splice (\texttt{!!!}), i.e., force the evaluation of a list of \texttt{R} expressions.
+
+\hypertarget{using-rlangsyms}{%
+\subsection{\texorpdfstring{Using \texttt{rlang::syms}}{Using rlang::syms}}\label{using-rlangsyms}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+\NormalTok{                          grouping_vars) \{}
+  \CommentTok{# deal with groups}
+\NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{syms}\NormalTok{(grouping_vars)}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
+\StringTok{    }
+\StringTok{    }\CommentTok{# this is the important bit}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{custom_summary}\NormalTok{(data, }
+               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+               \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"order"}\NormalTok{, }\StringTok{"family"}\NormalTok{)}
+\NormalTok{              ) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_mass =} \KeywordTok{mean}\NormalTok{(mass_g)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 3}
+\CommentTok{#> # Groups:   order [2]}
+\CommentTok{#>   order        family      mean_mass}
+\CommentTok{#>   <chr>        <chr>           <dbl>}
+\CommentTok{#> 1 Afrosoricida Tenrecidae     13220 }
+\CommentTok{#> 2 Carnivora    Ailuridae       4900 }
+\CommentTok{#> 3 Carnivora    Canidae        10502.}
+\CommentTok{#> 4 Carnivora    Eupleridae      5853.}
+\CommentTok{#> 5 Carnivora    Felidae        52801.}
+\CommentTok{#> 6 Carnivora    Herpestidae     2334.}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{using-rlangparse_exprs}{%
+\subsection{\texorpdfstring{Using \texttt{rlang::parse\_exprs}}{Using rlang::parse\_exprs}}\label{using-rlangparse_exprs}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+\NormalTok{                          grouping_vars) \{}
+  \CommentTok{# deal with groups}
+\NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
+\StringTok{    }
+\StringTok{    }\CommentTok{# this is the important bit}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{custom_summary}\NormalTok{(data, }
+               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+               \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"family"}\NormalTok{, }\StringTok{"iucn_status"}\NormalTok{)}
+\NormalTok{              ) }\OperatorTok{%>%}\StringTok{ }
+
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_mass =} \KeywordTok{mean}\NormalTok{(mass_g)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 3}
+\CommentTok{#> # Groups:   family [5]}
+\CommentTok{#>   family         iucn_status mean_mass}
+\CommentTok{#>   <chr>          <chr>           <dbl>}
+\CommentTok{#> 1 Ailuridae      EN              4900 }
+\CommentTok{#> 2 Anomaluridae   DD              1770 }
+\CommentTok{#> 3 Antilocapridae EP             40503.}
+\CommentTok{#> 4 Antilocapridae LC             46083.}
+\CommentTok{#> 5 Aotidae        LC              1060 }
+\CommentTok{#> 6 Aplodontiidae  LC              1004}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{flexible-summarising-in-a-function}{%
+\section{Flexible summarising in a function}\label{flexible-summarising-in-a-function}}
+
+Summarising using string expressions has been around in the \texttt{tidyverse} for a very long time, and \texttt{summarise\_at} is a function most users are familiar with, along with its variants \texttt{summarise\_if}, \texttt{summarise\_all}
+
+\hypertarget{using-dplyrsummarise_at}{%
+\subsection{\texorpdfstring{Using \texttt{dplyr::summarise\_at}}{Using dplyr::summarise\_at}}\label{using-dplyrsummarise_at}}
+
+Simply pass a string vector to the \texttt{.vars} argument of \texttt{summarise\_at}, while passing a list, named or otherwise, of functions to the \texttt{.funs} argument.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+\NormalTok{                          grouping_vars,}
+\NormalTok{                          summary_vars,}
+\NormalTok{                          summary_funs) \{}
+  \CommentTok{# deal with groups}
+\NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }
+\StringTok{    }\CommentTok{# important bit}
+\StringTok{    }\KeywordTok{summarise_at}\NormalTok{(}\DataTypeTok{.vars =}\NormalTok{ summary_vars, }
+                 \DataTypeTok{.funs =}\NormalTok{ summary_funs)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{custom_summary}\NormalTok{(data,}
+               \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"order"}\NormalTok{, }\StringTok{"family"}\NormalTok{),}
+               \DataTypeTok{summary_vars =} \StringTok{"mass_g"}\NormalTok{,}
+               \DataTypeTok{summary_funs =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{this_is_a_mean =}\NormalTok{ mean, sd))}
+\CommentTok{#> # A tibble: 113 x 4}
+\CommentTok{#> # Groups:   order [24]}
+\CommentTok{#>   order        family      this_is_a_mean    fn1}
+\CommentTok{#>   <chr>        <chr>                <dbl>  <dbl>}
+\CommentTok{#> 1 Afrosoricida Tenrecidae          13220     NA }
+\CommentTok{#> 2 Carnivora    Ailuridae            4900     NA }
+\CommentTok{#> 3 Carnivora    Canidae             10502. 11618.}
+\CommentTok{#> 4 Carnivora    Eupleridae           5853.  6234.}
+\CommentTok{#> 5 Carnivora    Felidae             52801. 88201.}
+\CommentTok{#> 6 Carnivora    Herpestidae          2334.   937.}
+\CommentTok{#> # ... with 107 more rows}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{using-the-across-argument-for-summary-variables}{%
+\subsection{\texorpdfstring{Using the \texttt{across} argument for summary variables}{Using the across argument for summary variables}}\label{using-the-across-argument-for-summary-variables}}
+
+\texttt{dplyr\ 1.0.0} had \texttt{summarise\_*} superseded by the \texttt{across} argument to \texttt{summarise}. This works somewhat differently.
+The example below shows how the \texttt{mean} of a trait of mammal groups can be found.
+
+This example makes use of embracing using \texttt{\{\{\ \}\}}, where the double curly braces indicate a \href{https://adv-r.hadley.nz/functions.html\#lazy-evaluation}{promise}, i.e., an expectation that such a variable will exist in the function environment.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+\NormalTok{                          grouping_vars,}
+\NormalTok{                          summary_vars) \{}
+  \CommentTok{# deal with groups}
+\NormalTok{  grouping_vars =}\StringTok{ }\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }
+\StringTok{    }\CommentTok{# important bit}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\KeywordTok{across}\NormalTok{(\{\{ summary_vars \}\},}
+              \OperatorTok{~}\StringTok{ }\KeywordTok{mean}\NormalTok{(.)))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{custom_summary}\NormalTok{(data,}
+               \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"order"}\NormalTok{, }\StringTok{"family"}\NormalTok{),}
+               \DataTypeTok{summary_vars =} \KeywordTok{c}\NormalTok{(mass_g, diet_plant)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 4}
+\CommentTok{#> # Groups:   order [2]}
+\CommentTok{#>   order        family      mass_g diet_plant}
+\CommentTok{#>   <chr>        <chr>        <dbl>      <dbl>}
+\CommentTok{#> 1 Afrosoricida Tenrecidae  13220       4    }
+\CommentTok{#> 2 Carnivora    Ailuridae    4900      80    }
+\CommentTok{#> 3 Carnivora    Canidae     10502.     15.0  }
+\CommentTok{#> 4 Carnivora    Eupleridae   5853.      2.67 }
+\CommentTok{#> 5 Carnivora    Felidae     52801.      0.348}
+\CommentTok{#> 6 Carnivora    Herpestidae  2334.      9.86}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{across} also accepts multiple functions just as \texttt{summarise\_} did. This works as follows.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# mean and sd}
+\NormalTok{data }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(order, family) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\KeywordTok{across}\NormalTok{(}\KeywordTok{c}\NormalTok{(mass_g, diet_plant),}
+                   \KeywordTok{list}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{mean}\NormalTok{(.),}
+                        \OperatorTok{~}\StringTok{ }\KeywordTok{sd}\NormalTok{(.))}
+\NormalTok{                   )}
+\NormalTok{            ) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 6}
+\CommentTok{#> # Groups:   order [2]}
+\CommentTok{#>   order        family          mass_g_1 mass_g_2 diet_plant_1 diet_plant_2}
+\CommentTok{#>   <chr>        <chr>              <dbl>    <dbl>        <dbl>        <dbl>}
+\CommentTok{#> 1 Afrosoricida Chrysochloridae     60.7     86.6        0             0   }
+\CommentTok{#> 2 Afrosoricida Tenrecidae         449.    2197.         1.5           6.83}
+\CommentTok{#> 3 Carnivora    Ailuridae         4900       NA         80            NA   }
+\CommentTok{#> 4 Carnivora    Canidae          10268.   11568.        16.0          18.0 }
+\CommentTok{#> 5 Carnivora    Eupleridae        3777.    5364.         4.6           6.72}
+\CommentTok{#> 6 Carnivora    Felidae          52801.   88201.         0.348         2.36}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{summarise-multiple-variables-using-...}{%
+\subsection{\texorpdfstring{Summarise multiple variables using \texttt{...}}{Summarise multiple variables using ...}}\label{summarise-multiple-variables-using-...}}
+
+Here, the unquoted and unnamed variables passed to the function are captured by \texttt{...} and \texttt{enquos}-ed, i.e, their evaluation is delayed.
+Then the variables are forcibly evaluated within the \texttt{mean} function, and this expression is captured using \texttt{expr}. Since there are multiple variables to summarise, these expressions are stored as a list.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+\NormalTok{                          grouping_vars,}
+\NormalTok{                          filters,}
+\NormalTok{                          ...) \{}
+  \CommentTok{# deal with groups}
+\NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
+  
+  \CommentTok{# deal with summary variables}
+\NormalTok{  summary_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{enquos}\NormalTok{(...)}
+  
+  \CommentTok{# apply the summary function to the variables}
+\NormalTok{  summary_vars <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map}\NormalTok{(summary_vars, }\ControlFlowTok{function}\NormalTok{(var) \{}
+\NormalTok{    rlang}\OperatorTok{::}\KeywordTok{expr}\NormalTok{(}\KeywordTok{mean}\NormalTok{(}\OperatorTok{!!}\NormalTok{var, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{))}
+\NormalTok{  \})}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }
+\StringTok{    }\CommentTok{# important bit}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\OperatorTok{!!!}\NormalTok{summary_vars)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{custom_summary}\NormalTok{(data,}
+               \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"order"}\NormalTok{, }\StringTok{"family"}\NormalTok{),}
+               \DataTypeTok{filters =} \StringTok{"mass_g > 10"}\NormalTok{,}
+\NormalTok{               mass_g, diet_plant) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 4}
+\CommentTok{#> # Groups:   order [2]}
+\CommentTok{#>   order       family        `mean(mass_g, na.rm = T~ `mean(diet_plant, na.rm = ~}
+\CommentTok{#>   <chr>       <chr>                            <dbl>                       <dbl>}
+\CommentTok{#> 1 Afrosorici~ Chrysochlori~                     60.7                       0    }
+\CommentTok{#> 2 Afrosorici~ Tenrecidae                       597.                        2    }
+\CommentTok{#> 3 Carnivora   Ailuridae                       4900                        80    }
+\CommentTok{#> 4 Carnivora   Canidae                        10268.                       16.0  }
+\CommentTok{#> 5 Carnivora   Eupleridae                      3777.                        4.6  }
+\CommentTok{#> 6 Carnivora   Felidae                        52801.                        0.348}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{expr-and-enquo}{%
+\subsubsection*{\texorpdfstring{\texttt{expr} and \texttt{enquo}}{expr and enquo}}\label{expr-and-enquo}}
+\addcontentsline{toc}{subsubsection}{\texttt{expr} and \texttt{enquo}}
+
+\texttt{expr} and \texttt{enquo} are essentially the same, defusing/quoting (delaying evaluation) of \texttt{R} code. \texttt{expr} works on expressions supplied by the primary user, while \texttt{enquo} works on arguments passed to a function. When in doubt, ask whether the expression to be quoted has entered the function environment as an argument. If yes, use \texttt{enquo}, and if not \texttt{expr}. The plural forms \texttt{enquos} and \texttt{exprs} exist for multiple arguments.
+
+\hypertarget{correct-the-names-of-summary-variables}{%
+\subsubsection{Correct the names of summary variables}\label{correct-the-names-of-summary-variables}}
+
+The example above returns summary variables that are not assigned a name.
+The \texttt{enquos} function can assign the name from the variable names, so \texttt{mean(mass\_g)} is returned as \texttt{mass\_g}.
+Since it is useful to add a tag to make clear what the summary variable is (mean, variance etc.) an extra \texttt{glue} step is added to assign informative names to the summary variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+\NormalTok{                          grouping_vars,}
+\NormalTok{                          filters,}
+\NormalTok{                          ...) \{}
+  \CommentTok{# deal with groups}
+\NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
+  
+  \CommentTok{# deal with summary variables}
+\NormalTok{  summary_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{enquos}\NormalTok{(..., }\DataTypeTok{.named =} \OtherTok{TRUE}\NormalTok{)}
+  
+  \CommentTok{# apply the summary function to the variables}
+\NormalTok{  summary_vars <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map}\NormalTok{(summary_vars, }\ControlFlowTok{function}\NormalTok{(var) \{}
+\NormalTok{    rlang}\OperatorTok{::}\KeywordTok{expr}\NormalTok{(}\KeywordTok{mean}\NormalTok{(}\OperatorTok{!!}\NormalTok{var, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{))}
+\NormalTok{  \})}
+  
+  \CommentTok{# add a prefix to the summary variables}
+  \KeywordTok{names}\NormalTok{(summary_vars) <-}\StringTok{ }\NormalTok{glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\StringTok{'mean_\{names(summary_vars)\}'}\NormalTok{)}
+  
+\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }
+\StringTok{    }\CommentTok{# important bit}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\OperatorTok{!!!}\NormalTok{summary_vars)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{custom_summary}\NormalTok{(data,}
+               \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"order"}\NormalTok{, }\StringTok{"family"}\NormalTok{),}
+               \DataTypeTok{filters =} \StringTok{"mass_g > 10"}\NormalTok{,}
+\NormalTok{               mass_g, diet_plant) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 4}
+\CommentTok{#> # Groups:   order [2]}
+\CommentTok{#>   order        family          mean_mass_g mean_diet_plant}
+\CommentTok{#>   <chr>        <chr>                 <dbl>           <dbl>}
+\CommentTok{#> 1 Afrosoricida Chrysochloridae        60.7           0    }
+\CommentTok{#> 2 Afrosoricida Tenrecidae            597.            2    }
+\CommentTok{#> 3 Carnivora    Ailuridae            4900            80    }
+\CommentTok{#> 4 Carnivora    Canidae             10268.           16.0  }
+\CommentTok{#> 5 Carnivora    Eupleridae           3777.            4.6  }
+\CommentTok{#> 6 Carnivora    Felidae             52801.            0.348}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{summarise-with-multiple-functions}{%
+\subsection{Summarise with multiple functions}\label{summarise-with-multiple-functions}}
+
+The final step is to pass multiple summary functions to the summary variables.
+Unlike the earlier example using \texttt{summarise(across(vars,\ funs))}, the goal here is to apply one function to each variable.
+
+This is done by passing the functions and the variables on which they should operate as strings, and using string interpolation via \texttt{glue} to construct a coherent \texttt{R} expression. This expression is then named and evaluated.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+\NormalTok{                          grouping_vars,}
+\NormalTok{                          filters,}
+\NormalTok{                          functions,}
+\NormalTok{                          summary_vars) \{}
+  \CommentTok{# deal with groups}
+\NormalTok{  grouping_vars =}\StringTok{ }\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
+  
+  \CommentTok{# deal with summary variables}
+  \CommentTok{# summary_vars = # enquos(..., .named = TRUE)}
+  
+  \CommentTok{# apply the summary function to the variables}
+\NormalTok{  summary_exprs <-}\StringTok{ }\KeywordTok{parse_exprs}\NormalTok{(glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\StringTok{'\{functions\}(\{summary_vars\}, na.rm = TRUE)'}\NormalTok{))}
+  
+  \CommentTok{# add a prefix to the summary variables}
+  \KeywordTok{names}\NormalTok{(summary_exprs) <-}\StringTok{ }\NormalTok{glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\StringTok{'\{functions\}_\{summary_vars\}'}\NormalTok{)}
+  
+\NormalTok{  data }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}
+
+\StringTok{    }\CommentTok{# important bit}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\OperatorTok{!!!}\NormalTok{summary_exprs)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{custom_summary}\NormalTok{(data,}
+               \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"order"}\NormalTok{, }\StringTok{"family"}\NormalTok{),}
+               \DataTypeTok{filters =} \StringTok{"mass_g > 10"}\NormalTok{,}
+               \DataTypeTok{functions =} \KeywordTok{c}\NormalTok{(}\StringTok{"mean"}\NormalTok{, }\StringTok{"var"}\NormalTok{),}
+               \DataTypeTok{summary_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g"}\NormalTok{, }\StringTok{"diet_plant"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }
+\StringTok{  }\KeywordTok{head}\NormalTok{()}
+\CommentTok{#> # A tibble: 6 x 4}
+\CommentTok{#> # Groups:   order [2]}
+\CommentTok{#>   order        family          mean_mass_g var_diet_plant}
+\CommentTok{#>   <chr>        <chr>                 <dbl>          <dbl>}
+\CommentTok{#> 1 Afrosoricida Chrysochloridae        60.7           0   }
+\CommentTok{#> 2 Afrosoricida Tenrecidae            597.           61.8 }
+\CommentTok{#> 3 Carnivora    Ailuridae            4900            NA   }
+\CommentTok{#> 4 Carnivora    Canidae             10268.          325.  }
+\CommentTok{#> 5 Carnivora    Eupleridae           3777.           45.2 }
+\CommentTok{#> 6 Carnivora    Felidae             52801.            5.57}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{further-resources}{%
+\section{Further resources}\label{further-resources}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{dplyr}: \url{https://dplyr.tidyverse.org/index.html}
+\item
+  Tidy evaluation: Superseded and archived, but still useful \url{https://tidyeval.tidyverse.org/}
+\item
+  \texttt{rlang}: \url{https://rlang.r-lib.org/}
+\end{itemize}
 
 \end{document}

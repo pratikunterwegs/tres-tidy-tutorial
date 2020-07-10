@@ -9,7 +9,7 @@ The TRES tidyverse tutorial is an online workshop on how to use the tidyverse, a
 
 This tutorial will take the form of a one hour per week video stream via Google Meet, every Friday morning at 10.00 (Groningen time) starting from the 29th of May, 2020 and lasting for a couple of weeks (depending on the number of topics we want to cover, but there should be at least 5). 
 
-**PhD students from outside our department are welcome to attend.**
+**People from outside our department are welcome to attend.**
 
 ## Schedule
 
@@ -20,9 +20,8 @@ Data and reshaping|[tibble](https://tibble.tidyverse.org/), [tidyr](https://tidy
 Manipulating data|[dplyr](https://dplyr.tidyverse.org/)|Theo|12/06/20
 Working with lists and iteration|[purrr](https://purrr.tidyverse.org/)|Pratik|19/06/20
 Plotting|[ggplot2](https://ggplot2.tidyverse.org/)|Raphael|26/06/20
-Regular expressions|[regex](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html)|Richel|03/07/20
 Programming with the tidyverse|[rlang](https://rlang.r-lib.org/)|Pratik|10/07/20
-
+Regular expressions|[regex](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html)|_to be decided_|17/07/20
 
 ## Possible extras
 
