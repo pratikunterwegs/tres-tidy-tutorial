@@ -3,7 +3,96 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Applications
+# Introduction
+
+![](06_regular_expressions.png)
+
+> 'Regular expressions' from https://xkcd.com/208
+
+## Goal
+
+In this chapter, you will learn:
+
+ * How to express your ideas as a regular expression
+ * Verify that you indeed did so
+
+## Why is this important?
+
+Knowing the basics of regular expressions, prevents you having
+to hand-craft functions to detect patterns in any text.
+
+Being able to verify your own assumptions allows you to speed
+up any development of any code. It is estimated that 80-90%
+of all the time, we are debugging our code. Being good at 
+testing, is the way to become faster.
+
+## Exercise: Spot the pattern
+
+Each line below is or contains a pattern. Observe what your brain does
+when interpreting a line. If it thinks: 'Hey, that's a [pattern], 
+because [regular expression]', you got your answer!
+
+Answer, for each line: (1) what is it? (2) why did you think to?
+
+```
+Lithium-ion batteries play a central role in the world of technology.
+But would it be safe to simply orbit the planet?
+Your Next Samsung Phone May Not Come With a Charger in the Box
+The restrictions would end 90 days after Portland's state of emergency order lifts. 
+Those cities have limits at 15%.
+```
+
+## Answers: Spot the pattern
+
+```
+Lithium-ion batteries play a central role in the world of technology.
+```
+
+This is a sentence, because it ends with a dot.
+
+```
+But would it be safe to simply orbit the planet?
+```
+
+This is a question, becase it ends with a question mark.
+
+```
+Your Next Samsung Phone May Not Come With a Charger in the Box
+```
+
+This is a title, because most words start with an uppercase character.
+
+```
+The restrictions would end 90 days after Portland's state of emergency order lifts. 
+```
+
+This is a sentence with a decimal number, because there is a sequence of
+characters that consists out of numbers only.
+
+```
+Those cities have limits at 15%.
+```
+
+This is a sentence with a percentage, because there is a sequence of
+characters that consists out of numbers only, with a percentage sign connected
+to it.
+
+ * Texts from [https://slashdot.org](https://slashdot.org).
+
+## What are regular expressions?
+
+A regular expression 'is a sequence of characters that define a 
+search pattern'. Such a pattern may be a zip code, a date,
+or any other text of which you can say: 'this is not just text,
+it is a [something]'.
+
+For example, take a Dutch zip code: `9747 AG`. Dutch zip
+code have four digits, a space and then two uppercase 
+alphabet characters.
+
+## Applications
+
+DNA data:
 
 ```
 >KU215420.1|Felinecoronavirus|Feliscatus|Belgium|2013|Envelope
@@ -12,32 +101,365 @@ ATGATGTTTCCTAGGGCATTTACTATCATAGATGACCATGGTATGGTTGTTAGTGTCTTC
 ATGATGTTTCCTAGGGCATTTACTATCATAGACGACCATGGTATGGTTGTTAGTGTCTTC
 ```
 
+Protein data:
 
 ```
 >sp|P0DTC2|SPIKE_SARS2 Spike glycoprotein OS=Severe acute respiratory syndrome coronavirus 2 OX=2697049 GN=S PE=1 SV=1
 MFVFLVLLPLVSSQCVNLTTRTQLPPAYTNSFTRGVYYPDKVFRSSVLHSTQDLFLPFFS
 >sp|P0DTC5|VME1_SARS2 Membrane protein OS=Severe acute respiratory syndrome coronavirus 2 OX=2697049 PE=3 SV=1
 MADSNGTITVEELKKLLEQWNLVIGFLFLTWICLLQFAYANRNRFLYIIKLIFLWLLWPV
-``
+```
 
-# Not just R
+Most messy data, preferably in an Excel sheet :+1:
 
- * egrep
- * sed
- * ls
+## Multiple in R
 
-# Dialects
+![](06_stringr.png)
 
-Different flavors!
+> The 'stringr' logo. 'stringr' is part of the Tidyverse
 
- * POSIX
- * perl
+R functions to work with regular expressions:
 
-# Many in R
-
+ * `stringr::string_`
  * `egrep`
  * `gsub`
- * `std::string_`
+
+## Dangers of regexes
+
+![](06_perl_problems.png)
+
+> 'Perl problems', from https://xkcd.com/1171/
+
+Regexes have different flavors, such as POSIX and perl.
+
+> I define UNIX as 30 definitions of regular expressions living under one roof.
+>
+> Donald Knuth. Digital Typography, ch. 33, p. 649 (1999)
+
+We'll have to test!
+
+# Testing
+
+![](06_george_dinwiddie.jpg)
+
+> From George Dinwiddie's blog, http://blog.gdinwiddie.com/2012/12/26/tdd-hat/
+
+## Why test?
+
+> Testers don’t like to break things; 
+> they like to dispel the illusion that things work.
+>
+> Kaner, Bach, Pettichord
+
+ * To be sure your code is correct
+ * Spend less time fixing bugs
+ * Unit of communication
+ * Clean software interface
+
+## Our first test
+
+The `testthat` package is the Tidyverse package to write tests.
+
+```{r}
+library(testthat)
+```
+
+All test functions start with `expect_`, for example:
+
+```{r}
+expect_true(1 + 1 == 2)
+expect_false("cat" == "dog")
+expect_equal(1 + 1, 2)
+```
+
+# Detect a full match
+
+```{r}
+library(stringr)
+```
+
+Here, we will detect simple patterns using `str_which`.
+
+Tip: run `?str_which` for its documentation.
+
+![](06_detect.png)
+
+> From 'Work with Strings Cheatsheet', https://rstudio.com/resources/cheatsheets
+
+
+## `str_subset` demo
+
+```{r}
+fruit <- c("apple", "banana", "pinapple")
+
+expect_equal(
+  str_which(fruit, "banana"),
+  2
+)
+
+expect_equal(
+  str_which(fruit, "apple"),
+  c(1, 3)
+)
+
+expect_equal(
+  str_which(fruit, "submarine"),
+  integer(0)
+)
+```
+
+## Example exercise: `is_a_one`
+
+Write a function called `is_a_one` that detects if a string is one one.
+
+The function must use `str_subset`.
+
+These tests must pass:
+
+```
+expect_true(is_a_one("1"))
+expect_false(is_a_one(""))
+expect_false(is_a_one("X"))
+expect_false(is_a_one(c("1", "1")))
+expect_false(is_a_one(integer(0)))
+expect_false(is_a_one(NULL))
+expect_false(is_a_one(NA))
+expect_false(is_a_one(Inf))
+```
+
+### Answer `is_a_one`
+
+```{r}
+is_a_one <- function(text) {
+  length(stringr::str_which(text, "1")) == 1
+} 
+```
+
+```{r}
+expect_true(is_a_one("1"))
+expect_false(is_a_one(""))
+expect_false(is_a_one("X"))
+expect_false(is_a_one(c("1", "1")))
+expect_false(is_a_one(integer(0)))
+expect_false(is_a_one(NULL))
+expect_false(is_a_one(NA))
+expect_false(is_a_one(Inf))
+```
+
+Incorrect answers:
+
+```{r}
+is_a_one_bad_1 <- function(text) {
+  text == "1"
+} 
+
+is_a_one_bad_2 <- function(text) {
+  length(text) == 1 && text == "1"
+} 
+```
+
+
+## Exercise: `is_a_digit`
+
+Write a function called `is_a_digit` that detects if a string is one digit.
+
+Use the regex pattern as shown on the cheatsheet to specify a digit:
+
+![](06_character_sets.png)
+
+> From 'Work with Strings Cheatsheet', https://rstudio.com/resources/cheatsheets
+
+These tests must pass:
+
+```
+expect_true(is_a_digit("0"))
+expect_true(is_a_digit("1"))
+# The other digits
+expect_false(is_a_digit(""))
+expect_false(is_a_digit("X"))
+expect_false(is_a_digit(c("1", "2")))
+expect_false(is_a_digit(character(0)))
+expect_false(is_a_digit(NULL))
+expect_false(is_a_digit(NA))
+expect_false(is_a_digit(Inf))
+```
+
+### Answer: `is_a_digit`
+
+```{r}
+is_a_digit <- function(text) {
+  length(stringr::str_which(text, "[:digit:]")) == 1
+} 
+```
+
+```{r}
+expect_true(is_a_digit("0"))
+expect_true(is_a_digit("1"))
+# The other digits
+expect_false(is_a_digit(""))
+expect_false(is_a_digit("X"))
+expect_false(is_a_digit(c("1", "2")))
+expect_false(is_a_digit(character(0)))
+expect_false(is_a_digit(NULL))
+expect_false(is_a_digit(NA))
+expect_false(is_a_digit(Inf))
+```
+
+## Exercise: `is_a_word`
+
+Write a function called `is_a_word` that detects if a string is a word.
+
+To simplify now, a word is defined as:
+
+ * Having one or more lowercase characters
+ * Having no dashes, nor numbers
+
+Use the quantifiers as shown on the cheatsheet to specify that one needs
+one or more characters:
+
+![](06_quantifiers.png)
+
+> From 'Work with Strings Cheatsheet', https://rstudio.com/resources/cheatsheets
+
+Use the anchors as shown on the cheatsheet to specify that
+the complete string, from begin to the end, must consist out of characters
+
+![](06_anchors.png)
+
+> From 'Work with Strings Cheatsheet', https://rstudio.com/resources/cheatsheets
+
+These tests must pass:
+
+```
+expect_true(is_a_word("a"))
+expect_true(is_a_word("an"))
+expect_true(is_a_word("apple"))
+expect_false(is_a_word("X"))
+expect_false(is_a_word("XX"))
+expect_false(is_a_word("Hi"))
+expect_false(is_a_word("hI"))
+expect_false(is_a_word("hoWdy"))
+expect_false(is_a_word(c("an", "apple")))
+expect_false(is_a_word(character(0)))
+expect_false(is_a_word(NULL))
+expect_false(is_a_word(NA))
+expect_false(is_a_word(Inf))
+```
+
+### Answer: `is_a_word`
+
+```{r}
+is_a_word <- function(text) {
+  length(stringr::str_which(text, "^[:lower:]+$")) == 1
+} 
+```
+
+```{r}
+expect_true(is_a_word("a"))
+expect_true(is_a_word("an"))
+expect_true(is_a_word("apple"))
+expect_false(is_a_word("X"))
+expect_false(is_a_word("XX"))
+expect_false(is_a_word("Hi"))
+expect_false(is_a_word("hI"))
+expect_false(is_a_word("hoWdy"))
+expect_false(is_a_word(c("an", "apple")))
+expect_false(is_a_word(character(0)))
+expect_false(is_a_word(NULL))
+expect_false(is_a_word(NA))
+expect_false(is_a_word(Inf))
+```
+
+## Exercise: `is_dna_sequence`
+
+Write a function called `is_dna_sequence` that detects if a string is
+a DNA sequence.
+
+To simplify now, a DNA sequence is defined as:
+
+ * There are four characters, one per nucleotides
+ * These characters are uppercase (A, C, G and T)
+
+Use the alternates as shown on the cheatsheet to specify that
+each character must be one of the four nucleotides:
+
+![](06_alternates.png)
+
+> From 'Work with Strings Cheatsheet', https://rstudio.com/resources/cheatsheets
+
+These tests must pass:
+
+```
+expect_true(is_dna_sequence("A"))
+expect_true(is_dna_sequence("AC"))
+expect_true(is_dna_sequence("ACG"))
+expect_true(is_dna_sequence("ACGT"))
+expect_false(is_dna_sequence("a"))
+expect_false(is_dna_sequence("Ax"))
+expect_false(is_dna_sequence("xA"))
+expect_false(is_dna_sequence("AxA"))
+expect_false(is_dna_sequence(c("A", "CGT")))
+expect_false(is_dna_sequence(character(0)))
+expect_false(is_dna_sequence(NULL))
+expect_false(is_dna_sequence(NA))
+expect_false(is_dna_sequence(Inf))
+```
+
+### Answer: `is_dna_sequence`
+
+```{r}
+is_dna_sequence <- function(text) {
+  length(stringr::str_which(text, "^[ACGT]+$")) == 1
+} 
+```
+
+```{r}
+expect_true(is_dna_sequence("A"))
+expect_true(is_dna_sequence("AC"))
+expect_true(is_dna_sequence("ACG"))
+expect_true(is_dna_sequence("ACGT"))
+expect_false(is_dna_sequence("a"))
+expect_false(is_dna_sequence("Ax"))
+expect_false(is_dna_sequence("xA"))
+expect_false(is_dna_sequence("AxA"))
+expect_false(is_dna_sequence(c("A", "CGT")))
+expect_false(is_dna_sequence(character(0)))
+expect_false(is_dna_sequence(NULL))
+expect_false(is_dna_sequence(NA))
+expect_false(is_dna_sequence(Inf))
+```
+
+# Extract a pattern
+
+Here, we will extract a pattern using `str_match`.
+
+Tip: run `?str_match` for its documentation.
+
+![](06_subset.png)
+
+> From 'Work with Strings Cheatsheet', https://rstudio.com/resources/cheatsheets
+
+## Context
+
+Here is a (simplified) DNA sequence:
+
+```{r}
+text <- c(
+  ">KU215420.1|Felinecoronavirus|Feliscatus|Belgium|2013|Envelope",
+  "ATGATGTTTCCTAGGGCATTTACTATCATAGATGACCATGGTATGGTTGTTAGTGTCTTC",
+  ">KP143511.1|Felinecoronavirus|Feliscatus|UnitedKingdom|2013|Envelope",
+  "ATGATGTTTCCTAGGGCATTTACTATCATAGACGACCATGGTATGGTTGTTAGTGTCTTC"
+)
+```
+
+The data encoded in this text:
+
+```
+>[protein name]|[virus name]|[host species name]|[country of host]|[year]|[]",
+"ATGATGTTTCCTAGGGCATTTACTATCATAGATGACCATGGTATGGTTGTTAGTGTCTTC",
+">KP143511.1|Felinecoronavirus|Feliscatus|UnitedKingdom|2013|Envelope",
+"ATGATGTTTCCTAGGGCATTTACTATCATAGACGACCATGGTATGGTTGTTAGTGTCTTC"
+```
 
 
 # Regular expressions and testthat
@@ -118,57 +540,6 @@ thesis_synthesis_create_figures <- function() {
 }
 ```
 
-## Goal
-
-In this chapter, you will learn:
-
- * How to express your ideas as a regular expression
- * Verify that you indeed did so
-
-## Why is this important?
-
-Knowing the basics of regular expressions, prevents you having
-to hand-craft functions to detect patterns in any text.
-
-Being able to verify your own assumptions allows you to speed
-up any development of any code. It is estimated that 80-90%
-of all the time, we are debugging our code. Being good at 
-testing, is the way to become faster.
-
-## Overview
-
-In this chapter, we will first start by writing and
-testing code to detect a Dutch zip code.
-
-After this, we will learn some more complex expressions,
-so you understand most when searching the internet.
-
-## What are regular expressions?
-
-A regular expression 'is a sequence of characters that define a 
-search pattern'. Such a pattern may be a zip code, a date,
-or any other text of which you can say: 'this is not just text,
-it is a [something]'.
-
-For example, take a Dutch zip code: `9747 AG`. Dutch zip
-code have four digits, a space and then two uppercase 
-alphabet characters.
-
-## Our first test
-
-The `testthat` package is the Tidyverse package to write tests.
-
-```{r}
-library(testthat)
-```
-
-All test functions start with `expect_`, for example:
-
-```{r}
-expect_true("cat" != "dog")
-expect_equal(1 + 1, 2)
-```
-
 ## Our first Dutch zip code tests
 
 We will be writing the function `is_dutch_zip_code`
@@ -185,4 +556,25 @@ expect_true(!is_dutch_zip_code("1234 aa"))
 expect_true(!is_dutch_zip_code("nonsense"))
 ```
 
+## Bigger picture
 
+## Regex usage beyond R is common
+
+Command-line tools with regular expressions:
+
+ * `grep`, `egrep`
+ * `sed`
+ * `dir`/`ls`
+
+## Don't overdo it
+
+![](06_regex_golf.png)
+
+> 'Regex Golf', from https://xkcd.com/1313/
+
+Regex golf is a challenge to create the shortest regexes possible.
+
+# Resources
+
+ * [RStudio cheatsheets](https://rstudio.com/resources/cheatsheets/),
+   including the 'Work with Strings Cheatsheet'

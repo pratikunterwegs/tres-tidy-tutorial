@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.6.26)  10 JUL 2020 05:48
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.6.26)  10 JUL 2020 06:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1324,62 +1324,97 @@ e (type pdf)
 
 ]
 Chapter 6.
+File: 06_regular_expressions.png Graphic file (type bmp)
+<06_regular_expressions.png>
+[129]
+Overfull \hbox (17.25pt too wide) in paragraph at lines 5140--5140
+[]\TU/lmtt/m/n/10 Lithium-ion batteries play a central role in the world of tec
+hnology.[] 
+ []
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 5091--5091
+
+Overfull \hbox (90.75pt too wide) in paragraph at lines 5140--5140
+[]\TU/lmtt/m/n/10 The restrictions would end 90 days after Portland[]s state of
+ emergency order lifts.[] 
+ []
+
+[130]
+Overfull \hbox (12.0pt too wide) in paragraph at lines 5162--5162
 []\TU/lmtt/m/n/10 >KP143511.1|Felinecoronavirus|Feliscatus|UnitedKingdom|2013|E
 nvelope[] 
  []
 
 
-Overfull \hbox (274.5pt too wide) in paragraph at lines 5121--5121
-[]\TU/lmtt/m/n/10 >sp|P0DTC2|SPIKE_SARS2 Spike glycoprotein OS=Severe acute res
-piratory syndrome coronavirus 2 OX=2697049 GN=S PE=1 SV=1[] 
+Overfull \hbox (18.64pt too wide) in paragraph at lines 5164--5165
+[]\TU/lmr/m/n/10 ‘\TU/lmtt/m/n/10 >sp|P0DTC2|SPIKE_SARS2 Spike glycoprotein OS=
+Severe acute respiratory
  []
 
 
-Overfull \hbox (232.5pt too wide) in paragraph at lines 5121--5121
-[]\TU/lmtt/m/n/10 >sp|P0DTC5|VME1_SARS2 Membrane protein OS=Severe acute respir
-atory syndrome coronavirus 2 OX=2697049 PE=3 SV=1[] 
- []
-
-[129]
-Overfull \hbox (2.51001pt too wide) in paragraph at lines 5123--5128
-[]\TU/lmr/m/n/10 are_fasta_filenames <- function() { # … pattern = ”.*\.(fas|fa
-sta|FAS|FASTA)$”
+Overfull \hbox (227.25pt too wide) in paragraph at lines 5164--5165
+\TU/lmtt/m/n/10 syndrome coronavirus 2 OX=2697049 GN=S PE=1 SV=1 MFVFLVLLPLVSSQ
+CVNLTTRTQLPPAYTNSFTRGVYYPDKVFRSSVLHSTQDLFLPFFS
  []
 
 
-Overfull \hbox (83.91501pt too wide) in paragraph at lines 5183--5186
-[]\TU/lmr/m/n/10 collect_run_times <- function() { pattern = ”State.*: (CANCELL
-ED|COMPLETED|RUNNING)”
+Overfull \hbox (1.5pt too wide) in paragraph at lines 5164--5165
+\TU/lmtt/m/n/10 >sp|P0DTC5|VME1_SARS2 Membrane protein OS=Severe acute respirat
+ory
  []
 
 
-Overfull \hbox (27.61pt too wide) in paragraph at lines 5191--5195
-[]\TU/lmr/m/n/10 thesis_synthesis_create_figures <- function() { pattern = ”^.*
-\.(R|Rmd|java|cpp|h)$”
+Overfull \hbox (201.0pt too wide) in paragraph at lines 5164--5165
+\TU/lmtt/m/n/10 syndrome coronavirus 2 OX=2697049 PE=3 SV=1 MADSNGTITVEELKKLLEQ
+WNLVIGFLFLTWICLLQFAYANRNRFLYIIKLIFLWLLWPV 
  []
 
-[130] [131] [132
+File: 06_perl_problems.png Graphic file (type bmp)
+<06_perl_problems.png>
+[131] [132]
+Chapter 7.
+[133
+
+] [134
 
 ]
-Chapter 7.
+Chapter 8.
+[135] [136]
+Overfull \hbox (17.25pt too wide) in paragraph at lines 5339--5339
+[]\TU/lmtt/m/n/10 Lithium-ion batteries play a central role in the world of tec
+hnology.[] 
+ []
+
+
+Overfull \hbox (90.75pt too wide) in paragraph at lines 5357--5357
+[]\TU/lmtt/m/n/10 The restrictions would end 90 days after Portland[]s state of
+ emergency order lifts.[] 
+ []
+
+File: 06_regex_golf.png Graphic file (type bmp)
+<06_regex_golf.png>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[137] [138]
+Chapter 9.
 File: opening-image.png Graphic file (type bmp)
 <opening-image.png>
-[133]
-Underfull \hbox (badness 2573) in paragraph at lines 5354--5355
+[139
+
+]
+Underfull \hbox (badness 2573) in paragraph at lines 5471--5472
 []\TU/lmr/m/n/10 The same issue arises with functions such as \TU/lmtt/m/n/10 d
 plyr::summarise \TU/lmr/m/n/10 and
  []
 
-[134] [135] [136]
+[140] [141] [142]
 Underfull \vbox (badness 2617) has occurred while \output is active []
 
-[137] [138] [139] [140] [141]
+[143] [144] [145] [146] [147]
 Underfull \vbox (badness 6808) has occurred while \output is active []
 
-[142]
-Underfull \hbox (badness 1496) in paragraph at lines 5842--5844
+[148]
+Underfull \hbox (badness 1496) in paragraph at lines 5959--5961
 \TU/lmtt/m/n/10 dplyr 1.0.0 \TU/lmr/m/n/10 had \TU/lmtt/m/n/10 summarise_* \TU/
 lmr/m/n/10 superseded by the \TU/lmtt/m/n/10 across \TU/lmr/m/n/10 argument to
  []
@@ -1387,35 +1422,35 @@ lmr/m/n/10 superseded by the \TU/lmtt/m/n/10 across \TU/lmr/m/n/10 argument to
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[143] [144] [145] [146] [147]
-Underfull \hbox (badness 1565) in paragraph at lines 6098--6100
+[149] [150] [151] [152] [153]
+Underfull \hbox (badness 1565) in paragraph at lines 6215--6217
 []\TU/lmr/m/n/10 Tidy evaluation: Superseded and archived, but still useful []$
 [][][][][] []
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 6103.
-[148]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 6103.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 6220.
+[154]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 6220.
 (./TRES-Tidy-Tutorial.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 6103.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 6103.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 6220.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 6220.
 
 Package rerunfilecheck Info: File `TRES-Tidy-Tutorial.out' has not changed.
-(rerunfilecheck)             Checksum: 877B4F000A4F327B480C10276E56D7A7;10384.
+(rerunfilecheck)             Checksum: 4754C3520F9A5ACD4429A30D5C8D1160;11856.
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 18769 strings out of 481228
- 351924 string characters out of 5923157
- 771657 words of memory out of 5000000
- 35455 multiletter control sequences out of 15000+600000
+ 18798 strings out of 481228
+ 352538 string characters out of 5923157
+ 774722 words of memory out of 5000000
+ 35481 multiletter control sequences out of 15000+600000
  538877 words of font info for 88 fonts, out of 8000000 for 9000
  350 hyphenation exceptions out of 8191
  58i,6n,115p,1099b,509s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on TRES-Tidy-Tutorial.pdf (148 pages).
+Output written on TRES-Tidy-Tutorial.pdf (154 pages).
 
 ! kpathsea:make_tex: Invalid filename `IBM Plex Serif', contains ' '
 ! kpathsea:make_tex: Invalid filename `IBM Plex Mono', contains ' '

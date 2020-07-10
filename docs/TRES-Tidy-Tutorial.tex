@@ -5080,118 +5080,14 @@ Some things, however, are missing from \texttt{ggplot2}. Fortunately, there are 
   The \href{https://guangchuangyu.github.io/ggtree-book/chapter-ggtree.html}{\texttt{ggtree}} and \href{https://www.data-imaginist.com/2017/ggraph-introduction-layouts/}{\texttt{ggraph}} packages
 \end{itemize}
 
-\hypertarget{applications}{%
-\chapter{Applications}\label{applications}}
+\hypertarget{regex-and-testthat}{%
+\chapter{06. Regex and testthat}\label{regex-and-testthat}}
 
-\begin{verbatim}
->KU215420.1|Felinecoronavirus|Feliscatus|Belgium|2013|Envelope
-ATGATGTTTCCTAGGGCATTTACTATCATAGATGACCATGGTATGGTTGTTAGTGTCTTC
->KP143511.1|Felinecoronavirus|Feliscatus|UnitedKingdom|2013|Envelope
-ATGATGTTTCCTAGGGCATTTACTATCATAGACGACCATGGTATGGTTGTTAGTGTCTTC
-\end{verbatim}
+\includegraphics{06_regular_expressions.png}
 
-\begin{verbatim}
->sp|P0DTC2|SPIKE_SARS2 Spike glycoprotein OS=Severe acute respiratory syndrome coronavirus 2 OX=2697049 GN=S PE=1 SV=1
-MFVFLVLLPLVSSQCVNLTTRTQLPPAYTNSFTRGVYYPDKVFRSSVLHSTQDLFLPFFS
->sp|P0DTC5|VME1_SARS2 Membrane protein OS=Severe acute respiratory syndrome coronavirus 2 OX=2697049 PE=3 SV=1
-MADSNGTITVEELKKLLEQWNLVIGFLFLTWICLLQFAYANRNRFLYIIKLIFLWLLWPV
-``
-
-# Not just R
-
- * egrep
- * sed
- * ls
-
-# Dialects
-
-Different flavors!
-
- * POSIX
- * perl
-
-# Many in R
-
- * `egrep`
- * `gsub`
- * `std::string_`
-
-
-# Regular expressions and testthat
-\end{verbatim}
-
-are\_fasta\_filenames \textless{}- function() \{
-\# \ldots{}
-pattern = ".*\textbackslash{}.(fas\textbar{}fasta\textbar{}FAS\textbar{}FASTA)\$"
-\# \ldots{}
-\}
-
-is\_xml\_opening\_tag \textless{}- function() \{
-\# \ldots{}
-pattern = ``\textless{}{[}A-Za-z\_{]}*''
-\# \ldots{}
-\}
-
-is\_xml\_closing\_tag \textless{}- function() \{
-\# \ldots{}
-pattern = "\textless{}/{[}A-Za-z\_{]}*\textgreater{}"
-\# \ldots{}
-\}
-
-is\_ns\_mcmc \textless{}- function() \{
-\# \ldots{}
-pattern = ``.\emph{beast.gss.NS.}''
-\# \ldots{}
-\}
-
-is\_dna\_seq \textless{}- fucntion() \{
-\# \ldots{}
-pattern = "{[}acgt{]}*"){[}1, 1{]}
-\# \ldots{}
-\}
-
-time\_str\_to\_n\_sec \textless{}- function() \{
-\# \ldots{}
-pattern = ``((.)-)?(..):(..):(..)''
-\# \ldots{}
-\}
-
-is\_on\_peregrine\_worker\_node \textless{}- function() \{
-pattern = ``pg-node{[}0-9{]}\{3\}''
-\}
-
-is\_relevant\_title \textless{}-function() \{
-pattern = ``(evolutio\textbar{}immunolo\textbar{}speciation)''
-\}
-
-is\_jar\_path \textless{}- function() \{
-pattern = "(.*/)?(launcher\textbar{}beast)\textbackslash{}.jar\$")
-\}
-
-get\_mhcnuggets\_version \textless{}- function() \{
-pattern = "Version: (.*)"
-\}
-
-get\_pureseqtm\_version.R \textless{}- function() \{
-pattern = ``v{[}{[}:digit:{]}{]}\textbackslash{}.{[}{[}:digit:{]}{]}\{1,2\}''
-\}
-
-create\_covid\_fig \textless{}- function() \{
-pattern = "..\textbackslash{}\textbar{}.\emph{\textbackslash{}\textbar{}(.})\_SARS2"
-\}
-
-collect\_run\_times \textless{}- function() \{
-pattern = "State.*: (CANCELLED\textbar{}COMPLETED\textbar{}RUNNING)"
-\}
-
-collect\_run\_times \textless{}- function() \{
-pattern = ``Used CPU time .\emph{:.}((.-)?..:..:..)''
-\}
-
-thesis\_synthesis\_create\_figures \textless{}- function() \{
-pattern = "\^{}.*\textbackslash{}.(R\textbar{}Rmd\textbar{}java\textbar{}cpp\textbar{}h)\$"
-\}
-```
+\begin{quote}
+`Regular expressions' from \url{https://xkcd.com/208}
+\end{quote}
 
 \hypertarget{goal}{%
 \section{Goal}\label{goal}}
@@ -5226,6 +5122,23 @@ testing code to detect a Dutch zip code.
 After this, we will learn some more complex expressions,
 so you understand most when searching the internet.
 
+\hypertarget{exercise-spot-the-pattern}{%
+\section{Exercise: Spot the pattern}\label{exercise-spot-the-pattern}}
+
+Each line below is or contains a pattern. Observe what your brain does
+when interpreting a line. If it thinks: `Hey, that's a {[}pattern{]},
+because {[}regular expression{]}', you got your answer!
+
+Answer, for each line: (1) what is it? (2) why did you think to?
+
+\begin{verbatim}
+Lithium-ion batteries play a central role in the world of technology.
+But would it be safe to simply orbit the planet?
+Your Next Samsung Phone May Not Come With a Charger in the Box
+The restrictions would end 90 days after Portland's state of emergency order lifts. 
+Those cities have limits at 15%.
+\end{verbatim}
+
 \hypertarget{what-are-regular-expressions}{%
 \section{What are regular expressions?}\label{what-are-regular-expressions}}
 
@@ -5237,6 +5150,67 @@ it is a {[}something{]}'.
 For example, take a Dutch zip code: \texttt{9747\ AG}. Dutch zip
 code have four digits, a space and then two uppercase
 alphabet characters.
+
+\hypertarget{applications}{%
+\section{Applications}\label{applications}}
+
+\begin{verbatim}
+>KU215420.1|Felinecoronavirus|Feliscatus|Belgium|2013|Envelope
+ATGATGTTTCCTAGGGCATTTACTATCATAGATGACCATGGTATGGTTGTTAGTGTCTTC
+>KP143511.1|Felinecoronavirus|Feliscatus|UnitedKingdom|2013|Envelope
+ATGATGTTTCCTAGGGCATTTACTATCATAGACGACCATGGTATGGTTGTTAGTGTCTTC
+\end{verbatim}
+
+`\texttt{\textgreater{}sp\textbar{}P0DTC2\textbar{}SPIKE\_SARS2\ Spike\ glycoprotein\ OS=Severe\ acute\ respiratory\ syndrome\ coronavirus\ 2\ OX=2697049\ GN=S\ PE=1\ SV=1\ MFVFLVLLPLVSSQCVNLTTRTQLPPAYTNSFTRGVYYPDKVFRSSVLHSTQDLFLPFFS\ \textgreater{}sp\textbar{}P0DTC5\textbar{}VME1\_SARS2\ Membrane\ protein\ OS=Severe\ acute\ respiratory\ syndrome\ coronavirus\ 2\ OX=2697049\ PE=3\ SV=1\ MADSNGTITVEELKKLLEQWNLVIGFLFLTWICLLQFAYANRNRFLYIIKLIFLWLLWPV}
+
+\hypertarget{not-just-r}{%
+\section{Not just R}\label{not-just-r}}
+
+Command-line tools with regular expressions:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{grep}, \texttt{egrep}
+\item
+  \texttt{sed}
+\item
+  \texttt{dir}/\texttt{ls}
+\end{itemize}
+
+\hypertarget{multiple-in-r}{%
+\section{Multiple in R}\label{multiple-in-r}}
+
+R functions to work with regular expressions:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{stringr::string\_}
+\item
+  \texttt{egrep}
+\item
+  \texttt{gsub}
+\end{itemize}
+
+\hypertarget{dangers-of-regexes}{%
+\section{Dangers of regexes}\label{dangers-of-regexes}}
+
+\includegraphics{06_perl_problems.png}
+
+\begin{quote}
+`Perl problems', from \url{https://xkcd.com/1171/}
+\end{quote}
+
+Regexes have different flavors, such as POSIX and perl.
+
+\begin{quote}
+I define UNIX as 30 definitions of regular expressions living under one roof.
+
+Donald Knuth. Digital Typography, ch.~33, p.~649 (1999)
+\end{quote}
+
+We'll have to test!
 
 \hypertarget{our-first-test}{%
 \section{Our first test}\label{our-first-test}}
@@ -5258,6 +5232,88 @@ All test functions start with \texttt{expect\_}, for example:
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{what-is-a-regex}{%
+\chapter{What is a regex?}\label{what-is-a-regex}}
+
+\hypertarget{regular-expressions-and-testthat}{%
+\chapter{Regular expressions and testthat}\label{regular-expressions-and-testthat}}
+
+\begin{verbatim}
+are_fasta_filenames <- function() {
+  # ...
+  pattern = ".*\\.(fas|fasta|FAS|FASTA)$"
+  # ...
+}
+
+is_xml_opening_tag <- function() {
+  # ...
+  pattern = "<[A-Za-z_]* "
+  # ...
+}
+
+is_xml_closing_tag <- function() {
+  # ...
+  pattern = "</[A-Za-z_]*>"
+  # ...
+}
+
+is_ns_mcmc <- function() {
+  # ...
+  pattern = ".*beast.gss.NS.*"
+  # ...
+}
+
+
+is_dna_seq <- fucntion() {
+  # ...
+  pattern = "[acgt]*")[1, 1]
+  # ...
+}
+
+
+time_str_to_n_sec <- function() {
+  # ...
+  pattern = "((.)-)?(..):(..):(..)"
+  # ...
+}
+
+is_on_peregrine_worker_node <- function() {
+  pattern = "pg-node[0-9]{3}"
+}
+
+is_relevant_title <-function() {
+  pattern = "(evolutio|immunolo|speciation)"
+}
+
+is_jar_path <- function() {
+  pattern = "(.*/)?(launcher|beast)\\.jar$")
+}
+
+get_mhcnuggets_version <- function() {
+  pattern = "Version: (.*)"
+}
+
+get_pureseqtm_version.R <- function() {
+  pattern = "v[[:digit:]]\\.[[:digit:]]{1,2}"
+}
+
+create_covid_fig <- function() {
+  pattern = "..\\|.*\\|(.*)_SARS2"
+}
+
+collect_run_times <- function() {
+  pattern = "State.*: (CANCELLED|COMPLETED|RUNNING)"
+}
+
+collect_run_times <- function() {
+  pattern = "Used CPU time .*:.*((.-)?..:..:..) "
+}
+
+thesis_synthesis_create_figures <- function() {
+  pattern = "^.*\\.(R|Rmd|java|cpp|h)$"
+}
+\end{verbatim}
+
 \hypertarget{our-first-dutch-zip-code-tests}{%
 \section{Our first Dutch zip code tests}\label{our-first-dutch-zip-code-tests}}
 
@@ -5274,6 +5330,67 @@ expect_true(!is_dutch_zip_code("1234 AA "))
 expect_true(!is_dutch_zip_code("1234 aa"))
 expect_true(!is_dutch_zip_code("nonsense"))
 \end{verbatim}
+
+\hypertarget{answers-spot-the-regex}{%
+\section{Answers: Spot the regex}\label{answers-spot-the-regex}}
+
+\begin{verbatim}
+Lithium-ion batteries play a central role in the world of technology.
+\end{verbatim}
+
+This is a sentence, because it ends with a dot.
+
+\begin{verbatim}
+But would it be safe to simply orbit the planet?
+\end{verbatim}
+
+This is a question, becase it ends with a question mark.
+
+\begin{verbatim}
+Your Next Samsung Phone May Not Come With a Charger in the Box
+\end{verbatim}
+
+This is a title, because most words start with an uppercase character.
+
+\begin{verbatim}
+The restrictions would end 90 days after Portland's state of emergency order lifts. 
+\end{verbatim}
+
+This is a sentence with a decimal number, because there is a sequence of
+characters that consists out of numbers only.
+
+\begin{verbatim}
+Those cities have limits at 15%.
+\end{verbatim}
+
+This is a sentence with a percentage, because there is a sequence of
+characters that consists out of numbers only, with a percentage sign connected
+to it.
+
+\begin{itemize}
+\tightlist
+\item
+  Texts from \url{https://slashdot.org}.
+\end{itemize}
+
+\hypertarget{complex}{%
+\section{Complex}\label{complex}}
+
+\includegraphics{06_regex_golf.png}
+
+\begin{quote}
+`Regex Golf', from \url{https://xkcd.com/1313/}
+\end{quote}
+
+\hypertarget{resources}{%
+\section{Resources}\label{resources}}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://rstudio.com/resources/cheatsheets/}{RStudio cheatsheets},
+  including the `Work with Strings Cheatsheet'
+\end{itemize}
 
 \hypertarget{programming-in-the-tidyverse}{%
 \chapter{\texorpdfstring{Programming in the \emph{tidyverse}}{Programming in the tidyverse}}\label{programming-in-the-tidyverse}}
