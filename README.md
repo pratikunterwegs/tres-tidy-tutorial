@@ -28,6 +28,11 @@ Regular expressions|[regex](https://stat.ethz.ch/R-manual/R-devel/library/base/h
 - Reproducibility and package-making (with e.g. [usethis](https://usethis.r-lib.org/))  
 - Embedding C++ code with [Rcpp](http://adv-r.had.co.nz/Rcpp.html)
 
+Branch   |[Travis CI build status](https://travis-ci.org)                                                                                          
+---------|-------------------------------------------------------------------------------------------------------------------------------------------------------
+`master` |[![Build Status](https://travis-ci.org/pratikunterwegs/tres-tidy-tutorial.svg?branch=master)](https://travis-ci.org/pratikunterwegs/tres-tidy-tutorial)
+`richel` |[![Build Status](https://travis-ci.org/pratikunterwegs/tres-tidy-tutorial.svg?branch=richel)](https://travis-ci.org/pratikunterwegs/tres-tidy-tutorial)
+
 ## Join
 
 Join the Slack [by clicking this link (Slack account required)](https://join.slack.com/t/trestidytorial/shared_invite/zt-ejgr3tow-3zisGwPg1JDeTJD33DWb2A).

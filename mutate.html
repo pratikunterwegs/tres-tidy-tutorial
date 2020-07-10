@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Section 4 Extract a pattern | 06_regex_and_testthat.utf8</title>
+  <title>Section 5 Mutate | 06_regex_and_testthat.utf8</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Section 4 Extract a pattern | 06_regex_and_testthat.utf8" />
+  <meta property="og:title" content="Section 5 Mutate | 06_regex_and_testthat.utf8" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Section 4 Extract a pattern | 06_regex_and_testthat.utf8" />
+  <meta name="twitter:title" content="Section 5 Mutate | 06_regex_and_testthat.utf8" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="detect-a-full-match.html"/>
-<link rel="next" href="regular-expressions-and-testthat.html"/>
+<link rel="prev" href="extract-a-pattern.html"/>
+<link rel="next" href="resources.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -157,12 +157,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="extract-a-pattern.html"><a href="extract-a-pattern.html"><i class="fa fa-check"></i><b>4</b> Extract a pattern</a><ul>
 <li class="chapter" data-level="4.1" data-path="extract-a-pattern.html"><a href="extract-a-pattern.html#context"><i class="fa fa-check"></i><b>4.1</b> Context</a></li>
+<li class="chapter" data-level="4.2" data-path="extract-a-pattern.html"><a href="extract-a-pattern.html#str_match"><i class="fa fa-check"></i><b>4.2</b> <code>str_match</code></a></li>
+<li class="chapter" data-level="4.3" data-path="extract-a-pattern.html"><a href="extract-a-pattern.html#example-exercise-extract_dna_sequence_numbers"><i class="fa fa-check"></i><b>4.3</b> Example exercise: <code>extract_dna_sequence_numbers</code></a></li>
+<li class="chapter" data-level="4.4" data-path="extract-a-pattern.html"><a href="extract-a-pattern.html#answer-extract_dna_sequence_numbers"><i class="fa fa-check"></i><b>4.4</b> Answer: <code>extract_dna_sequence_numbers</code></a></li>
+<li class="chapter" data-level="4.5" data-path="extract-a-pattern.html"><a href="extract-a-pattern.html#example-exercise-extract_year"><i class="fa fa-check"></i><b>4.5</b> Example exercise: <code>extract_year</code></a></li>
+<li class="chapter" data-level="4.6" data-path="extract-a-pattern.html"><a href="extract-a-pattern.html#answer-extract_year"><i class="fa fa-check"></i><b>4.6</b> Answer: <code>extract_year</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html"><i class="fa fa-check"></i><b>5</b> Regular expressions and testthat</a><ul>
-<li class="chapter" data-level="5.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#our-first-dutch-zip-code-tests"><i class="fa fa-check"></i><b>5.1</b> Our first Dutch zip code tests</a></li>
-<li class="chapter" data-level="5.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#bigger-picture"><i class="fa fa-check"></i><b>5.2</b> Bigger picture</a></li>
-<li class="chapter" data-level="5.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#regex-usage-beyond-r-is-common"><i class="fa fa-check"></i><b>5.3</b> Regex usage beyond R is common</a></li>
-<li class="chapter" data-level="5.4" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#dont-overdo-it"><i class="fa fa-check"></i><b>5.4</b> Don’t overdo it</a></li>
+<li class="chapter" data-level="5" data-path="mutate.html"><a href="mutate.html"><i class="fa fa-check"></i><b>5</b> Mutate</a><ul>
+<li class="chapter" data-level="5.1" data-path="mutate.html"><a href="mutate.html#bigger-picture"><i class="fa fa-check"></i><b>5.1</b> Bigger picture</a></li>
+<li class="chapter" data-level="5.2" data-path="mutate.html"><a href="mutate.html#regex-usage-beyond-r-is-common"><i class="fa fa-check"></i><b>5.2</b> Regex usage beyond R is common</a></li>
+<li class="chapter" data-level="5.3" data-path="mutate.html"><a href="mutate.html#dont-overdo-it"><i class="fa fa-check"></i><b>5.3</b> Don’t overdo it</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>6</b> Resources</a></li>
 </ul>
@@ -182,28 +186,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="extract-a-pattern" class="section level1">
-<h1><span class="header-section-number">Section 4</span> Extract a pattern</h1>
-<p>Here, we will extract a pattern using <code>str_match</code>.</p>
-<p>Tip: run <code>?str_match</code> for its documentation.</p>
-<p><img src="06_subset.png" /></p>
+<div id="mutate" class="section level1">
+<h1><span class="header-section-number">Section 5</span> Mutate</h1>
+<p><img src="06_mutate.png" /></p>
 <blockquote>
 <p>From ‘Work with Strings Cheatsheet’, <a href="https://rstudio.com/resources/cheatsheets" class="uri">https://rstudio.com/resources/cheatsheets</a></p>
 </blockquote>
-<div id="context" class="section level2">
-<h2><span class="header-section-number">4.1</span> Context</h2>
-<p>Here is a (simplified) DNA sequence:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1">text &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
-<a class="sourceLine" id="cb26-2" title="2">  <span class="st">&quot;&gt;KU215420.1|Felinecoronavirus|Feliscatus|Belgium|2013|Envelope&quot;</span>,</a>
-<a class="sourceLine" id="cb26-3" title="3">  <span class="st">&quot;ATGATGTTTCCTAGGGCATTTACTATCATAGATGACCATGGTATGGTTGTTAGTGTCTTC&quot;</span>,</a>
-<a class="sourceLine" id="cb26-4" title="4">  <span class="st">&quot;&gt;KP143511.1|Felinecoronavirus|Feliscatus|UnitedKingdom|2013|Envelope&quot;</span>,</a>
-<a class="sourceLine" id="cb26-5" title="5">  <span class="st">&quot;ATGATGTTTCCTAGGGCATTTACTATCATAGACGACCATGGTATGGTTGTTAGTGTCTTC&quot;</span></a>
-<a class="sourceLine" id="cb26-6" title="6">)</a></code></pre></div>
-<p>The data encoded in this text:</p>
-<pre><code>&gt;[protein name]|[virus name]|[host species name]|[country of host]|[year]|[]&quot;,
-&quot;ATGATGTTTCCTAGGGCATTTACTATCATAGATGACCATGGTATGGTTGTTAGTGTCTTC&quot;,
-&quot;&gt;KP143511.1|Felinecoronavirus|Feliscatus|UnitedKingdom|2013|Envelope&quot;,
-&quot;ATGATGTTTCCTAGGGCATTTACTATCATAGACGACCATGGTATGGTTGTTAGTGTCTTC&quot;</code></pre>
+<div id="bigger-picture" class="section level2">
+<h2><span class="header-section-number">5.1</span> Bigger picture</h2>
+</div>
+<div id="regex-usage-beyond-r-is-common" class="section level2">
+<h2><span class="header-section-number">5.2</span> Regex usage beyond R is common</h2>
+<p>Command-line tools with regular expressions:</p>
+<ul>
+<li><code>grep</code>, <code>egrep</code></li>
+<li><code>sed</code></li>
+<li><code>dir</code>/<code>ls</code></li>
+</ul>
+</div>
+<div id="dont-overdo-it" class="section level2">
+<h2><span class="header-section-number">5.3</span> Don’t overdo it</h2>
+<p><img src="06_regex_golf.png" /></p>
+<blockquote>
+<p>‘Regex Golf’, from <a href="https://xkcd.com/1313/" class="uri">https://xkcd.com/1313/</a></p>
+</blockquote>
+<p>Regex golf is a challenge to create the shortest regexes possible.</p>
 </div>
 </div>
             </section>
@@ -211,8 +218,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="detect-a-full-match.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="regular-expressions-and-testthat.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="extract-a-pattern.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="resources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
