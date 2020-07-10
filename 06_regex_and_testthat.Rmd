@@ -451,7 +451,7 @@ The data encoded in this text:
 
 For example, using a 'everything' pattern, we get:
 
-```{r}
+```{r str_match_pokemon}
 matches <- stringr::str_match(text, ".*")
 expect_equal(class(matches), "matrix")
 expect_equal(nrow(matches), length(text))
@@ -462,7 +462,7 @@ head(matches)
 Using a pattern that is specific for the DNA sequence descriptors,
 we get NAs:
 
-```{r}
+```{r str_match_sequence_descriptor_lines}
 matches <- stringr::str_match(text, ">.*")
 expect_equal(class(matches), "matrix")
 expect_equal(nrow(matches), length(text))
@@ -473,7 +473,7 @@ head(matches, n = 8)
 Using round brackets, the matrix gives one extra column per sub-match.
 Here, we select for all info after the `>`:
 
-```{r}
+```{r str_match_sequence_descriptor_as_column}
 matches <- stringr::str_match(text, ">(.*)")
 expect_equal(class(matches), "matrix")
 expect_equal(nrow(matches), length(text))
@@ -483,7 +483,7 @@ head(matches, n = 8)
 
 Select the second column:
 
-```{r}
+```{r str_match_select_col_with_sequence_descriptor}
 matches <- matches[, 2]
 expect_equal(class(matches), "character")
 expect_equal(length(matches), 180)
@@ -492,7 +492,7 @@ head(matches, n = 8)
 
 Get rid of the `NAs` using `purrr`:
 
-```{r}
+```{r str_match_remove_na}
 matches <- purrr::discard(matches, is.na)
 expect_equal(class(matches), "character")
 expect_equal(length(matches), 30)
@@ -501,7 +501,7 @@ head(matches)
 
 All of this in one go:
 
-```{r}
+```{r str_match_all_at_once}
 matches <- purrr::discard(
   stringr::str_match(text, ">(.*)")[, 2], 
   is.na
