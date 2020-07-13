@@ -132,7 +132,8 @@ library(stringr)
 
 > 'Perl problems', from https://xkcd.com/1171/
 
-Regexes have different flavors, such as POSIX and perl.
+Regexes have different dialects, such as POSIX and perl.
+Within R, there are the base R dialect and the Tidyverse dialect.
 
 > I define UNIX as 30 definitions of regular expressions living under one roof.
 >
@@ -600,6 +601,45 @@ t <- stringr::str_replace(
   "\\1 \\2"
 )
 expect_equal("United Kingdom", t)
+```
+
+## `testthat::expect_match`
+
+You may want to test if a function's output matches
+a pattern:
+
+```{r}
+#' Get the version, for example '1.0'
+get_version <- function() {
+  sample(c("1.0", "1.1"), n = 1)
+}
+```
+
+Using `testthat::expect_match` gives an unexpected result:
+
+```
+# Will fail!
+expect_match(
+  get_version(),
+  "1\\.[:digit:]"
+)
+```
+
+Take a look at `?testthat::expect_match`:
+
+> Details
+>
+> expect_match() is a wrapper around grepl(). 
+> See its documentation for more detail about the individual arguments.
+```
+
+Use the base R regex dialect:
+
+```
+expect_match(
+  get_version(),
+  "1\\.[[:digit:]]"
+)
 ```
 
 # Bigger picture
