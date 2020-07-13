@@ -165,6 +165,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="other-functions.html"><a href="other-functions.html"><i class="fa fa-check"></i><b>5</b> Other functions</a><ul>
 <li class="chapter" data-level="5.1" data-path="other-functions.html"><a href="other-functions.html#mutate"><i class="fa fa-check"></i><b>5.1</b> Mutate</a></li>
+<li class="chapter" data-level="5.2" data-path="other-functions.html"><a href="other-functions.html#testthatexpect_match"><i class="fa fa-check"></i><b>5.2</b> <code>testthat::expect_match</code></a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="bigger-picture.html"><a href="bigger-picture.html"><i class="fa fa-check"></i><b>6</b> Bigger picture</a><ul>
 <li class="chapter" data-level="6.1" data-path="bigger-picture.html"><a href="bigger-picture.html#develop-in-packages"><i class="fa fa-check"></i><b>6.1</b> Develop in packages</a></li>
@@ -193,7 +194,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Section 5</span> Other functions</h1>
 <div id="mutate" class="section level2">
 <h2><span class="header-section-number">5.1</span> Mutate</h2>
-<p><img src="06_mutate.png" /></p>
+<p><img src="data/06_mutate.png" /></p>
 <blockquote>
 <p>From ‘Work with Strings Cheatsheet’, <a href="https://rstudio.com/resources/cheatsheets" class="uri">https://rstudio.com/resources/cheatsheets</a></p>
 </blockquote>
@@ -204,6 +205,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb46-5" title="5">  <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1 </span><span class="ch">\\</span><span class="st">2&quot;</span></a>
 <a class="sourceLine" id="cb46-6" title="6">)</a>
 <a class="sourceLine" id="cb46-7" title="7"><span class="kw">expect_equal</span>(<span class="st">&quot;United Kingdom&quot;</span>, t)</a></code></pre></div>
+</div>
+<div id="testthatexpect_match" class="section level2">
+<h2><span class="header-section-number">5.2</span> <code>testthat::expect_match</code></h2>
+<p>You may want to test if a function’s output matches
+a pattern:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1"><span class="co">#&#39; Get the version, for example &#39;1.0&#39;</span></a>
+<a class="sourceLine" id="cb47-2" title="2">get_version &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb47-3" title="3">  <span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;1.0&quot;</span>, <span class="st">&quot;1.1&quot;</span>), <span class="dt">n =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb47-4" title="4">}</a></code></pre></div>
+<p>Using <code>testthat::expect_match</code> gives an unexpected result:</p>
+<pre><code># Will fail!
+expect_match(
+  get_version(),
+  &quot;1\\.[:digit:]&quot;
+)</code></pre>
+<p>Take a look at <code>?testthat::expect_match</code>:</p>
+<blockquote>
+<p>Details</p>
+<p>expect_match() is a wrapper around grepl().
+See its documentation for more detail about the individual arguments.</p>
+</blockquote>
+<pre><code>
+Use the base R regex dialect:
+</code></pre>
+<p>expect_match(
+get_version(),
+“1\.[[:digit:]]”
+)
+```</p>
 </div>
 </div>
             </section>
