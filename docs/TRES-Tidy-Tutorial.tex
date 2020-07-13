@@ -143,7 +143,7 @@
 
 \title{TRES Tidyverse Tutorial}
 \author{Raphael, Pratik, Theo and Richèl}
-\date{2020-07-10}
+\date{2020-07-13}
 
 \begin{document}
 \maketitle
@@ -5080,17 +5080,20 @@ Some things, however, are missing from \texttt{ggplot2}. Fortunately, there are 
   The \href{https://guangchuangyu.github.io/ggtree-book/chapter-ggtree.html}{\texttt{ggtree}} and \href{https://www.data-imaginist.com/2017/ggraph-introduction-layouts/}{\texttt{ggraph}} packages
 \end{itemize}
 
-\hypertarget{introduction}{%
-\chapter{Introduction}\label{introduction}}
+\hypertarget{regular-expressions-and-testthat}{%
+\chapter{\texorpdfstring{06. Regular expressions and \texttt{testthat}}{06. Regular expressions and testthat}}\label{regular-expressions-and-testthat}}
 
-\includegraphics{06_regular_expressions.png}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+\includegraphics{data/06_regular_expressions.png}
 
 \begin{quote}
 `Regular expressions' from \url{https://xkcd.com/208}
 \end{quote}
 
 \hypertarget{goal}{%
-\section{Goal}\label{goal}}
+\subsection{Goal}\label{goal}}
 
 In this chapter, you will learn:
 
@@ -5103,7 +5106,7 @@ In this chapter, you will learn:
 \end{itemize}
 
 \hypertarget{why-is-this-important}{%
-\section{Why is this important?}\label{why-is-this-important}}
+\subsection{Why is this important?}\label{why-is-this-important}}
 
 Knowing the basics of regular expressions, prevents you having
 to hand-craft functions to detect patterns in any text.
@@ -5114,7 +5117,7 @@ of all the time, we are debugging our code. Being good at
 testing, is the way to become faster.
 
 \hypertarget{exercise-spot-the-pattern}{%
-\section{Exercise: Spot the pattern}\label{exercise-spot-the-pattern}}
+\subsection{Exercise: Spot the pattern}\label{exercise-spot-the-pattern}}
 
 Each line below is or contains a pattern. Observe what your brain does
 when interpreting a line. If it thinks: `Hey, that's a {[}pattern{]},
@@ -5131,7 +5134,7 @@ Those cities have limits at 15%.
 \end{verbatim}
 
 \hypertarget{answers-spot-the-pattern}{%
-\section{Answers: Spot the pattern}\label{answers-spot-the-pattern}}
+\subsection{Answers: Spot the pattern}\label{answers-spot-the-pattern}}
 
 \begin{verbatim}
 Lithium-ion batteries play a central role in the world of technology.
@@ -5173,7 +5176,7 @@ to it.
 \end{itemize}
 
 \hypertarget{what-are-regular-expressions}{%
-\section{What are regular expressions?}\label{what-are-regular-expressions}}
+\subsection{What are regular expressions?}\label{what-are-regular-expressions}}
 
 A regular expression `is a sequence of characters that define a
 search pattern'. Such a pattern may be a zip code, a date,
@@ -5185,7 +5188,7 @@ code have four digits, a space and then two uppercase
 alphabet characters.
 
 \hypertarget{applications}{%
-\section{Applications}\label{applications}}
+\subsection{Applications}\label{applications}}
 
 DNA data:
 
@@ -5206,9 +5209,9 @@ MADSNGTITVEELKKLLEQWNLVIGFLFLTWICLLQFAYANRNRFLYIIKLIFLWLLWPV
 \end{verbatim}
 
 \hypertarget{multiple-in-r}{%
-\section{Multiple in R}\label{multiple-in-r}}
+\subsection{Multiple in R}\label{multiple-in-r}}
 
-\includegraphics{06_stringr.png}
+\includegraphics{data/06_stringr.png}
 
 \begin{quote}
 The `stringr' logo. `stringr' is part of the Tidyverse
@@ -5233,15 +5236,16 @@ R functions to work with regular expressions:
 \end{Shaded}
 
 \hypertarget{dangers-of-regexes}{%
-\section{Dangers of regexes}\label{dangers-of-regexes}}
+\subsection{Dangers of regexes}\label{dangers-of-regexes}}
 
-\includegraphics{06_perl_problems.png}
+\includegraphics{data/06_perl_problems.png}
 
 \begin{quote}
 `Perl problems', from \url{https://xkcd.com/1171/}
 \end{quote}
 
-Regexes have different flavors, such as POSIX and perl.
+Regexes have different dialects, such as POSIX and perl.
+Within R, there are the base R dialect and the Tidyverse dialect.
 
 \begin{quote}
 I define UNIX as 30 definitions of regular expressions living under one roof.
@@ -5252,16 +5256,16 @@ Donald Knuth. Digital Typography, ch.~33, p.~649 (1999)
 We'll have to test!
 
 \hypertarget{testing}{%
-\chapter{Testing}\label{testing}}
+\section{Testing}\label{testing}}
 
-\includegraphics{06_george_dinwiddie.jpg}
+\includegraphics{data/06_george_dinwiddie.jpg}
 
 \begin{quote}
 From George Dinwiddie's blog, \url{http://blog.gdinwiddie.com/2012/12/26/tdd-hat/}
 \end{quote}
 
 \hypertarget{why-test}{%
-\section{Why test?}\label{why-test}}
+\subsection{Why test?}\label{why-test}}
 
 \begin{quote}
 Testers don't like to break things;
@@ -5283,7 +5287,7 @@ Kaner, Bach, Pettichord
 \end{itemize}
 
 \hypertarget{our-first-test}{%
-\section{Our first test}\label{our-first-test}}
+\subsection{Our first test}\label{our-first-test}}
 
 The \texttt{testthat} package is the Tidyverse package to write tests.
 
@@ -5304,20 +5308,20 @@ All test functions start with \texttt{expect\_}, for example:
 \end{Shaded}
 
 \hypertarget{detect-a-full-match}{%
-\chapter{Detect a full match}\label{detect-a-full-match}}
+\section{Detect a full match}\label{detect-a-full-match}}
 
 Here, we will detect simple patterns using \texttt{str\_which}.
 
 Tip: run \texttt{?str\_which} for its documentation.
 
-\includegraphics{06_detect.png}
+\includegraphics{data/06_detect.png}
 
 \begin{quote}
 From `Work with Strings Cheatsheet', \url{https://rstudio.com/resources/cheatsheets}
 \end{quote}
 
 \hypertarget{str_which-demo}{%
-\section{\texorpdfstring{\texttt{str\_which} demo}{str\_which demo}}\label{str_which-demo}}
+\subsection{\texorpdfstring{\texttt{str\_which} demo}{str\_which demo}}\label{str_which-demo}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5341,7 +5345,7 @@ From `Work with Strings Cheatsheet', \url{https://rstudio.com/resources/cheatshe
 \end{Shaded}
 
 \hypertarget{example-exercise-is_a_one}{%
-\section{\texorpdfstring{Example exercise: \texttt{is\_a\_one}}{Example exercise: is\_a\_one}}\label{example-exercise-is_a_one}}
+\subsection{\texorpdfstring{Example exercise: \texttt{is\_a\_one}}{Example exercise: is\_a\_one}}\label{example-exercise-is_a_one}}
 
 Write a function called \texttt{is\_a\_one} that detects if a string is one one,
 using \texttt{str\_subset}.
@@ -5349,7 +5353,7 @@ using \texttt{str\_subset}.
 Use the anchors as shown on the cheatsheet to specify that
 the complete string, from begin to the end, must consist out of characters
 
-\includegraphics{06_anchors.png}
+\includegraphics{data/06_anchors.png}
 
 \begin{quote}
 From `Work with Strings Cheatsheet', \url{https://rstudio.com/resources/cheatsheets}
@@ -5369,7 +5373,7 @@ expect_false(is_a_one(Inf))
 \end{verbatim}
 
 \hypertarget{answer-is_a_one}{%
-\subsection{\texorpdfstring{Answer \texttt{is\_a\_one}}{Answer is\_a\_one}}\label{answer-is_a_one}}
+\subsubsection{\texorpdfstring{Answer \texttt{is\_a\_one}}{Answer is\_a\_one}}\label{answer-is_a_one}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5393,13 +5397,13 @@ expect_false(is_a_one(Inf))
 \end{Shaded}
 
 \hypertarget{exercise-is_a_digit}{%
-\section{\texorpdfstring{Exercise: \texttt{is\_a\_digit}}{Exercise: is\_a\_digit}}\label{exercise-is_a_digit}}
+\subsection{\texorpdfstring{Exercise: \texttt{is\_a\_digit}}{Exercise: is\_a\_digit}}\label{exercise-is_a_digit}}
 
 Write a function called \texttt{is\_a\_digit} that detects if a string is one digit.
 
 Use the regex pattern as shown on the cheatsheet to specify a digit:
 
-\includegraphics{06_character_sets.png}
+\includegraphics{data/06_character_sets.png}
 
 \begin{quote}
 From `Work with Strings Cheatsheet', \url{https://rstudio.com/resources/cheatsheets}
@@ -5410,7 +5414,6 @@ These tests must pass:
 \begin{verbatim}
 expect_true(is_a_digit("0"))
 expect_true(is_a_digit("1"))
-# The other digits
 expect_false(is_a_digit(""))
 expect_false(is_a_digit("X"))
 expect_false(is_a_digit(c("1", "2")))
@@ -5421,7 +5424,7 @@ expect_false(is_a_digit(Inf))
 \end{verbatim}
 
 \hypertarget{answer-is_a_digit}{%
-\subsection{\texorpdfstring{Answer: \texttt{is\_a\_digit}}{Answer: is\_a\_digit}}\label{answer-is_a_digit}}
+\subsubsection{\texorpdfstring{Answer: \texttt{is\_a\_digit}}{Answer: is\_a\_digit}}\label{answer-is_a_digit}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5435,7 +5438,6 @@ expect_false(is_a_digit(Inf))
 \begin{Highlighting}[]
 \KeywordTok{expect_true}\NormalTok{(}\KeywordTok{is_a_digit}\NormalTok{(}\StringTok{"0"}\NormalTok{))}
 \KeywordTok{expect_true}\NormalTok{(}\KeywordTok{is_a_digit}\NormalTok{(}\StringTok{"1"}\NormalTok{))}
-\CommentTok{# The other digits}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{is_a_digit}\NormalTok{(}\StringTok{""}\NormalTok{))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{is_a_digit}\NormalTok{(}\StringTok{"12"}\NormalTok{))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{is_a_digit}\NormalTok{(}\StringTok{"X"}\NormalTok{))}
@@ -5448,7 +5450,7 @@ expect_false(is_a_digit(Inf))
 \end{Shaded}
 
 \hypertarget{exercise-is_a_word}{%
-\section{\texorpdfstring{Exercise: \texttt{is\_a\_word}}{Exercise: is\_a\_word}}\label{exercise-is_a_word}}
+\subsection{\texorpdfstring{Exercise: \texttt{is\_a\_word}}{Exercise: is\_a\_word}}\label{exercise-is_a_word}}
 
 Write a function called \texttt{is\_a\_word} that detects if a string is a word.
 
@@ -5465,7 +5467,7 @@ To simplify now, a word is defined as:
 Use the quantifiers as shown on the cheatsheet to specify that one needs
 one or more characters:
 
-\includegraphics{06_quantifiers.png}
+\includegraphics{data/06_quantifiers.png}
 
 \begin{quote}
 From `Work with Strings Cheatsheet', \url{https://rstudio.com/resources/cheatsheets}
@@ -5490,7 +5492,7 @@ expect_false(is_a_word(Inf))
 \end{verbatim}
 
 \hypertarget{answer-is_a_word}{%
-\subsection{\texorpdfstring{Answer: \texttt{is\_a\_word}}{Answer: is\_a\_word}}\label{answer-is_a_word}}
+\subsubsection{\texorpdfstring{Answer: \texttt{is\_a\_word}}{Answer: is\_a\_word}}\label{answer-is_a_word}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5519,7 +5521,7 @@ expect_false(is_a_word(Inf))
 \end{Shaded}
 
 \hypertarget{exercise-is_dna_sequence}{%
-\section{\texorpdfstring{Exercise: \texttt{is\_dna\_sequence}}{Exercise: is\_dna\_sequence}}\label{exercise-is_dna_sequence}}
+\subsection{\texorpdfstring{Exercise: \texttt{is\_dna\_sequence}}{Exercise: is\_dna\_sequence}}\label{exercise-is_dna_sequence}}
 
 Write a function called \texttt{is\_dna\_sequence} that detects if a string is
 a DNA sequence.
@@ -5537,7 +5539,7 @@ To simplify now, a DNA sequence is defined as:
 Use the alternates as shown on the cheatsheet to specify that
 each character must be one of the four nucleotides:
 
-\includegraphics{06_alternates.png}
+\includegraphics{data/06_alternates.png}
 
 \begin{quote}
 From `Work with Strings Cheatsheet', \url{https://rstudio.com/resources/cheatsheets}
@@ -5562,7 +5564,7 @@ expect_false(is_dna_sequence(Inf))
 \end{verbatim}
 
 \hypertarget{answer-is_dna_sequence}{%
-\subsection{\texorpdfstring{Answer: \texttt{is\_dna\_sequence}}{Answer: is\_dna\_sequence}}\label{answer-is_dna_sequence}}
+\subsubsection{\texorpdfstring{Answer: \texttt{is\_dna\_sequence}}{Answer: is\_dna\_sequence}}\label{answer-is_dna_sequence}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5591,20 +5593,20 @@ expect_false(is_dna_sequence(Inf))
 \end{Shaded}
 
 \hypertarget{extract-a-pattern}{%
-\chapter{Extract a pattern}\label{extract-a-pattern}}
+\section{Extract a pattern}\label{extract-a-pattern}}
 
 Here, we will extract a pattern using \texttt{str\_match}.
 
 Tip: run \texttt{?str\_match} for its documentation.
 
-\includegraphics{06_subset.png}
+\includegraphics{data/06_subset.png}
 
 \begin{quote}
 From `Work with Strings Cheatsheet', \url{https://rstudio.com/resources/cheatsheets}
 \end{quote}
 
 \hypertarget{context}{%
-\section{Context}\label{context}}
+\subsection{Context}\label{context}}
 
 Here we will work on a DNA sequence:
 
@@ -5633,7 +5635,7 @@ The data encoded in this text:
 \end{verbatim}
 
 \hypertarget{str_match}{%
-\section{\texorpdfstring{\texttt{str\_match}}{str\_match}}\label{str_match}}
+\subsection{\texorpdfstring{\texttt{str\_match}}{str\_match}}\label{str_match}}
 
 \texttt{str\_match} returns:
 
@@ -5652,7 +5654,7 @@ For example, using a `everything' pattern, we get:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{matches <-}\StringTok{ }\NormalTok{stringr}\OperatorTok{::}\KeywordTok{str_match}\NormalTok{(text, }\StringTok{".*"}\NormalTok{)}
-\KeywordTok{expect_equal}\NormalTok{(}\KeywordTok{class}\NormalTok{(matches), }\StringTok{"matrix"}\NormalTok{)}
+\KeywordTok{expect_is}\NormalTok{(matches, }\StringTok{"matrix"}\NormalTok{)}
 \KeywordTok{expect_equal}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(matches), }\KeywordTok{length}\NormalTok{(text))}
 \KeywordTok{expect_equal}\NormalTok{(}\KeywordTok{ncol}\NormalTok{(matches), }\DecValTok{1}\NormalTok{)}
 \KeywordTok{head}\NormalTok{(matches)}
@@ -5672,7 +5674,7 @@ we get NAs:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{matches <-}\StringTok{ }\NormalTok{stringr}\OperatorTok{::}\KeywordTok{str_match}\NormalTok{(text, }\StringTok{">.*"}\NormalTok{)}
-\KeywordTok{expect_equal}\NormalTok{(}\KeywordTok{class}\NormalTok{(matches), }\StringTok{"matrix"}\NormalTok{)}
+\KeywordTok{expect_is}\NormalTok{(matches, }\StringTok{"matrix"}\NormalTok{)}
 \KeywordTok{expect_equal}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(matches), }\KeywordTok{length}\NormalTok{(text))}
 \KeywordTok{expect_equal}\NormalTok{(}\KeywordTok{ncol}\NormalTok{(matches), }\DecValTok{1}\NormalTok{)}
 \KeywordTok{head}\NormalTok{(matches, }\DataTypeTok{n =} \DecValTok{8}\NormalTok{)}
@@ -5694,7 +5696,7 @@ Here, we select for all info after the \texttt{\textgreater{}}:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{matches <-}\StringTok{ }\NormalTok{stringr}\OperatorTok{::}\KeywordTok{str_match}\NormalTok{(text, }\StringTok{">(.*)"}\NormalTok{)}
-\KeywordTok{expect_equal}\NormalTok{(}\KeywordTok{class}\NormalTok{(matches), }\StringTok{"matrix"}\NormalTok{)}
+\KeywordTok{expect_is}\NormalTok{(matches, }\StringTok{"matrix"}\NormalTok{)}
 \KeywordTok{expect_equal}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(matches), }\KeywordTok{length}\NormalTok{(text))}
 \KeywordTok{expect_equal}\NormalTok{(}\KeywordTok{ncol}\NormalTok{(matches), }\DecValTok{2}\NormalTok{)}
 \KeywordTok{head}\NormalTok{(matches, }\DataTypeTok{n =} \DecValTok{8}\NormalTok{)}
@@ -5724,7 +5726,7 @@ Select the second column:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{matches <-}\StringTok{ }\NormalTok{matches[, }\DecValTok{2}\NormalTok{]}
-\KeywordTok{expect_equal}\NormalTok{(}\KeywordTok{class}\NormalTok{(matches), }\StringTok{"character"}\NormalTok{)}
+\KeywordTok{expect_is}\NormalTok{(matches, }\StringTok{"character"}\NormalTok{)}
 \KeywordTok{expect_equal}\NormalTok{(}\KeywordTok{length}\NormalTok{(matches), }\DecValTok{180}\NormalTok{)}
 \KeywordTok{head}\NormalTok{(matches, }\DataTypeTok{n =} \DecValTok{8}\NormalTok{)}
 \CommentTok{#> [1] "KX722530.1|Felinecoronavirus|Feliscatus|Denmark|2015|Envelope"    }
@@ -5743,7 +5745,7 @@ Get rid of the \texttt{NAs} using \texttt{purrr}:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{matches <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{discard}\NormalTok{(matches, is.na)}
-\KeywordTok{expect_equal}\NormalTok{(}\KeywordTok{class}\NormalTok{(matches), }\StringTok{"character"}\NormalTok{)}
+\KeywordTok{expect_is}\NormalTok{(matches, }\StringTok{"character"}\NormalTok{)}
 \KeywordTok{expect_equal}\NormalTok{(}\KeywordTok{length}\NormalTok{(matches), }\DecValTok{30}\NormalTok{)}
 \KeywordTok{head}\NormalTok{(matches)}
 \CommentTok{#> [1] "KX722530.1|Felinecoronavirus|Feliscatus|Denmark|2015|Envelope"       }
@@ -5775,7 +5777,7 @@ All of this in one go:
 \end{Shaded}
 
 \hypertarget{example-exercise-extract_dna_sequence_numbers}{%
-\section{\texorpdfstring{Example exercise: \texttt{extract\_dna\_sequence\_numbers}}{Example exercise: extract\_dna\_sequence\_numbers}}\label{example-exercise-extract_dna_sequence_numbers}}
+\subsection{\texorpdfstring{Example exercise: \texttt{extract\_dna\_sequence\_numbers}}{Example exercise: extract\_dna\_sequence\_numbers}}\label{example-exercise-extract_dna_sequence_numbers}}
 
 Extract the DNA sequence numbers.
 
@@ -5799,7 +5801,7 @@ expect_equal("KP143511.1", extract_dna_sequence_numbers(text)[30])
 \end{verbatim}
 
 \hypertarget{answer-extract_dna_sequence_numbers}{%
-\section{\texorpdfstring{Answer: \texttt{extract\_dna\_sequence\_numbers}}{Answer: extract\_dna\_sequence\_numbers}}\label{answer-extract_dna_sequence_numbers}}
+\subsection{\texorpdfstring{Answer: \texttt{extract\_dna\_sequence\_numbers}}{Answer: extract\_dna\_sequence\_numbers}}\label{answer-extract_dna_sequence_numbers}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5823,7 +5825,7 @@ expect_equal("KP143511.1", extract_dna_sequence_numbers(text)[30])
 The regex \texttt{"\textgreater{}(.*)\textbackslash{}\textbackslash{}\textbar{}.*"} would not work, because the asterisk is \emph{greedy}.
 
 \hypertarget{example-exercise-extract_year}{%
-\section{\texorpdfstring{Example exercise: \texttt{extract\_year}}{Example exercise: extract\_year}}\label{example-exercise-extract_year}}
+\subsection{\texorpdfstring{Example exercise: \texttt{extract\_year}}{Example exercise: extract\_year}}\label{example-exercise-extract_year}}
 
 Extract the year the DNA sequence has been obtained.
 Convert the text to a number.
@@ -5840,7 +5842,7 @@ expect_equal(2013, extract_year(text)[30])
 \end{verbatim}
 
 \hypertarget{answer-extract_year}{%
-\section{\texorpdfstring{Answer: \texttt{extract\_year}}{Answer: extract\_year}}\label{answer-extract_year}}
+\subsection{\texorpdfstring{Answer: \texttt{extract\_year}}{Answer: extract\_year}}\label{answer-extract_year}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5866,12 +5868,12 @@ expect_equal(2013, extract_year(text)[30])
 Here, the simple regex worked, \emph{because} the asterisk is greedy.
 
 \hypertarget{other-functions}{%
-\chapter{Other functions}\label{other-functions}}
+\section{Other functions}\label{other-functions}}
 
 \hypertarget{mutate}{%
-\section{Mutate}\label{mutate}}
+\subsection{Mutate}\label{mutate}}
 
-\includegraphics{06_mutate.png}
+\includegraphics{data/06_mutate.png}
 
 \begin{quote}
 From `Work with Strings Cheatsheet', \url{https://rstudio.com/resources/cheatsheets}
@@ -5889,11 +5891,59 @@ From `Work with Strings Cheatsheet', \url{https://rstudio.com/resources/cheatshe
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{testthatexpect_match}{%
+\subsection{\texorpdfstring{\texttt{testthat::expect\_match}}{testthat::expect\_match}}\label{testthatexpect_match}}
+
+You may want to test if a function's output matches
+a pattern:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#' Get the version, for example '1.0'}
+\NormalTok{get_version <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() \{}
+  \KeywordTok{sample}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"1.0"}\NormalTok{, }\StringTok{"1.1"}\NormalTok{), }\DataTypeTok{size =} \DecValTok{1}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Using \texttt{testthat::expect\_match} gives an unexpected result:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{expect_match}\NormalTok{(}
+  \KeywordTok{get_version}\NormalTok{(),}
+  \StringTok{"1}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.[:digit:]"}
+\NormalTok{)}
+\CommentTok{#> Error: get_version\textbackslash{}(\textbackslash{}) does not match "1\textbackslash{}\textbackslash{}.[:digit:]".}
+\CommentTok{#> Actual value: "1\textbackslash{}.0"}
+\end{Highlighting}
+\end{Shaded}
+
+Take a look at \texttt{?testthat::expect\_match}:
+
+\begin{quote}
+Details
+
+expect\_match() is a wrapper around grepl().
+See its documentation for more detail about the individual arguments.
+\end{quote}
+
+\begin{verbatim}
+
+Use the base R regex dialect:
+\end{verbatim}
+
+expect\_match(
+get\_version(),
+``1\textbackslash{}.{[}{[}:digit:{]}{]}''
+)
+```
+
 \hypertarget{bigger-picture}{%
-\chapter{Bigger picture}\label{bigger-picture}}
+\section{Bigger picture}\label{bigger-picture}}
 
 \hypertarget{develop-in-packages}{%
-\section{Develop in packages}\label{develop-in-packages}}
+\subsection{Develop in packages}\label{develop-in-packages}}
 
 \begin{itemize}
 \tightlist
@@ -5917,9 +5967,9 @@ Command-line tools with regular expressions:
 \end{itemize}
 
 \hypertarget{dont-overdo-it}{%
-\section{Don't overdo it}\label{dont-overdo-it}}
+\subsection{Don't overdo it}\label{dont-overdo-it}}
 
-\includegraphics{06_regex_golf.png}
+\includegraphics{data/06_regex_golf.png}
 
 \begin{quote}
 `Regex Golf', from \url{https://xkcd.com/1313/}
@@ -5928,7 +5978,7 @@ Command-line tools with regular expressions:
 Regex golf is a challenge to create the shortest regexes possible.
 
 \hypertarget{resources}{%
-\chapter{Resources}\label{resources}}
+\section{Resources}\label{resources}}
 
 \begin{itemize}
 \tightlist

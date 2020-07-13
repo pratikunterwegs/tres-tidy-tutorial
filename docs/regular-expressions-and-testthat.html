@@ -4,34 +4,34 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Section 8 Regular expressions and testthat | TRES Tidyverse Tutorial</title>
-  <meta name="description" content="Section 8 Regular expressions and testthat | TRES Tidyverse Tutorial" />
+  <title>Section 6 06. Regular expressions and testthat | TRES Tidyverse Tutorial</title>
+  <meta name="description" content="Section 6 06. Regular expressions and testthat | TRES Tidyverse Tutorial" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Section 8 Regular expressions and testthat | TRES Tidyverse Tutorial" />
+  <meta property="og:title" content="Section 6 06. Regular expressions and testthat | TRES Tidyverse Tutorial" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Section 8 Regular expressions and testthat | TRES Tidyverse Tutorial" />
+  <meta property="og:description" content="Section 6 06. Regular expressions and testthat | TRES Tidyverse Tutorial" />
   <meta name="github-repo" content="pratikunterwegs/tres-tidy-tutorial" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Section 8 Regular expressions and testthat | TRES Tidyverse Tutorial" />
+  <meta name="twitter:title" content="Section 6 06. Regular expressions and testthat | TRES Tidyverse Tutorial" />
   
-  <meta name="twitter:description" content="Section 8 Regular expressions and testthat | TRES Tidyverse Tutorial" />
+  <meta name="twitter:description" content="Section 6 06. Regular expressions and testthat | TRES Tidyverse Tutorial" />
   
 
 <meta name="author" content="Raphael, Pratik, Theo and Richèl" />
 
 
-<meta name="date" content="2020-07-10" />
+<meta name="date" content="2020-07-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="what-is-a-regex.html"/>
+<link rel="prev" href="ggplot2-and-the-grammar-of-graphics.html"/>
 <link rel="next" href="programming-in-the-tidyverse.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -268,53 +268,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.12" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#want-more"><i class="fa fa-check"></i><b>5.12</b> Want more?</a></li>
 <li class="chapter" data-level="5.13" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#references"><i class="fa fa-check"></i><b>5.13</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="regex-and-testthat.html"><a href="regex-and-testthat.html"><i class="fa fa-check"></i><b>6</b> 06. Regex and testthat</a><ul>
-<li class="chapter" data-level="6.1" data-path="regex-and-testthat.html"><a href="regex-and-testthat.html#goal"><i class="fa fa-check"></i><b>6.1</b> Goal</a></li>
-<li class="chapter" data-level="6.2" data-path="regex-and-testthat.html"><a href="regex-and-testthat.html#why-is-this-important"><i class="fa fa-check"></i><b>6.2</b> Why is this important?</a></li>
-<li class="chapter" data-level="6.3" data-path="regex-and-testthat.html"><a href="regex-and-testthat.html#overview"><i class="fa fa-check"></i><b>6.3</b> Overview</a></li>
-<li class="chapter" data-level="6.4" data-path="regex-and-testthat.html"><a href="regex-and-testthat.html#exercise-spot-the-pattern"><i class="fa fa-check"></i><b>6.4</b> Exercise: Spot the pattern</a></li>
-<li class="chapter" data-level="6.5" data-path="regex-and-testthat.html"><a href="regex-and-testthat.html#what-are-regular-expressions"><i class="fa fa-check"></i><b>6.5</b> What are regular expressions?</a></li>
-<li class="chapter" data-level="6.6" data-path="regex-and-testthat.html"><a href="regex-and-testthat.html#applications"><i class="fa fa-check"></i><b>6.6</b> Applications</a></li>
-<li class="chapter" data-level="6.7" data-path="regex-and-testthat.html"><a href="regex-and-testthat.html#not-just-r"><i class="fa fa-check"></i><b>6.7</b> Not just R</a></li>
-<li class="chapter" data-level="6.8" data-path="regex-and-testthat.html"><a href="regex-and-testthat.html#multiple-in-r"><i class="fa fa-check"></i><b>6.8</b> Multiple in R</a></li>
-<li class="chapter" data-level="6.9" data-path="regex-and-testthat.html"><a href="regex-and-testthat.html#dangers-of-regexes"><i class="fa fa-check"></i><b>6.9</b> Dangers of regexes</a></li>
-<li class="chapter" data-level="6.10" data-path="regex-and-testthat.html"><a href="regex-and-testthat.html#our-first-test"><i class="fa fa-check"></i><b>6.10</b> Our first test</a></li>
+<li class="chapter" data-level="6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html"><i class="fa fa-check"></i><b>6</b> 06. Regular expressions and <code>testthat</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#goal"><i class="fa fa-check"></i><b>6.1.1</b> Goal</a></li>
+<li class="chapter" data-level="6.1.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#why-is-this-important"><i class="fa fa-check"></i><b>6.1.2</b> Why is this important?</a></li>
+<li class="chapter" data-level="6.1.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#exercise-spot-the-pattern"><i class="fa fa-check"></i><b>6.1.3</b> Exercise: Spot the pattern</a></li>
+<li class="chapter" data-level="6.1.4" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#answers-spot-the-pattern"><i class="fa fa-check"></i><b>6.1.4</b> Answers: Spot the pattern</a></li>
+<li class="chapter" data-level="6.1.5" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#what-are-regular-expressions"><i class="fa fa-check"></i><b>6.1.5</b> What are regular expressions?</a></li>
+<li class="chapter" data-level="6.1.6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#applications"><i class="fa fa-check"></i><b>6.1.6</b> Applications</a></li>
+<li class="chapter" data-level="6.1.7" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#multiple-in-r"><i class="fa fa-check"></i><b>6.1.7</b> Multiple in R</a></li>
+<li class="chapter" data-level="6.1.8" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#dangers-of-regexes"><i class="fa fa-check"></i><b>6.1.8</b> Dangers of regexes</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="what-is-a-regex.html"><a href="what-is-a-regex.html"><i class="fa fa-check"></i><b>7</b> What is a regex?</a></li>
-<li class="chapter" data-level="8" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html"><i class="fa fa-check"></i><b>8</b> Regular expressions and testthat</a><ul>
-<li class="chapter" data-level="8.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#our-first-dutch-zip-code-tests"><i class="fa fa-check"></i><b>8.1</b> Our first Dutch zip code tests</a></li>
-<li class="chapter" data-level="8.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#answers-spot-the-regex"><i class="fa fa-check"></i><b>8.2</b> Answers: Spot the regex</a></li>
-<li class="chapter" data-level="8.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#complex"><i class="fa fa-check"></i><b>8.3</b> Complex</a></li>
-<li class="chapter" data-level="8.4" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#resources"><i class="fa fa-check"></i><b>8.4</b> Resources</a></li>
+<li class="chapter" data-level="6.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#testing"><i class="fa fa-check"></i><b>6.2</b> Testing</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#why-test"><i class="fa fa-check"></i><b>6.2.1</b> Why test?</a></li>
+<li class="chapter" data-level="6.2.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#our-first-test"><i class="fa fa-check"></i><b>6.2.2</b> Our first test</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html"><i class="fa fa-check"></i><b>9</b> Programming in the <em>tidyverse</em></a><ul>
-<li class="chapter" data-level="9.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#an-exlanation-of-the-problem"><i class="fa fa-check"></i><b>9.1</b> An exlanation of the problem</a><ul>
-<li class="chapter" data-level="9.1.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#what-the-issue-is"><i class="fa fa-check"></i><b>9.1.1</b> What the issue is</a></li>
-<li class="chapter" data-level="9.1.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#why-the-issue-is-a-problem"><i class="fa fa-check"></i><b>9.1.2</b> Why the issue is a problem</a></li>
-<li class="chapter" data-level="9.1.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-variables-as-strings-is-also-an-issue"><i class="fa fa-check"></i><b>9.1.3</b> Passing variables as strings is (also) an issue</a></li>
+<li class="chapter" data-level="6.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#detect-a-full-match"><i class="fa fa-check"></i><b>6.3</b> Detect a full match</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#str_which-demo"><i class="fa fa-check"></i><b>6.3.1</b> <code>str_which</code> demo</a></li>
+<li class="chapter" data-level="6.3.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#example-exercise-is_a_one"><i class="fa fa-check"></i><b>6.3.2</b> Example exercise: <code>is_a_one</code></a></li>
+<li class="chapter" data-level="6.3.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#exercise-is_a_digit"><i class="fa fa-check"></i><b>6.3.3</b> Exercise: <code>is_a_digit</code></a></li>
+<li class="chapter" data-level="6.3.4" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#exercise-is_a_word"><i class="fa fa-check"></i><b>6.3.4</b> Exercise: <code>is_a_word</code></a></li>
+<li class="chapter" data-level="6.3.5" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#exercise-is_dna_sequence"><i class="fa fa-check"></i><b>6.3.5</b> Exercise: <code>is_dna_sequence</code></a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-selection-is-easy"><i class="fa fa-check"></i><b>9.2</b> Flexible selection is easy</a></li>
-<li class="chapter" data-level="9.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#a-first-attempt-at-a-flexible-function"><i class="fa fa-check"></i><b>9.3</b> A first attempt at a flexible function</a><ul>
-<li class="chapter" data-level="9.3.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#failure-of-the-first-attempt"><i class="fa fa-check"></i><b>9.3.1</b> Failure of the first attempt</a></li>
-<li class="chapter" data-level="9.3.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-arguments-as-strings-doesnt-help"><i class="fa fa-check"></i><b>9.3.2</b> Passing arguments as strings doesn’t help</a></li>
-<li class="chapter" data-level="9.3.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#none-of-the-other-arguments-will-be-successful"><i class="fa fa-check"></i><b>9.3.3</b> None of the other arguments will be successful</a></li>
+<li class="chapter" data-level="6.4" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#extract-a-pattern"><i class="fa fa-check"></i><b>6.4</b> Extract a pattern</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#context"><i class="fa fa-check"></i><b>6.4.1</b> Context</a></li>
+<li class="chapter" data-level="6.4.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#str_match"><i class="fa fa-check"></i><b>6.4.2</b> <code>str_match</code></a></li>
+<li class="chapter" data-level="6.4.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#example-exercise-extract_dna_sequence_numbers"><i class="fa fa-check"></i><b>6.4.3</b> Example exercise: <code>extract_dna_sequence_numbers</code></a></li>
+<li class="chapter" data-level="6.4.4" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#answer-extract_dna_sequence_numbers"><i class="fa fa-check"></i><b>6.4.4</b> Answer: <code>extract_dna_sequence_numbers</code></a></li>
+<li class="chapter" data-level="6.4.5" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#example-exercise-extract_year"><i class="fa fa-check"></i><b>6.4.5</b> Example exercise: <code>extract_year</code></a></li>
+<li class="chapter" data-level="6.4.6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#answer-extract_year"><i class="fa fa-check"></i><b>6.4.6</b> Answer: <code>extract_year</code></a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-filtering-in-a-function"><i class="fa fa-check"></i><b>9.4</b> Flexible filtering in a function</a><ul>
-<li class="chapter" data-level="9.4.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-filtering-using-expressions"><i class="fa fa-check"></i><b>9.4.1</b> Flexible filtering using expressions</a></li>
+<li class="chapter" data-level="6.5" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#other-functions"><i class="fa fa-check"></i><b>6.5</b> Other functions</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#mutate"><i class="fa fa-check"></i><b>6.5.1</b> Mutate</a></li>
+<li class="chapter" data-level="6.5.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#testthatexpect_match"><i class="fa fa-check"></i><b>6.5.2</b> <code>testthat::expect_match</code></a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-grouping-in-a-function"><i class="fa fa-check"></i><b>9.5</b> Flexible grouping in a function</a><ul>
-<li class="chapter" data-level="9.5.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-...-and-forwarding"><i class="fa fa-check"></i><b>9.5.1</b> Using <code>...</code> and ‘forwarding’</a></li>
-<li class="chapter" data-level="9.5.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-grouping-variables-as-strings"><i class="fa fa-check"></i><b>9.5.2</b> Passing grouping variables as strings</a></li>
-<li class="chapter" data-level="9.5.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-rlangsyms"><i class="fa fa-check"></i><b>9.5.3</b> Using <code>rlang::syms</code></a></li>
-<li class="chapter" data-level="9.5.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-rlangparse_exprs"><i class="fa fa-check"></i><b>9.5.4</b> Using <code>rlang::parse_exprs</code></a></li>
+<li class="chapter" data-level="6.6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#bigger-picture"><i class="fa fa-check"></i><b>6.6</b> Bigger picture</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#develop-in-packages"><i class="fa fa-check"></i><b>6.6.1</b> Develop in packages</a></li>
 </ul></li>
-<li class="chapter" data-level="9.6" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-summarising-in-a-function"><i class="fa fa-check"></i><b>9.6</b> Flexible summarising in a function</a><ul>
-<li class="chapter" data-level="9.6.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-dplyrsummarise_at"><i class="fa fa-check"></i><b>9.6.1</b> Using <code>dplyr::summarise_at</code></a></li>
-<li class="chapter" data-level="9.6.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-the-across-argument-for-summary-variables"><i class="fa fa-check"></i><b>9.6.2</b> Using the <code>across</code> argument for summary variables</a></li>
-<li class="chapter" data-level="9.6.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#summarise-multiple-variables-using-..."><i class="fa fa-check"></i><b>9.6.3</b> Summarise multiple variables using <code>...</code></a></li>
-<li class="chapter" data-level="9.6.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#summarise-with-multiple-functions"><i class="fa fa-check"></i><b>9.6.4</b> Summarise with multiple functions</a></li>
+<li class="chapter" data-level="6.7" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#regex-usage-beyond-r-is-common"><i class="fa fa-check"></i><b>6.7</b> Regex usage beyond R is common</a><ul>
+<li class="chapter" data-level="6.7.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#dont-overdo-it"><i class="fa fa-check"></i><b>6.7.1</b> Don’t overdo it</a></li>
 </ul></li>
-<li class="chapter" data-level="9.7" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#further-resources"><i class="fa fa-check"></i><b>9.7</b> Further resources</a></li>
+<li class="chapter" data-level="6.8" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#resources"><i class="fa fa-check"></i><b>6.8</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html"><i class="fa fa-check"></i><b>7</b> Programming in the <em>tidyverse</em></a><ul>
+<li class="chapter" data-level="7.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#an-exlanation-of-the-problem"><i class="fa fa-check"></i><b>7.1</b> An exlanation of the problem</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#what-the-issue-is"><i class="fa fa-check"></i><b>7.1.1</b> What the issue is</a></li>
+<li class="chapter" data-level="7.1.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#why-the-issue-is-a-problem"><i class="fa fa-check"></i><b>7.1.2</b> Why the issue is a problem</a></li>
+<li class="chapter" data-level="7.1.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-variables-as-strings-is-also-an-issue"><i class="fa fa-check"></i><b>7.1.3</b> Passing variables as strings is (also) an issue</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-selection-is-easy"><i class="fa fa-check"></i><b>7.2</b> Flexible selection is easy</a></li>
+<li class="chapter" data-level="7.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#a-first-attempt-at-a-flexible-function"><i class="fa fa-check"></i><b>7.3</b> A first attempt at a flexible function</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#failure-of-the-first-attempt"><i class="fa fa-check"></i><b>7.3.1</b> Failure of the first attempt</a></li>
+<li class="chapter" data-level="7.3.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-arguments-as-strings-doesnt-help"><i class="fa fa-check"></i><b>7.3.2</b> Passing arguments as strings doesn’t help</a></li>
+<li class="chapter" data-level="7.3.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#none-of-the-other-arguments-will-be-successful"><i class="fa fa-check"></i><b>7.3.3</b> None of the other arguments will be successful</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-filtering-in-a-function"><i class="fa fa-check"></i><b>7.4</b> Flexible filtering in a function</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-filtering-using-expressions"><i class="fa fa-check"></i><b>7.4.1</b> Flexible filtering using expressions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-grouping-in-a-function"><i class="fa fa-check"></i><b>7.5</b> Flexible grouping in a function</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-...-and-forwarding"><i class="fa fa-check"></i><b>7.5.1</b> Using <code>...</code> and ‘forwarding’</a></li>
+<li class="chapter" data-level="7.5.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-grouping-variables-as-strings"><i class="fa fa-check"></i><b>7.5.2</b> Passing grouping variables as strings</a></li>
+<li class="chapter" data-level="7.5.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-rlangsyms"><i class="fa fa-check"></i><b>7.5.3</b> Using <code>rlang::syms</code></a></li>
+<li class="chapter" data-level="7.5.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-rlangparse_exprs"><i class="fa fa-check"></i><b>7.5.4</b> Using <code>rlang::parse_exprs</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-summarising-in-a-function"><i class="fa fa-check"></i><b>7.6</b> Flexible summarising in a function</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-dplyrsummarise_at"><i class="fa fa-check"></i><b>7.6.1</b> Using <code>dplyr::summarise_at</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-the-across-argument-for-summary-variables"><i class="fa fa-check"></i><b>7.6.2</b> Using the <code>across</code> argument for summary variables</a></li>
+<li class="chapter" data-level="7.6.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#summarise-multiple-variables-using-..."><i class="fa fa-check"></i><b>7.6.3</b> Summarise multiple variables using <code>...</code></a></li>
+<li class="chapter" data-level="7.6.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#summarise-with-multiple-functions"><i class="fa fa-check"></i><b>7.6.4</b> Summarise with multiple functions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#further-resources"><i class="fa fa-check"></i><b>7.7</b> Further resources</a></li>
 </ul></li>
 </ul>
 
@@ -334,94 +357,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="regular-expressions-and-testthat" class="section level1">
-<h1><span class="header-section-number">Section 8</span> Regular expressions and testthat</h1>
-<pre><code>are_fasta_filenames &lt;- function() {
-  # ...
-  pattern = &quot;.*\\.(fas|fasta|FAS|FASTA)$&quot;
-  # ...
-}
-
-is_xml_opening_tag &lt;- function() {
-  # ...
-  pattern = &quot;&lt;[A-Za-z_]* &quot;
-  # ...
-}
-
-is_xml_closing_tag &lt;- function() {
-  # ...
-  pattern = &quot;&lt;/[A-Za-z_]*&gt;&quot;
-  # ...
-}
-
-is_ns_mcmc &lt;- function() {
-  # ...
-  pattern = &quot;.*beast.gss.NS.*&quot;
-  # ...
-}
-
-
-is_dna_seq &lt;- fucntion() {
-  # ...
-  pattern = &quot;[acgt]*&quot;)[1, 1]
-  # ...
-}
-
-
-time_str_to_n_sec &lt;- function() {
-  # ...
-  pattern = &quot;((.)-)?(..):(..):(..)&quot;
-  # ...
-}
-
-is_on_peregrine_worker_node &lt;- function() {
-  pattern = &quot;pg-node[0-9]{3}&quot;
-}
-
-is_relevant_title &lt;-function() {
-  pattern = &quot;(evolutio|immunolo|speciation)&quot;
-}
-
-is_jar_path &lt;- function() {
-  pattern = &quot;(.*/)?(launcher|beast)\\.jar$&quot;)
-}
-
-get_mhcnuggets_version &lt;- function() {
-  pattern = &quot;Version: (.*)&quot;
-}
-
-get_pureseqtm_version.R &lt;- function() {
-  pattern = &quot;v[[:digit:]]\\.[[:digit:]]{1,2}&quot;
-}
-
-create_covid_fig &lt;- function() {
-  pattern = &quot;..\\|.*\\|(.*)_SARS2&quot;
-}
-
-collect_run_times &lt;- function() {
-  pattern = &quot;State.*: (CANCELLED|COMPLETED|RUNNING)&quot;
-}
-
-collect_run_times &lt;- function() {
-  pattern = &quot;Used CPU time .*:.*((.-)?..:..:..) &quot;
-}
-
-thesis_synthesis_create_figures &lt;- function() {
-  pattern = &quot;^.*\\.(R|Rmd|java|cpp|h)$&quot;
-}</code></pre>
-<div id="our-first-dutch-zip-code-tests" class="section level2">
-<h2><span class="header-section-number">8.1</span> Our first Dutch zip code tests</h2>
-<p>We will be writing the function <code>is_dutch_zip_code</code>
-to determine if a piece of text matches a Dutch zip code.</p>
-<p>First, as is good practice, we will be writing the tests:</p>
-<pre><code>expect_true(is_dutch_zip_code(&quot;1234 AA&quot;))
-expect_true(!is_dutch_zip_code(&quot;1234AA&quot;))
-expect_true(!is_dutch_zip_code(&quot; 1234 AA&quot;))
-expect_true(!is_dutch_zip_code(&quot;1234 AA &quot;))
-expect_true(!is_dutch_zip_code(&quot;1234 aa&quot;))
-expect_true(!is_dutch_zip_code(&quot;nonsense&quot;))</code></pre>
+<h1><span class="header-section-number">Section 6</span> 06. Regular expressions and <code>testthat</code></h1>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">6.1</span> Introduction</h2>
+<p><img src="data/06_regular_expressions.png" /></p>
+<blockquote>
+<p>‘Regular expressions’ from <a href="https://xkcd.com/208" class="uri">https://xkcd.com/208</a></p>
+</blockquote>
+<div id="goal" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> Goal</h3>
+<p>In this chapter, you will learn:</p>
+<ul>
+<li>How to express your ideas as a regular expression</li>
+<li>Verify that you indeed did so</li>
+</ul>
 </div>
-<div id="answers-spot-the-regex" class="section level2">
-<h2><span class="header-section-number">8.2</span> Answers: Spot the regex</h2>
+<div id="why-is-this-important" class="section level3">
+<h3><span class="header-section-number">6.1.2</span> Why is this important?</h3>
+<p>Knowing the basics of regular expressions, prevents you having
+to hand-craft functions to detect patterns in any text.</p>
+<p>Being able to verify your own assumptions allows you to speed
+up any development of any code. It is estimated that 80-90%
+of all the time, we are debugging our code. Being good at
+testing, is the way to become faster.</p>
+</div>
+<div id="exercise-spot-the-pattern" class="section level3">
+<h3><span class="header-section-number">6.1.3</span> Exercise: Spot the pattern</h3>
+<p>Each line below is or contains a pattern. Observe what your brain does
+when interpreting a line. If it thinks: ‘Hey, that’s a [pattern],
+because [regular expression]’, you got your answer!</p>
+<p>Answer, for each line: (1) what is it? (2) why did you think to?</p>
+<pre><code>Lithium-ion batteries play a central role in the world of technology.
+But would it be safe to simply orbit the planet?
+Your Next Samsung Phone May Not Come With a Charger in the Box
+The restrictions would end 90 days after Portland&#39;s state of emergency order lifts. 
+Those cities have limits at 15%.</code></pre>
+</div>
+<div id="answers-spot-the-pattern" class="section level3">
+<h3><span class="header-section-number">6.1.4</span> Answers: Spot the pattern</h3>
 <pre><code>Lithium-ion batteries play a central role in the world of technology.</code></pre>
 <p>This is a sentence, because it ends with a dot.</p>
 <pre><code>But would it be safe to simply orbit the planet?</code></pre>
@@ -439,15 +412,538 @@ to it.</p>
 <li>Texts from <a href="https://slashdot.org">https://slashdot.org</a>.</li>
 </ul>
 </div>
-<div id="complex" class="section level2">
-<h2><span class="header-section-number">8.3</span> Complex</h2>
-<p><img src="06_regex_golf.png" /></p>
+<div id="what-are-regular-expressions" class="section level3">
+<h3><span class="header-section-number">6.1.5</span> What are regular expressions?</h3>
+<p>A regular expression ‘is a sequence of characters that define a
+search pattern’. Such a pattern may be a zip code, a date,
+or any other text of which you can say: ‘this is not just text,
+it is a [something]’.</p>
+<p>For example, take a Dutch zip code: <code>9747 AG</code>. Dutch zip
+code have four digits, a space and then two uppercase
+alphabet characters.</p>
+</div>
+<div id="applications" class="section level3">
+<h3><span class="header-section-number">6.1.6</span> Applications</h3>
+<p>DNA data:</p>
+<pre><code>&gt;KU215420.1|Felinecoronavirus|Feliscatus|Belgium|2013|Envelope
+ATGATGTTTCCTAGGGCATTTACTATCATAGATGACCATGGTATGGTTGTTAGTGTCTTC
+&gt;KP143511.1|Felinecoronavirus|Feliscatus|UnitedKingdom|2013|Envelope
+ATGATGTTTCCTAGGGCATTTACTATCATAGACGACCATGGTATGGTTGTTAGTGTCTTC</code></pre>
+<p>Protein data:</p>
+<pre><code>&gt;sp|P0DTC2|SPIKE_SARS2 Spike glycoprotein OS=Severe acute respiratory syndrome coronavirus 2 OX=2697049 GN=S PE=1 SV=1
+MFVFLVLLPLVSSQCVNLTTRTQLPPAYTNSFTRGVYYPDKVFRSSVLHSTQDLFLPFFS
+&gt;sp|P0DTC5|VME1_SARS2 Membrane protein OS=Severe acute respiratory syndrome coronavirus 2 OX=2697049 PE=3 SV=1
+MADSNGTITVEELKKLLEQWNLVIGFLFLTWICLLQFAYANRNRFLYIIKLIFLWLLWPV</code></pre>
+</div>
+<div id="multiple-in-r" class="section level3">
+<h3><span class="header-section-number">6.1.7</span> Multiple in R</h3>
+<p><img src="data/06_stringr.png" /></p>
+<blockquote>
+<p>The ‘stringr’ logo. ‘stringr’ is part of the Tidyverse</p>
+</blockquote>
+<p>R functions to work with regular expressions:</p>
+<ul>
+<li><code>stringr::string_</code></li>
+<li><code>egrep</code></li>
+<li><code>gsub</code></li>
+</ul>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" title="1"><span class="kw">library</span>(stringr)</a></code></pre></div>
+</div>
+<div id="dangers-of-regexes" class="section level3">
+<h3><span class="header-section-number">6.1.8</span> Dangers of regexes</h3>
+<p><img src="data/06_perl_problems.png" /></p>
+<blockquote>
+<p>‘Perl problems’, from <a href="https://xkcd.com/1171/" class="uri">https://xkcd.com/1171/</a></p>
+</blockquote>
+<p>Regexes have different dialects, such as POSIX and perl.
+Within R, there are the base R dialect and the Tidyverse dialect.</p>
+<blockquote>
+<p>I define UNIX as 30 definitions of regular expressions living under one roof.</p>
+<p>Donald Knuth. Digital Typography, ch. 33, p. 649 (1999)</p>
+</blockquote>
+<p>We’ll have to test!</p>
+</div>
+</div>
+<div id="testing" class="section level2">
+<h2><span class="header-section-number">6.2</span> Testing</h2>
+<p><img src="data/06_george_dinwiddie.jpg" /></p>
+<blockquote>
+<p>From George Dinwiddie’s blog, <a href="http://blog.gdinwiddie.com/2012/12/26/tdd-hat/" class="uri">http://blog.gdinwiddie.com/2012/12/26/tdd-hat/</a></p>
+</blockquote>
+<div id="why-test" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Why test?</h3>
+<blockquote>
+<p>Testers don’t like to break things;
+they like to dispel the illusion that things work.</p>
+<p>Kaner, Bach, Pettichord</p>
+</blockquote>
+<ul>
+<li>To be sure your code is correct</li>
+<li>Spend less time fixing bugs</li>
+<li>Unit of communication</li>
+<li>Clean software interface</li>
+</ul>
+</div>
+<div id="our-first-test" class="section level3">
+<h3><span class="header-section-number">6.2.2</span> Our first test</h3>
+<p>The <code>testthat</code> package is the Tidyverse package to write tests.</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" title="1"><span class="kw">library</span>(testthat)</a></code></pre></div>
+<p>All test functions start with <code>expect_</code>, for example:</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" title="1"><span class="kw">expect_true</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb216-2" title="2"><span class="kw">expect_false</span>(<span class="st">&quot;cat&quot;</span> <span class="op">==</span><span class="st"> &quot;dog&quot;</span>)</a>
+<a class="sourceLine" id="cb216-3" title="3"><span class="kw">expect_equal</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, <span class="dv">2</span>)</a></code></pre></div>
+</div>
+</div>
+<div id="detect-a-full-match" class="section level2">
+<h2><span class="header-section-number">6.3</span> Detect a full match</h2>
+<p>Here, we will detect simple patterns using <code>str_which</code>.</p>
+<p>Tip: run <code>?str_which</code> for its documentation.</p>
+<p><img src="data/06_detect.png" /></p>
+<blockquote>
+<p>From ‘Work with Strings Cheatsheet’, <a href="https://rstudio.com/resources/cheatsheets" class="uri">https://rstudio.com/resources/cheatsheets</a></p>
+</blockquote>
+<div id="str_which-demo" class="section level3">
+<h3><span class="header-section-number">6.3.1</span> <code>str_which</code> demo</h3>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" title="1">fruit &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;apple&quot;</span>, <span class="st">&quot;banana&quot;</span>, <span class="st">&quot;pinapple&quot;</span>)</a>
+<a class="sourceLine" id="cb217-2" title="2"></a>
+<a class="sourceLine" id="cb217-3" title="3"><span class="kw">expect_equal</span>(</a>
+<a class="sourceLine" id="cb217-4" title="4">  <span class="kw">str_which</span>(fruit, <span class="st">&quot;banana&quot;</span>),</a>
+<a class="sourceLine" id="cb217-5" title="5">  <span class="dv">2</span></a>
+<a class="sourceLine" id="cb217-6" title="6">)</a>
+<a class="sourceLine" id="cb217-7" title="7"></a>
+<a class="sourceLine" id="cb217-8" title="8"><span class="kw">expect_equal</span>(</a>
+<a class="sourceLine" id="cb217-9" title="9">  <span class="kw">str_which</span>(fruit, <span class="st">&quot;apple&quot;</span>),</a>
+<a class="sourceLine" id="cb217-10" title="10">  <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb217-11" title="11">)</a>
+<a class="sourceLine" id="cb217-12" title="12"></a>
+<a class="sourceLine" id="cb217-13" title="13"><span class="kw">expect_equal</span>(</a>
+<a class="sourceLine" id="cb217-14" title="14">  <span class="kw">str_which</span>(fruit, <span class="st">&quot;submarine&quot;</span>),</a>
+<a class="sourceLine" id="cb217-15" title="15">  <span class="kw">integer</span>(<span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb217-16" title="16">)</a></code></pre></div>
+</div>
+<div id="example-exercise-is_a_one" class="section level3">
+<h3><span class="header-section-number">6.3.2</span> Example exercise: <code>is_a_one</code></h3>
+<p>Write a function called <code>is_a_one</code> that detects if a string is one one,
+using <code>str_subset</code>.</p>
+<p>Use the anchors as shown on the cheatsheet to specify that
+the complete string, from begin to the end, must consist out of characters</p>
+<p><img src="data/06_anchors.png" /></p>
+<blockquote>
+<p>From ‘Work with Strings Cheatsheet’, <a href="https://rstudio.com/resources/cheatsheets" class="uri">https://rstudio.com/resources/cheatsheets</a></p>
+</blockquote>
+<p>These tests must pass:</p>
+<pre><code>expect_true(is_a_one(&quot;1&quot;))
+expect_false(is_a_one(&quot;X&quot;))
+expect_false(is_a_one(&quot;11&quot;))
+expect_false(is_a_one(c(&quot;1&quot;, &quot;1&quot;)))
+expect_false(is_a_one(integer(0)))
+expect_false(is_a_one(NULL))
+expect_false(is_a_one(NA))
+expect_false(is_a_one(Inf))</code></pre>
+<div id="answer-is_a_one" class="section level4">
+<h4><span class="header-section-number">6.3.2.1</span> Answer <code>is_a_one</code></h4>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" title="1">is_a_one &lt;-<span class="st"> </span><span class="cf">function</span>(text) {</a>
+<a class="sourceLine" id="cb219-2" title="2">  <span class="kw">length</span>(stringr<span class="op">::</span><span class="kw">str_which</span>(text, <span class="st">&quot;^1$&quot;</span>)) <span class="op">==</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb219-3" title="3">} </a></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1"><span class="kw">expect_true</span>(<span class="kw">is_a_one</span>(<span class="st">&quot;1&quot;</span>))</a>
+<a class="sourceLine" id="cb220-2" title="2"><span class="kw">expect_false</span>(<span class="kw">is_a_one</span>(<span class="st">&quot;X&quot;</span>))</a>
+<a class="sourceLine" id="cb220-3" title="3"><span class="kw">expect_false</span>(<span class="kw">is_a_one</span>(<span class="st">&quot;11&quot;</span>))</a>
+<a class="sourceLine" id="cb220-4" title="4"><span class="kw">expect_false</span>(<span class="kw">is_a_one</span>(<span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>)))</a>
+<a class="sourceLine" id="cb220-5" title="5"><span class="kw">expect_false</span>(<span class="kw">is_a_one</span>(<span class="kw">integer</span>(<span class="dv">0</span>)))</a>
+<a class="sourceLine" id="cb220-6" title="6"><span class="kw">expect_false</span>(<span class="kw">is_a_one</span>(<span class="ot">NULL</span>))</a>
+<a class="sourceLine" id="cb220-7" title="7"><span class="kw">expect_false</span>(<span class="kw">is_a_one</span>(<span class="ot">NA</span>))</a>
+<a class="sourceLine" id="cb220-8" title="8"><span class="kw">expect_false</span>(<span class="kw">is_a_one</span>(<span class="ot">Inf</span>))</a></code></pre></div>
+</div>
+</div>
+<div id="exercise-is_a_digit" class="section level3">
+<h3><span class="header-section-number">6.3.3</span> Exercise: <code>is_a_digit</code></h3>
+<p>Write a function called <code>is_a_digit</code> that detects if a string is one digit.</p>
+<p>Use the regex pattern as shown on the cheatsheet to specify a digit:</p>
+<p><img src="data/06_character_sets.png" /></p>
+<blockquote>
+<p>From ‘Work with Strings Cheatsheet’, <a href="https://rstudio.com/resources/cheatsheets" class="uri">https://rstudio.com/resources/cheatsheets</a></p>
+</blockquote>
+<p>These tests must pass:</p>
+<pre><code>expect_true(is_a_digit(&quot;0&quot;))
+expect_true(is_a_digit(&quot;1&quot;))
+expect_false(is_a_digit(&quot;&quot;))
+expect_false(is_a_digit(&quot;X&quot;))
+expect_false(is_a_digit(c(&quot;1&quot;, &quot;2&quot;)))
+expect_false(is_a_digit(character(0)))
+expect_false(is_a_digit(NULL))
+expect_false(is_a_digit(NA))
+expect_false(is_a_digit(Inf))</code></pre>
+<div id="answer-is_a_digit" class="section level4">
+<h4><span class="header-section-number">6.3.3.1</span> Answer: <code>is_a_digit</code></h4>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" title="1">is_a_digit &lt;-<span class="st"> </span><span class="cf">function</span>(text) {</a>
+<a class="sourceLine" id="cb222-2" title="2">  <span class="kw">length</span>(stringr<span class="op">::</span><span class="kw">str_which</span>(text, <span class="st">&quot;^[:digit:]$&quot;</span>)) <span class="op">==</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb222-3" title="3">} </a></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" title="1"><span class="kw">expect_true</span>(<span class="kw">is_a_digit</span>(<span class="st">&quot;0&quot;</span>))</a>
+<a class="sourceLine" id="cb223-2" title="2"><span class="kw">expect_true</span>(<span class="kw">is_a_digit</span>(<span class="st">&quot;1&quot;</span>))</a>
+<a class="sourceLine" id="cb223-3" title="3"><span class="kw">expect_false</span>(<span class="kw">is_a_digit</span>(<span class="st">&quot;&quot;</span>))</a>
+<a class="sourceLine" id="cb223-4" title="4"><span class="kw">expect_false</span>(<span class="kw">is_a_digit</span>(<span class="st">&quot;12&quot;</span>))</a>
+<a class="sourceLine" id="cb223-5" title="5"><span class="kw">expect_false</span>(<span class="kw">is_a_digit</span>(<span class="st">&quot;X&quot;</span>))</a>
+<a class="sourceLine" id="cb223-6" title="6"><span class="kw">expect_false</span>(<span class="kw">is_a_digit</span>(<span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>)))</a>
+<a class="sourceLine" id="cb223-7" title="7"><span class="kw">expect_false</span>(<span class="kw">is_a_digit</span>(<span class="kw">character</span>(<span class="dv">0</span>)))</a>
+<a class="sourceLine" id="cb223-8" title="8"><span class="kw">expect_false</span>(<span class="kw">is_a_digit</span>(<span class="ot">NULL</span>))</a>
+<a class="sourceLine" id="cb223-9" title="9"><span class="kw">expect_false</span>(<span class="kw">is_a_digit</span>(<span class="ot">NA</span>))</a>
+<a class="sourceLine" id="cb223-10" title="10"><span class="kw">expect_false</span>(<span class="kw">is_a_digit</span>(<span class="ot">Inf</span>))</a></code></pre></div>
+</div>
+</div>
+<div id="exercise-is_a_word" class="section level3">
+<h3><span class="header-section-number">6.3.4</span> Exercise: <code>is_a_word</code></h3>
+<p>Write a function called <code>is_a_word</code> that detects if a string is a word.</p>
+<p>To simplify now, a word is defined as:</p>
+<ul>
+<li>Having one or more lowercase characters</li>
+<li>Having no dashes, nor numbers</li>
+</ul>
+<p>Use the quantifiers as shown on the cheatsheet to specify that one needs
+one or more characters:</p>
+<p><img src="data/06_quantifiers.png" /></p>
+<blockquote>
+<p>From ‘Work with Strings Cheatsheet’, <a href="https://rstudio.com/resources/cheatsheets" class="uri">https://rstudio.com/resources/cheatsheets</a></p>
+</blockquote>
+<p>These tests must pass:</p>
+<pre><code>expect_true(is_a_word(&quot;a&quot;))
+expect_true(is_a_word(&quot;an&quot;))
+expect_true(is_a_word(&quot;apple&quot;))
+expect_false(is_a_word(&quot;X&quot;))
+expect_false(is_a_word(&quot;XX&quot;))
+expect_false(is_a_word(&quot;Hi&quot;))
+expect_false(is_a_word(&quot;hI&quot;))
+expect_false(is_a_word(&quot;hoWdy&quot;))
+expect_false(is_a_word(c(&quot;an&quot;, &quot;apple&quot;)))
+expect_false(is_a_word(character(0)))
+expect_false(is_a_word(NULL))
+expect_false(is_a_word(NA))
+expect_false(is_a_word(Inf))</code></pre>
+<div id="answer-is_a_word" class="section level4">
+<h4><span class="header-section-number">6.3.4.1</span> Answer: <code>is_a_word</code></h4>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" title="1">is_a_word &lt;-<span class="st"> </span><span class="cf">function</span>(text) {</a>
+<a class="sourceLine" id="cb225-2" title="2">  <span class="kw">length</span>(stringr<span class="op">::</span><span class="kw">str_which</span>(text, <span class="st">&quot;^[:lower:]+$&quot;</span>)) <span class="op">==</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb225-3" title="3">} </a></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" title="1"><span class="kw">expect_true</span>(<span class="kw">is_a_word</span>(<span class="st">&quot;a&quot;</span>))</a>
+<a class="sourceLine" id="cb226-2" title="2"><span class="kw">expect_true</span>(<span class="kw">is_a_word</span>(<span class="st">&quot;an&quot;</span>))</a>
+<a class="sourceLine" id="cb226-3" title="3"><span class="kw">expect_true</span>(<span class="kw">is_a_word</span>(<span class="st">&quot;apple&quot;</span>))</a>
+<a class="sourceLine" id="cb226-4" title="4"><span class="kw">expect_false</span>(<span class="kw">is_a_word</span>(<span class="st">&quot;X&quot;</span>))</a>
+<a class="sourceLine" id="cb226-5" title="5"><span class="kw">expect_false</span>(<span class="kw">is_a_word</span>(<span class="st">&quot;XX&quot;</span>))</a>
+<a class="sourceLine" id="cb226-6" title="6"><span class="kw">expect_false</span>(<span class="kw">is_a_word</span>(<span class="st">&quot;Hi&quot;</span>))</a>
+<a class="sourceLine" id="cb226-7" title="7"><span class="kw">expect_false</span>(<span class="kw">is_a_word</span>(<span class="st">&quot;hI&quot;</span>))</a>
+<a class="sourceLine" id="cb226-8" title="8"><span class="kw">expect_false</span>(<span class="kw">is_a_word</span>(<span class="st">&quot;hoWdy&quot;</span>))</a>
+<a class="sourceLine" id="cb226-9" title="9"><span class="kw">expect_false</span>(<span class="kw">is_a_word</span>(<span class="kw">c</span>(<span class="st">&quot;an&quot;</span>, <span class="st">&quot;apple&quot;</span>)))</a>
+<a class="sourceLine" id="cb226-10" title="10"><span class="kw">expect_false</span>(<span class="kw">is_a_word</span>(<span class="kw">character</span>(<span class="dv">0</span>)))</a>
+<a class="sourceLine" id="cb226-11" title="11"><span class="kw">expect_false</span>(<span class="kw">is_a_word</span>(<span class="ot">NULL</span>))</a>
+<a class="sourceLine" id="cb226-12" title="12"><span class="kw">expect_false</span>(<span class="kw">is_a_word</span>(<span class="ot">NA</span>))</a>
+<a class="sourceLine" id="cb226-13" title="13"><span class="kw">expect_false</span>(<span class="kw">is_a_word</span>(<span class="ot">Inf</span>))</a></code></pre></div>
+</div>
+</div>
+<div id="exercise-is_dna_sequence" class="section level3">
+<h3><span class="header-section-number">6.3.5</span> Exercise: <code>is_dna_sequence</code></h3>
+<p>Write a function called <code>is_dna_sequence</code> that detects if a string is
+a DNA sequence.</p>
+<p>To simplify now, a DNA sequence is defined as:</p>
+<ul>
+<li>There are four characters, one per nucleotides</li>
+<li>These characters are uppercase (A, C, G and T)</li>
+</ul>
+<p>Use the alternates as shown on the cheatsheet to specify that
+each character must be one of the four nucleotides:</p>
+<p><img src="data/06_alternates.png" /></p>
+<blockquote>
+<p>From ‘Work with Strings Cheatsheet’, <a href="https://rstudio.com/resources/cheatsheets" class="uri">https://rstudio.com/resources/cheatsheets</a></p>
+</blockquote>
+<p>These tests must pass:</p>
+<pre><code>expect_true(is_dna_sequence(&quot;A&quot;))
+expect_true(is_dna_sequence(&quot;AC&quot;))
+expect_true(is_dna_sequence(&quot;ACG&quot;))
+expect_true(is_dna_sequence(&quot;ACGT&quot;))
+expect_false(is_dna_sequence(&quot;a&quot;))
+expect_false(is_dna_sequence(&quot;Ax&quot;))
+expect_false(is_dna_sequence(&quot;xA&quot;))
+expect_false(is_dna_sequence(&quot;AxA&quot;))
+expect_false(is_dna_sequence(c(&quot;A&quot;, &quot;CGT&quot;)))
+expect_false(is_dna_sequence(character(0)))
+expect_false(is_dna_sequence(NULL))
+expect_false(is_dna_sequence(NA))
+expect_false(is_dna_sequence(Inf))</code></pre>
+<div id="answer-is_dna_sequence" class="section level4">
+<h4><span class="header-section-number">6.3.5.1</span> Answer: <code>is_dna_sequence</code></h4>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" title="1">is_dna_sequence &lt;-<span class="st"> </span><span class="cf">function</span>(text) {</a>
+<a class="sourceLine" id="cb228-2" title="2">  <span class="kw">length</span>(stringr<span class="op">::</span><span class="kw">str_which</span>(text, <span class="st">&quot;^[ACGT]+$&quot;</span>)) <span class="op">==</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb228-3" title="3">} </a></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" title="1"><span class="kw">expect_true</span>(<span class="kw">is_dna_sequence</span>(<span class="st">&quot;A&quot;</span>))</a>
+<a class="sourceLine" id="cb229-2" title="2"><span class="kw">expect_true</span>(<span class="kw">is_dna_sequence</span>(<span class="st">&quot;AC&quot;</span>))</a>
+<a class="sourceLine" id="cb229-3" title="3"><span class="kw">expect_true</span>(<span class="kw">is_dna_sequence</span>(<span class="st">&quot;ACG&quot;</span>))</a>
+<a class="sourceLine" id="cb229-4" title="4"><span class="kw">expect_true</span>(<span class="kw">is_dna_sequence</span>(<span class="st">&quot;ACGT&quot;</span>))</a>
+<a class="sourceLine" id="cb229-5" title="5"><span class="kw">expect_false</span>(<span class="kw">is_dna_sequence</span>(<span class="st">&quot;a&quot;</span>))</a>
+<a class="sourceLine" id="cb229-6" title="6"><span class="kw">expect_false</span>(<span class="kw">is_dna_sequence</span>(<span class="st">&quot;Ax&quot;</span>))</a>
+<a class="sourceLine" id="cb229-7" title="7"><span class="kw">expect_false</span>(<span class="kw">is_dna_sequence</span>(<span class="st">&quot;xA&quot;</span>))</a>
+<a class="sourceLine" id="cb229-8" title="8"><span class="kw">expect_false</span>(<span class="kw">is_dna_sequence</span>(<span class="st">&quot;AxA&quot;</span>))</a>
+<a class="sourceLine" id="cb229-9" title="9"><span class="kw">expect_false</span>(<span class="kw">is_dna_sequence</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;CGT&quot;</span>)))</a>
+<a class="sourceLine" id="cb229-10" title="10"><span class="kw">expect_false</span>(<span class="kw">is_dna_sequence</span>(<span class="kw">character</span>(<span class="dv">0</span>)))</a>
+<a class="sourceLine" id="cb229-11" title="11"><span class="kw">expect_false</span>(<span class="kw">is_dna_sequence</span>(<span class="ot">NULL</span>))</a>
+<a class="sourceLine" id="cb229-12" title="12"><span class="kw">expect_false</span>(<span class="kw">is_dna_sequence</span>(<span class="ot">NA</span>))</a>
+<a class="sourceLine" id="cb229-13" title="13"><span class="kw">expect_false</span>(<span class="kw">is_dna_sequence</span>(<span class="ot">Inf</span>))</a></code></pre></div>
+</div>
+</div>
+</div>
+<div id="extract-a-pattern" class="section level2">
+<h2><span class="header-section-number">6.4</span> Extract a pattern</h2>
+<p>Here, we will extract a pattern using <code>str_match</code>.</p>
+<p>Tip: run <code>?str_match</code> for its documentation.</p>
+<p><img src="data/06_subset.png" /></p>
+<blockquote>
+<p>From ‘Work with Strings Cheatsheet’, <a href="https://rstudio.com/resources/cheatsheets" class="uri">https://rstudio.com/resources/cheatsheets</a></p>
+</blockquote>
+<div id="context" class="section level3">
+<h3><span class="header-section-number">6.4.1</span> Context</h3>
+<p>Here we will work on a DNA sequence:</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" title="1">text &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_lines</span>(<span class="st">&quot;data/virus.fas&quot;</span>)</a>
+<a class="sourceLine" id="cb230-2" title="2"><span class="kw">head</span>(text, <span class="dt">n =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb230-3" title="3"><span class="co">#&gt;  [1] &quot;&gt;KX722530.1|Felinecoronavirus|Feliscatus|Denmark|2015|Envelope&quot;    </span></a>
+<a class="sourceLine" id="cb230-4" title="4"><span class="co">#&gt;  [2] &quot;ATGATGTTTCCTAGGGCTTTTACTATCATAGATGACCATGGTATGGTTGTAAGCGTCTTC&quot;      </span></a>
+<a class="sourceLine" id="cb230-5" title="5"><span class="co">#&gt;  [3] &quot;TTCTGGCTCCTGTTGATAATTATATTGATATTGTTTTCAATAGCATTGCTAAATGTTATT&quot;      </span></a>
+<a class="sourceLine" id="cb230-6" title="6"><span class="co">#&gt;  [4] &quot;AAGTTATGCATGGTTTGTTGCAATCTGGGTAAGACTATTATAGTACTACCTGCACGCCAT&quot;      </span></a>
+<a class="sourceLine" id="cb230-7" title="7"><span class="co">#&gt;  [5] &quot;GCATATGATGCCTACAAGACTTTTATGCAAATTAAGGCATATAATCCCGACGAAGCACTT&quot;      </span></a>
+<a class="sourceLine" id="cb230-8" title="8"><span class="co">#&gt;  [6] &quot;TTGGTTTGA&quot;                                                         </span></a>
+<a class="sourceLine" id="cb230-9" title="9"><span class="co">#&gt;  [7] &quot;&gt;FJ938053.1|Felinecoronavirus|cat|NetherlandsUtrecht|2007|Envelope&quot;</span></a>
+<a class="sourceLine" id="cb230-10" title="10"><span class="co">#&gt;  [8] &quot;ATGATGTTTCCTAGGGCATTTACTATCATAGATGACCATGGTATGGTTGTCAGCGTCTTC&quot;      </span></a>
+<a class="sourceLine" id="cb230-11" title="11"><span class="co">#&gt;  [9] &quot;TTTTGGCTCCTGTTGATAATTATATTGATATTGTTTTCAATAGCATTGCTAAATGTTATT&quot;      </span></a>
+<a class="sourceLine" id="cb230-12" title="12"><span class="co">#&gt; [10] &quot;AAGTTATGCATGGTATGTTGCAATTTGGGTAAGACTATTATAGTATTACCTGCACGCCAT&quot;</span></a></code></pre></div>
+<p>The data encoded in this text:</p>
+<pre><code>&gt;[DNA sequence number]|[virus name]|[host species name]|[country of host]|[year]|[protein name]&quot;
+[DNA sequence]</code></pre>
+</div>
+<div id="str_match" class="section level3">
+<h3><span class="header-section-number">6.4.2</span> <code>str_match</code></h3>
+<p><code>str_match</code> returns:</p>
+<ul>
+<li>a matrix</li>
+<li>a row per line of text, containing the match or an NA</li>
+<li>a column per submatch (see later)</li>
+</ul>
+<p>For example, using a ‘everything’ pattern, we get:</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" title="1">matches &lt;-<span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_match</span>(text, <span class="st">&quot;.*&quot;</span>)</a>
+<a class="sourceLine" id="cb232-2" title="2"><span class="kw">expect_is</span>(matches, <span class="st">&quot;matrix&quot;</span>)</a>
+<a class="sourceLine" id="cb232-3" title="3"><span class="kw">expect_equal</span>(<span class="kw">nrow</span>(matches), <span class="kw">length</span>(text))</a>
+<a class="sourceLine" id="cb232-4" title="4"><span class="kw">expect_equal</span>(<span class="kw">ncol</span>(matches), <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb232-5" title="5"><span class="kw">head</span>(matches)</a>
+<a class="sourceLine" id="cb232-6" title="6"><span class="co">#&gt;      [,1]                                                            </span></a>
+<a class="sourceLine" id="cb232-7" title="7"><span class="co">#&gt; [1,] &quot;&gt;KX722530.1|Felinecoronavirus|Feliscatus|Denmark|2015|Envelope&quot;</span></a>
+<a class="sourceLine" id="cb232-8" title="8"><span class="co">#&gt; [2,] &quot;ATGATGTTTCCTAGGGCTTTTACTATCATAGATGACCATGGTATGGTTGTAAGCGTCTTC&quot;  </span></a>
+<a class="sourceLine" id="cb232-9" title="9"><span class="co">#&gt; [3,] &quot;TTCTGGCTCCTGTTGATAATTATATTGATATTGTTTTCAATAGCATTGCTAAATGTTATT&quot;  </span></a>
+<a class="sourceLine" id="cb232-10" title="10"><span class="co">#&gt; [4,] &quot;AAGTTATGCATGGTTTGTTGCAATCTGGGTAAGACTATTATAGTACTACCTGCACGCCAT&quot;  </span></a>
+<a class="sourceLine" id="cb232-11" title="11"><span class="co">#&gt; [5,] &quot;GCATATGATGCCTACAAGACTTTTATGCAAATTAAGGCATATAATCCCGACGAAGCACTT&quot;  </span></a>
+<a class="sourceLine" id="cb232-12" title="12"><span class="co">#&gt; [6,] &quot;TTGGTTTGA&quot;</span></a></code></pre></div>
+<p>Using a pattern that is specific for the DNA sequence descriptors,
+we get NAs:</p>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" title="1">matches &lt;-<span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_match</span>(text, <span class="st">&quot;&gt;.*&quot;</span>)</a>
+<a class="sourceLine" id="cb233-2" title="2"><span class="kw">expect_is</span>(matches, <span class="st">&quot;matrix&quot;</span>)</a>
+<a class="sourceLine" id="cb233-3" title="3"><span class="kw">expect_equal</span>(<span class="kw">nrow</span>(matches), <span class="kw">length</span>(text))</a>
+<a class="sourceLine" id="cb233-4" title="4"><span class="kw">expect_equal</span>(<span class="kw">ncol</span>(matches), <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb233-5" title="5"><span class="kw">head</span>(matches, <span class="dt">n =</span> <span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb233-6" title="6"><span class="co">#&gt;      [,1]                                                                </span></a>
+<a class="sourceLine" id="cb233-7" title="7"><span class="co">#&gt; [1,] &quot;&gt;KX722530.1|Felinecoronavirus|Feliscatus|Denmark|2015|Envelope&quot;    </span></a>
+<a class="sourceLine" id="cb233-8" title="8"><span class="co">#&gt; [2,] NA                                                                  </span></a>
+<a class="sourceLine" id="cb233-9" title="9"><span class="co">#&gt; [3,] NA                                                                  </span></a>
+<a class="sourceLine" id="cb233-10" title="10"><span class="co">#&gt; [4,] NA                                                                  </span></a>
+<a class="sourceLine" id="cb233-11" title="11"><span class="co">#&gt; [5,] NA                                                                  </span></a>
+<a class="sourceLine" id="cb233-12" title="12"><span class="co">#&gt; [6,] NA                                                                  </span></a>
+<a class="sourceLine" id="cb233-13" title="13"><span class="co">#&gt; [7,] &quot;&gt;FJ938053.1|Felinecoronavirus|cat|NetherlandsUtrecht|2007|Envelope&quot;</span></a>
+<a class="sourceLine" id="cb233-14" title="14"><span class="co">#&gt; [8,] NA</span></a></code></pre></div>
+<p>Using round brackets, the matrix gives one extra column per sub-match.
+Here, we select for all info after the <code>&gt;</code>:</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" title="1">matches &lt;-<span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_match</span>(text, <span class="st">&quot;&gt;(.*)&quot;</span>)</a>
+<a class="sourceLine" id="cb234-2" title="2"><span class="kw">expect_is</span>(matches, <span class="st">&quot;matrix&quot;</span>)</a>
+<a class="sourceLine" id="cb234-3" title="3"><span class="kw">expect_equal</span>(<span class="kw">nrow</span>(matches), <span class="kw">length</span>(text))</a>
+<a class="sourceLine" id="cb234-4" title="4"><span class="kw">expect_equal</span>(<span class="kw">ncol</span>(matches), <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb234-5" title="5"><span class="kw">head</span>(matches, <span class="dt">n =</span> <span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb234-6" title="6"><span class="co">#&gt;      [,1]                                                                </span></a>
+<a class="sourceLine" id="cb234-7" title="7"><span class="co">#&gt; [1,] &quot;&gt;KX722530.1|Felinecoronavirus|Feliscatus|Denmark|2015|Envelope&quot;    </span></a>
+<a class="sourceLine" id="cb234-8" title="8"><span class="co">#&gt; [2,] NA                                                                  </span></a>
+<a class="sourceLine" id="cb234-9" title="9"><span class="co">#&gt; [3,] NA                                                                  </span></a>
+<a class="sourceLine" id="cb234-10" title="10"><span class="co">#&gt; [4,] NA                                                                  </span></a>
+<a class="sourceLine" id="cb234-11" title="11"><span class="co">#&gt; [5,] NA                                                                  </span></a>
+<a class="sourceLine" id="cb234-12" title="12"><span class="co">#&gt; [6,] NA                                                                  </span></a>
+<a class="sourceLine" id="cb234-13" title="13"><span class="co">#&gt; [7,] &quot;&gt;FJ938053.1|Felinecoronavirus|cat|NetherlandsUtrecht|2007|Envelope&quot;</span></a>
+<a class="sourceLine" id="cb234-14" title="14"><span class="co">#&gt; [8,] NA                                                                  </span></a>
+<a class="sourceLine" id="cb234-15" title="15"><span class="co">#&gt;      [,2]                                                               </span></a>
+<a class="sourceLine" id="cb234-16" title="16"><span class="co">#&gt; [1,] &quot;KX722530.1|Felinecoronavirus|Feliscatus|Denmark|2015|Envelope&quot;    </span></a>
+<a class="sourceLine" id="cb234-17" title="17"><span class="co">#&gt; [2,] NA                                                                 </span></a>
+<a class="sourceLine" id="cb234-18" title="18"><span class="co">#&gt; [3,] NA                                                                 </span></a>
+<a class="sourceLine" id="cb234-19" title="19"><span class="co">#&gt; [4,] NA                                                                 </span></a>
+<a class="sourceLine" id="cb234-20" title="20"><span class="co">#&gt; [5,] NA                                                                 </span></a>
+<a class="sourceLine" id="cb234-21" title="21"><span class="co">#&gt; [6,] NA                                                                 </span></a>
+<a class="sourceLine" id="cb234-22" title="22"><span class="co">#&gt; [7,] &quot;FJ938053.1|Felinecoronavirus|cat|NetherlandsUtrecht|2007|Envelope&quot;</span></a>
+<a class="sourceLine" id="cb234-23" title="23"><span class="co">#&gt; [8,] NA</span></a></code></pre></div>
+<p>Select the second column:</p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" title="1">matches &lt;-<span class="st"> </span>matches[, <span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb235-2" title="2"><span class="kw">expect_is</span>(matches, <span class="st">&quot;character&quot;</span>)</a>
+<a class="sourceLine" id="cb235-3" title="3"><span class="kw">expect_equal</span>(<span class="kw">length</span>(matches), <span class="dv">180</span>)</a>
+<a class="sourceLine" id="cb235-4" title="4"><span class="kw">head</span>(matches, <span class="dt">n =</span> <span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb235-5" title="5"><span class="co">#&gt; [1] &quot;KX722530.1|Felinecoronavirus|Feliscatus|Denmark|2015|Envelope&quot;    </span></a>
+<a class="sourceLine" id="cb235-6" title="6"><span class="co">#&gt; [2] NA                                                                 </span></a>
+<a class="sourceLine" id="cb235-7" title="7"><span class="co">#&gt; [3] NA                                                                 </span></a>
+<a class="sourceLine" id="cb235-8" title="8"><span class="co">#&gt; [4] NA                                                                 </span></a>
+<a class="sourceLine" id="cb235-9" title="9"><span class="co">#&gt; [5] NA                                                                 </span></a>
+<a class="sourceLine" id="cb235-10" title="10"><span class="co">#&gt; [6] NA                                                                 </span></a>
+<a class="sourceLine" id="cb235-11" title="11"><span class="co">#&gt; [7] &quot;FJ938053.1|Felinecoronavirus|cat|NetherlandsUtrecht|2007|Envelope&quot;</span></a>
+<a class="sourceLine" id="cb235-12" title="12"><span class="co">#&gt; [8] NA</span></a></code></pre></div>
+<p>Get rid of the <code>NAs</code> using <code>purrr</code>:</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" title="1">matches &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">discard</span>(matches, is.na)</a>
+<a class="sourceLine" id="cb236-2" title="2"><span class="kw">expect_is</span>(matches, <span class="st">&quot;character&quot;</span>)</a>
+<a class="sourceLine" id="cb236-3" title="3"><span class="kw">expect_equal</span>(<span class="kw">length</span>(matches), <span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb236-4" title="4"><span class="kw">head</span>(matches)</a>
+<a class="sourceLine" id="cb236-5" title="5"><span class="co">#&gt; [1] &quot;KX722530.1|Felinecoronavirus|Feliscatus|Denmark|2015|Envelope&quot;       </span></a>
+<a class="sourceLine" id="cb236-6" title="6"><span class="co">#&gt; [2] &quot;FJ938053.1|Felinecoronavirus|cat|NetherlandsUtrecht|2007|Envelope&quot;   </span></a>
+<a class="sourceLine" id="cb236-7" title="7"><span class="co">#&gt; [3] &quot;GU553362.1|Felinecoronavirus|feline|Netherlands|2007|Envelope&quot;       </span></a>
+<a class="sourceLine" id="cb236-8" title="8"><span class="co">#&gt; [4] &quot;KP143512.1|Felinecoronavirus|Feliscatus|UnitedKingdom|2013|Envelope&quot; </span></a>
+<a class="sourceLine" id="cb236-9" title="9"><span class="co">#&gt; [5] &quot;KU215424.1|Felinecoronavirus|Feliscatus|Belgium|2013|Envelope&quot;       </span></a>
+<a class="sourceLine" id="cb236-10" title="10"><span class="co">#&gt; [6] &quot;HQ392470.1|Felinecoronavirus|feline|NetherlandsUtrecht|2007|Envelope&quot;</span></a></code></pre></div>
+<p>All of this in one go:</p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" title="1">matches &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">discard</span>(</a>
+<a class="sourceLine" id="cb237-2" title="2">  stringr<span class="op">::</span><span class="kw">str_match</span>(text, <span class="st">&quot;&gt;(.*)&quot;</span>)[, <span class="dv">2</span>], </a>
+<a class="sourceLine" id="cb237-3" title="3">  is.na</a>
+<a class="sourceLine" id="cb237-4" title="4">)</a>
+<a class="sourceLine" id="cb237-5" title="5"><span class="kw">expect_equal</span>(<span class="kw">length</span>(matches), <span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb237-6" title="6"><span class="kw">head</span>(matches)</a>
+<a class="sourceLine" id="cb237-7" title="7"><span class="co">#&gt; [1] &quot;KX722530.1|Felinecoronavirus|Feliscatus|Denmark|2015|Envelope&quot;       </span></a>
+<a class="sourceLine" id="cb237-8" title="8"><span class="co">#&gt; [2] &quot;FJ938053.1|Felinecoronavirus|cat|NetherlandsUtrecht|2007|Envelope&quot;   </span></a>
+<a class="sourceLine" id="cb237-9" title="9"><span class="co">#&gt; [3] &quot;GU553362.1|Felinecoronavirus|feline|Netherlands|2007|Envelope&quot;       </span></a>
+<a class="sourceLine" id="cb237-10" title="10"><span class="co">#&gt; [4] &quot;KP143512.1|Felinecoronavirus|Feliscatus|UnitedKingdom|2013|Envelope&quot; </span></a>
+<a class="sourceLine" id="cb237-11" title="11"><span class="co">#&gt; [5] &quot;KU215424.1|Felinecoronavirus|Feliscatus|Belgium|2013|Envelope&quot;       </span></a>
+<a class="sourceLine" id="cb237-12" title="12"><span class="co">#&gt; [6] &quot;HQ392470.1|Felinecoronavirus|feline|NetherlandsUtrecht|2007|Envelope&quot;</span></a></code></pre></div>
+</div>
+<div id="example-exercise-extract_dna_sequence_numbers" class="section level3">
+<h3><span class="header-section-number">6.4.3</span> Example exercise: <code>extract_dna_sequence_numbers</code></h3>
+<p>Extract the DNA sequence numbers.</p>
+<p>Hint:</p>
+<ul>
+<li>it is the text between <code>&gt;</code> and <code>|Felinecoronavirus</code>.</li>
+<li>Use <code>\\|</code> in your regex to indicate you want the pipe character (
+as <code>a|b</code> is the regex for ‘a or b’)</li>
+</ul>
+<p>These tests must pass:</p>
+<pre><code>expect_equal(30, length(extract_dna_sequence_numbers(text)))
+expect_equal(&quot;KX722530.1&quot;, extract_dna_sequence_numbers(text)[1])
+expect_equal(&quot;KP143511.1&quot;, extract_dna_sequence_numbers(text)[30])</code></pre>
+</div>
+<div id="answer-extract_dna_sequence_numbers" class="section level3">
+<h3><span class="header-section-number">6.4.4</span> Answer: <code>extract_dna_sequence_numbers</code></h3>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" title="1">extract_dna_sequence_numbers &lt;-<span class="st"> </span><span class="cf">function</span>(text) {</a>
+<a class="sourceLine" id="cb239-2" title="2">  purrr<span class="op">::</span><span class="kw">discard</span>(</a>
+<a class="sourceLine" id="cb239-3" title="3">    stringr<span class="op">::</span><span class="kw">str_match</span>(text, <span class="st">&quot;&gt;(.*)</span><span class="ch">\\</span><span class="st">|Felinecoronavirus.*&quot;</span>)[, <span class="dv">2</span>],</a>
+<a class="sourceLine" id="cb239-4" title="4">    is.na</a>
+<a class="sourceLine" id="cb239-5" title="5">  )</a>
+<a class="sourceLine" id="cb239-6" title="6">}</a></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" title="1"><span class="kw">expect_equal</span>(<span class="dv">30</span>, <span class="kw">length</span>(<span class="kw">extract_dna_sequence_numbers</span>(text)))</a>
+<a class="sourceLine" id="cb240-2" title="2"><span class="kw">expect_equal</span>(<span class="st">&quot;KX722530.1&quot;</span>, <span class="kw">extract_dna_sequence_numbers</span>(text)[<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb240-3" title="3"><span class="kw">expect_equal</span>(<span class="st">&quot;KP143511.1&quot;</span>, <span class="kw">extract_dna_sequence_numbers</span>(text)[<span class="dv">30</span>])</a></code></pre></div>
+<p>The regex <code>"&gt;(.*)\\|.*"</code> would not work, because the asterisk is <em>greedy</em>.</p>
+</div>
+<div id="example-exercise-extract_year" class="section level3">
+<h3><span class="header-section-number">6.4.5</span> Example exercise: <code>extract_year</code></h3>
+<p>Extract the year the DNA sequence has been obtained.
+Convert the text to a number.</p>
+<p>Hint: the year is always 4 consecutive numbers,
+from 1993 to (and including) 2016.</p>
+<p>These tests must pass:</p>
+<pre><code>expect_equal(30, length(extract_year(text)))
+expect_equal(2015, extract_year(text)[1])
+expect_equal(2013, extract_year(text)[30])</code></pre>
+</div>
+<div id="answer-extract_year" class="section level3">
+<h3><span class="header-section-number">6.4.6</span> Answer: <code>extract_year</code></h3>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" title="1">extract_year &lt;-<span class="st"> </span><span class="cf">function</span>(text) {</a>
+<a class="sourceLine" id="cb242-2" title="2">  <span class="kw">as.numeric</span>(</a>
+<a class="sourceLine" id="cb242-3" title="3">    purrr<span class="op">::</span><span class="kw">discard</span>(</a>
+<a class="sourceLine" id="cb242-4" title="4">      stringr<span class="op">::</span><span class="kw">str_match</span>(text, <span class="st">&quot;.*([:digit:]{4}).*&quot;</span>)[, <span class="dv">2</span>],</a>
+<a class="sourceLine" id="cb242-5" title="5">      is.na</a>
+<a class="sourceLine" id="cb242-6" title="6">    )</a>
+<a class="sourceLine" id="cb242-7" title="7">  )</a>
+<a class="sourceLine" id="cb242-8" title="8">}</a></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" title="1"><span class="kw">expect_equal</span>(<span class="dv">30</span>, <span class="kw">length</span>(<span class="kw">extract_year</span>(text)))</a>
+<a class="sourceLine" id="cb243-2" title="2"><span class="kw">expect_equal</span>(<span class="dv">2015</span>, <span class="kw">extract_year</span>(text)[<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb243-3" title="3"><span class="kw">expect_equal</span>(<span class="dv">2013</span>, <span class="kw">extract_year</span>(text)[<span class="dv">30</span>])</a></code></pre></div>
+<p>Here, the simple regex worked, <em>because</em> the asterisk is greedy.</p>
+</div>
+</div>
+<div id="other-functions" class="section level2">
+<h2><span class="header-section-number">6.5</span> Other functions</h2>
+<div id="mutate" class="section level3">
+<h3><span class="header-section-number">6.5.1</span> Mutate</h3>
+<p><img src="data/06_mutate.png" /></p>
+<blockquote>
+<p>From ‘Work with Strings Cheatsheet’, <a href="https://rstudio.com/resources/cheatsheets" class="uri">https://rstudio.com/resources/cheatsheets</a></p>
+</blockquote>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" title="1">s &lt;-<span class="st"> &quot;UnitedKingdom&quot;</span></a>
+<a class="sourceLine" id="cb244-2" title="2">t &lt;-<span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_replace</span>(</a>
+<a class="sourceLine" id="cb244-3" title="3">  s, </a>
+<a class="sourceLine" id="cb244-4" title="4">  <span class="st">&quot;([:upper:][:lower:]+)([:upper:][:lower:]+)&quot;</span>, </a>
+<a class="sourceLine" id="cb244-5" title="5">  <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1 </span><span class="ch">\\</span><span class="st">2&quot;</span></a>
+<a class="sourceLine" id="cb244-6" title="6">)</a>
+<a class="sourceLine" id="cb244-7" title="7"><span class="kw">expect_equal</span>(<span class="st">&quot;United Kingdom&quot;</span>, t)</a></code></pre></div>
+</div>
+<div id="testthatexpect_match" class="section level3">
+<h3><span class="header-section-number">6.5.2</span> <code>testthat::expect_match</code></h3>
+<p>You may want to test if a function’s output matches
+a pattern:</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" title="1"><span class="co">#&#39; Get the version, for example &#39;1.0&#39;</span></a>
+<a class="sourceLine" id="cb245-2" title="2">get_version &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb245-3" title="3">  <span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;1.0&quot;</span>, <span class="st">&quot;1.1&quot;</span>), <span class="dt">size =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb245-4" title="4">}</a></code></pre></div>
+<p>Using <code>testthat::expect_match</code> gives an unexpected result:</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" title="1"><span class="kw">expect_match</span>(</a>
+<a class="sourceLine" id="cb246-2" title="2">  <span class="kw">get_version</span>(),</a>
+<a class="sourceLine" id="cb246-3" title="3">  <span class="st">&quot;1</span><span class="ch">\\</span><span class="st">.[:digit:]&quot;</span></a>
+<a class="sourceLine" id="cb246-4" title="4">)</a>
+<a class="sourceLine" id="cb246-5" title="5"><span class="co">#&gt; Error: get_version\(\) does not match &quot;1\\.[:digit:]&quot;.</span></a>
+<a class="sourceLine" id="cb246-6" title="6"><span class="co">#&gt; Actual value: &quot;1\.0&quot;</span></a></code></pre></div>
+<p>Take a look at <code>?testthat::expect_match</code>:</p>
+<blockquote>
+<p>Details</p>
+<p>expect_match() is a wrapper around grepl().
+See its documentation for more detail about the individual arguments.</p>
+</blockquote>
+<pre><code>
+Use the base R regex dialect:
+</code></pre>
+<p>expect_match(
+get_version(),
+“1\.[[:digit:]]”
+)
+```</p>
+</div>
+</div>
+<div id="bigger-picture" class="section level2">
+<h2><span class="header-section-number">6.6</span> Bigger picture</h2>
+<div id="develop-in-packages" class="section level3">
+<h3><span class="header-section-number">6.6.1</span> Develop in packages</h3>
+<ul>
+<li>Also when ‘just’ doing data analysis</li>
+</ul>
+</div>
+</div>
+<div id="regex-usage-beyond-r-is-common" class="section level2">
+<h2><span class="header-section-number">6.7</span> Regex usage beyond R is common</h2>
+<p>Command-line tools with regular expressions:</p>
+<ul>
+<li><code>grep</code>, <code>egrep</code></li>
+<li><code>sed</code></li>
+<li><code>dir</code>/<code>ls</code></li>
+</ul>
+<div id="dont-overdo-it" class="section level3">
+<h3><span class="header-section-number">6.7.1</span> Don’t overdo it</h3>
+<p><img src="data/06_regex_golf.png" /></p>
 <blockquote>
 <p>‘Regex Golf’, from <a href="https://xkcd.com/1313/" class="uri">https://xkcd.com/1313/</a></p>
 </blockquote>
+<p>Regex golf is a challenge to create the shortest regexes possible.</p>
+</div>
 </div>
 <div id="resources" class="section level2">
-<h2><span class="header-section-number">8.4</span> Resources</h2>
+<h2><span class="header-section-number">6.8</span> Resources</h2>
 <ul>
 <li><a href="https://rstudio.com/resources/cheatsheets/">RStudio cheatsheets</a>,
 including the ‘Work with Strings Cheatsheet’</li>
@@ -460,7 +956,7 @@ including the ‘Work with Strings Cheatsheet’</li>
           </div>
         </div>
       </div>
-<a href="what-is-a-regex.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ggplot2-and-the-grammar-of-graphics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="programming-in-the-tidyverse.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
