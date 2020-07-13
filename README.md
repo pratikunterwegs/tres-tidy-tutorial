@@ -14,7 +14,7 @@ This tutorial will take the form of a one hour per week video stream via Google 
 ## Schedule
 
 Topic|Package|Instructor|Date*
----|---|---|---
+-----|---|---|---
 Reading data and string manipulation|[readr](https://readr.tidyverse.org/), [stringr](https://stringr.tidyverse.org/), [glue](https://github.com/tidyverse/glue)|Pratik|29/05/20
 Data and reshaping|[tibble](https://tibble.tidyverse.org/), [tidyr](https://tidyr.tidyverse.org/), [forcats](https://forcats.tidyverse.org/)|Raphael|05/06/20
 Manipulating data|[dplyr](https://dplyr.tidyverse.org/)|Theo|12/06/20
