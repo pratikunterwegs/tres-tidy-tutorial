@@ -1,9 +1,12 @@
 ---
+title: Regular expressions and testthat
 editor_options:
   chunk_output_type: console
 ---
 
-# 06. Regular expressions and `testthat`
+# Regular expressions and `testthat`
+
+Richel Bilderbeek
 
 ## Introduction
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Raphael, Pratik, Theo and Richèl" />
 
 
-<meta name="date" content="2020-07-13" />
+<meta name="date" content="2020-07-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -268,7 +268,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.12" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#want-more"><i class="fa fa-check"></i><b>5.12</b> Want more?</a></li>
 <li class="chapter" data-level="5.13" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#references"><i class="fa fa-check"></i><b>5.13</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html"><i class="fa fa-check"></i><b>6</b> 06. Regular expressions and <code>testthat</code></a><ul>
+<li class="chapter" data-level="6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html"><i class="fa fa-check"></i><b>6</b> Regular expressions and <code>testthat</code></a><ul>
 <li class="chapter" data-level="6.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#goal"><i class="fa fa-check"></i><b>6.1.1</b> Goal</a></li>
 <li class="chapter" data-level="6.1.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#why-is-this-important"><i class="fa fa-check"></i><b>6.1.2</b> Why is this important?</a></li>
@@ -371,10 +371,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">5.1.2</span> What is the grammar of graphics?</h3>
 <p>The grammar of graphics is a system of rules on how to structure plots such that almost any graph can be made through combinations of a limited set of simpler elements, just as you can make any sentence by combining together letters from an alphabet. <code>ggplot2</code> is the implementation of this philosophy in R, and comes with a limited set of <em>layers</em>, that you can pick and combine into an impressive variety of graphics, all based on the same syntax. But what are those elements?</p>
 <p>Here is the backbone of a ggplot statement (I will from now on use “ggplot” to refer to an object of class <code>ggplot</code>, the output of the <code>ggplot</code> function and the object that contains our graphic), taken from the book <a href="https://r4ds.had.co.nz/">R for Data Science</a>:</p>
-<pre><code>ggplot(data = &lt;DATA&gt;) + 
+<pre><code>ggplot(data = &lt;DATA&gt;) +
   &lt;GEOM_FUNCTION&gt;(
      mapping = aes(&lt;MAPPINGS&gt;),
-     stat = &lt;STAT&gt;, 
+     stat = &lt;STAT&gt;,
      position = &lt;POSITION&gt;
   ) +
   &lt;COORDINATE_FUNCTION&gt; +
@@ -578,7 +578,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="coordinate-system" class="section level2">
 <h2><span class="header-section-number">5.4</span> Coordinate-system</h2>
 <p>The default way that the plotting window is organized is an orthogonal space with a horizontal x-axis and a vertical y-axis. Use the <code>coord</code> commands to deviate from this. For example, <code>coord_flip</code> will flip the axes:</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(conc), <span class="dt">y =</span> ratio)) <span class="op">+</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(conc), <span class="dt">y =</span> ratio)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb173-2" title="2"><span class="st">  </span><span class="kw">geom_violin</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb173-3" title="3"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-128-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
@@ -693,7 +693,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb189-7" title="7"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Mutational ratio&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb189-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color =</span> <span class="kw">parse</span>(<span class="dt">text =</span> <span class="st">&quot;&#39;CFU at &#39;~T[1]&quot;</span>)) <span class="op">+</span><span class="st"> </span><span class="co"># plotmath expression</span></a>
 <a class="sourceLine" id="cb189-9" title="9"><span class="st">  </span><span class="kw">ggtitle</span>(</a>
-<a class="sourceLine" id="cb189-10" title="10">    <span class="st">&quot;A very important experiment&quot;</span>, </a>
+<a class="sourceLine" id="cb189-10" title="10">    <span class="st">&quot;A very important experiment&quot;</span>,</a>
 <a class="sourceLine" id="cb189-11" title="11">    <span class="st">&quot;So important it deserves a subtitle&quot;</span></a>
 <a class="sourceLine" id="cb189-12" title="12">  )</a>
 <a class="sourceLine" id="cb189-13" title="13">p</a></code></pre></div>
@@ -708,10 +708,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb190-2" title="2">p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-144-1.png" width="\textwidth" style="display: block; margin: auto;" /><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-144-2.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 <p>The individual elements of the theme, e.g. the background grid or the color of the panel, can be customized using the arguments in the <code>theme</code> function. The <code>theme</code> function can also be used to modify stuff related to the legend or the axes of the plots. For example:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1">p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1">p &lt;-<span class="st"> </span>p <span class="op">+</span></a>
 <a class="sourceLine" id="cb191-2" title="2"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb191-3" title="3"><span class="st">  </span><span class="kw">theme</span>(</a>
-<a class="sourceLine" id="cb191-4" title="4">    <span class="dt">legend.position =</span> <span class="st">&quot;left&quot;</span>, </a>
+<a class="sourceLine" id="cb191-4" title="4">    <span class="dt">legend.position =</span> <span class="st">&quot;left&quot;</span>,</a>
 <a class="sourceLine" id="cb191-5" title="5">    <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">60</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb191-6" title="6">  )</a>
 <a class="sourceLine" id="cb191-7" title="7">p</a></code></pre></div>
@@ -741,7 +741,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb195-6" title="6">    <span class="st">&quot;color legend&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;forestgreen&quot;</span>, <span class="st">&quot;goldenrod&quot;</span>, <span class="st">&quot;mediumseagreen&quot;</span>)</a>
 <a class="sourceLine" id="cb195-7" title="7">  ) <span class="op">+</span></a>
 <a class="sourceLine" id="cb195-8" title="8"><span class="st">  </span><span class="kw">scale_shape_manual</span>(</a>
-<a class="sourceLine" id="cb195-9" title="9">    <span class="st">&quot;shape legend&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>), </a>
+<a class="sourceLine" id="cb195-9" title="9">    <span class="st">&quot;shape legend&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>),</a>
 <a class="sourceLine" id="cb195-10" title="10">    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Control&quot;</span>, <span class="st">&quot;Strain 1&quot;</span>, <span class="st">&quot;Strain 2&quot;</span>)</a>
 <a class="sourceLine" id="cb195-11" title="11">  )</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-149-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
@@ -824,7 +824,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb203-2" title="2"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>data) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># just to clean up a bit</span></a>
 <a class="sourceLine" id="cb203-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(assay) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb203-4" title="4"><span class="st">  </span><span class="kw">nest</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb203-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">combifig =</span> <span class="kw">map</span>(data, <span class="op">~</span><span class="st"> </span><span class="kw">wrap_plots</span>(.x<span class="op">$</span>fig))) </a>
+<a class="sourceLine" id="cb203-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">combifig =</span> <span class="kw">map</span>(data, <span class="op">~</span><span class="st"> </span><span class="kw">wrap_plots</span>(.x<span class="op">$</span>fig)))</a>
 <a class="sourceLine" id="cb203-6" title="6">newdata</a>
 <a class="sourceLine" id="cb203-7" title="7"><span class="co">#&gt; # A tibble: 2 x 3</span></a>
 <a class="sourceLine" id="cb203-8" title="8"><span class="co">#&gt; # Groups:   assay [2]</span></a>

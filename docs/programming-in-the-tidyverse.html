@@ -24,7 +24,7 @@
 <meta name="author" content="Raphael, Pratik, Theo and Richèl" />
 
 
-<meta name="date" content="2020-07-13" />
+<meta name="date" content="2020-07-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -268,7 +268,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.12" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#want-more"><i class="fa fa-check"></i><b>5.12</b> Want more?</a></li>
 <li class="chapter" data-level="5.13" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#references"><i class="fa fa-check"></i><b>5.13</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html"><i class="fa fa-check"></i><b>6</b> 06. Regular expressions and <code>testthat</code></a><ul>
+<li class="chapter" data-level="6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html"><i class="fa fa-check"></i><b>6</b> Regular expressions and <code>testthat</code></a><ul>
 <li class="chapter" data-level="6.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#goal"><i class="fa fa-check"></i><b>6.1.1</b> Goal</a></li>
 <li class="chapter" data-level="6.1.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#why-is-this-important"><i class="fa fa-check"></i><b>6.1.2</b> Why is this important?</a></li>
@@ -382,10 +382,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb250-2" title="2">data =<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/phylacine_traits.csv&quot;</span>)</a>
 <a class="sourceLine" id="cb250-3" title="3"></a>
 <a class="sourceLine" id="cb250-4" title="4"><span class="co"># regular filtering</span></a>
-<a class="sourceLine" id="cb250-5" title="5">small_mammals =<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb250-5" title="5">small_mammals =<span class="st"> </span>data <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb250-6" title="6"><span class="st">  </span><span class="kw">filter</span>(Mass.g <span class="op">&lt;</span><span class="st"> </span><span class="dv">1000</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" title="1"><span class="co"># filtering on a string</span></a>
-<a class="sourceLine" id="cb251-2" title="2">small_mammals_too =<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb251-2" title="2">small_mammals_too =<span class="st"> </span>data <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb251-3" title="3"><span class="st">  </span><span class="kw">filter</span>(<span class="st">&quot;Mass.g&quot;</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">1000</span>)</a></code></pre></div>
 <p>Examine <code>small_mammals</code> and <code>small_mammals_too</code> to check whether they are as expected.</p>
 <div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" title="1"><span class="co"># count rows</span></a>
@@ -419,10 +419,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">7.1.2</span> Why the issue is a problem</h3>
 <p>Consider an analysis pipeline as follows.</p>
 <p><code>data %&gt;% select variables %&gt;% summarise by groups</code></p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" title="1">data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb254-2" title="2"><span class="st">  </span><span class="kw">select</span>(Mass.g, Diet.Plant, Order.<span class="fl">1.2</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb254-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(Order.<span class="fl">1.2</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb254-4" title="4"><span class="st">  </span><span class="kw">summarise_all</span>(<span class="dt">.funs =</span> mean) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" title="1">data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb254-2" title="2"><span class="st">  </span><span class="kw">select</span>(Mass.g, Diet.Plant, Order.<span class="fl">1.2</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb254-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(Order.<span class="fl">1.2</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb254-4" title="4"><span class="st">  </span><span class="kw">summarise_all</span>(<span class="dt">.funs =</span> mean) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb254-5" title="5"><span class="st">  </span><span class="kw">head</span>()</a>
 <a class="sourceLine" id="cb254-6" title="6"><span class="co">#&gt; # A tibble: 6 x 3</span></a>
 <a class="sourceLine" id="cb254-7" title="7"><span class="co">#&gt;   Order.1.2          Mass.g Diet.Plant</span></a>
@@ -434,17 +434,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb254-13" title="13"><span class="co">#&gt; 5 Cingulata        235529.      43.0  </span></a>
 <a class="sourceLine" id="cb254-14" title="14"><span class="co">#&gt; 6 Dasyuromorphia      748.       1.09</span></a></code></pre></div>
 <p>Now consider that this analysis pipeline is repeated many times in your document. Consider also that a well intentioned person has renamed the dataframe columns.</p>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" title="1">data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb255-2" title="2"><span class="st">  `</span><span class="dt">colnames&lt;-</span><span class="st">`</span>(<span class="kw">str_replace_all</span>(<span class="kw">colnames</span>(data), <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span>, <span class="st">&quot;_&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb255-3" title="3"><span class="st">                 </span>str_to_lower <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" title="1">data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb255-2" title="2"><span class="st">  `</span><span class="dt">colnames&lt;-</span><span class="st">`</span>(<span class="kw">str_replace_all</span>(<span class="kw">colnames</span>(data), <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span>, <span class="st">&quot;_&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb255-3" title="3"><span class="st">                 </span>str_to_lower <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb255-4" title="4"><span class="st">                 </span><span class="kw">str_remove</span>(<span class="st">&quot;_1_2&quot;</span>))</a></code></pre></div>
 <p>The group-summarise code above will no longer work.</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" title="1"><span class="kw">try_this</span>(<span class="dt">ex =</span> </a>
-<a class="sourceLine" id="cb256-2" title="2">           </a>
-<a class="sourceLine" id="cb256-3" title="3">    data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb256-4" title="4"><span class="st">      </span><span class="kw">select</span>(Mass.g, Diet.Plant, Order.<span class="fl">1.2</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb256-5" title="5"><span class="st">      </span><span class="kw">group_by</span>(Order.<span class="fl">1.2</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb256-6" title="6"><span class="st">      </span><span class="kw">summarise_all</span>(<span class="dt">.funs =</span> mean) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" title="1"><span class="kw">try_this</span>(<span class="dt">ex =</span></a>
+<a class="sourceLine" id="cb256-2" title="2"></a>
+<a class="sourceLine" id="cb256-3" title="3">    data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb256-4" title="4"><span class="st">      </span><span class="kw">select</span>(Mass.g, Diet.Plant, Order.<span class="fl">1.2</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb256-5" title="5"><span class="st">      </span><span class="kw">group_by</span>(Order.<span class="fl">1.2</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb256-6" title="6"><span class="st">      </span><span class="kw">summarise_all</span>(<span class="dt">.funs =</span> mean) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb256-7" title="7"><span class="st">      </span><span class="kw">head</span>()</a>
 <a class="sourceLine" id="cb256-8" title="8">)</a>
 <a class="sourceLine" id="cb256-9" title="9"><span class="co">#&gt; Error: Can&#39;t subset columns that don&#39;t exist.</span></a>
@@ -461,11 +461,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb257-4" title="4"></a>
 <a class="sourceLine" id="cb257-5" title="5"><span class="co"># attempt to select and summarise on group</span></a>
 <a class="sourceLine" id="cb257-6" title="6"><span class="co"># the tidyverse will not be pleased</span></a>
-<a class="sourceLine" id="cb257-7" title="7"><span class="kw">try_this</span>(<span class="dt">ex =</span> </a>
-<a class="sourceLine" id="cb257-8" title="8">           </a>
-<a class="sourceLine" id="cb257-9" title="9">    data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb257-7" title="7"><span class="kw">try_this</span>(<span class="dt">ex =</span></a>
+<a class="sourceLine" id="cb257-8" title="8"></a>
+<a class="sourceLine" id="cb257-9" title="9">    data <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb257-10" title="10"><span class="st">      </span><span class="kw">select</span>(vars_to_select) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># this works with a warning</span></a>
-<a class="sourceLine" id="cb257-11" title="11"><span class="st">      </span><span class="kw">group_by</span>(vars_to_group) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb257-11" title="11"><span class="st">      </span><span class="kw">group_by</span>(vars_to_group) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb257-12" title="12"><span class="st">      </span><span class="kw">summarise</span>(<span class="dt">mean_mass =</span> <span class="kw">mean</span>(Mass.g),</a>
 <a class="sourceLine" id="cb257-13" title="13">                <span class="dt">mean_plant =</span> <span class="kw">mean</span>(Diet.Plant))</a>
 <a class="sourceLine" id="cb257-14" title="14">)</a>
@@ -487,19 +487,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb258-3" title="3">  <span class="kw">qnorm</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>ci <span class="op">/</span><span class="st"> </span><span class="dv">100</span>)<span class="op">/</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span><span class="kw">sd</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">length</span>(x))</a>
 <a class="sourceLine" id="cb258-4" title="4">}</a></code></pre></div>
 <div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" title="1">custom_summary &lt;-<span class="st"> </span><span class="cf">function</span>(data, filters, grouping_vars, summary_vars) {</a>
-<a class="sourceLine" id="cb259-2" title="2">  </a>
-<a class="sourceLine" id="cb259-3" title="3">  data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb259-4" title="4"><span class="st">    </span><span class="kw">filter</span>(filters) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb259-5" title="5"><span class="st">    </span><span class="kw">group_by</span>(grouping_vars) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb259-2" title="2"></a>
+<a class="sourceLine" id="cb259-3" title="3">  data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb259-4" title="4"><span class="st">    </span><span class="kw">filter</span>(filters) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb259-5" title="5"><span class="st">    </span><span class="kw">group_by</span>(grouping_vars) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb259-6" title="6"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(summary_vars),</a>
 <a class="sourceLine" id="cb259-7" title="7">              <span class="dt">ci =</span> <span class="kw">ci</span>(summary_vars))</a>
-<a class="sourceLine" id="cb259-8" title="8">  </a>
+<a class="sourceLine" id="cb259-8" title="8"></a>
 <a class="sourceLine" id="cb259-9" title="9">}</a></code></pre></div>
 <div id="failure-of-the-first-attempt" class="section level3">
 <h3><span class="header-section-number">7.3.1</span> Failure of the first attempt</h3>
 <div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" title="1"><span class="co"># this is going to fail, so look at the error message</span></a>
-<a class="sourceLine" id="cb260-2" title="2"><span class="kw">try_this</span>(<span class="dt">ex =</span> <span class="kw">custom_summary</span>(data, </a>
-<a class="sourceLine" id="cb260-3" title="3">                   <span class="dt">filters =</span> <span class="kw">list</span>(mass_g <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>), </a>
+<a class="sourceLine" id="cb260-2" title="2"><span class="kw">try_this</span>(<span class="dt">ex =</span> <span class="kw">custom_summary</span>(data,</a>
+<a class="sourceLine" id="cb260-3" title="3">                   <span class="dt">filters =</span> <span class="kw">list</span>(mass_g <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>),</a>
 <a class="sourceLine" id="cb260-4" title="4">                   <span class="dt">grouping_vars =</span> <span class="kw">list</span>(order, family),</a>
 <a class="sourceLine" id="cb260-5" title="5">                   <span class="dt">summary_vars =</span> <span class="kw">list</span>(diet_plant))</a>
 <a class="sourceLine" id="cb260-6" title="6">         )</a>
@@ -513,8 +513,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">7.3.2</span> Passing arguments as strings doesn’t help</h3>
 <p>The example below tries to get <code>filter</code> to work. What could be tried? One option is to attempt passing the filtering process as a string argument, i.e., <code>"mass_g &gt; 1000"</code>.</p>
 <div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" title="1"><span class="co"># it doesn&#39;t matter whether filters is a vector or list</span></a>
-<a class="sourceLine" id="cb261-2" title="2"><span class="kw">try_this</span>(<span class="dt">ex =</span> <span class="kw">custom_summary</span>(data, </a>
-<a class="sourceLine" id="cb261-3" title="3">                   <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>), </a>
+<a class="sourceLine" id="cb261-2" title="2"><span class="kw">try_this</span>(<span class="dt">ex =</span> <span class="kw">custom_summary</span>(data,</a>
+<a class="sourceLine" id="cb261-3" title="3">                   <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>),</a>
 <a class="sourceLine" id="cb261-4" title="4">                   <span class="dt">grouping_vars =</span> <span class="kw">list</span>(order, family),</a>
 <a class="sourceLine" id="cb261-5" title="5">                   <span class="dt">summary_vars =</span> <span class="kw">list</span>(diet_plant))</a>
 <a class="sourceLine" id="cb261-6" title="6">         )</a>
@@ -560,21 +560,21 @@ This expression can then be evaluated later. Consider the following, where <code
 <p>Consider the case where mammals below 1 kg body mass are to be excluded. The <code>dplyr</code> code would look like this:</p>
 <p><code>filter(data, mass_g &gt; 1000)</code></p>
 <p>This fixes both the variable to be filtered by, as well as the cut-off value. This can be made flexible for a custom function that allows any kind of filtering.</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data, </a>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data,</a>
 <a class="sourceLine" id="cb263-2" title="2">                          <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>)) {</a>
-<a class="sourceLine" id="cb263-3" title="3">  </a>
+<a class="sourceLine" id="cb263-3" title="3"></a>
 <a class="sourceLine" id="cb263-4" title="4">  <span class="co"># THIS IS THE IMPORTANT BIT</span></a>
 <a class="sourceLine" id="cb263-5" title="5">  filters =<span class="st"> </span>rlang<span class="op">::</span><span class="kw">parse_exprs</span>(filters)</a>
-<a class="sourceLine" id="cb263-6" title="6">  </a>
-<a class="sourceLine" id="cb263-7" title="7">  data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb263-6" title="6"></a>
+<a class="sourceLine" id="cb263-7" title="7">  data <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb263-8" title="8"><span class="st">    </span><span class="kw">filter</span>(<span class="op">!!!</span>filters)</a>
 <a class="sourceLine" id="cb263-9" title="9">}</a></code></pre></div>
 <p>Try this function with single and multiple filters.</p>
 <div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" title="1"><span class="co"># mammals above a kilo</span></a>
-<a class="sourceLine" id="cb264-2" title="2"><span class="kw">custom_summary</span>(data, </a>
-<a class="sourceLine" id="cb264-3" title="3">               <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb264-2" title="2"><span class="kw">custom_summary</span>(data,</a>
+<a class="sourceLine" id="cb264-3" title="3">               <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb264-4" title="4"></a>
-<a class="sourceLine" id="cb264-5" title="5"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb264-5" title="5"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb264-6" title="6"><span class="st">  </span><span class="kw">head</span>()</a>
 <a class="sourceLine" id="cb264-7" title="7"><span class="co">#&gt; # A tibble: 6 x 2</span></a>
 <a class="sourceLine" id="cb264-8" title="8"><span class="co">#&gt;   binomial                mass_g</span></a>
@@ -586,12 +586,12 @@ This expression can then be evaluated later. Consider the following, where <code
 <a class="sourceLine" id="cb264-14" title="14"><span class="co">#&gt; 5 Addax_nasomaculatus     70000.</span></a>
 <a class="sourceLine" id="cb264-15" title="15"><span class="co">#&gt; 6 Aepyceros_melampus      52500.</span></a></code></pre></div>
 <div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" title="1"><span class="co"># mammals between 250 and 500 g and which are mostly carnivorous</span></a>
-<a class="sourceLine" id="cb265-2" title="2"><span class="kw">custom_summary</span>(data, </a>
+<a class="sourceLine" id="cb265-2" title="2"><span class="kw">custom_summary</span>(data,</a>
 <a class="sourceLine" id="cb265-3" title="3">               <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;between(mass_g, 250, 500)&quot;</span>,</a>
-<a class="sourceLine" id="cb265-4" title="4">                           <span class="st">&quot;diet_plant &lt; 10&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb265-4" title="4">                           <span class="st">&quot;diet_plant &lt; 10&quot;</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb265-5" title="5"></a>
-<a class="sourceLine" id="cb265-6" title="6"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g, diet_plant) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb265-7" title="7"><span class="st">  </span></a>
+<a class="sourceLine" id="cb265-6" title="6"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g, diet_plant) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb265-7" title="7"></a>
 <a class="sourceLine" id="cb265-8" title="8"><span class="st">  </span><span class="kw">head</span>()</a>
 <a class="sourceLine" id="cb265-9" title="9"><span class="co">#&gt; # A tibble: 6 x 3</span></a>
 <a class="sourceLine" id="cb265-10" title="10"><span class="co">#&gt;   binomial                mass_g diet_plant</span></a>
@@ -611,22 +611,22 @@ This expression can then be evaluated later. Consider the following, where <code
 Here, they are used to accept the grouping variables.</p>
 <div id="using-...-and-forwarding" class="section level3">
 <h3><span class="header-section-number">7.5.1</span> Using <code>...</code> and ‘forwarding’</h3>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data, </a>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data,</a>
 <a class="sourceLine" id="cb266-2" title="2">                          <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>),</a>
 <a class="sourceLine" id="cb266-3" title="3">                          ...) {</a>
 <a class="sourceLine" id="cb266-4" title="4">  <span class="co"># deal with groups</span></a>
 <a class="sourceLine" id="cb266-5" title="5">  grouping_vars =<span class="st"> </span>rlang<span class="op">::</span><span class="kw">enquos</span>(...)</a>
-<a class="sourceLine" id="cb266-6" title="6">  </a>
-<a class="sourceLine" id="cb266-7" title="7">  data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb266-6" title="6"></a>
+<a class="sourceLine" id="cb266-7" title="7">  data <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb266-8" title="8"><span class="st">    </span><span class="kw">filter</span>(<span class="op">!!!</span>rlang<span class="op">::</span><span class="kw">parse_exprs</span>(filters)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb266-9" title="9"><span class="st">    </span></a>
+<a class="sourceLine" id="cb266-9" title="9"></a>
 <a class="sourceLine" id="cb266-10" title="10"><span class="st">    </span><span class="co"># this is the important bit</span></a>
 <a class="sourceLine" id="cb266-11" title="11"><span class="st">    </span><span class="kw">group_by</span>(<span class="op">!!!</span>grouping_vars)</a>
 <a class="sourceLine" id="cb266-12" title="12">}</a></code></pre></div>
 <p>Try the function again, and check the grouping variables.</p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" title="1"><span class="kw">custom_summary</span>(data, </a>
-<a class="sourceLine" id="cb267-2" title="2">               <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>), </a>
-<a class="sourceLine" id="cb267-3" title="3">               order, family) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" title="1"><span class="kw">custom_summary</span>(data,</a>
+<a class="sourceLine" id="cb267-2" title="2">               <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>),</a>
+<a class="sourceLine" id="cb267-3" title="3">               order, family) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb267-4" title="4"></a>
 <a class="sourceLine" id="cb267-5" title="5"><span class="st">  </span><span class="kw">group_vars</span>()</a>
 <a class="sourceLine" id="cb267-6" title="6"><span class="co">#&gt; [1] &quot;order&quot;  &quot;family&quot;</span></a></code></pre></div>
@@ -639,24 +639,24 @@ An alternative way of passing arguments to a function is as a string vector, i.e
 </div>
 <div id="using-rlangsyms" class="section level3">
 <h3><span class="header-section-number">7.5.3</span> Using <code>rlang::syms</code></h3>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb268-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data, </a>
-<a class="sourceLine" id="cb268-2" title="2">                          <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>), </a>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb268-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data,</a>
+<a class="sourceLine" id="cb268-2" title="2">                          <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>),</a>
 <a class="sourceLine" id="cb268-3" title="3">                          grouping_vars) {</a>
 <a class="sourceLine" id="cb268-4" title="4">  <span class="co"># deal with groups</span></a>
 <a class="sourceLine" id="cb268-5" title="5">  grouping_vars =<span class="st"> </span>rlang<span class="op">::</span><span class="kw">syms</span>(grouping_vars)</a>
-<a class="sourceLine" id="cb268-6" title="6">  </a>
-<a class="sourceLine" id="cb268-7" title="7">  data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb268-6" title="6"></a>
+<a class="sourceLine" id="cb268-7" title="7">  data <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb268-8" title="8"><span class="st">    </span><span class="kw">filter</span>(<span class="op">!!!</span>rlang<span class="op">::</span><span class="kw">parse_exprs</span>(filters)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb268-9" title="9"><span class="st">    </span></a>
+<a class="sourceLine" id="cb268-9" title="9"></a>
 <a class="sourceLine" id="cb268-10" title="10"><span class="st">    </span><span class="co"># this is the important bit</span></a>
 <a class="sourceLine" id="cb268-11" title="11"><span class="st">    </span><span class="kw">group_by</span>(<span class="op">!!!</span>grouping_vars)</a>
 <a class="sourceLine" id="cb268-12" title="12">}</a></code></pre></div>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" title="1"><span class="kw">custom_summary</span>(data, </a>
-<a class="sourceLine" id="cb269-2" title="2">               <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>), </a>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" title="1"><span class="kw">custom_summary</span>(data,</a>
+<a class="sourceLine" id="cb269-2" title="2">               <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>),</a>
 <a class="sourceLine" id="cb269-3" title="3">               <span class="dt">grouping_vars =</span> <span class="kw">c</span>(<span class="st">&quot;order&quot;</span>, <span class="st">&quot;family&quot;</span>)</a>
-<a class="sourceLine" id="cb269-4" title="4">              ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb269-5" title="5"><span class="st">  </span></a>
-<a class="sourceLine" id="cb269-6" title="6"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_mass =</span> <span class="kw">mean</span>(mass_g)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb269-4" title="4">              ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb269-5" title="5"></a>
+<a class="sourceLine" id="cb269-6" title="6"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_mass =</span> <span class="kw">mean</span>(mass_g)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb269-7" title="7"><span class="st">  </span><span class="kw">head</span>()</a>
 <a class="sourceLine" id="cb269-8" title="8"><span class="co">#&gt; # A tibble: 6 x 3</span></a>
 <a class="sourceLine" id="cb269-9" title="9"><span class="co">#&gt; # Groups:   order [2]</span></a>
@@ -671,24 +671,24 @@ An alternative way of passing arguments to a function is as a string vector, i.e
 </div>
 <div id="using-rlangparse_exprs" class="section level3">
 <h3><span class="header-section-number">7.5.4</span> Using <code>rlang::parse_exprs</code></h3>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb270-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data, </a>
-<a class="sourceLine" id="cb270-2" title="2">                          <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>), </a>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb270-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data,</a>
+<a class="sourceLine" id="cb270-2" title="2">                          <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>),</a>
 <a class="sourceLine" id="cb270-3" title="3">                          grouping_vars) {</a>
 <a class="sourceLine" id="cb270-4" title="4">  <span class="co"># deal with groups</span></a>
 <a class="sourceLine" id="cb270-5" title="5">  grouping_vars =<span class="st"> </span>rlang<span class="op">::</span><span class="kw">parse_exprs</span>(grouping_vars)</a>
-<a class="sourceLine" id="cb270-6" title="6">  </a>
-<a class="sourceLine" id="cb270-7" title="7">  data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb270-6" title="6"></a>
+<a class="sourceLine" id="cb270-7" title="7">  data <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb270-8" title="8"><span class="st">    </span><span class="kw">filter</span>(<span class="op">!!!</span>rlang<span class="op">::</span><span class="kw">parse_exprs</span>(filters)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb270-9" title="9"><span class="st">    </span></a>
+<a class="sourceLine" id="cb270-9" title="9"></a>
 <a class="sourceLine" id="cb270-10" title="10"><span class="st">    </span><span class="co"># this is the important bit</span></a>
 <a class="sourceLine" id="cb270-11" title="11"><span class="st">    </span><span class="kw">group_by</span>(<span class="op">!!!</span>grouping_vars)</a>
 <a class="sourceLine" id="cb270-12" title="12">}</a></code></pre></div>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" title="1"><span class="kw">custom_summary</span>(data, </a>
-<a class="sourceLine" id="cb271-2" title="2">               <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>), </a>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" title="1"><span class="kw">custom_summary</span>(data,</a>
+<a class="sourceLine" id="cb271-2" title="2">               <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>),</a>
 <a class="sourceLine" id="cb271-3" title="3">               <span class="dt">grouping_vars =</span> <span class="kw">c</span>(<span class="st">&quot;family&quot;</span>, <span class="st">&quot;iucn_status&quot;</span>)</a>
-<a class="sourceLine" id="cb271-4" title="4">              ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb271-4" title="4">              ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb271-5" title="5"></a>
-<a class="sourceLine" id="cb271-6" title="6"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_mass =</span> <span class="kw">mean</span>(mass_g)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb271-6" title="6"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_mass =</span> <span class="kw">mean</span>(mass_g)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb271-7" title="7"><span class="st">  </span><span class="kw">head</span>()</a>
 <a class="sourceLine" id="cb271-8" title="8"><span class="co">#&gt; # A tibble: 6 x 3</span></a>
 <a class="sourceLine" id="cb271-9" title="9"><span class="co">#&gt; # Groups:   family [5]</span></a>
@@ -708,20 +708,20 @@ An alternative way of passing arguments to a function is as a string vector, i.e
 <div id="using-dplyrsummarise_at" class="section level3">
 <h3><span class="header-section-number">7.6.1</span> Using <code>dplyr::summarise_at</code></h3>
 <p>Simply pass a string vector to the <code>.vars</code> argument of <code>summarise_at</code>, while passing a list, named or otherwise, of functions to the <code>.funs</code> argument.</p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb272-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data, </a>
-<a class="sourceLine" id="cb272-2" title="2">                          <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>), </a>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb272-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data,</a>
+<a class="sourceLine" id="cb272-2" title="2">                          <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>),</a>
 <a class="sourceLine" id="cb272-3" title="3">                          grouping_vars,</a>
 <a class="sourceLine" id="cb272-4" title="4">                          summary_vars,</a>
 <a class="sourceLine" id="cb272-5" title="5">                          summary_funs) {</a>
 <a class="sourceLine" id="cb272-6" title="6">  <span class="co"># deal with groups</span></a>
 <a class="sourceLine" id="cb272-7" title="7">  grouping_vars =<span class="st"> </span>rlang<span class="op">::</span><span class="kw">parse_exprs</span>(grouping_vars)</a>
-<a class="sourceLine" id="cb272-8" title="8">  </a>
-<a class="sourceLine" id="cb272-9" title="9">  data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb272-8" title="8"></a>
+<a class="sourceLine" id="cb272-9" title="9">  data <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb272-10" title="10"><span class="st">    </span><span class="kw">filter</span>(<span class="op">!!!</span><span class="kw">parse_exprs</span>(filters)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb272-11" title="11"><span class="st">    </span><span class="kw">group_by</span>(<span class="op">!!!</span>grouping_vars) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb272-12" title="12"><span class="st">    </span></a>
+<a class="sourceLine" id="cb272-11" title="11"><span class="st">    </span><span class="kw">group_by</span>(<span class="op">!!!</span>grouping_vars) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb272-12" title="12"></a>
 <a class="sourceLine" id="cb272-13" title="13"><span class="st">    </span><span class="co"># important bit</span></a>
-<a class="sourceLine" id="cb272-14" title="14"><span class="st">    </span><span class="kw">summarise_at</span>(<span class="dt">.vars =</span> summary_vars, </a>
+<a class="sourceLine" id="cb272-14" title="14"><span class="st">    </span><span class="kw">summarise_at</span>(<span class="dt">.vars =</span> summary_vars,</a>
 <a class="sourceLine" id="cb272-15" title="15">                 <span class="dt">.funs =</span> summary_funs)</a>
 <a class="sourceLine" id="cb272-16" title="16">}</a></code></pre></div>
 <div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" title="1"><span class="kw">custom_summary</span>(data,</a>
@@ -745,25 +745,25 @@ An alternative way of passing arguments to a function is as a string vector, i.e
 <p><code>dplyr 1.0.0</code> had <code>summarise_*</code> superseded by the <code>across</code> argument to <code>summarise</code>. This works somewhat differently.
 The example below shows how the <code>mean</code> of a trait of mammal groups can be found.</p>
 <p>This example makes use of embracing using <code>{{ }}</code>, where the double curly braces indicate a <a href="https://adv-r.hadley.nz/functions.html#lazy-evaluation">promise</a>, i.e., an expectation that such a variable will exist in the function environment.</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb274-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data, </a>
-<a class="sourceLine" id="cb274-2" title="2">                          <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>), </a>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb274-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data,</a>
+<a class="sourceLine" id="cb274-2" title="2">                          <span class="dt">filters =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g &gt; 1000&quot;</span>),</a>
 <a class="sourceLine" id="cb274-3" title="3">                          grouping_vars,</a>
 <a class="sourceLine" id="cb274-4" title="4">                          summary_vars) {</a>
 <a class="sourceLine" id="cb274-5" title="5">  <span class="co"># deal with groups</span></a>
 <a class="sourceLine" id="cb274-6" title="6">  grouping_vars =<span class="st"> </span><span class="kw">parse_exprs</span>(grouping_vars)</a>
-<a class="sourceLine" id="cb274-7" title="7">  </a>
-<a class="sourceLine" id="cb274-8" title="8">  data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb274-7" title="7"></a>
+<a class="sourceLine" id="cb274-8" title="8">  data <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb274-9" title="9"><span class="st">    </span><span class="kw">filter</span>(<span class="op">!!!</span><span class="kw">parse_exprs</span>(filters)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb274-10" title="10"><span class="st">    </span><span class="kw">group_by</span>(<span class="op">!!!</span>grouping_vars) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb274-11" title="11"><span class="st">    </span></a>
+<a class="sourceLine" id="cb274-10" title="10"><span class="st">    </span><span class="kw">group_by</span>(<span class="op">!!!</span>grouping_vars) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb274-11" title="11"></a>
 <a class="sourceLine" id="cb274-12" title="12"><span class="st">    </span><span class="co"># important bit</span></a>
 <a class="sourceLine" id="cb274-13" title="13"><span class="st">    </span><span class="kw">summarise</span>(<span class="kw">across</span>({{ summary_vars }},</a>
 <a class="sourceLine" id="cb274-14" title="14">              <span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(.)))</a>
 <a class="sourceLine" id="cb274-15" title="15">}</a></code></pre></div>
 <div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" title="1"><span class="kw">custom_summary</span>(data,</a>
 <a class="sourceLine" id="cb275-2" title="2">               <span class="dt">grouping_vars =</span> <span class="kw">c</span>(<span class="st">&quot;order&quot;</span>, <span class="st">&quot;family&quot;</span>),</a>
-<a class="sourceLine" id="cb275-3" title="3">               <span class="dt">summary_vars =</span> <span class="kw">c</span>(mass_g, diet_plant)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb275-4" title="4"><span class="st">  </span></a>
+<a class="sourceLine" id="cb275-3" title="3">               <span class="dt">summary_vars =</span> <span class="kw">c</span>(mass_g, diet_plant)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb275-4" title="4"></a>
 <a class="sourceLine" id="cb275-5" title="5"><span class="st">  </span><span class="kw">head</span>()</a>
 <a class="sourceLine" id="cb275-6" title="6"><span class="co">#&gt; # A tibble: 6 x 4</span></a>
 <a class="sourceLine" id="cb275-7" title="7"><span class="co">#&gt; # Groups:   order [2]</span></a>
@@ -778,12 +778,12 @@ The example below shows how the <code>mean</code> of a trait of mammal groups ca
 <p><code>across</code> also accepts multiple functions just as <code>summarise_</code> did. This works as follows.</p>
 <div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" title="1"><span class="co"># mean and sd</span></a>
 <a class="sourceLine" id="cb276-2" title="2">data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb276-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(order, family) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb276-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(order, family) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb276-4" title="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="kw">across</span>(<span class="kw">c</span>(mass_g, diet_plant),</a>
 <a class="sourceLine" id="cb276-5" title="5">                   <span class="kw">list</span>(<span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(.),</a>
 <a class="sourceLine" id="cb276-6" title="6">                        <span class="op">~</span><span class="st"> </span><span class="kw">sd</span>(.))</a>
 <a class="sourceLine" id="cb276-7" title="7">                   )</a>
-<a class="sourceLine" id="cb276-8" title="8">            ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb276-8" title="8">            ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb276-9" title="9"><span class="st">  </span><span class="kw">head</span>()</a>
 <a class="sourceLine" id="cb276-10" title="10"><span class="co">#&gt; # A tibble: 6 x 6</span></a>
 <a class="sourceLine" id="cb276-11" title="11"><span class="co">#&gt; # Groups:   order [2]</span></a>
@@ -800,33 +800,33 @@ The example below shows how the <code>mean</code> of a trait of mammal groups ca
 <h3><span class="header-section-number">7.6.3</span> Summarise multiple variables using <code>...</code></h3>
 <p>Here, the unquoted and unnamed variables passed to the function are captured by <code>...</code> and <code>enquos</code>-ed, i.e, their evaluation is delayed.
 Then the variables are forcibly evaluated within the <code>mean</code> function, and this expression is captured using <code>expr</code>. Since there are multiple variables to summarise, these expressions are stored as a list.</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data, </a>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data,</a>
 <a class="sourceLine" id="cb277-2" title="2">                          grouping_vars,</a>
 <a class="sourceLine" id="cb277-3" title="3">                          filters,</a>
 <a class="sourceLine" id="cb277-4" title="4">                          ...) {</a>
 <a class="sourceLine" id="cb277-5" title="5">  <span class="co"># deal with groups</span></a>
 <a class="sourceLine" id="cb277-6" title="6">  grouping_vars =<span class="st"> </span>rlang<span class="op">::</span><span class="kw">parse_exprs</span>(grouping_vars)</a>
-<a class="sourceLine" id="cb277-7" title="7">  </a>
+<a class="sourceLine" id="cb277-7" title="7"></a>
 <a class="sourceLine" id="cb277-8" title="8">  <span class="co"># deal with summary variables</span></a>
 <a class="sourceLine" id="cb277-9" title="9">  summary_vars =<span class="st"> </span>rlang<span class="op">::</span><span class="kw">enquos</span>(...)</a>
-<a class="sourceLine" id="cb277-10" title="10">  </a>
+<a class="sourceLine" id="cb277-10" title="10"></a>
 <a class="sourceLine" id="cb277-11" title="11">  <span class="co"># apply the summary function to the variables</span></a>
 <a class="sourceLine" id="cb277-12" title="12">  summary_vars &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">map</span>(summary_vars, <span class="cf">function</span>(var) {</a>
 <a class="sourceLine" id="cb277-13" title="13">    rlang<span class="op">::</span><span class="kw">expr</span>(<span class="kw">mean</span>(<span class="op">!!</span>var, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
 <a class="sourceLine" id="cb277-14" title="14">  })</a>
-<a class="sourceLine" id="cb277-15" title="15">  </a>
-<a class="sourceLine" id="cb277-16" title="16">  data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb277-17" title="17"><span class="st">    </span><span class="kw">filter</span>(<span class="op">!!!</span>rlang<span class="op">::</span><span class="kw">parse_exprs</span>(filters)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb277-18" title="18"><span class="st">    </span><span class="kw">group_by</span>(<span class="op">!!!</span>grouping_vars) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb277-19" title="19"><span class="st">    </span></a>
+<a class="sourceLine" id="cb277-15" title="15"></a>
+<a class="sourceLine" id="cb277-16" title="16">  data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb277-17" title="17"><span class="st">    </span><span class="kw">filter</span>(<span class="op">!!!</span>rlang<span class="op">::</span><span class="kw">parse_exprs</span>(filters)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb277-18" title="18"><span class="st">    </span><span class="kw">group_by</span>(<span class="op">!!!</span>grouping_vars) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb277-19" title="19"></a>
 <a class="sourceLine" id="cb277-20" title="20"><span class="st">    </span><span class="co"># important bit</span></a>
 <a class="sourceLine" id="cb277-21" title="21"><span class="st">    </span><span class="kw">summarise</span>(<span class="op">!!!</span>summary_vars)</a>
 <a class="sourceLine" id="cb277-22" title="22">}</a></code></pre></div>
 <div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" title="1"><span class="kw">custom_summary</span>(data,</a>
 <a class="sourceLine" id="cb278-2" title="2">               <span class="dt">grouping_vars =</span> <span class="kw">c</span>(<span class="st">&quot;order&quot;</span>, <span class="st">&quot;family&quot;</span>),</a>
 <a class="sourceLine" id="cb278-3" title="3">               <span class="dt">filters =</span> <span class="st">&quot;mass_g &gt; 10&quot;</span>,</a>
-<a class="sourceLine" id="cb278-4" title="4">               mass_g, diet_plant) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb278-5" title="5"><span class="st">  </span></a>
+<a class="sourceLine" id="cb278-4" title="4">               mass_g, diet_plant) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb278-5" title="5"></a>
 <a class="sourceLine" id="cb278-6" title="6"><span class="st">  </span><span class="kw">head</span>()</a>
 <a class="sourceLine" id="cb278-7" title="7"><span class="co">#&gt; # A tibble: 6 x 4</span></a>
 <a class="sourceLine" id="cb278-8" title="8"><span class="co">#&gt; # Groups:   order [2]</span></a>
@@ -847,36 +847,36 @@ Then the variables are forcibly evaluated within the <code>mean</code> function,
 <p>The example above returns summary variables that are not assigned a name.
 The <code>enquos</code> function can assign the name from the variable names, so <code>mean(mass_g)</code> is returned as <code>mass_g</code>.
 Since it is useful to add a tag to make clear what the summary variable is (mean, variance etc.) an extra <code>glue</code> step is added to assign informative names to the summary variables.</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data, </a>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data,</a>
 <a class="sourceLine" id="cb279-2" title="2">                          grouping_vars,</a>
 <a class="sourceLine" id="cb279-3" title="3">                          filters,</a>
 <a class="sourceLine" id="cb279-4" title="4">                          ...) {</a>
 <a class="sourceLine" id="cb279-5" title="5">  <span class="co"># deal with groups</span></a>
 <a class="sourceLine" id="cb279-6" title="6">  grouping_vars =<span class="st"> </span>rlang<span class="op">::</span><span class="kw">parse_exprs</span>(grouping_vars)</a>
-<a class="sourceLine" id="cb279-7" title="7">  </a>
+<a class="sourceLine" id="cb279-7" title="7"></a>
 <a class="sourceLine" id="cb279-8" title="8">  <span class="co"># deal with summary variables</span></a>
 <a class="sourceLine" id="cb279-9" title="9">  summary_vars =<span class="st"> </span>rlang<span class="op">::</span><span class="kw">enquos</span>(..., <span class="dt">.named =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb279-10" title="10">  </a>
+<a class="sourceLine" id="cb279-10" title="10"></a>
 <a class="sourceLine" id="cb279-11" title="11">  <span class="co"># apply the summary function to the variables</span></a>
 <a class="sourceLine" id="cb279-12" title="12">  summary_vars &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">map</span>(summary_vars, <span class="cf">function</span>(var) {</a>
 <a class="sourceLine" id="cb279-13" title="13">    rlang<span class="op">::</span><span class="kw">expr</span>(<span class="kw">mean</span>(<span class="op">!!</span>var, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
 <a class="sourceLine" id="cb279-14" title="14">  })</a>
-<a class="sourceLine" id="cb279-15" title="15">  </a>
+<a class="sourceLine" id="cb279-15" title="15"></a>
 <a class="sourceLine" id="cb279-16" title="16">  <span class="co"># add a prefix to the summary variables</span></a>
 <a class="sourceLine" id="cb279-17" title="17">  <span class="kw">names</span>(summary_vars) &lt;-<span class="st"> </span>glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&#39;mean_{names(summary_vars)}&#39;</span>)</a>
-<a class="sourceLine" id="cb279-18" title="18">  </a>
-<a class="sourceLine" id="cb279-19" title="19">  data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb279-20" title="20"><span class="st">    </span><span class="kw">filter</span>(<span class="op">!!!</span>rlang<span class="op">::</span><span class="kw">parse_exprs</span>(filters)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb279-21" title="21"><span class="st">    </span><span class="kw">group_by</span>(<span class="op">!!!</span>grouping_vars) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb279-22" title="22"><span class="st">    </span></a>
+<a class="sourceLine" id="cb279-18" title="18"></a>
+<a class="sourceLine" id="cb279-19" title="19">  data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb279-20" title="20"><span class="st">    </span><span class="kw">filter</span>(<span class="op">!!!</span>rlang<span class="op">::</span><span class="kw">parse_exprs</span>(filters)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb279-21" title="21"><span class="st">    </span><span class="kw">group_by</span>(<span class="op">!!!</span>grouping_vars) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb279-22" title="22"></a>
 <a class="sourceLine" id="cb279-23" title="23"><span class="st">    </span><span class="co"># important bit</span></a>
 <a class="sourceLine" id="cb279-24" title="24"><span class="st">    </span><span class="kw">summarise</span>(<span class="op">!!!</span>summary_vars)</a>
 <a class="sourceLine" id="cb279-25" title="25">}</a></code></pre></div>
 <div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" title="1"><span class="kw">custom_summary</span>(data,</a>
 <a class="sourceLine" id="cb280-2" title="2">               <span class="dt">grouping_vars =</span> <span class="kw">c</span>(<span class="st">&quot;order&quot;</span>, <span class="st">&quot;family&quot;</span>),</a>
 <a class="sourceLine" id="cb280-3" title="3">               <span class="dt">filters =</span> <span class="st">&quot;mass_g &gt; 10&quot;</span>,</a>
-<a class="sourceLine" id="cb280-4" title="4">               mass_g, diet_plant) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb280-5" title="5"><span class="st">  </span></a>
+<a class="sourceLine" id="cb280-4" title="4">               mass_g, diet_plant) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb280-5" title="5"></a>
 <a class="sourceLine" id="cb280-6" title="6"><span class="st">  </span><span class="kw">head</span>()</a>
 <a class="sourceLine" id="cb280-7" title="7"><span class="co">#&gt; # A tibble: 6 x 4</span></a>
 <a class="sourceLine" id="cb280-8" title="8"><span class="co">#&gt; # Groups:   order [2]</span></a>
@@ -895,23 +895,23 @@ Since it is useful to add a tag to make clear what the summary variable is (mean
 <p>The final step is to pass multiple summary functions to the summary variables.
 Unlike the earlier example using <code>summarise(across(vars, funs))</code>, the goal here is to apply one function to each variable.</p>
 <p>This is done by passing the functions and the variables on which they should operate as strings, and using string interpolation via <code>glue</code> to construct a coherent <code>R</code> expression. This expression is then named and evaluated.</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data, </a>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" title="1">custom_summary =<span class="st"> </span><span class="cf">function</span>(data,</a>
 <a class="sourceLine" id="cb281-2" title="2">                          grouping_vars,</a>
 <a class="sourceLine" id="cb281-3" title="3">                          filters,</a>
 <a class="sourceLine" id="cb281-4" title="4">                          functions,</a>
 <a class="sourceLine" id="cb281-5" title="5">                          summary_vars) {</a>
 <a class="sourceLine" id="cb281-6" title="6">  <span class="co"># deal with groups</span></a>
 <a class="sourceLine" id="cb281-7" title="7">  grouping_vars =<span class="st"> </span><span class="kw">parse_exprs</span>(grouping_vars)</a>
-<a class="sourceLine" id="cb281-8" title="8">  </a>
+<a class="sourceLine" id="cb281-8" title="8"></a>
 <a class="sourceLine" id="cb281-9" title="9">  <span class="co"># deal with summary variables</span></a>
 <a class="sourceLine" id="cb281-10" title="10">  <span class="co"># summary_vars = # enquos(..., .named = TRUE)</span></a>
-<a class="sourceLine" id="cb281-11" title="11">  </a>
+<a class="sourceLine" id="cb281-11" title="11"></a>
 <a class="sourceLine" id="cb281-12" title="12">  <span class="co"># apply the summary function to the variables</span></a>
 <a class="sourceLine" id="cb281-13" title="13">  summary_exprs &lt;-<span class="st"> </span><span class="kw">parse_exprs</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&#39;{functions}({summary_vars}, na.rm = TRUE)&#39;</span>))</a>
-<a class="sourceLine" id="cb281-14" title="14">  </a>
+<a class="sourceLine" id="cb281-14" title="14"></a>
 <a class="sourceLine" id="cb281-15" title="15">  <span class="co"># add a prefix to the summary variables</span></a>
 <a class="sourceLine" id="cb281-16" title="16">  <span class="kw">names</span>(summary_exprs) &lt;-<span class="st"> </span>glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&#39;{functions}_{summary_vars}&#39;</span>)</a>
-<a class="sourceLine" id="cb281-17" title="17">  </a>
+<a class="sourceLine" id="cb281-17" title="17"></a>
 <a class="sourceLine" id="cb281-18" title="18">  data <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb281-19" title="19"><span class="st">    </span><span class="kw">filter</span>(<span class="op">!!!</span><span class="kw">parse_exprs</span>(filters)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb281-20" title="20"><span class="st">    </span><span class="kw">group_by</span>(<span class="op">!!!</span>grouping_vars) <span class="op">%&gt;%</span></a>
@@ -923,8 +923,8 @@ Unlike the earlier example using <code>summarise(across(vars, funs))</code>, the
 <a class="sourceLine" id="cb282-2" title="2">               <span class="dt">grouping_vars =</span> <span class="kw">c</span>(<span class="st">&quot;order&quot;</span>, <span class="st">&quot;family&quot;</span>),</a>
 <a class="sourceLine" id="cb282-3" title="3">               <span class="dt">filters =</span> <span class="st">&quot;mass_g &gt; 10&quot;</span>,</a>
 <a class="sourceLine" id="cb282-4" title="4">               <span class="dt">functions =</span> <span class="kw">c</span>(<span class="st">&quot;mean&quot;</span>, <span class="st">&quot;var&quot;</span>),</a>
-<a class="sourceLine" id="cb282-5" title="5">               <span class="dt">summary_vars =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g&quot;</span>, <span class="st">&quot;diet_plant&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb282-6" title="6"><span class="st">  </span></a>
+<a class="sourceLine" id="cb282-5" title="5">               <span class="dt">summary_vars =</span> <span class="kw">c</span>(<span class="st">&quot;mass_g&quot;</span>, <span class="st">&quot;diet_plant&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb282-6" title="6"></a>
 <a class="sourceLine" id="cb282-7" title="7"><span class="st">  </span><span class="kw">head</span>()</a>
 <a class="sourceLine" id="cb282-8" title="8"><span class="co">#&gt; # A tibble: 6 x 4</span></a>
 <a class="sourceLine" id="cb282-9" title="9"><span class="co">#&gt; # Groups:   order [2]</span></a>

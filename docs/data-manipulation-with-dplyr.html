@@ -24,7 +24,7 @@
 <meta name="author" content="Raphael, Pratik, Theo and Richèl" />
 
 
-<meta name="date" content="2020-07-13" />
+<meta name="date" content="2020-07-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -268,7 +268,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.12" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#want-more"><i class="fa fa-check"></i><b>5.12</b> Want more?</a></li>
 <li class="chapter" data-level="5.13" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#references"><i class="fa fa-check"></i><b>5.13</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html"><i class="fa fa-check"></i><b>6</b> 06. Regular expressions and <code>testthat</code></a><ul>
+<li class="chapter" data-level="6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html"><i class="fa fa-check"></i><b>6</b> Regular expressions and <code>testthat</code></a><ul>
 <li class="chapter" data-level="6.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#goal"><i class="fa fa-check"></i><b>6.1.1</b> Goal</a></li>
 <li class="chapter" data-level="6.1.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#why-is-this-important"><i class="fa fa-check"></i><b>6.1.2</b> Why is this important?</a></li>
@@ -778,8 +778,8 @@ is identical to <code>rename()</code>, <code>select()</code>.</p>
 <p><code>arrange()</code> sorts rows in the data by <strong>ascending</strong> value for a given variable.
 Use the wrapper <code>desc()</code> to sort by descending values instead.</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1"><span class="co"># Smallest mammals</span></a>
-<a class="sourceLine" id="cb88-2" title="2">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb88-3" title="3"><span class="st">  </span><span class="kw">arrange</span>(mass_g) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb88-2" title="2">phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb88-3" title="3"><span class="st">  </span><span class="kw">arrange</span>(mass_g) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb88-4" title="4"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g)</a>
 <a class="sourceLine" id="cb88-5" title="5"><span class="co">#&gt; # A tibble: 5,831 x 2</span></a>
 <a class="sourceLine" id="cb88-6" title="6"><span class="co">#&gt;   binomial            mass_g</span></a>
@@ -793,8 +793,8 @@ Use the wrapper <code>desc()</code> to sort by descending values instead.</p>
 <a class="sourceLine" id="cb88-14" title="14"><span class="co">#&gt; # … with 5,825 more rows</span></a>
 <a class="sourceLine" id="cb88-15" title="15"></a>
 <a class="sourceLine" id="cb88-16" title="16"><span class="co"># Largest mammals</span></a>
-<a class="sourceLine" id="cb88-17" title="17">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb88-18" title="18"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(mass_g)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb88-17" title="17">phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb88-18" title="18"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(mass_g)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb88-19" title="19"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g)</a>
 <a class="sourceLine" id="cb88-20" title="20"><span class="co">#&gt; # A tibble: 5,831 x 2</span></a>
 <a class="sourceLine" id="cb88-21" title="21"><span class="co">#&gt;   binomial                  mass_g</span></a>
@@ -808,8 +808,8 @@ Use the wrapper <code>desc()</code> to sort by descending values instead.</p>
 <a class="sourceLine" id="cb88-29" title="29"><span class="co">#&gt; # … with 5,825 more rows</span></a>
 <a class="sourceLine" id="cb88-30" title="30"></a>
 <a class="sourceLine" id="cb88-31" title="31"><span class="co"># Extra variables are used to sort ties in the first variable</span></a>
-<a class="sourceLine" id="cb88-32" title="32">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb88-33" title="33"><span class="st">  </span><span class="kw">arrange</span>(mass_g, <span class="kw">desc</span>(binomial)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb88-32" title="32">phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb88-33" title="33"><span class="st">  </span><span class="kw">arrange</span>(mass_g, <span class="kw">desc</span>(binomial)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb88-34" title="34"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g)</a>
 <a class="sourceLine" id="cb88-35" title="35"><span class="co">#&gt; # A tibble: 5,831 x 2</span></a>
 <a class="sourceLine" id="cb88-36" title="36"><span class="co">#&gt;   binomial            mass_g</span></a>
@@ -932,7 +932,7 @@ for an <code>if</code> statement.</p>
 going to use the most.</p>
 <p>For example, I might want to extract mammals above a given mass:</p>
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="co"># megafauna</span></a>
-<a class="sourceLine" id="cb91-2" title="2">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb91-2" title="2">phylacine <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb91-3" title="3"><span class="st">  </span><span class="kw">filter</span>(mass_g <span class="op">&gt;</span><span class="st"> </span><span class="fl">1e5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># 100 kg</span></a>
 <a class="sourceLine" id="cb91-4" title="4"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g)</a>
 <a class="sourceLine" id="cb91-5" title="5"><span class="co">#&gt; # A tibble: 302 x 2</span></a>
@@ -947,8 +947,8 @@ going to use the most.</p>
 <a class="sourceLine" id="cb91-14" title="14"><span class="co">#&gt; # … with 296 more rows</span></a>
 <a class="sourceLine" id="cb91-15" title="15"></a>
 <a class="sourceLine" id="cb91-16" title="16"><span class="co"># non-extinct megafauna</span></a>
-<a class="sourceLine" id="cb91-17" title="17">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb91-18" title="18"><span class="st">  </span><span class="kw">filter</span>(mass_g <span class="op">&gt;</span><span class="st"> </span><span class="fl">1e5</span>, iucn_status <span class="op">!=</span><span class="st"> &quot;EP&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb91-17" title="17">phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb91-18" title="18"><span class="st">  </span><span class="kw">filter</span>(mass_g <span class="op">&gt;</span><span class="st"> </span><span class="fl">1e5</span>, iucn_status <span class="op">!=</span><span class="st"> &quot;EP&quot;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb91-19" title="19"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g, iucn_status)</a>
 <a class="sourceLine" id="cb91-20" title="20"><span class="co">#&gt; # A tibble: 178 x 3</span></a>
 <a class="sourceLine" id="cb91-21" title="21"><span class="co">#&gt;   binomial                 mass_g iucn_status</span></a>
@@ -961,8 +961,8 @@ going to use the most.</p>
 <a class="sourceLine" id="cb91-28" title="28"><span class="co">#&gt; 6 Arctocephalus_townsendi 105000  LC         </span></a>
 <a class="sourceLine" id="cb91-29" title="29"><span class="co">#&gt; # … with 172 more rows</span></a></code></pre></div>
 <p>Are there any flying mammals that aren’t bats?</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb92-2" title="2"><span class="st">  </span><span class="kw">filter</span>(aerial <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, order <span class="op">!=</span><span class="st"> &quot;Chiroptera&quot;</span>) </a>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1">phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb92-2" title="2"><span class="st">  </span><span class="kw">filter</span>(aerial <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, order <span class="op">!=</span><span class="st"> &quot;Chiroptera&quot;</span>)</a>
 <a class="sourceLine" id="cb92-3" title="3"><span class="co">#&gt; # A tibble: 0 x 24</span></a>
 <a class="sourceLine" id="cb92-4" title="4"><span class="co">#&gt; # … with 24 variables: binomial &lt;chr&gt;, order &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;,</span></a>
 <a class="sourceLine" id="cb92-5" title="5"><span class="co">#&gt; #   species &lt;chr&gt;, terrestrial &lt;dbl&gt;, marine &lt;dbl&gt;, freshwater &lt;dbl&gt;,</span></a>
@@ -984,8 +984,8 @@ going to use the most.</p>
 <a class="sourceLine" id="cb93-9" title="9"><span class="co">#&gt; #   added_iucn_status &lt;chr&gt;, diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb93-10" title="10"><span class="co">#&gt; #   diet_invertebrate &lt;dbl&gt;, diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a></code></pre></div>
 <p><code>filter()</code> can be used to deal with NAs:</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb94-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(mass_comparison)) </a>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1">phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb94-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(mass_comparison))</a>
 <a class="sourceLine" id="cb94-3" title="3"><span class="co">#&gt; # A tibble: 754 x 24</span></a>
 <a class="sourceLine" id="cb94-4" title="4"><span class="co">#&gt;   binomial order family genus species terrestrial marine freshwater aerial</span></a>
 <a class="sourceLine" id="cb94-5" title="5"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;</span></a>
@@ -1006,8 +1006,8 @@ going to use the most.</p>
 <a class="sourceLine" id="cb95-2" title="2"><span class="co">#&gt; [1] FALSE  TRUE  TRUE  TRUE FALSE</span></a>
 <a class="sourceLine" id="cb95-3" title="3"></a>
 <a class="sourceLine" id="cb95-4" title="4"><span class="co"># Mesofauna</span></a>
-<a class="sourceLine" id="cb95-5" title="5">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb95-6" title="6"><span class="st">  </span><span class="kw">filter</span>(mass_g <span class="op">&gt;</span><span class="st"> </span><span class="fl">1e3</span>, mass_g <span class="op">&lt;</span><span class="st"> </span><span class="fl">1e5</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb95-5" title="5">phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb95-6" title="6"><span class="st">  </span><span class="kw">filter</span>(mass_g <span class="op">&gt;</span><span class="st"> </span><span class="fl">1e3</span>, mass_g <span class="op">&lt;</span><span class="st"> </span><span class="fl">1e5</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb95-7" title="7"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g)</a>
 <a class="sourceLine" id="cb95-8" title="8"><span class="co">#&gt; # A tibble: 1,126 x 2</span></a>
 <a class="sourceLine" id="cb95-9" title="9"><span class="co">#&gt;   binomial                mass_g</span></a>
@@ -1021,8 +1021,8 @@ going to use the most.</p>
 <a class="sourceLine" id="cb95-17" title="17"><span class="co">#&gt; # … with 1,120 more rows</span></a>
 <a class="sourceLine" id="cb95-18" title="18"></a>
 <a class="sourceLine" id="cb95-19" title="19"><span class="co"># same thing</span></a>
-<a class="sourceLine" id="cb95-20" title="20">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb95-21" title="21"><span class="st">  </span><span class="kw">filter</span>(mass_g <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">between</span>(<span class="fl">1e3</span>, <span class="fl">1e5</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb95-20" title="20">phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb95-21" title="21"><span class="st">  </span><span class="kw">filter</span>(mass_g <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">between</span>(<span class="fl">1e3</span>, <span class="fl">1e5</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb95-22" title="22"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g)</a>
 <a class="sourceLine" id="cb95-23" title="23"><span class="co">#&gt; # A tibble: 1,148 x 2</span></a>
 <a class="sourceLine" id="cb95-24" title="24"><span class="co">#&gt;   binomial                mass_g</span></a>
@@ -1045,7 +1045,7 @@ above (arguments are expressions, after all!).</p>
 <p>Very often in data analysis, you will want to create new variables, or edit
 existing ones. This is done easily through <code>mutate()</code>. For example, consider
 the diet data:</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1">diet &lt;-<span class="st"> </span>phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1">diet &lt;-<span class="st"> </span>phylacine <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb96-2" title="2"><span class="st">  </span><span class="kw">select</span>(</a>
 <a class="sourceLine" id="cb96-3" title="3">    binomial,</a>
 <a class="sourceLine" id="cb96-4" title="4">    <span class="kw">contains</span>(<span class="st">&quot;diet&quot;</span>) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">contains</span>(<span class="kw">c</span>(<span class="st">&quot;method&quot;</span>, <span class="st">&quot;source&quot;</span>))</a>
@@ -1087,7 +1087,7 @@ other entry error. To assert this, I’m going to create a new variable,
 Sometimes you may want to just keep the new variable, and drop the other ones.
 That’s the job of <code>mutate()</code>’s twin sibling, <code>transmute()</code>. For example,
 I want to combine <code>diet_invertebrate</code> and <code>diet_vertebrate</code> together:</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1">diet <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1">diet <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb98-2" title="2"><span class="st">  </span><span class="kw">transmute</span>(</a>
 <a class="sourceLine" id="cb98-3" title="3">    <span class="st">&quot;diet_animal&quot;</span> =<span class="st"> </span>diet_invertebrate <span class="op">+</span><span class="st"> </span>diet_vertebrate</a>
 <a class="sourceLine" id="cb98-4" title="4">  )</a>
@@ -1104,7 +1104,7 @@ I want to combine <code>diet_invertebrate</code> and <code>diet_vertebrate</code
 <p>You may want to keep some variables and drop others. You could pipe <code>mutate()</code>
 and <code>select()</code> to do so, or you could just pass the variables to keep to
 <code>transmute()</code>.</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1">diet <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1">diet <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb99-2" title="2"><span class="st">  </span><span class="kw">transmute</span>(</a>
 <a class="sourceLine" id="cb99-3" title="3">    <span class="st">&quot;diet_animal&quot;</span> =<span class="st"> </span>diet_invertebrate <span class="op">+</span><span class="st"> </span>diet_vertebrate,</a>
 <a class="sourceLine" id="cb99-4" title="4">    diet_plant</a>
@@ -1121,7 +1121,7 @@ and <code>select()</code> to do so, or you could just pass the variables to keep
 <a class="sourceLine" id="cb99-15" title="15"><span class="co">#&gt; # … with 5,825 more rows</span></a></code></pre></div>
 <p>You can also refer to variables you’re creating to derive new variables from
 them as part of the same operation, this is not an issue.</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1">diet <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1">diet <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb100-2" title="2"><span class="st">  </span><span class="kw">transmute</span>(</a>
 <a class="sourceLine" id="cb100-3" title="3">    <span class="st">&quot;diet_animal&quot;</span> =<span class="st"> </span>diet_invertebrate <span class="op">+</span><span class="st"> </span>diet_vertebrate,</a>
 <a class="sourceLine" id="cb100-4" title="4">    diet_plant,</a>
@@ -1140,8 +1140,8 @@ them as part of the same operation, this is not an issue.</p>
 <p>Sometimes, you may need to perform an operation based on the row number
 (I don’t have a good example in mind). <code>tibble</code> has a built-in function to do
 just that:</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb101-2" title="2"><span class="st">  </span><span class="kw">select</span>(binomial) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1">phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb101-2" title="2"><span class="st">  </span><span class="kw">select</span>(binomial) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb101-3" title="3"><span class="st">  </span>tibble<span class="op">::</span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;row_nb&quot;</span>)</a>
 <a class="sourceLine" id="cb101-4" title="4"><span class="co">#&gt; # A tibble: 5,831 x 2</span></a>
 <a class="sourceLine" id="cb101-5" title="5"><span class="co">#&gt;   row_nb binomial            </span></a>
@@ -1159,7 +1159,7 @@ just that:</p>
 <p><code>mutate()</code> applies operations to all observations in a table. By contrast,
 <code>summarise()</code> applies operations to <em>groups</em> of observations, and returns, er,
 summaries. The default grouping unit is the entire table:</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1">phylacine <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb102-2" title="2"><span class="st">  </span><span class="kw">summarise</span>(</a>
 <a class="sourceLine" id="cb102-3" title="3">    <span class="st">&quot;nb_species&quot;</span> =<span class="st"> </span><span class="kw">n</span>(), <span class="co"># counts observations</span></a>
 <a class="sourceLine" id="cb102-4" title="4">    <span class="st">&quot;nb_terrestrial&quot;</span> =<span class="st"> </span><span class="kw">sum</span>(terrestrial),</a>
@@ -1175,7 +1175,7 @@ summaries. The default grouping unit is the entire table:</p>
 <p>Above you can see that bats account for a large portion of mammal species
 diversity (<code>nb_aerial</code>). How much exactly? Just as with <code>mutate()</code>, you can
 perform operations on the variables you just created, in the same statement:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" title="1">phylacine <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb103-2" title="2"><span class="st">  </span><span class="kw">summarise</span>(</a>
 <a class="sourceLine" id="cb103-3" title="3">    <span class="st">&quot;nb_species&quot;</span> =<span class="st"> </span><span class="kw">n</span>(),</a>
 <a class="sourceLine" id="cb103-4" title="4">    <span class="st">&quot;nb_aerial&quot;</span> =<span class="st"> </span><span class="kw">sum</span>(aerial), <span class="co"># bats</span></a>
@@ -1192,7 +1192,7 @@ equivalent.</p>
 count of observations that evaluate to <code>TRUE</code> (because <code>TRUE</code> is taken as 1 and
 <code>FALSE</code> as 0) and their mean is the proportion of <code>TRUE</code> observations. This can
 be exploited to count the number of observations that satisfy a condition:</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" title="1">phylacine <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb104-2" title="2"><span class="st">  </span><span class="kw">summarise</span>(</a>
 <a class="sourceLine" id="cb104-3" title="3">    <span class="st">&quot;nb_species&quot;</span> =<span class="st"> </span><span class="kw">n</span>(),</a>
 <a class="sourceLine" id="cb104-4" title="4">    <span class="st">&quot;nb_megafauna&quot;</span> =<span class="st"> </span><span class="kw">sum</span>(mass_g <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span>),</a>
@@ -1208,7 +1208,7 @@ use any function or expression that evaluates to a single value or a <em>vector<
 of values. This includes base R <code>max()</code>, <code>quantiles</code>, etc.</p>
 <p><code>mutate()</code> and <code>transmute()</code> can compute summaries as well, but they will
 return the summary once for each observation, in a new column.</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" title="1">phylacine <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb105-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="st">&quot;nb_species&quot;</span> =<span class="st"> </span><span class="kw">n</span>()) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb105-3" title="3"><span class="st">  </span><span class="kw">select</span>(binomial, nb_species)</a>
 <a class="sourceLine" id="cb105-4" title="4"><span class="co">#&gt; # A tibble: 5,831 x 2</span></a>
@@ -1240,7 +1240,7 @@ For example, I want to run the summary displayed above, but for each Order of ma
 <a class="sourceLine" id="cb106-11" title="11"><span class="co">#&gt; # … with 23 more rows</span></a></code></pre></div>
 <p>I could work my way with what we have already seen, filtering observations (<code>filter(order == "Rodentia")</code>) and then pipeing the output to <code>summarise()</code>, and do it again for each Order. But that would be tedious.</p>
 <p>Instead, I can use <code>group_by()</code> to pool observations by <code>order</code>.</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" title="1">phylacine <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb107-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(order)</a>
 <a class="sourceLine" id="cb107-3" title="3"><span class="co">#&gt; # A tibble: 5,831 x 24</span></a>
 <a class="sourceLine" id="cb107-4" title="4"><span class="co">#&gt; # Groups:   order [29]</span></a>
@@ -1259,7 +1259,7 @@ For example, I want to run the summary displayed above, but for each Order of ma
 <a class="sourceLine" id="cb107-17" title="17"><span class="co">#&gt; #   diet_plant &lt;dbl&gt;, diet_vertebrate &lt;dbl&gt;, diet_invertebrate &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb107-18" title="18"><span class="co">#&gt; #   diet_method &lt;chr&gt;, diet_source &lt;chr&gt;</span></a></code></pre></div>
 <p>At first glance, nothing has changed, apart from an extra line of information in the output that tells me the observations have been grouped. But now here’s what happen if I run the same <code>summarise()</code> statement on an ungrouped and a grouped table</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" title="1">phylacine <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb108-2" title="2"><span class="st">  </span><span class="kw">summarise</span>(</a>
 <a class="sourceLine" id="cb108-3" title="3">    <span class="st">&quot;n_species&quot;</span> =<span class="st"> </span><span class="kw">n</span>(),</a>
 <a class="sourceLine" id="cb108-4" title="4">    <span class="st">&quot;mean_mass_g&quot;</span> =<span class="st"> </span><span class="kw">mean</span>(mass_g)</a>
@@ -1269,8 +1269,8 @@ For example, I want to run the summary displayed above, but for each Order of ma
 <a class="sourceLine" id="cb108-8" title="8"><span class="co">#&gt;       &lt;int&gt;       &lt;dbl&gt;</span></a>
 <a class="sourceLine" id="cb108-9" title="9"><span class="co">#&gt; 1      5831     156882.</span></a>
 <a class="sourceLine" id="cb108-10" title="10"></a>
-<a class="sourceLine" id="cb108-11" title="11">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb108-12" title="12"><span class="st">  </span><span class="kw">group_by</span>(order) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb108-11" title="11">phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb108-12" title="12"><span class="st">  </span><span class="kw">group_by</span>(order) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb108-13" title="13"><span class="st">  </span><span class="kw">summarise</span>(</a>
 <a class="sourceLine" id="cb108-14" title="14">    <span class="st">&quot;n_species&quot;</span> =<span class="st"> </span><span class="kw">n</span>(),</a>
 <a class="sourceLine" id="cb108-15" title="15">    <span class="st">&quot;mean_mass_g&quot;</span> =<span class="st"> </span><span class="kw">mean</span>(mass_g)</a>
@@ -1287,8 +1287,8 @@ For example, I want to run the summary displayed above, but for each Order of ma
 <a class="sourceLine" id="cb108-26" title="26"><span class="co">#&gt; # … with 23 more rows</span></a></code></pre></div>
 <p>I get one value for each group.</p>
 <p>Observations can be grouped by multiple variables, which will output a summary for every unique combination of groups.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb109-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(order, iucn_status) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" title="1">phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb109-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(order, iucn_status) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb109-3" title="3"><span class="st">  </span><span class="kw">summarise</span>(</a>
 <a class="sourceLine" id="cb109-4" title="4">    <span class="st">&quot;n_species&quot;</span> =<span class="st"> </span><span class="kw">n</span>()</a>
 <a class="sourceLine" id="cb109-5" title="5">  )</a>
@@ -1304,11 +1304,11 @@ For example, I want to run the summary displayed above, but for each Order of ma
 <a class="sourceLine" id="cb109-15" title="15"><span class="co">#&gt; 6 Afrosoricida NT                  3</span></a>
 <a class="sourceLine" id="cb109-16" title="16"><span class="co">#&gt; # … with 132 more rows</span></a></code></pre></div>
 <p>Whenever you call <code>summarise()</code>, the last level of grouping is dropped. Note how in the output table above, observations are still grouped by order, and no longer by IUCN status. If I summarise observations again:</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb110-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(order, iucn_status) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" title="1">phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb110-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(order, iucn_status) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb110-3" title="3"><span class="st">  </span><span class="kw">summarise</span>(</a>
 <a class="sourceLine" id="cb110-4" title="4">    <span class="st">&quot;n_species&quot;</span> =<span class="st"> </span><span class="kw">n</span>()</a>
-<a class="sourceLine" id="cb110-5" title="5">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb110-5" title="5">  ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb110-6" title="6"><span class="st">  </span><span class="kw">summarise</span>(</a>
 <a class="sourceLine" id="cb110-7" title="7">    <span class="st">&quot;n_species_2&quot;</span> =<span class="st"> </span><span class="kw">n</span>()</a>
 <a class="sourceLine" id="cb110-8" title="8">  )</a>
@@ -1324,9 +1324,9 @@ For example, I want to run the summary displayed above, but for each Order of ma
 <a class="sourceLine" id="cb110-18" title="18"><span class="co">#&gt; # … with 23 more rows</span></a></code></pre></div>
 <p>I get the summary across orders, and the table is no longer grouped at all. This is useful to consider if you need to work on summaries across different levels of the data.</p>
 <p>For example, I would like to know how the species in each order are distributed between the different levels of threat in the IUCN classification. To get these proportions, I need to first get the count of each number of species in a level of threat inside an order, and divide that by the number of species in that order.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" title="1">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb111-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(order, iucn_status) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb111-3" title="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="st">&quot;n_order_iucn&quot;</span> =<span class="st"> </span><span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" title="1">phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb111-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(order, iucn_status) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb111-3" title="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="st">&quot;n_order_iucn&quot;</span> =<span class="st"> </span><span class="kw">n</span>()) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb111-4" title="4"><span class="st">  </span><span class="co"># grouping by iucn_status silently dropped</span></a>
 <a class="sourceLine" id="cb111-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(</a>
 <a class="sourceLine" id="cb111-6" title="6">    <span class="st">&quot;n_order&quot;</span> =<span class="st"> </span><span class="kw">sum</span>(n_order_iucn),</a>
@@ -1349,8 +1349,8 @@ For example, I want to run the summary displayed above, but for each Order of ma
 <h3><span class="header-section-number">3.4.4</span> Grouped data and other <code>dplyr</code> verbs</h3>
 <p>Grouping does not only affect the behaviour of <code>summarise</code>, but under circumstances, other verbs can (and will!) perform operations by groups.</p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" title="1"><span class="co"># Species with a higher mass than the mammal mean</span></a>
-<a class="sourceLine" id="cb112-2" title="2">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb112-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="st">&quot;binomial&quot;</span>, <span class="st">&quot;mass_g&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb112-2" title="2">phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb112-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="st">&quot;binomial&quot;</span>, <span class="st">&quot;mass_g&quot;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb112-4" title="4"><span class="st">  </span><span class="kw">filter</span>(mass_g <span class="op">&gt;</span><span class="st"> </span><span class="kw">mean</span>(mass_g, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
 <a class="sourceLine" id="cb112-5" title="5"><span class="co">#&gt; # A tibble: 234 x 2</span></a>
 <a class="sourceLine" id="cb112-6" title="6"><span class="co">#&gt;   binomial                      mass_g</span></a>
@@ -1364,9 +1364,9 @@ For example, I want to run the summary displayed above, but for each Order of ma
 <a class="sourceLine" id="cb112-14" title="14"><span class="co">#&gt; # … with 228 more rows</span></a>
 <a class="sourceLine" id="cb112-15" title="15"></a>
 <a class="sourceLine" id="cb112-16" title="16"><span class="co"># Species with a higher mass than the mean in their order</span></a>
-<a class="sourceLine" id="cb112-17" title="17">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb112-18" title="18"><span class="st">  </span><span class="kw">group_by</span>(order) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb112-19" title="19"><span class="st">  </span><span class="kw">select</span>(<span class="st">&quot;binomial&quot;</span>, <span class="st">&quot;mass_g&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb112-17" title="17">phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb112-18" title="18"><span class="st">  </span><span class="kw">group_by</span>(order) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb112-19" title="19"><span class="st">  </span><span class="kw">select</span>(<span class="st">&quot;binomial&quot;</span>, <span class="st">&quot;mass_g&quot;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb112-20" title="20"><span class="st">  </span><span class="kw">filter</span>(mass_g <span class="op">&gt;</span><span class="st"> </span><span class="kw">mean</span>(mass_g, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
 <a class="sourceLine" id="cb112-21" title="21"><span class="co">#&gt; # A tibble: 890 x 3</span></a>
 <a class="sourceLine" id="cb112-22" title="22"><span class="co">#&gt; # Groups:   order [27]</span></a>
@@ -1380,18 +1380,18 @@ For example, I want to run the summary displayed above, but for each Order of ma
 <a class="sourceLine" id="cb112-30" title="30"><span class="co">#&gt; 6 Rodentia   Aeretes_melanopterus   732.</span></a>
 <a class="sourceLine" id="cb112-31" title="31"><span class="co">#&gt; # … with 884 more rows</span></a></code></pre></div>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" title="1"><span class="co"># Largest mammal</span></a>
-<a class="sourceLine" id="cb113-2" title="2">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb113-3" title="3"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb113-4" title="4"><span class="st">  </span><span class="kw">slice_max</span>(mass_g) </a>
+<a class="sourceLine" id="cb113-2" title="2">phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb113-3" title="3"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb113-4" title="4"><span class="st">  </span><span class="kw">slice_max</span>(mass_g)</a>
 <a class="sourceLine" id="cb113-5" title="5"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
 <a class="sourceLine" id="cb113-6" title="6"><span class="co">#&gt;   binomial                 mass_g</span></a>
 <a class="sourceLine" id="cb113-7" title="7"><span class="co">#&gt;   &lt;chr&gt;                     &lt;dbl&gt;</span></a>
 <a class="sourceLine" id="cb113-8" title="8"><span class="co">#&gt; 1 Balaenoptera_musculus 190000000</span></a>
 <a class="sourceLine" id="cb113-9" title="9"><span class="co"># Largest species in each order</span></a>
-<a class="sourceLine" id="cb113-10" title="10">phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb113-11" title="11"><span class="st">  </span><span class="kw">group_by</span>(order) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb113-12" title="12"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb113-13" title="13"><span class="st">  </span><span class="kw">slice_max</span>(mass_g) </a>
+<a class="sourceLine" id="cb113-10" title="10">phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb113-11" title="11"><span class="st">  </span><span class="kw">group_by</span>(order) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb113-12" title="12"><span class="st">  </span><span class="kw">select</span>(binomial, mass_g) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb113-13" title="13"><span class="st">  </span><span class="kw">slice_max</span>(mass_g)</a>
 <a class="sourceLine" id="cb113-14" title="14"><span class="co">#&gt; # A tibble: 30 x 3</span></a>
 <a class="sourceLine" id="cb113-15" title="15"><span class="co">#&gt; # Groups:   order [29]</span></a>
 <a class="sourceLine" id="cb113-16" title="16"><span class="co">#&gt;   order           binomial                             mass_g</span></a>
@@ -1415,16 +1415,16 @@ R <code>rbind()</code> and <code>cbind()</code>, with a few extra feature. They 
 bind many tables at once, and bind data frames with vectors or lists.</p>
 <p><code>bind_rows()</code> has an option to pass a variable specifying which dataset each
 observation originates from.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" title="1">porpoises &lt;-<span class="st"> </span>phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb114-2" title="2"><span class="st">  </span><span class="kw">filter</span>(family <span class="op">==</span><span class="st"> &quot;Phocoenidae&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" title="1">porpoises &lt;-<span class="st"> </span>phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb114-2" title="2"><span class="st">  </span><span class="kw">filter</span>(family <span class="op">==</span><span class="st"> &quot;Phocoenidae&quot;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb114-3" title="3"><span class="st">  </span><span class="kw">select</span>(binomial, iucn_status)</a>
-<a class="sourceLine" id="cb114-4" title="4">echidnas &lt;-<span class="st"> </span>phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb114-5" title="5"><span class="st">  </span><span class="kw">filter</span>(family <span class="op">==</span><span class="st"> &quot;Tachyglossidae&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb114-4" title="4">echidnas &lt;-<span class="st"> </span>phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb114-5" title="5"><span class="st">  </span><span class="kw">filter</span>(family <span class="op">==</span><span class="st"> &quot;Tachyglossidae&quot;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb114-6" title="6"><span class="st">  </span><span class="kw">select</span>(binomial, iucn_status)</a>
 <a class="sourceLine" id="cb114-7" title="7"></a>
 <a class="sourceLine" id="cb114-8" title="8"><span class="kw">bind_rows</span>(</a>
-<a class="sourceLine" id="cb114-9" title="9">  <span class="st">&quot;porpoise&quot;</span> =<span class="st"> </span>porpoises, </a>
-<a class="sourceLine" id="cb114-10" title="10">  <span class="st">&quot;echidna&quot;</span> =<span class="st"> </span>echidnas, </a>
+<a class="sourceLine" id="cb114-9" title="9">  <span class="st">&quot;porpoise&quot;</span> =<span class="st"> </span>porpoises,</a>
+<a class="sourceLine" id="cb114-10" title="10">  <span class="st">&quot;echidna&quot;</span> =<span class="st"> </span>echidnas,</a>
 <a class="sourceLine" id="cb114-11" title="11">  <span class="dt">.id =</span> <span class="st">&quot;kind&quot;</span></a>
 <a class="sourceLine" id="cb114-12" title="12">)</a>
 <a class="sourceLine" id="cb114-13" title="13"><span class="co">#&gt; # A tibble: 13 x 3</span></a>
@@ -1444,8 +1444,8 @@ observation originates from.</p>
 but have different variables.</p>
 <p>As an example, let’s split the <code>phylacine</code> dataset in two smaller datasets,
 one containing information on diet and one on the dominant habitat.</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" title="1">diet &lt;-<span class="st"> </span>phylacine <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb115-2" title="2"><span class="st">  </span><span class="kw">select</span>(binomial, diet_plant<span class="op">:</span>diet_invertebrate) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" title="1">diet &lt;-<span class="st"> </span>phylacine <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb115-2" title="2"><span class="st">  </span><span class="kw">select</span>(binomial, diet_plant<span class="op">:</span>diet_invertebrate) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb115-3" title="3"><span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb115-4" title="4">diet</a>
 <a class="sourceLine" id="cb115-5" title="5"><span class="co">#&gt; # A tibble: 5 x 4</span></a>
@@ -1457,7 +1457,7 @@ one containing information on diet and one on the dominant habitat.</p>
 <a class="sourceLine" id="cb115-11" title="11"><span class="co">#&gt; 4 Abrocoma_bennettii          100               0                 0</span></a>
 <a class="sourceLine" id="cb115-12" title="12"><span class="co">#&gt; 5 Abrocoma_boliviensis        100               0                 0</span></a>
 <a class="sourceLine" id="cb115-13" title="13"></a>
-<a class="sourceLine" id="cb115-14" title="14">life_habit &lt;-<span class="st"> </span>phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(binomial, terrestrial<span class="op">:</span>aerial) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb115-14" title="14">life_habit &lt;-<span class="st"> </span>phylacine <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(binomial, terrestrial<span class="op">:</span>aerial) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb115-15" title="15"><span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">6</span><span class="op">:</span><span class="dv">7</span>)</a>
 <a class="sourceLine" id="cb115-16" title="16">life_habit</a>
 <a class="sourceLine" id="cb115-17" title="17"><span class="co">#&gt; # A tibble: 5 x 5</span></a>

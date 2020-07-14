@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.6.26)  13 JUL 2020 20:16
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.6.26)  14 JUL 2020 08:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1332,69 +1332,66 @@ File: data/06_regular_expressions.png Graphic file (type bmp)
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[129]
-Overfull \vbox (51.12465pt too high) has occurred while \output is active []
-
-[130]
-Overfull \hbox (17.25pt too wide) in paragraph at lines 5134--5134
+[129] [130]
+Overfull \hbox (17.25pt too wide) in paragraph at lines 5136--5136
 []\TU/lmtt/m/n/10 Lithium-ion batteries play a central role in the world of tec
 hnology.[] 
  []
 
 
-Overfull \hbox (90.75pt too wide) in paragraph at lines 5134--5134
+Overfull \hbox (90.75pt too wide) in paragraph at lines 5136--5136
 []\TU/lmtt/m/n/10 The restrictions would end 90 days after Portland[]s state of
  emergency order lifts.[] 
  []
 
 
-Overfull \hbox (17.25pt too wide) in paragraph at lines 5141--5141
+Overfull \hbox (17.25pt too wide) in paragraph at lines 5143--5143
 []\TU/lmtt/m/n/10 Lithium-ion batteries play a central role in the world of tec
 hnology.[] 
  []
 
 
-Overfull \hbox (90.75pt too wide) in paragraph at lines 5159--5159
+Overfull \hbox (90.75pt too wide) in paragraph at lines 5161--5161
 []\TU/lmtt/m/n/10 The restrictions would end 90 days after Portland[]s state of
  emergency order lifts.[] 
  []
 
 [131]
-Overfull \hbox (12.0pt too wide) in paragraph at lines 5200--5200
+Overfull \hbox (12.0pt too wide) in paragraph at lines 5202--5202
 []\TU/lmtt/m/n/10 >KP143511.1|Felinecoronavirus|Feliscatus|UnitedKingdom|2013|E
 nvelope[] 
  []
 
 
-Overfull \hbox (274.5pt too wide) in paragraph at lines 5209--5209
+Overfull \hbox (274.5pt too wide) in paragraph at lines 5211--5211
 []\TU/lmtt/m/n/10 >sp|P0DTC2|SPIKE_SARS2 Spike glycoprotein OS=Severe acute res
 piratory syndrome coronavirus 2 OX=2697049 GN=S PE=1 SV=1[] 
  []
 
 
-Overfull \hbox (232.5pt too wide) in paragraph at lines 5209--5209
+Overfull \hbox (232.5pt too wide) in paragraph at lines 5211--5211
 []\TU/lmtt/m/n/10 >sp|P0DTC5|VME1_SARS2 Membrane protein OS=Severe acute respir
 atory syndrome coronavirus 2 OX=2697049 PE=3 SV=1[] 
  []
 
 File: data/06_stringr.png Graphic file (type bmp)
 <data/06_stringr.png>
-[132]
 File: data/06_perl_problems.png Graphic file (type bmp)
 <data/06_perl_problems.png>
+[132]
 File: data/06_george_dinwiddie.jpg Graphic file (type bmp)
 <data/06_george_dinwiddie.jpg>
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 1789) has occurred while \output is active []
 
 [133]
-Underfull \vbox (badness 3826) has occurred while \output is active []
-
-[134]
 File: data/06_detect.png Graphic file (type bmp)
 <data/06_detect.png>
 
-Underfull \hbox (badness 6188) in paragraph at lines 5320--5321
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[134]
+Underfull \hbox (badness 6188) in paragraph at lines 5322--5323
 []\TU/lmr/m/n/10 From ‘Work with Strings Cheatsheet’, []$[][][][][] [] [] [] []
 [][][][][][] [] [][][] []
  []
@@ -1403,37 +1400,36 @@ Underfull \hbox (badness 6188) in paragraph at lines 5320--5321
 File: data/06_anchors.png Graphic file (type bmp)
 <data/06_anchors.png>
 
-Underfull \hbox (badness 6188) in paragraph at lines 5359--5360
+Underfull \hbox (badness 6188) in paragraph at lines 5361--5362
 []\TU/lmr/m/n/10 From ‘Work with Strings Cheatsheet’, []$[][][][][] [] [] [] []
 [][][][][][] [] [][][] []
  []
 
-[136]
 File: data/06_character_sets.png Graphic file (type bmp)
 <data/06_character_sets.png>
-
-Underfull \hbox (badness 6188) in paragraph at lines 5409--5410
+[136]
+Underfull \hbox (badness 6188) in paragraph at lines 5411--5412
 []\TU/lmr/m/n/10 From ‘Work with Strings Cheatsheet’, []$[][][][][] [] [] [] []
 [][][][][][] [] [][][] []
  []
+
+
+Underfull \vbox (badness 7362) has occurred while \output is active []
 
 [137]
 File: data/06_quantifiers.png Graphic file (type bmp)
 <data/06_quantifiers.png>
 
-Underfull \vbox (badness 6316) has occurred while \output is active []
-
-[138]
-Underfull \hbox (badness 6188) in paragraph at lines 5473--5474
+Underfull \hbox (badness 6188) in paragraph at lines 5475--5476
 []\TU/lmr/m/n/10 From ‘Work with Strings Cheatsheet’, []$[][][][][] [] [] [] []
 [][][][][][] [] [][][] []
  []
 
-[139]
+[138] [139]
 File: data/06_alternates.png Graphic file (type bmp)
 <data/06_alternates.png>
 
-Underfull \hbox (badness 6188) in paragraph at lines 5545--5546
+Underfull \hbox (badness 6188) in paragraph at lines 5547--5548
 []\TU/lmr/m/n/10 From ‘Work with Strings Cheatsheet’, []$[][][][][] [] [] [] []
 [][][][][][] [] [][][] []
  []
@@ -1442,49 +1438,46 @@ Underfull \hbox (badness 6188) in paragraph at lines 5545--5546
 File: data/06_subset.png Graphic file (type bmp)
 <data/06_subset.png>
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[141]
-Underfull \hbox (badness 6188) in paragraph at lines 5605--5606
+Underfull \hbox (badness 6188) in paragraph at lines 5607--5608
 []\TU/lmr/m/n/10 From ‘Work with Strings Cheatsheet’, []$[][][][][] [] [] [] []
 [][][][][][] [] [][][] []
  []
 
-
-Overfull \hbox (159.0pt too wide) in paragraph at lines 5635--5635
+[141]
+Overfull \hbox (159.0pt too wide) in paragraph at lines 5637--5637
 []\TU/lmtt/m/n/10 >[DNA sequence number]|[virus name]|[host species name]|[coun
 try of host]|[year]|[protein name]"[] 
  []
 
-
-Underfull \vbox (badness 1708) has occurred while \output is active []
-
-[142] [143] [144]
-Overfull \hbox (1.5pt too wide) in paragraph at lines 5801--5801
+[142] [143]
+Overfull \hbox (1.5pt too wide) in paragraph at lines 5803--5803
 []\TU/lmtt/m/n/10 expect_equal("KP143511.1", extract_dna_sequence_numbers(text)
 [30])[] 
  []
 
-[145]
+[144]
 File: data/06_mutate.png Graphic file (type bmp)
 <data/06_mutate.png>
 
-Underfull \hbox (badness 6188) in paragraph at lines 5879--5880
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[145]
+Underfull \hbox (badness 6188) in paragraph at lines 5881--5882
 []\TU/lmr/m/n/10 From ‘Work with Strings Cheatsheet’, []$[][][][][] [] [] [] []
 [][][][][][] [] [][][] []
  []
 
-[146] [147]
+[146]
 File: data/06_regex_golf.png Graphic file (type bmp)
 <data/06_regex_golf.png>
-[148]
+[147] [148
+
+]
 Chapter 7.
 File: opening-image.png Graphic file (type bmp)
 <opening-image.png>
-[149
-
-]
-Underfull \hbox (badness 2573) in paragraph at lines 6066--6067
+[149]
+Underfull \hbox (badness 2573) in paragraph at lines 6068--6069
 []\TU/lmr/m/n/10 The same issue arises with functions such as \TU/lmtt/m/n/10 d
 plyr::summarise \TU/lmr/m/n/10 and
  []
@@ -1496,7 +1489,7 @@ Underfull \vbox (badness 2617) has occurred while \output is active []
 Underfull \vbox (badness 6808) has occurred while \output is active []
 
 [158]
-Underfull \hbox (badness 1496) in paragraph at lines 6554--6556
+Underfull \hbox (badness 1496) in paragraph at lines 6556--6558
 \TU/lmtt/m/n/10 dplyr 1.0.0 \TU/lmr/m/n/10 had \TU/lmtt/m/n/10 summarise_* \TU/
 lmr/m/n/10 superseded by the \TU/lmtt/m/n/10 across \TU/lmr/m/n/10 argument to
  []
@@ -1505,20 +1498,20 @@ lmr/m/n/10 superseded by the \TU/lmtt/m/n/10 across \TU/lmr/m/n/10 argument to
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [159] [160] [161] [162] [163]
-Underfull \hbox (badness 1565) in paragraph at lines 6810--6812
+Underfull \hbox (badness 1565) in paragraph at lines 6812--6814
 []\TU/lmr/m/n/10 Tidy evaluation: Superseded and archived, but still useful []$
 [][][][][] []
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 6815.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 6817.
 [164]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 6815.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 6817.
 (./TRES-Tidy-Tutorial.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 6815.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 6815.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 6817.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 6817.
 
 Package rerunfilecheck Info: File `TRES-Tidy-Tutorial.out' has not changed.
-(rerunfilecheck)             Checksum: 97360A9EE5B3F40E7C87153561667A2F;10703.
+(rerunfilecheck)             Checksum: 7F131C6A49DE2E5BE90E3821029E25BD;10680.
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -1526,7 +1519,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  18873 strings out of 481228
  354257 string characters out of 5923157
- 774191 words of memory out of 5000000
+ 774160 words of memory out of 5000000
  35545 multiletter control sequences out of 15000+600000
  538877 words of font info for 88 fonts, out of 8000000 for 9000
  350 hyphenation exceptions out of 8191

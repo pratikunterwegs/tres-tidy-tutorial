@@ -4,27 +4,27 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Section 6 06. Regular expressions and testthat | TRES Tidyverse Tutorial</title>
-  <meta name="description" content="Section 6 06. Regular expressions and testthat | TRES Tidyverse Tutorial" />
+  <title>Section 6 Regular expressions and testthat | TRES Tidyverse Tutorial</title>
+  <meta name="description" content="Section 6 Regular expressions and testthat | TRES Tidyverse Tutorial" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Section 6 06. Regular expressions and testthat | TRES Tidyverse Tutorial" />
+  <meta property="og:title" content="Section 6 Regular expressions and testthat | TRES Tidyverse Tutorial" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Section 6 06. Regular expressions and testthat | TRES Tidyverse Tutorial" />
+  <meta property="og:description" content="Section 6 Regular expressions and testthat | TRES Tidyverse Tutorial" />
   <meta name="github-repo" content="pratikunterwegs/tres-tidy-tutorial" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Section 6 06. Regular expressions and testthat | TRES Tidyverse Tutorial" />
+  <meta name="twitter:title" content="Section 6 Regular expressions and testthat | TRES Tidyverse Tutorial" />
   
-  <meta name="twitter:description" content="Section 6 06. Regular expressions and testthat | TRES Tidyverse Tutorial" />
+  <meta name="twitter:description" content="Section 6 Regular expressions and testthat | TRES Tidyverse Tutorial" />
   
 
 <meta name="author" content="Raphael, Pratik, Theo and Richèl" />
 
 
-<meta name="date" content="2020-07-13" />
+<meta name="date" content="2020-07-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -268,7 +268,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.12" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#want-more"><i class="fa fa-check"></i><b>5.12</b> Want more?</a></li>
 <li class="chapter" data-level="5.13" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#references"><i class="fa fa-check"></i><b>5.13</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html"><i class="fa fa-check"></i><b>6</b> 06. Regular expressions and <code>testthat</code></a><ul>
+<li class="chapter" data-level="6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html"><i class="fa fa-check"></i><b>6</b> Regular expressions and <code>testthat</code></a><ul>
 <li class="chapter" data-level="6.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#goal"><i class="fa fa-check"></i><b>6.1.1</b> Goal</a></li>
 <li class="chapter" data-level="6.1.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#why-is-this-important"><i class="fa fa-check"></i><b>6.1.2</b> Why is this important?</a></li>
@@ -357,7 +357,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="regular-expressions-and-testthat" class="section level1">
-<h1><span class="header-section-number">Section 6</span> 06. Regular expressions and <code>testthat</code></h1>
+<h1><span class="header-section-number">Section 6</span> Regular expressions and <code>testthat</code></h1>
+<p>Richel Bilderbeek</p>
 <div id="introduction" class="section level2">
 <h2><span class="header-section-number">6.1</span> Introduction</h2>
 <p><img src="data/06_regular_expressions.png" /></p>
@@ -390,7 +391,7 @@ because [regular expression]’, you got your answer!</p>
 <pre><code>Lithium-ion batteries play a central role in the world of technology.
 But would it be safe to simply orbit the planet?
 Your Next Samsung Phone May Not Come With a Charger in the Box
-The restrictions would end 90 days after Portland&#39;s state of emergency order lifts. 
+The restrictions would end 90 days after Portland&#39;s state of emergency order lifts.
 Those cities have limits at 15%.</code></pre>
 </div>
 <div id="answers-spot-the-pattern" class="section level3">
@@ -401,7 +402,7 @@ Those cities have limits at 15%.</code></pre>
 <p>This is a question, becase it ends with a question mark.</p>
 <pre><code>Your Next Samsung Phone May Not Come With a Charger in the Box</code></pre>
 <p>This is a title, because most words start with an uppercase character.</p>
-<pre><code>The restrictions would end 90 days after Portland&#39;s state of emergency order lifts. </code></pre>
+<pre><code>The restrictions would end 90 days after Portland&#39;s state of emergency order lifts.</code></pre>
 <p>This is a sentence with a decimal number, because there is a sequence of
 characters that consists out of numbers only.</p>
 <pre><code>Those cities have limits at 15%.</code></pre>
@@ -544,7 +545,7 @@ expect_false(is_a_one(Inf))</code></pre>
 <h4><span class="header-section-number">6.3.2.1</span> Answer <code>is_a_one</code></h4>
 <div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" title="1">is_a_one &lt;-<span class="st"> </span><span class="cf">function</span>(text) {</a>
 <a class="sourceLine" id="cb219-2" title="2">  <span class="kw">length</span>(stringr<span class="op">::</span><span class="kw">str_which</span>(text, <span class="st">&quot;^1$&quot;</span>)) <span class="op">==</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb219-3" title="3">} </a></code></pre></div>
+<a class="sourceLine" id="cb219-3" title="3">}</a></code></pre></div>
 <div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1"><span class="kw">expect_true</span>(<span class="kw">is_a_one</span>(<span class="st">&quot;1&quot;</span>))</a>
 <a class="sourceLine" id="cb220-2" title="2"><span class="kw">expect_false</span>(<span class="kw">is_a_one</span>(<span class="st">&quot;X&quot;</span>))</a>
 <a class="sourceLine" id="cb220-3" title="3"><span class="kw">expect_false</span>(<span class="kw">is_a_one</span>(<span class="st">&quot;11&quot;</span>))</a>
@@ -577,7 +578,7 @@ expect_false(is_a_digit(Inf))</code></pre>
 <h4><span class="header-section-number">6.3.3.1</span> Answer: <code>is_a_digit</code></h4>
 <div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" title="1">is_a_digit &lt;-<span class="st"> </span><span class="cf">function</span>(text) {</a>
 <a class="sourceLine" id="cb222-2" title="2">  <span class="kw">length</span>(stringr<span class="op">::</span><span class="kw">str_which</span>(text, <span class="st">&quot;^[:digit:]$&quot;</span>)) <span class="op">==</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb222-3" title="3">} </a></code></pre></div>
+<a class="sourceLine" id="cb222-3" title="3">}</a></code></pre></div>
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" title="1"><span class="kw">expect_true</span>(<span class="kw">is_a_digit</span>(<span class="st">&quot;0&quot;</span>))</a>
 <a class="sourceLine" id="cb223-2" title="2"><span class="kw">expect_true</span>(<span class="kw">is_a_digit</span>(<span class="st">&quot;1&quot;</span>))</a>
 <a class="sourceLine" id="cb223-3" title="3"><span class="kw">expect_false</span>(<span class="kw">is_a_digit</span>(<span class="st">&quot;&quot;</span>))</a>
@@ -622,7 +623,7 @@ expect_false(is_a_word(Inf))</code></pre>
 <h4><span class="header-section-number">6.3.4.1</span> Answer: <code>is_a_word</code></h4>
 <div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" title="1">is_a_word &lt;-<span class="st"> </span><span class="cf">function</span>(text) {</a>
 <a class="sourceLine" id="cb225-2" title="2">  <span class="kw">length</span>(stringr<span class="op">::</span><span class="kw">str_which</span>(text, <span class="st">&quot;^[:lower:]+$&quot;</span>)) <span class="op">==</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb225-3" title="3">} </a></code></pre></div>
+<a class="sourceLine" id="cb225-3" title="3">}</a></code></pre></div>
 <div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" title="1"><span class="kw">expect_true</span>(<span class="kw">is_a_word</span>(<span class="st">&quot;a&quot;</span>))</a>
 <a class="sourceLine" id="cb226-2" title="2"><span class="kw">expect_true</span>(<span class="kw">is_a_word</span>(<span class="st">&quot;an&quot;</span>))</a>
 <a class="sourceLine" id="cb226-3" title="3"><span class="kw">expect_true</span>(<span class="kw">is_a_word</span>(<span class="st">&quot;apple&quot;</span>))</a>
@@ -671,7 +672,7 @@ expect_false(is_dna_sequence(Inf))</code></pre>
 <h4><span class="header-section-number">6.3.5.1</span> Answer: <code>is_dna_sequence</code></h4>
 <div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" title="1">is_dna_sequence &lt;-<span class="st"> </span><span class="cf">function</span>(text) {</a>
 <a class="sourceLine" id="cb228-2" title="2">  <span class="kw">length</span>(stringr<span class="op">::</span><span class="kw">str_which</span>(text, <span class="st">&quot;^[ACGT]+$&quot;</span>)) <span class="op">==</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb228-3" title="3">} </a></code></pre></div>
+<a class="sourceLine" id="cb228-3" title="3">}</a></code></pre></div>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" title="1"><span class="kw">expect_true</span>(<span class="kw">is_dna_sequence</span>(<span class="st">&quot;A&quot;</span>))</a>
 <a class="sourceLine" id="cb229-2" title="2"><span class="kw">expect_true</span>(<span class="kw">is_dna_sequence</span>(<span class="st">&quot;AC&quot;</span>))</a>
 <a class="sourceLine" id="cb229-3" title="3"><span class="kw">expect_true</span>(<span class="kw">is_dna_sequence</span>(<span class="st">&quot;ACG&quot;</span>))</a>
@@ -803,7 +804,7 @@ Here, we select for all info after the <code>&gt;</code>:</p>
 <a class="sourceLine" id="cb236-10" title="10"><span class="co">#&gt; [6] &quot;HQ392470.1|Felinecoronavirus|feline|NetherlandsUtrecht|2007|Envelope&quot;</span></a></code></pre></div>
 <p>All of this in one go:</p>
 <div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" title="1">matches &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">discard</span>(</a>
-<a class="sourceLine" id="cb237-2" title="2">  stringr<span class="op">::</span><span class="kw">str_match</span>(text, <span class="st">&quot;&gt;(.*)&quot;</span>)[, <span class="dv">2</span>], </a>
+<a class="sourceLine" id="cb237-2" title="2">  stringr<span class="op">::</span><span class="kw">str_match</span>(text, <span class="st">&quot;&gt;(.*)&quot;</span>)[, <span class="dv">2</span>],</a>
 <a class="sourceLine" id="cb237-3" title="3">  is.na</a>
 <a class="sourceLine" id="cb237-4" title="4">)</a>
 <a class="sourceLine" id="cb237-5" title="5"><span class="kw">expect_equal</span>(<span class="kw">length</span>(matches), <span class="dv">30</span>)</a>
@@ -879,8 +880,8 @@ expect_equal(2013, extract_year(text)[30])</code></pre>
 </blockquote>
 <div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" title="1">s &lt;-<span class="st"> &quot;UnitedKingdom&quot;</span></a>
 <a class="sourceLine" id="cb244-2" title="2">t &lt;-<span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_replace</span>(</a>
-<a class="sourceLine" id="cb244-3" title="3">  s, </a>
-<a class="sourceLine" id="cb244-4" title="4">  <span class="st">&quot;([:upper:][:lower:]+)([:upper:][:lower:]+)&quot;</span>, </a>
+<a class="sourceLine" id="cb244-3" title="3">  s,</a>
+<a class="sourceLine" id="cb244-4" title="4">  <span class="st">&quot;([:upper:][:lower:]+)([:upper:][:lower:]+)&quot;</span>,</a>
 <a class="sourceLine" id="cb244-5" title="5">  <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1 </span><span class="ch">\\</span><span class="st">2&quot;</span></a>
 <a class="sourceLine" id="cb244-6" title="6">)</a>
 <a class="sourceLine" id="cb244-7" title="7"><span class="kw">expect_equal</span>(<span class="st">&quot;United Kingdom&quot;</span>, t)</a></code></pre></div>

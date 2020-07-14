@@ -24,7 +24,7 @@
 <meta name="author" content="Raphael, Pratik, Theo and Richèl" />
 
 
-<meta name="date" content="2020-07-13" />
+<meta name="date" content="2020-07-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -268,7 +268,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.12" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#want-more"><i class="fa fa-check"></i><b>5.12</b> Want more?</a></li>
 <li class="chapter" data-level="5.13" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#references"><i class="fa fa-check"></i><b>5.13</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html"><i class="fa fa-check"></i><b>6</b> 06. Regular expressions and <code>testthat</code></a><ul>
+<li class="chapter" data-level="6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html"><i class="fa fa-check"></i><b>6</b> Regular expressions and <code>testthat</code></a><ul>
 <li class="chapter" data-level="6.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#goal"><i class="fa fa-check"></i><b>6.1.1</b> Goal</a></li>
 <li class="chapter" data-level="6.1.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#why-is-this-important"><i class="fa fa-check"></i><b>6.1.2</b> Why is this important?</a></li>
@@ -370,13 +370,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The example below shows how <em>Phylacine</em> data can be converted into a nested tibble.</p>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" title="1"><span class="co"># get phylacine data</span></a>
 <a class="sourceLine" id="cb121-2" title="2">data =<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/phylacine_traits.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb121-3" title="3">data =<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb121-4" title="4"><span class="st">  `</span><span class="dt">colnames&lt;-</span><span class="st">`</span>(<span class="kw">str_to_lower</span>(<span class="kw">colnames</span>(.))) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb121-5" title="5"><span class="st">  `</span><span class="dt">colnames&lt;-</span><span class="st">`</span>(<span class="kw">str_remove</span>(<span class="kw">colnames</span>(.), <span class="st">&quot;(.1.2)&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb121-3" title="3">data =<span class="st"> </span>data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb121-4" title="4"><span class="st">  `</span><span class="dt">colnames&lt;-</span><span class="st">`</span>(<span class="kw">str_to_lower</span>(<span class="kw">colnames</span>(.))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb121-5" title="5"><span class="st">  `</span><span class="dt">colnames&lt;-</span><span class="st">`</span>(<span class="kw">str_remove</span>(<span class="kw">colnames</span>(.), <span class="st">&quot;(.1.2)&quot;</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb121-6" title="6"><span class="st">  `</span><span class="dt">colnames&lt;-</span><span class="st">`</span>(<span class="kw">str_replace_all</span>(<span class="kw">colnames</span>(.), <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span>, <span class="st">&quot;_&quot;</span>))</a></code></pre></div>
 <div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" title="1"><span class="co"># nest phylacine by order</span></a>
-<a class="sourceLine" id="cb122-2" title="2">nested_data =<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb122-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(order) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb122-2" title="2">nested_data =<span class="st"> </span>data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb122-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(order) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb122-4" title="4"><span class="st">  </span><span class="kw">nest</span>()</a>
 <a class="sourceLine" id="cb122-5" title="5"></a>
 <a class="sourceLine" id="cb122-6" title="6">nested_data</a>
@@ -403,7 +403,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">4.1.2</span> Unnesting data</h3>
 <p>A nested tibble can be converted back into the original, or into a processed form, using <code>tidyr::unnest</code>. The original groups are retained.</p>
 <div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" title="1"><span class="co"># use unnest to recover the original data frame</span></a>
-<a class="sourceLine" id="cb123-2" title="2"><span class="kw">unnest</span>(nested_data, <span class="dt">cols =</span> <span class="st">&quot;data&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb123-2" title="2"><span class="kw">unnest</span>(nested_data, <span class="dt">cols =</span> <span class="st">&quot;data&quot;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb123-3" title="3"><span class="st">  </span><span class="kw">head</span>()</a>
 <a class="sourceLine" id="cb123-4" title="4"><span class="co">#&gt; # A tibble: 6 x 24</span></a>
 <a class="sourceLine" id="cb123-5" title="5"><span class="co">#&gt; # Groups:   order [1]</span></a>
@@ -474,7 +474,7 @@ Unnest the data first, and then convert it to the form needed.</p>
 <h3><span class="header-section-number">4.2.1</span> Basic use of <code>map</code></h3>
 <p><code>map</code> works very similarly to <code>lapply</code>, where <code>.x</code> is object on whose elements to apply the function <code>.f</code>.</p>
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" title="1"><span class="co"># get the number of rows in data</span></a>
-<a class="sourceLine" id="cb125-2" title="2"><span class="kw">map</span>(<span class="dt">.x =</span> nested_data<span class="op">$</span>data, <span class="dt">.f =</span> nrow) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb125-2" title="2"><span class="kw">map</span>(<span class="dt">.x =</span> nested_data<span class="op">$</span>data, <span class="dt">.f =</span> nrow) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb125-3" title="3"><span class="st">  </span><span class="kw">head</span>()</a>
 <a class="sourceLine" id="cb125-4" title="4"><span class="co">#&gt; [[1]]</span></a>
 <a class="sourceLine" id="cb125-5" title="5"><span class="co">#&gt; [1] 2306</span></a>
@@ -522,10 +522,10 @@ Unnest the data first, and then convert it to the form needed.</p>
 <a class="sourceLine" id="cb127-10" title="10"><span class="co"># map_chr will convert the output to a character</span></a>
 <a class="sourceLine" id="cb127-11" title="11"><span class="co"># here we get the most common IUCN status of each order</span></a>
 <a class="sourceLine" id="cb127-12" title="12"><span class="kw">map_chr</span>(nested_data<span class="op">$</span>data, <span class="cf">function</span>(df){</a>
-<a class="sourceLine" id="cb127-13" title="13">  </a>
-<a class="sourceLine" id="cb127-14" title="14">  <span class="kw">count</span>(df, iucn_status) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb127-15" title="15"><span class="st">    </span><span class="kw">arrange</span>(<span class="op">-</span>n) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb127-16" title="16"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">common_status =</span> <span class="kw">first</span>(iucn_status)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb127-13" title="13"></a>
+<a class="sourceLine" id="cb127-14" title="14">  <span class="kw">count</span>(df, iucn_status) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb127-15" title="15"><span class="st">    </span><span class="kw">arrange</span>(<span class="op">-</span>n) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb127-16" title="16"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">common_status =</span> <span class="kw">first</span>(iucn_status)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb127-17" title="17"><span class="st">    </span><span class="kw">pull</span>(common_status)</a>
 <a class="sourceLine" id="cb127-18" title="18">})</a>
 <a class="sourceLine" id="cb127-19" title="19"><span class="co">#&gt;  [1] &quot;LC&quot; &quot;LC&quot; &quot;LC&quot; &quot;EP&quot; &quot;LC&quot; &quot;LC&quot; &quot;LC&quot; &quot;LC&quot; &quot;LC&quot; &quot;LC&quot; &quot;LC&quot; &quot;LC&quot; &quot;EP&quot; &quot;VU&quot; &quot;LC&quot;</span></a>
@@ -558,7 +558,7 @@ Unnest the data first, and then convert it to the form needed.</p>
 <p><code>map</code> accepts arguments to the function being mapped, such as in the example above, where <code>head()</code> accepts the argument <code>n = 2</code>.</p>
 <p><code>map_dfr</code> behaves the same as <code>map_df</code>.</p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" title="1"><span class="co"># the same as above but with a pipe</span></a>
-<a class="sourceLine" id="cb129-2" title="2">nested_data<span class="op">$</span>data[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>] <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb129-2" title="2">nested_data<span class="op">$</span>data[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>] <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb129-3" title="3"><span class="st">  </span><span class="kw">map_dfr</span>(head, <span class="dt">n =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb129-4" title="4"><span class="co">#&gt; # A tibble: 10 x 23</span></a>
 <a class="sourceLine" id="cb129-5" title="5"><span class="co">#&gt;   binomial family genus species terrestrial marine freshwater aerial</span></a>
@@ -586,14 +586,14 @@ Unnest the data first, and then convert it to the form needed.</p>
 <a class="sourceLine" id="cb130-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(</a>
 <a class="sourceLine" id="cb130-4" title="4">    <span class="co"># use the int return to get the number of rows</span></a>
 <a class="sourceLine" id="cb130-5" title="5">    <span class="dt">n_rows =</span> <span class="kw">map_int</span>(data, nrow),</a>
-<a class="sourceLine" id="cb130-6" title="6">    </a>
+<a class="sourceLine" id="cb130-6" title="6"></a>
 <a class="sourceLine" id="cb130-7" title="7">    <span class="co"># double return for mean mileage</span></a>
 <a class="sourceLine" id="cb130-8" title="8">    <span class="dt">mean_mass =</span> <span class="kw">map_dbl</span>(data, <span class="cf">function</span>(df) {<span class="kw">mean</span>(df<span class="op">$</span>mass_g)}),</a>
-<a class="sourceLine" id="cb130-9" title="9">    </a>
+<a class="sourceLine" id="cb130-9" title="9"></a>
 <a class="sourceLine" id="cb130-10" title="10">    <span class="co"># character return to get the heaviest member</span></a>
 <a class="sourceLine" id="cb130-11" title="11">    <span class="dt">first_animal =</span> <span class="kw">map_chr</span>(data, <span class="cf">function</span>(df) {</a>
-<a class="sourceLine" id="cb130-12" title="12">      <span class="kw">arrange</span>(df, <span class="op">-</span>mass_g) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb130-13" title="13"><span class="st">        </span>.<span class="op">$</span>binomial <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb130-12" title="12">      <span class="kw">arrange</span>(df, <span class="op">-</span>mass_g) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb130-13" title="13"><span class="st">        </span>.<span class="op">$</span>binomial <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb130-14" title="14"><span class="st">        </span><span class="kw">first</span>()}</a>
 <a class="sourceLine" id="cb130-15" title="15">    )</a>
 <a class="sourceLine" id="cb130-16" title="16">  )</a>
@@ -621,13 +621,13 @@ Unnest the data first, and then convert it to the form needed.</p>
 <a class="sourceLine" id="cb131-3" title="3"></a>
 <a class="sourceLine" id="cb131-4" title="4">nested_data =<span class="st"> </span><span class="kw">mutate</span>(nested_data,</a>
 <a class="sourceLine" id="cb131-5" title="5">              <span class="dt">model =</span> <span class="kw">map_if</span>(<span class="dt">.x =</span> data,</a>
-<a class="sourceLine" id="cb131-6" title="6">                             </a>
+<a class="sourceLine" id="cb131-6" title="6"></a>
 <a class="sourceLine" id="cb131-7" title="7">                             <span class="co"># this is the predicate</span></a>
 <a class="sourceLine" id="cb131-8" title="8">                             <span class="co"># which elements should be operated on?</span></a>
 <a class="sourceLine" id="cb131-9" title="9">                             <span class="dt">.p =</span> <span class="cf">function</span>(x){</a>
 <a class="sourceLine" id="cb131-10" title="10">                               <span class="kw">nrow</span>(x) <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span></a>
 <a class="sourceLine" id="cb131-11" title="11">                             },</a>
-<a class="sourceLine" id="cb131-12" title="12">                             </a>
+<a class="sourceLine" id="cb131-12" title="12"></a>
 <a class="sourceLine" id="cb131-13" title="13">                             <span class="co"># this is the function to use</span></a>
 <a class="sourceLine" id="cb131-14" title="14">                             <span class="co"># if the predicate is satisfied</span></a>
 <a class="sourceLine" id="cb131-15" title="15">                             <span class="dt">.f =</span> <span class="cf">function</span>(x){</a>
@@ -656,7 +656,7 @@ The output has as many elements as the input lists, which must be of the same le
 <p><code>map2</code> has the same variants as <code>map</code>, allowing for different return types.
 Here <code>map2_int</code> returns an integer vector.</p>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" title="1"><span class="co"># consider 2 vectors and replicate the simple vector addition using map2</span></a>
-<a class="sourceLine" id="cb132-2" title="2"><span class="kw">map2_int</span>(<span class="dt">.x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, </a>
+<a class="sourceLine" id="cb132-2" title="2"><span class="kw">map2_int</span>(<span class="dt">.x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,</a>
 <a class="sourceLine" id="cb132-3" title="3">         <span class="dt">.y =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">10</span>,</a>
 <a class="sourceLine" id="cb132-4" title="4">         <span class="dt">.f =</span> sum)</a>
 <a class="sourceLine" id="cb132-5" title="5"><span class="co">#&gt; [1]  7  9 11 13 15</span></a></code></pre></div>
@@ -719,25 +719,25 @@ Such pipelines must either be thought through carefully in advance, or checked f
 <li>The raw data is plotted along with the model fit, taking the title from the nested data frame (using <code>purrr::pmap</code> &amp; <code>ggplot2::ggplot</code>).</li>
 </ol>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" title="1">nested_data &lt;-</a>
-<a class="sourceLine" id="cb135-2" title="2"><span class="st">  </span>data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb135-3" title="3"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">nest</span>(<span class="dt">data =</span> <span class="op">-</span>order) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb135-2" title="2"><span class="st">  </span>data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb135-3" title="3"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">nest</span>(<span class="dt">data =</span> <span class="op">-</span>order) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb135-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(data,</a>
 <a class="sourceLine" id="cb135-5" title="5">         <span class="dt">model =</span> <span class="kw">map_if</span>(<span class="dt">.x =</span> data,</a>
-<a class="sourceLine" id="cb135-6" title="6">                        </a>
+<a class="sourceLine" id="cb135-6" title="6"></a>
 <a class="sourceLine" id="cb135-7" title="7">                        <span class="co"># this is the predicate</span></a>
 <a class="sourceLine" id="cb135-8" title="8">                        <span class="co"># which elements should be operated on?</span></a>
 <a class="sourceLine" id="cb135-9" title="9">                        <span class="dt">.p =</span> <span class="cf">function</span>(x){</a>
 <a class="sourceLine" id="cb135-10" title="10">                          <span class="kw">nrow</span>(x) <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span></a>
 <a class="sourceLine" id="cb135-11" title="11">                        },</a>
-<a class="sourceLine" id="cb135-12" title="12">                        </a>
+<a class="sourceLine" id="cb135-12" title="12"></a>
 <a class="sourceLine" id="cb135-13" title="13">                        <span class="co"># this is the function to use</span></a>
 <a class="sourceLine" id="cb135-14" title="14">                        <span class="co"># if the predicate is satisfied</span></a>
 <a class="sourceLine" id="cb135-15" title="15">                        <span class="dt">.f =</span> <span class="cf">function</span>(x){</a>
 <a class="sourceLine" id="cb135-16" title="16">                          <span class="kw">lm</span>(mass_g <span class="op">~</span><span class="st"> </span>diet_plant, <span class="dt">data =</span> x)</a>
-<a class="sourceLine" id="cb135-17" title="17">                        })) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb135-18" title="18"><span class="st">  </span></a>
+<a class="sourceLine" id="cb135-17" title="17">                        })) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb135-18" title="18"></a>
 <a class="sourceLine" id="cb135-19" title="19"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">m_coef =</span> <span class="kw">map</span>(model,</a>
-<a class="sourceLine" id="cb135-20" title="20">                      </a>
+<a class="sourceLine" id="cb135-20" title="20"></a>
 <a class="sourceLine" id="cb135-21" title="21">                      <span class="co"># use case when to get model coefficients</span></a>
 <a class="sourceLine" id="cb135-22" title="22">                      <span class="cf">function</span>(x) {</a>
 <a class="sourceLine" id="cb135-23" title="23">                        dplyr<span class="op">::</span><span class="kw">case_when</span>(</a>
@@ -747,19 +747,19 @@ Such pipelines must either be thought through carefully in advance, or checked f
 <a class="sourceLine" id="cb135-27" title="27">                          <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span>{</a>
 <a class="sourceLine" id="cb135-28" title="28">                            <span class="kw">list</span>(<span class="kw">c</span>(<span class="ot">NA</span>,<span class="ot">NA</span>))</a>
 <a class="sourceLine" id="cb135-29" title="29">                          }</a>
-<a class="sourceLine" id="cb135-30" title="30">                        )}), </a>
-<a class="sourceLine" id="cb135-31" title="31">         </a>
+<a class="sourceLine" id="cb135-30" title="30">                        )}),</a>
+<a class="sourceLine" id="cb135-31" title="31"></a>
 <a class="sourceLine" id="cb135-32" title="32">         <span class="co"># work on the two element double vector of coefficients</span></a>
 <a class="sourceLine" id="cb135-33" title="33">         <span class="dt">m_coef =</span> <span class="kw">map</span>(m_coef, <span class="cf">function</span>(x){</a>
 <a class="sourceLine" id="cb135-34" title="34">           <span class="kw">tibble</span>(<span class="dt">coef =</span> <span class="kw">unlist</span>(x),</a>
-<a class="sourceLine" id="cb135-35" title="35">                  <span class="dt">param =</span> <span class="kw">c</span>(<span class="st">&quot;intercept&quot;</span>, <span class="st">&quot;diet_plant&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb135-35" title="35">                  <span class="dt">param =</span> <span class="kw">c</span>(<span class="st">&quot;intercept&quot;</span>, <span class="st">&quot;diet_plant&quot;</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb135-36" title="36"><span class="st">             </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> <span class="st">&quot;param&quot;</span>,</a>
 <a class="sourceLine" id="cb135-37" title="37">                         <span class="dt">values_from =</span> <span class="st">&quot;coef&quot;</span>)</a>
 <a class="sourceLine" id="cb135-38" title="38">         }),</a>
-<a class="sourceLine" id="cb135-39" title="39">         </a>
+<a class="sourceLine" id="cb135-39" title="39"></a>
 <a class="sourceLine" id="cb135-40" title="40">         <span class="co"># work on the raw data and the coefficients</span></a>
 <a class="sourceLine" id="cb135-41" title="41">         <span class="dt">plot =</span> <span class="kw">pmap</span>(<span class="kw">list</span>(order, data, m_coef), <span class="cf">function</span>(ord, x, y){</a>
-<a class="sourceLine" id="cb135-42" title="42">           </a>
+<a class="sourceLine" id="cb135-42" title="42"></a>
 <a class="sourceLine" id="cb135-43" title="43">           <span class="co"># pay no attention to the ggplot for now</span></a>
 <a class="sourceLine" id="cb135-44" title="44">           ggplot2<span class="op">::</span><span class="kw">ggplot</span>()<span class="op">+</span></a>
 <a class="sourceLine" id="cb135-45" title="45"><span class="st">             </span><span class="kw">geom_point</span>(<span class="dt">data =</span> x,</a>
@@ -775,10 +775,10 @@ Such pipelines must either be thought through carefully in advance, or checked f
 <p>Lists are often nested, that is, a list element may itself be a list. It is possible to map a function over elements as a specific depth.</p>
 <p>In the example, phylacine is split by order, and then by IUCN status, creating a two-level list, with the second layer operated on.</p>
 <div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" title="1"><span class="co"># use map to make a 2 level list</span></a>
-<a class="sourceLine" id="cb136-2" title="2">this_list =<span class="st"> </span><span class="kw">split</span>(data, data<span class="op">$</span>order) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb136-2" title="2">this_list =<span class="st"> </span><span class="kw">split</span>(data, data<span class="op">$</span>order) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb136-3" title="3"><span class="st">  </span><span class="kw">map</span>(<span class="cf">function</span>(df){ <span class="kw">split</span>(df, df<span class="op">$</span>iucn_status) })</a>
 <a class="sourceLine" id="cb136-4" title="4"></a>
-<a class="sourceLine" id="cb136-5" title="5"><span class="co"># map over the second level to count the number of </span></a>
+<a class="sourceLine" id="cb136-5" title="5"><span class="co"># map over the second level to count the number of</span></a>
 <a class="sourceLine" id="cb136-6" title="6"><span class="co"># species in each order in each IUCN class</span></a>
 <a class="sourceLine" id="cb136-7" title="7"><span class="co"># display only the first element</span></a>
 <a class="sourceLine" id="cb136-8" title="8"><span class="kw">map_depth</span>(this_list[<span class="dv">1</span>], <span class="dv">2</span>, nrow)</a>
@@ -852,13 +852,13 @@ However, it is often necessary to iterate a function over a list-like object for
 <a class="sourceLine" id="cb138-2" title="2"></a>
 <a class="sourceLine" id="cb138-3" title="3"><span class="kw">tryCatch</span>(</a>
 <a class="sourceLine" id="cb138-4" title="4">  <span class="dt">expr =</span> {</a>
-<a class="sourceLine" id="cb138-5" title="5">    </a>
+<a class="sourceLine" id="cb138-5" title="5"></a>
 <a class="sourceLine" id="cb138-6" title="6">    <span class="co"># this is what we want you to look at</span></a>
-<a class="sourceLine" id="cb138-7" title="7">    </a>
+<a class="sourceLine" id="cb138-7" title="7"></a>
 <a class="sourceLine" id="cb138-8" title="8">    <span class="kw">modify</span>(vec, <span class="cf">function</span>(x) { (x <span class="op">+</span><span class="st"> </span><span class="dv">2</span>) })</a>
-<a class="sourceLine" id="cb138-9" title="9">    </a>
+<a class="sourceLine" id="cb138-9" title="9"></a>
 <a class="sourceLine" id="cb138-10" title="10">  },</a>
-<a class="sourceLine" id="cb138-11" title="11">  </a>
+<a class="sourceLine" id="cb138-11" title="11"></a>
 <a class="sourceLine" id="cb138-12" title="12">  <span class="co"># do not pay attention to this</span></a>
 <a class="sourceLine" id="cb138-13" title="13">  <span class="dt">error =</span> <span class="cf">function</span>(e){</a>
 <a class="sourceLine" id="cb138-14" title="14">    <span class="kw">print</span>(<span class="kw">toString</span>(e))</a>
@@ -897,7 +897,7 @@ However, it is often necessary to iterate a function over a list-like object for
 <a class="sourceLine" id="cb141-9" title="9"><span class="co">#&gt; $c</span></a>
 <a class="sourceLine" id="cb141-10" title="10"><span class="co">#&gt; [1] 2</span></a></code></pre></div>
 <p><code>head_while</code> is bit of an odd case, which returns all elements of a list-like object in sequence until the first one fails to satisfy a predicate, specified by <code>.p</code>.</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb142-2" title="2"><span class="st">  </span><span class="kw">head_while</span>(<span class="dt">.p =</span> <span class="cf">function</span>(x) x <span class="op">&lt;</span><span class="st"> </span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb142-3" title="3"><span class="co">#&gt; [1] 1 2 3 4</span></a></code></pre></div>
 </div>
@@ -922,7 +922,7 @@ However, it is often necessary to iterate a function over a list-like object for
 <a class="sourceLine" id="cb144-6" title="6">  })</a>
 <a class="sourceLine" id="cb144-7" title="7"></a>
 <a class="sourceLine" id="cb144-8" title="8"><span class="co"># get cars which appear in all samples</span></a>
-<a class="sourceLine" id="cb144-9" title="9">sampled_data =<span class="st"> </span><span class="kw">reduce</span>(sampled_data, </a>
+<a class="sourceLine" id="cb144-9" title="9">sampled_data =<span class="st"> </span><span class="kw">reduce</span>(sampled_data,</a>
 <a class="sourceLine" id="cb144-10" title="10">                      dplyr<span class="op">::</span>inner_join)</a></code></pre></div>
 <p><code>accumulate</code> works very similarly, except it retains the intermediate products. The first element is retained as is. <code>accumulate2</code> and <code>reduce2</code> work on two lists, following the same logic as <code>map2</code> etc.
 Both functions can be used in much more complex ways than demonstrated here.</p>
@@ -961,10 +961,10 @@ Both functions can be used in much more complex ways than demonstrated here.</p>
 <a class="sourceLine" id="cb146-12" title="12"><span class="kw">flatten_chr</span>(this_list)</a>
 <a class="sourceLine" id="cb146-13" title="13"><span class="co">#&gt; [1] &quot;a&quot; &quot;a&quot; &quot;a&quot; &quot;b&quot; &quot;b&quot; &quot;b&quot; &quot;b&quot;</span></a></code></pre></div>
 <p><code>transpose</code> shifts the index order in multi-level lists. This is seen in the example, where the <code>iucn_status</code> goes from being the index of the second level to the index of the first.</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1">this_list =<span class="st"> </span><span class="kw">split</span>(data, data<span class="op">$</span>order) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1">this_list =<span class="st"> </span><span class="kw">split</span>(data, data<span class="op">$</span>order) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb147-2" title="2"><span class="st">  </span><span class="kw">map</span>(<span class="cf">function</span>(df) {<span class="kw">split</span>(df, df<span class="op">$</span>iucn_status)})</a></code></pre></div>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" title="1"><span class="co"># from a list of lists where species are divided by order and then</span></a>
-<a class="sourceLine" id="cb148-2" title="2"><span class="co"># iucn_status, this is now a list of lists where species are </span></a>
+<a class="sourceLine" id="cb148-2" title="2"><span class="co"># iucn_status, this is now a list of lists where species are</span></a>
 <a class="sourceLine" id="cb148-3" title="3"><span class="co"># divided by status and then order</span></a>
 <a class="sourceLine" id="cb148-4" title="4"><span class="kw">transpose</span>(this_list[<span class="dv">1</span>])</a></code></pre></div>
 </div>

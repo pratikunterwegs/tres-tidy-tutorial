@@ -143,7 +143,7 @@
 
 \title{TRES Tidyverse Tutorial}
 \author{Raphael, Pratik, Theo and Richèl}
-\date{2020-07-13}
+\date{2020-07-14}
 
 \begin{document}
 \maketitle
@@ -975,7 +975,7 @@ As a rule of thumb, try to convert your tables to tibbles whenever you can, espe
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Perform a PCA on mtcars }
+\CommentTok{# Perform a PCA on mtcars}
 \NormalTok{pca_scores <-}\StringTok{ }\KeywordTok{prcomp}\NormalTok{(mtcars)}\OperatorTok{$}\NormalTok{x}
 \KeywordTok{head}\NormalTok{(pca_scores) }\CommentTok{# looks like a data frame or a tibble...}
 \CommentTok{#>                       PC1   PC2   PC3    PC4    PC5     PC6      PC7     PC8}
@@ -1033,7 +1033,7 @@ Say we have a dataset of several morphometrics measured on Darwin's finches in t
 \NormalTok{data <-}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
   \DataTypeTok{id =} \DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{,}
   \DataTypeTok{body_weight =}\NormalTok{ body_weights,}
-  \DataTypeTok{beak_length =}\NormalTok{ beak_lengths,  }
+  \DataTypeTok{beak_length =}\NormalTok{ beak_lengths,}
   \DataTypeTok{beak_width =}\NormalTok{ beak_widths,}
   \DataTypeTok{island =}\NormalTok{ islands}
 \NormalTok{)}
@@ -1060,7 +1060,7 @@ The tidy equivalent of this dataset would be:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{data <-}\StringTok{ }\KeywordTok{pivot_longer}\NormalTok{(}
-\NormalTok{  data, }
+\NormalTok{  data,}
   \DataTypeTok{cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"body_weight"}\NormalTok{, }\StringTok{"beak_length"}\NormalTok{, }\StringTok{"beak_width"}\NormalTok{),}
   \DataTypeTok{names_to =} \StringTok{"variable"}
 \NormalTok{)}
@@ -1137,9 +1137,9 @@ Pivoting a dataset between the long and wide layout is the main purpose of \text
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{pivot_wider}\NormalTok{(}
-\NormalTok{  data, }
-  \DataTypeTok{names_from =} \StringTok{"variable"}\NormalTok{, }
-  \DataTypeTok{values_from =} \StringTok{"value"}\NormalTok{, }
+\NormalTok{  data,}
+  \DataTypeTok{names_from =} \StringTok{"variable"}\NormalTok{,}
+  \DataTypeTok{values_from =} \StringTok{"value"}\NormalTok{,}
   \DataTypeTok{id_cols =} \KeywordTok{c}\NormalTok{(}\StringTok{"id"}\NormalTok{, }\StringTok{"island"}\NormalTok{)}
 \NormalTok{)}
 \CommentTok{#> # A tibble: 100 x 5}
@@ -1355,7 +1355,7 @@ We could generate a tibble with all combinations of island, morphometric and yea
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{expand_grid}\NormalTok{(}
-  \DataTypeTok{island =} \KeywordTok{c}\NormalTok{(}\StringTok{"Isabela"}\NormalTok{, }\StringTok{"Santa Cruz"}\NormalTok{), }
+  \DataTypeTok{island =} \KeywordTok{c}\NormalTok{(}\StringTok{"Isabela"}\NormalTok{, }\StringTok{"Santa Cruz"}\NormalTok{),}
   \DataTypeTok{year =} \KeywordTok{c}\NormalTok{(}\StringTok{"2019"}\NormalTok{, }\StringTok{"2020"}\NormalTok{)}
 \NormalTok{)}
 \CommentTok{#> # A tibble: 4 x 2}
@@ -1448,7 +1448,7 @@ But wait a minute. These combinations are all very good, but our measurements ha
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{tail}\NormalTok{(}\KeywordTok{complete}\NormalTok{(data, }\KeywordTok{crossing}\NormalTok{(}\KeywordTok{nesting}\NormalTok{(island, site), year))) }
+\KeywordTok{tail}\NormalTok{(}\KeywordTok{complete}\NormalTok{(data, }\KeywordTok{crossing}\NormalTok{(}\KeywordTok{nesting}\NormalTok{(island, site), year)))}
 \CommentTok{#> # A tibble: 6 x 8}
 \CommentTok{#>   island     site  year     id variable    value day   month}
 \CommentTok{#>   <chr>      <chr> <chr> <int> <chr>       <dbl> <chr> <chr>}
@@ -1585,17 +1585,17 @@ One example use-case where you would want to change the order of the levels of a
 \begin{Highlighting}[]
 \CommentTok{# Make the plotting code a function so we can re-use it without copying and pasting}
 \NormalTok{my_plot <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data) \{}
-  
+
   \CommentTok{# We do not cover the ggplot functions in this chapter, this is just to}
   \CommentTok{# illustrate our use-case, wait until chapter 5!}
   \KeywordTok{library}\NormalTok{(ggplot2)}
-  \KeywordTok{ggplot}\NormalTok{(data, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ island, }\DataTypeTok{y =}\NormalTok{ value, }\DataTypeTok{color =}\NormalTok{ island)) }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\KeywordTok{geom_violin}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+  \KeywordTok{ggplot}\NormalTok{(data, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ island, }\DataTypeTok{y =}\NormalTok{ value, }\DataTypeTok{color =}\NormalTok{ island)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_violin}\NormalTok{() }\OperatorTok{+}
 \StringTok{    }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.1}\NormalTok{) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{facet_grid}\NormalTok{(variable }\OperatorTok{~}\StringTok{ }\NormalTok{year, }\DataTypeTok{scales =} \StringTok{"free"}\NormalTok{) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
 \StringTok{    }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"forestgreen"}\NormalTok{, }\StringTok{"goldenrod"}\NormalTok{))}
-  
+
 \NormalTok{\}}
 
 \KeywordTok{my_plot}\NormalTok{(data)}
@@ -1669,9 +1669,9 @@ Changing the levels of a factor will change the labels in the actual vector. It 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{fct_recode}\NormalTok{(}
-\NormalTok{  my_fact_vec, }
-  \StringTok{"Pratik Gupte"}\NormalTok{ =}\StringTok{ "Pratik"}\NormalTok{, }
-  \StringTok{"Theo Pannetier"}\NormalTok{ =}\StringTok{ "Theo"}\NormalTok{, }
+\NormalTok{  my_fact_vec,}
+  \StringTok{"Pratik Gupte"}\NormalTok{ =}\StringTok{ "Pratik"}\NormalTok{,}
+  \StringTok{"Theo Pannetier"}\NormalTok{ =}\StringTok{ "Theo"}\NormalTok{,}
   \StringTok{"Raphael Scherrer"}\NormalTok{ =}\StringTok{ "Raph"}
 \NormalTok{)}
 \CommentTok{#> [1] Pratik Gupte     Theo Pannetier   Raphael Scherrer}
@@ -2298,8 +2298,8 @@ Use the wrapper \texttt{desc()} to sort by descending values instead.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# Smallest mammals}
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(mass_g) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(mass_g) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g)}
 \CommentTok{#> # A tibble: 5,831 x 2}
 \CommentTok{#>   binomial            mass_g}
@@ -2313,8 +2313,8 @@ Use the wrapper \texttt{desc()} to sort by descending values instead.
 \CommentTok{#> # ... with 5,825 more rows}
 
 \CommentTok{# Largest mammals}
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(mass_g)) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(mass_g)) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g)}
 \CommentTok{#> # A tibble: 5,831 x 2}
 \CommentTok{#>   binomial                  mass_g}
@@ -2328,8 +2328,8 @@ Use the wrapper \texttt{desc()} to sort by descending values instead.
 \CommentTok{#> # ... with 5,825 more rows}
 
 \CommentTok{# Extra variables are used to sort ties in the first variable}
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{arrange}\NormalTok{(mass_g, }\KeywordTok{desc}\NormalTok{(binomial)) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(mass_g, }\KeywordTok{desc}\NormalTok{(binomial)) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g)}
 \CommentTok{#> # A tibble: 5,831 x 2}
 \CommentTok{#>   binomial            mass_g}
@@ -2473,7 +2473,7 @@ For example, I might want to extract mammals above a given mass:
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# megafauna}
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(mass_g }\OperatorTok{>}\StringTok{ }\FloatTok{1e5}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\CommentTok{# 100 kg}
 \StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g)}
 \CommentTok{#> # A tibble: 302 x 2}
@@ -2488,8 +2488,8 @@ For example, I might want to extract mammals above a given mass:
 \CommentTok{#> # ... with 296 more rows}
 
 \CommentTok{# non-extinct megafauna}
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(mass_g }\OperatorTok{>}\StringTok{ }\FloatTok{1e5}\NormalTok{, iucn_status }\OperatorTok{!=}\StringTok{ "EP"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(mass_g }\OperatorTok{>}\StringTok{ }\FloatTok{1e5}\NormalTok{, iucn_status }\OperatorTok{!=}\StringTok{ "EP"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g, iucn_status)}
 \CommentTok{#> # A tibble: 178 x 3}
 \CommentTok{#>   binomial                 mass_g iucn_status}
@@ -2508,8 +2508,8 @@ Are there any flying mammals that aren't bats?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(aerial }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{, order }\OperatorTok{!=}\StringTok{ "Chiroptera"}\NormalTok{) }
+\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(aerial }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{, order }\OperatorTok{!=}\StringTok{ "Chiroptera"}\NormalTok{)}
 \CommentTok{#> # A tibble: 0 x 24}
 \CommentTok{#> # ... with 24 variables: binomial <chr>, order <chr>, family <chr>,}
 \CommentTok{#> #   genus <chr>, species <chr>, terrestrial <dbl>, marine <dbl>,}
@@ -2544,8 +2544,8 @@ Are humans included in the table?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(mass_comparison)) }
+\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(mass_comparison))}
 \CommentTok{#> # A tibble: 754 x 24}
 \CommentTok{#>   binomial order family genus species terrestrial marine freshwater aerial}
 \CommentTok{#>   <chr>    <chr> <chr>  <chr> <chr>         <dbl>  <dbl>      <dbl>  <dbl>}
@@ -2572,8 +2572,8 @@ Tip: \texttt{dplyr} introduces the useful function \texttt{between()} that does 
 \CommentTok{#> [1] FALSE  TRUE  TRUE  TRUE FALSE}
 
 \CommentTok{# Mesofauna}
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(mass_g }\OperatorTok{>}\StringTok{ }\FloatTok{1e3}\NormalTok{, mass_g }\OperatorTok{<}\StringTok{ }\FloatTok{1e5}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(mass_g }\OperatorTok{>}\StringTok{ }\FloatTok{1e3}\NormalTok{, mass_g }\OperatorTok{<}\StringTok{ }\FloatTok{1e5}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g)}
 \CommentTok{#> # A tibble: 1,126 x 2}
 \CommentTok{#>   binomial                mass_g}
@@ -2587,8 +2587,8 @@ Tip: \texttt{dplyr} introduces the useful function \texttt{between()} that does 
 \CommentTok{#> # ... with 1,120 more rows}
 
 \CommentTok{# same thing}
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(mass_g }\OperatorTok{%>%}\StringTok{ }\KeywordTok{between}\NormalTok{(}\FloatTok{1e3}\NormalTok{, }\FloatTok{1e5}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(mass_g }\OperatorTok{%>%}\StringTok{ }\KeywordTok{between}\NormalTok{(}\FloatTok{1e3}\NormalTok{, }\FloatTok{1e5}\NormalTok{)) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g)}
 \CommentTok{#> # A tibble: 1,148 x 2}
 \CommentTok{#>   binomial                mass_g}
@@ -2618,7 +2618,7 @@ the diet data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{diet <-}\StringTok{ }\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{diet <-}\StringTok{ }\NormalTok{phylacine }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{select}\NormalTok{(}
 \NormalTok{    binomial,}
     \KeywordTok{contains}\NormalTok{(}\StringTok{"diet"}\NormalTok{) }\OperatorTok{&}\StringTok{ }\OperatorTok{!}\KeywordTok{contains}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"method"}\NormalTok{, }\StringTok{"source"}\NormalTok{))}
@@ -2672,7 +2672,7 @@ I want to combine \texttt{diet\_invertebrate} and \texttt{diet\_vertebrate} toge
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{diet }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{diet }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{transmute}\NormalTok{(}
     \StringTok{"diet_animal"}\NormalTok{ =}\StringTok{ }\NormalTok{diet_invertebrate }\OperatorTok{+}\StringTok{ }\NormalTok{diet_vertebrate}
 \NormalTok{  )}
@@ -2695,7 +2695,7 @@ and \texttt{select()} to do so, or you could just pass the variables to keep to
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{diet }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{diet }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{transmute}\NormalTok{(}
     \StringTok{"diet_animal"}\NormalTok{ =}\StringTok{ }\NormalTok{diet_invertebrate }\OperatorTok{+}\StringTok{ }\NormalTok{diet_vertebrate,}
 \NormalTok{    diet_plant}
@@ -2718,7 +2718,7 @@ them as part of the same operation, this is not an issue.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{diet }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{diet }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{transmute}\NormalTok{(}
     \StringTok{"diet_animal"}\NormalTok{ =}\StringTok{ }\NormalTok{diet_invertebrate }\OperatorTok{+}\StringTok{ }\NormalTok{diet_vertebrate,}
 \NormalTok{    diet_plant,}
@@ -2743,8 +2743,8 @@ just that:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(binomial) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(binomial) }\OperatorTok{%>%}
 \StringTok{  }\NormalTok{tibble}\OperatorTok{::}\KeywordTok{rownames_to_column}\NormalTok{(}\DataTypeTok{var =} \StringTok{"row_nb"}\NormalTok{)}
 \CommentTok{#> # A tibble: 5,831 x 2}
 \CommentTok{#>   row_nb binomial            }
@@ -2768,7 +2768,7 @@ summaries. The default grouping unit is the entire table:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}
     \StringTok{"nb_species"}\NormalTok{ =}\StringTok{ }\KeywordTok{n}\NormalTok{(), }\CommentTok{# counts observations}
     \StringTok{"nb_terrestrial"}\NormalTok{ =}\StringTok{ }\KeywordTok{sum}\NormalTok{(terrestrial),}
@@ -2790,7 +2790,7 @@ perform operations on the variables you just created, in the same statement:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}
     \StringTok{"nb_species"}\NormalTok{ =}\StringTok{ }\KeywordTok{n}\NormalTok{(),}
     \StringTok{"nb_aerial"}\NormalTok{ =}\StringTok{ }\KeywordTok{sum}\NormalTok{(aerial), }\CommentTok{# bats}
@@ -2815,7 +2815,7 @@ be exploited to count the number of observations that satisfy a condition:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}
     \StringTok{"nb_species"}\NormalTok{ =}\StringTok{ }\KeywordTok{n}\NormalTok{(),}
     \StringTok{"nb_megafauna"}\NormalTok{ =}\StringTok{ }\KeywordTok{sum}\NormalTok{(mass_g }\OperatorTok{>}\StringTok{ }\DecValTok{100000}\NormalTok{),}
@@ -2838,7 +2838,7 @@ return the summary once for each observation, in a new column.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\StringTok{"nb_species"}\NormalTok{ =}\StringTok{ }\KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{select}\NormalTok{(binomial, nb_species)}
 \CommentTok{#> # A tibble: 5,831 x 2}
@@ -2884,7 +2884,7 @@ Instead, I can use \texttt{group\_by()} to pool observations by \texttt{order}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(order)}
 \CommentTok{#> # A tibble: 5,831 x 24}
 \CommentTok{#> # Groups:   order [29]}
@@ -2909,7 +2909,7 @@ At first glance, nothing has changed, apart from an extra line of information in
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}
     \StringTok{"n_species"}\NormalTok{ =}\StringTok{ }\KeywordTok{n}\NormalTok{(),}
     \StringTok{"mean_mass_g"}\NormalTok{ =}\StringTok{ }\KeywordTok{mean}\NormalTok{(mass_g)}
@@ -2919,8 +2919,8 @@ At first glance, nothing has changed, apart from an extra line of information in
 \CommentTok{#>       <int>       <dbl>}
 \CommentTok{#> 1      5831     156882.}
 
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(order) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(order) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}
     \StringTok{"n_species"}\NormalTok{ =}\StringTok{ }\KeywordTok{n}\NormalTok{(),}
     \StringTok{"mean_mass_g"}\NormalTok{ =}\StringTok{ }\KeywordTok{mean}\NormalTok{(mass_g)}
@@ -2944,8 +2944,8 @@ Observations can be grouped by multiple variables, which will output a summary f
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(order, iucn_status) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(order, iucn_status) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}
     \StringTok{"n_species"}\NormalTok{ =}\StringTok{ }\KeywordTok{n}\NormalTok{()}
 \NormalTok{  )}
@@ -2967,11 +2967,11 @@ Whenever you call \texttt{summarise()}, the last level of grouping is dropped. N
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(order, iucn_status) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(order, iucn_status) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}
     \StringTok{"n_species"}\NormalTok{ =}\StringTok{ }\KeywordTok{n}\NormalTok{()}
-\NormalTok{  ) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{  ) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}
     \StringTok{"n_species_2"}\NormalTok{ =}\StringTok{ }\KeywordTok{n}\NormalTok{()}
 \NormalTok{  )}
@@ -2994,9 +2994,9 @@ For example, I would like to know how the species in each order are distributed 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(order, iucn_status) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\StringTok{"n_order_iucn"}\NormalTok{ =}\StringTok{ }\KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(order, iucn_status) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\StringTok{"n_order_iucn"}\NormalTok{ =}\StringTok{ }\KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}
 \StringTok{  }\CommentTok{# grouping by iucn_status silently dropped}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}
     \StringTok{"n_order"}\NormalTok{ =}\StringTok{ }\KeywordTok{sum}\NormalTok{(n_order_iucn),}
@@ -3026,8 +3026,8 @@ Grouping does not only affect the behaviour of \texttt{summarise}, but under cir
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# Species with a higher mass than the mammal mean}
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(}\StringTok{"binomial"}\NormalTok{, }\StringTok{"mass_g"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\StringTok{"binomial"}\NormalTok{, }\StringTok{"mass_g"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(mass_g }\OperatorTok{>}\StringTok{ }\KeywordTok{mean}\NormalTok{(mass_g, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{))}
 \CommentTok{#> # A tibble: 234 x 2}
 \CommentTok{#>   binomial                      mass_g}
@@ -3041,9 +3041,9 @@ Grouping does not only affect the behaviour of \texttt{summarise}, but under cir
 \CommentTok{#> # ... with 228 more rows}
 
 \CommentTok{# Species with a higher mass than the mean in their order}
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(order) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(}\StringTok{"binomial"}\NormalTok{, }\StringTok{"mass_g"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(order) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\StringTok{"binomial"}\NormalTok{, }\StringTok{"mass_g"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(mass_g }\OperatorTok{>}\StringTok{ }\KeywordTok{mean}\NormalTok{(mass_g, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{))}
 \CommentTok{#> # A tibble: 890 x 3}
 \CommentTok{#> # Groups:   order [27]}
@@ -3062,18 +3062,18 @@ Grouping does not only affect the behaviour of \texttt{summarise}, but under cir
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# Largest mammal}
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{slice_max}\NormalTok{(mass_g) }
+\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{slice_max}\NormalTok{(mass_g)}
 \CommentTok{#> # A tibble: 1 x 2}
 \CommentTok{#>   binomial                 mass_g}
 \CommentTok{#>   <chr>                     <dbl>}
 \CommentTok{#> 1 Balaenoptera_musculus 190000000}
 \CommentTok{# Largest species in each order}
-\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(order) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{slice_max}\NormalTok{(mass_g) }
+\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(order) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{slice_max}\NormalTok{(mass_g)}
 \CommentTok{#> # A tibble: 30 x 3}
 \CommentTok{#> # Groups:   order [29]}
 \CommentTok{#>   order           binomial                             mass_g}
@@ -3105,16 +3105,16 @@ observation originates from.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{porpoises <-}\StringTok{ }\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(family }\OperatorTok{==}\StringTok{ "Phocoenidae"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{porpoises <-}\StringTok{ }\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(family }\OperatorTok{==}\StringTok{ "Phocoenidae"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{select}\NormalTok{(binomial, iucn_status)}
-\NormalTok{echidnas <-}\StringTok{ }\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{filter}\NormalTok{(family }\OperatorTok{==}\StringTok{ "Tachyglossidae"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{echidnas <-}\StringTok{ }\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(family }\OperatorTok{==}\StringTok{ "Tachyglossidae"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{select}\NormalTok{(binomial, iucn_status)}
 
 \KeywordTok{bind_rows}\NormalTok{(}
-  \StringTok{"porpoise"}\NormalTok{ =}\StringTok{ }\NormalTok{porpoises, }
-  \StringTok{"echidna"}\NormalTok{ =}\StringTok{ }\NormalTok{echidnas, }
+  \StringTok{"porpoise"}\NormalTok{ =}\StringTok{ }\NormalTok{porpoises,}
+  \StringTok{"echidna"}\NormalTok{ =}\StringTok{ }\NormalTok{echidnas,}
   \DataTypeTok{.id =} \StringTok{"kind"}
 \NormalTok{)}
 \CommentTok{#> # A tibble: 13 x 3}
@@ -3141,8 +3141,8 @@ one containing information on diet and one on the dominant habitat.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{diet <-}\StringTok{ }\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(binomial, diet_plant}\OperatorTok{:}\NormalTok{diet_invertebrate) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{diet <-}\StringTok{ }\NormalTok{phylacine }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(binomial, diet_plant}\OperatorTok{:}\NormalTok{diet_invertebrate) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{slice}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
 \NormalTok{diet}
 \CommentTok{#> # A tibble: 5 x 4}
@@ -3154,7 +3154,7 @@ one containing information on diet and one on the dominant habitat.
 \CommentTok{#> 4 Abrocoma_bennettii          100               0                 0}
 \CommentTok{#> 5 Abrocoma_boliviensis        100               0                 0}
 
-\NormalTok{life_habit <-}\StringTok{ }\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(binomial, terrestrial}\OperatorTok{:}\NormalTok{aerial) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{life_habit <-}\StringTok{ }\NormalTok{phylacine }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(binomial, terrestrial}\OperatorTok{:}\NormalTok{aerial) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{slice}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{, }\DecValTok{6}\OperatorTok{:}\DecValTok{7}\NormalTok{)}
 \NormalTok{life_habit}
 \CommentTok{#> # A tibble: 5 x 5}
@@ -3305,9 +3305,9 @@ The example below shows how \emph{Phylacine} data can be converted into a nested
 \begin{Highlighting}[]
 \CommentTok{# get phylacine data}
 \NormalTok{data =}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/phylacine_traits.csv"}\NormalTok{)}
-\NormalTok{data =}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  `}\DataTypeTok{colnames<-}\StringTok{`}\NormalTok{(}\KeywordTok{str_to_lower}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(.))) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  `}\DataTypeTok{colnames<-}\StringTok{`}\NormalTok{(}\KeywordTok{str_remove}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(.), }\StringTok{"(.1.2)"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{data =}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}
+\StringTok{  `}\DataTypeTok{colnames<-}\StringTok{`}\NormalTok{(}\KeywordTok{str_to_lower}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(.))) }\OperatorTok{%>%}
+\StringTok{  `}\DataTypeTok{colnames<-}\StringTok{`}\NormalTok{(}\KeywordTok{str_remove}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(.), }\StringTok{"(.1.2)"}\NormalTok{)) }\OperatorTok{%>%}
 \StringTok{  `}\DataTypeTok{colnames<-}\StringTok{`}\NormalTok{(}\KeywordTok{str_replace_all}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(.), }\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{."}\NormalTok{, }\StringTok{"_"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
@@ -3315,8 +3315,8 @@ The example below shows how \emph{Phylacine} data can be converted into a nested
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# nest phylacine by order}
-\NormalTok{nested_data =}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(order) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{nested_data =}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(order) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{nest}\NormalTok{()}
 
 \NormalTok{nested_data}
@@ -3351,7 +3351,7 @@ A nested tibble can be converted back into the original, or into a processed for
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# use unnest to recover the original data frame}
-\KeywordTok{unnest}\NormalTok{(nested_data, }\DataTypeTok{cols =} \StringTok{"data"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\KeywordTok{unnest}\NormalTok{(nested_data, }\DataTypeTok{cols =} \StringTok{"data"}\NormalTok{) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{head}\NormalTok{()}
 \CommentTok{#> # A tibble: 6 x 24}
 \CommentTok{#> # Groups:   order [1]}
@@ -3441,7 +3441,7 @@ A good reason to use \texttt{purrr} functionals instead of base \texttt{R} funct
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# get the number of rows in data}
-\KeywordTok{map}\NormalTok{(}\DataTypeTok{.x =}\NormalTok{ nested_data}\OperatorTok{$}\NormalTok{data, }\DataTypeTok{.f =}\NormalTok{ nrow) }\OperatorTok{%>%}\StringTok{ }
+\KeywordTok{map}\NormalTok{(}\DataTypeTok{.x =}\NormalTok{ nested_data}\OperatorTok{$}\NormalTok{data, }\DataTypeTok{.f =}\NormalTok{ nrow) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{head}\NormalTok{()}
 \CommentTok{#> [[1]]}
 \CommentTok{#> [1] 2306}
@@ -3501,10 +3501,10 @@ Though \texttt{map} always returns a list, it has variants named \texttt{map\_*}
 \CommentTok{# map_chr will convert the output to a character}
 \CommentTok{# here we get the most common IUCN status of each order}
 \KeywordTok{map_chr}\NormalTok{(nested_data}\OperatorTok{$}\NormalTok{data, }\ControlFlowTok{function}\NormalTok{(df)\{}
-  
-  \KeywordTok{count}\NormalTok{(df, iucn_status) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{arrange}\NormalTok{(}\OperatorTok{-}\NormalTok{n) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{common_status =} \KeywordTok{first}\NormalTok{(iucn_status)) }\OperatorTok{%>%}\StringTok{ }
+
+  \KeywordTok{count}\NormalTok{(df, iucn_status) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{arrange}\NormalTok{(}\OperatorTok{-}\NormalTok{n) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{common_status =} \KeywordTok{first}\NormalTok{(iucn_status)) }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{pull}\NormalTok{(common_status)}
 \NormalTok{\})}
 \CommentTok{#>  [1] "LC" "LC" "LC" "EP" "LC" "LC" "LC" "LC" "LC" "LC" "LC" "LC" "EP" "VU" "LC"}
@@ -3550,7 +3550,7 @@ Though \texttt{map} always returns a list, it has variants named \texttt{map\_*}
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# the same as above but with a pipe}
-\NormalTok{nested_data}\OperatorTok{$}\NormalTok{data[}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{] }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{nested_data}\OperatorTok{$}\NormalTok{data[}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{] }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{map_dfr}\NormalTok{(head, }\DataTypeTok{n =} \DecValTok{2}\NormalTok{)}
 \CommentTok{#> # A tibble: 10 x 23}
 \CommentTok{#>   binomial family genus species terrestrial marine freshwater aerial}
@@ -3586,14 +3586,14 @@ In each of these cases, the vectors added are generated using \texttt{purrr} fun
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}
     \CommentTok{# use the int return to get the number of rows}
     \DataTypeTok{n_rows =} \KeywordTok{map_int}\NormalTok{(data, nrow),}
-    
+
     \CommentTok{# double return for mean mileage}
     \DataTypeTok{mean_mass =} \KeywordTok{map_dbl}\NormalTok{(data, }\ControlFlowTok{function}\NormalTok{(df) \{}\KeywordTok{mean}\NormalTok{(df}\OperatorTok{$}\NormalTok{mass_g)\}),}
-    
+
     \CommentTok{# character return to get the heaviest member}
     \DataTypeTok{first_animal =} \KeywordTok{map_chr}\NormalTok{(data, }\ControlFlowTok{function}\NormalTok{(df) \{}
-      \KeywordTok{arrange}\NormalTok{(df, }\OperatorTok{-}\NormalTok{mass_g) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{        }\NormalTok{.}\OperatorTok{$}\NormalTok{binomial }\OperatorTok{%>%}\StringTok{ }
+      \KeywordTok{arrange}\NormalTok{(df, }\OperatorTok{-}\NormalTok{mass_g) }\OperatorTok{%>%}
+\StringTok{        }\NormalTok{.}\OperatorTok{$}\NormalTok{binomial }\OperatorTok{%>%}
 \StringTok{        }\KeywordTok{first}\NormalTok{()\}}
 \NormalTok{    )}
 \NormalTok{  )}
@@ -3628,13 +3628,13 @@ In this example, the nested tibble is given a new column using \texttt{dplyr::mu
 
 \NormalTok{nested_data =}\StringTok{ }\KeywordTok{mutate}\NormalTok{(nested_data,}
               \DataTypeTok{model =} \KeywordTok{map_if}\NormalTok{(}\DataTypeTok{.x =}\NormalTok{ data,}
-                             
+
                              \CommentTok{# this is the predicate}
                              \CommentTok{# which elements should be operated on?}
                              \DataTypeTok{.p =} \ControlFlowTok{function}\NormalTok{(x)\{}
                                \KeywordTok{nrow}\NormalTok{(x) }\OperatorTok{>}\StringTok{ }\DecValTok{100}
 \NormalTok{                             \},}
-                             
+
                              \CommentTok{# this is the function to use}
                              \CommentTok{# if the predicate is satisfied}
                              \DataTypeTok{.f =} \ControlFlowTok{function}\NormalTok{(x)\{}
@@ -3671,7 +3671,7 @@ Here \texttt{map2\_int} returns an integer vector.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# consider 2 vectors and replicate the simple vector addition using map2}
-\KeywordTok{map2_int}\NormalTok{(}\DataTypeTok{.x =} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{, }
+\KeywordTok{map2_int}\NormalTok{(}\DataTypeTok{.x =} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{,}
          \DataTypeTok{.y =} \DecValTok{6}\OperatorTok{:}\DecValTok{10}\NormalTok{,}
          \DataTypeTok{.f =}\NormalTok{ sum)}
 \CommentTok{#> [1]  7  9 11 13 15}
@@ -3761,25 +3761,25 @@ In the pipeline:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{nested_data <-}
-\StringTok{  }\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\NormalTok{tidyr}\OperatorTok{::}\KeywordTok{nest}\NormalTok{(}\DataTypeTok{data =} \OperatorTok{-}\NormalTok{order) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{data }\OperatorTok{%>%}
+\StringTok{  }\NormalTok{tidyr}\OperatorTok{::}\KeywordTok{nest}\NormalTok{(}\DataTypeTok{data =} \OperatorTok{-}\NormalTok{order) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(data,}
          \DataTypeTok{model =} \KeywordTok{map_if}\NormalTok{(}\DataTypeTok{.x =}\NormalTok{ data,}
-                        
+
                         \CommentTok{# this is the predicate}
                         \CommentTok{# which elements should be operated on?}
                         \DataTypeTok{.p =} \ControlFlowTok{function}\NormalTok{(x)\{}
                           \KeywordTok{nrow}\NormalTok{(x) }\OperatorTok{>}\StringTok{ }\DecValTok{100}
 \NormalTok{                        \},}
-                        
+
                         \CommentTok{# this is the function to use}
                         \CommentTok{# if the predicate is satisfied}
                         \DataTypeTok{.f =} \ControlFlowTok{function}\NormalTok{(x)\{}
                           \KeywordTok{lm}\NormalTok{(mass_g }\OperatorTok{~}\StringTok{ }\NormalTok{diet_plant, }\DataTypeTok{data =}\NormalTok{ x)}
-\NormalTok{                        \})) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }
+\NormalTok{                        \})) }\OperatorTok{%>%}
+
 \StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{m_coef =} \KeywordTok{map}\NormalTok{(model,}
-                      
+
                       \CommentTok{# use case when to get model coefficients}
                       \ControlFlowTok{function}\NormalTok{(x) \{}
 \NormalTok{                        dplyr}\OperatorTok{::}\KeywordTok{case_when}\NormalTok{(}
@@ -3789,19 +3789,19 @@ In the pipeline:
                           \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\NormalTok{\{}
                             \KeywordTok{list}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{,}\OtherTok{NA}\NormalTok{))}
 \NormalTok{                          \}}
-\NormalTok{                        )\}), }
-         
+\NormalTok{                        )\}),}
+
          \CommentTok{# work on the two element double vector of coefficients}
          \DataTypeTok{m_coef =} \KeywordTok{map}\NormalTok{(m_coef, }\ControlFlowTok{function}\NormalTok{(x)\{}
            \KeywordTok{tibble}\NormalTok{(}\DataTypeTok{coef =} \KeywordTok{unlist}\NormalTok{(x),}
-                  \DataTypeTok{param =} \KeywordTok{c}\NormalTok{(}\StringTok{"intercept"}\NormalTok{, }\StringTok{"diet_plant"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+                  \DataTypeTok{param =} \KeywordTok{c}\NormalTok{(}\StringTok{"intercept"}\NormalTok{, }\StringTok{"diet_plant"}\NormalTok{)) }\OperatorTok{%>%}
 \StringTok{             }\KeywordTok{pivot_wider}\NormalTok{(}\DataTypeTok{names_from =} \StringTok{"param"}\NormalTok{,}
                          \DataTypeTok{values_from =} \StringTok{"coef"}\NormalTok{)}
 \NormalTok{         \}),}
-         
+
          \CommentTok{# work on the raw data and the coefficients}
          \DataTypeTok{plot =} \KeywordTok{pmap}\NormalTok{(}\KeywordTok{list}\NormalTok{(order, data, m_coef), }\ControlFlowTok{function}\NormalTok{(ord, x, y)\{}
-           
+
            \CommentTok{# pay no attention to the ggplot for now}
 \NormalTok{           ggplot2}\OperatorTok{::}\KeywordTok{ggplot}\NormalTok{()}\OperatorTok{+}
 \StringTok{             }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ x,}
@@ -3824,10 +3824,10 @@ In the example, phylacine is split by order, and then by IUCN status, creating a
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# use map to make a 2 level list}
-\NormalTok{this_list =}\StringTok{ }\KeywordTok{split}\NormalTok{(data, data}\OperatorTok{$}\NormalTok{order) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{this_list =}\StringTok{ }\KeywordTok{split}\NormalTok{(data, data}\OperatorTok{$}\NormalTok{order) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{map}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(df)\{ }\KeywordTok{split}\NormalTok{(df, df}\OperatorTok{$}\NormalTok{iucn_status) \})}
 
-\CommentTok{# map over the second level to count the number of }
+\CommentTok{# map over the second level to count the number of}
 \CommentTok{# species in each order in each IUCN class}
 \CommentTok{# display only the first element}
 \KeywordTok{map_depth}\NormalTok{(this_list[}\DecValTok{1}\NormalTok{], }\DecValTok{2}\NormalTok{, nrow)}
@@ -3916,13 +3916,13 @@ In the example, simply adding 2 to each vector element produces an error, becaus
 
 \KeywordTok{tryCatch}\NormalTok{(}
   \DataTypeTok{expr =}\NormalTok{ \{}
-    
+
     \CommentTok{# this is what we want you to look at}
-    
+
     \KeywordTok{modify}\NormalTok{(vec, }\ControlFlowTok{function}\NormalTok{(x) \{ (x }\OperatorTok{+}\StringTok{ }\DecValTok{2}\NormalTok{) \})}
-    
+
 \NormalTok{  \},}
-  
+
   \CommentTok{# do not pay attention to this}
   \DataTypeTok{error =} \ControlFlowTok{function}\NormalTok{(e)\{}
     \KeywordTok{print}\NormalTok{(}\KeywordTok{toString}\NormalTok{(e))}
@@ -3987,7 +3987,7 @@ Lists can be filtered on any predicate using \texttt{keep}, while the special ca
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\DecValTok{1}\OperatorTok{:}\DecValTok{10} \OperatorTok{%>%}\StringTok{ }
+\DecValTok{1}\OperatorTok{:}\DecValTok{10} \OperatorTok{%>%}
 \StringTok{  }\KeywordTok{head_while}\NormalTok{(}\DataTypeTok{.p =} \ControlFlowTok{function}\NormalTok{(x) x }\OperatorTok{<}\StringTok{ }\DecValTok{5}\NormalTok{)}
 \CommentTok{#> [1] 1 2 3 4}
 \end{Highlighting}
@@ -4026,7 +4026,7 @@ The way \texttt{reduce} works in the example below is to take the first element 
 \NormalTok{  \})}
 
 \CommentTok{# get cars which appear in all samples}
-\NormalTok{sampled_data =}\StringTok{ }\KeywordTok{reduce}\NormalTok{(sampled_data, }
+\NormalTok{sampled_data =}\StringTok{ }\KeywordTok{reduce}\NormalTok{(sampled_data,}
 \NormalTok{                      dplyr}\OperatorTok{::}\NormalTok{inner_join)}
 \end{Highlighting}
 \end{Shaded}
@@ -4084,7 +4084,7 @@ Both functions can be used in much more complex ways than demonstrated here.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{this_list =}\StringTok{ }\KeywordTok{split}\NormalTok{(data, data}\OperatorTok{$}\NormalTok{order) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{this_list =}\StringTok{ }\KeywordTok{split}\NormalTok{(data, data}\OperatorTok{$}\NormalTok{order) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{map}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(df) \{}\KeywordTok{split}\NormalTok{(df, df}\OperatorTok{$}\NormalTok{iucn_status)\})}
 \end{Highlighting}
 \end{Shaded}
@@ -4092,7 +4092,7 @@ Both functions can be used in much more complex ways than demonstrated here.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# from a list of lists where species are divided by order and then}
-\CommentTok{# iucn_status, this is now a list of lists where species are }
+\CommentTok{# iucn_status, this is now a list of lists where species are}
 \CommentTok{# divided by status and then order}
 \KeywordTok{transpose}\NormalTok{(this_list[}\DecValTok{1}\NormalTok{])}
 \end{Highlighting}
@@ -4138,10 +4138,10 @@ The grammar of graphics is a system of rules on how to structure plots such that
 Here is the backbone of a ggplot statement (I will from now on use ``ggplot'' to refer to an object of class \texttt{ggplot}, the output of the \texttt{ggplot} function and the object that contains our graphic), taken from the book \href{https://r4ds.had.co.nz/}{R for Data Science}:
 
 \begin{verbatim}
-ggplot(data = <DATA>) + 
+ggplot(data = <DATA>) +
   <GEOM_FUNCTION>(
      mapping = aes(<MAPPINGS>),
-     stat = <STAT>, 
+     stat = <STAT>,
      position = <POSITION>
   ) +
   <COORDINATE_FUNCTION> +
@@ -4532,7 +4532,7 @@ The default way that the plotting window is organized is an orthogonal space wit
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(data2, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{factor}\NormalTok{(conc), }\DataTypeTok{y =}\NormalTok{ ratio)) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(data2, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{factor}\NormalTok{(conc), }\DataTypeTok{y =}\NormalTok{ ratio)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_violin}\NormalTok{() }\OperatorTok{+}
 \StringTok{  }\KeywordTok{coord_flip}\NormalTok{()}
 \end{Highlighting}
@@ -4768,7 +4768,7 @@ The functions \texttt{ggtitle}, \texttt{xlab}, \texttt{ylab} and \texttt{labs} a
 \StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Mutational ratio"}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{color =} \KeywordTok{parse}\NormalTok{(}\DataTypeTok{text =} \StringTok{"'CFU at '~T[1]"}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\CommentTok{# plotmath expression}
 \StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}
-    \StringTok{"A very important experiment"}\NormalTok{, }
+    \StringTok{"A very important experiment"}\NormalTok{,}
     \StringTok{"So important it deserves a subtitle"}
 \NormalTok{  )}
 \NormalTok{p}
@@ -4799,10 +4799,10 @@ The individual elements of the theme, e.g.~the background grid or the color of t
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }
+\NormalTok{p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}
 \StringTok{  }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
 \StringTok{  }\KeywordTok{theme}\NormalTok{(}
-    \DataTypeTok{legend.position =} \StringTok{"left"}\NormalTok{, }
+    \DataTypeTok{legend.position =} \StringTok{"left"}\NormalTok{,}
     \DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{60}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{)}
 \NormalTok{  )}
 \NormalTok{p}
@@ -4861,7 +4861,7 @@ But this behavior can be controlled. You can use the arguments of the \texttt{sc
     \StringTok{"color legend"}\NormalTok{, }\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"forestgreen"}\NormalTok{, }\StringTok{"goldenrod"}\NormalTok{, }\StringTok{"mediumseagreen"}\NormalTok{)}
 \NormalTok{  ) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{scale_shape_manual}\NormalTok{(}
-    \StringTok{"shape legend"}\NormalTok{, }\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\DecValTok{16}\NormalTok{, }\DecValTok{17}\NormalTok{, }\DecValTok{18}\NormalTok{), }
+    \StringTok{"shape legend"}\NormalTok{, }\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\DecValTok{16}\NormalTok{, }\DecValTok{17}\NormalTok{, }\DecValTok{18}\NormalTok{),}
     \DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"Control"}\NormalTok{, }\StringTok{"Strain 1"}\NormalTok{, }\StringTok{"Strain 2"}\NormalTok{)}
 \NormalTok{  )}
 \end{Highlighting}
@@ -5008,7 +5008,7 @@ Let us go a bit further. Now we want to combine plots for each \texttt{strain} i
 \StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{data) }\OperatorTok{%>%}\StringTok{ }\CommentTok{# just to clean up a bit}
 \StringTok{  }\KeywordTok{group_by}\NormalTok{(assay) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{nest}\NormalTok{() }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{combifig =} \KeywordTok{map}\NormalTok{(data, }\OperatorTok{~}\StringTok{ }\KeywordTok{wrap_plots}\NormalTok{(.x}\OperatorTok{$}\NormalTok{fig))) }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{combifig =} \KeywordTok{map}\NormalTok{(data, }\OperatorTok{~}\StringTok{ }\KeywordTok{wrap_plots}\NormalTok{(.x}\OperatorTok{$}\NormalTok{fig)))}
 \NormalTok{newdata}
 \CommentTok{#> # A tibble: 2 x 3}
 \CommentTok{#> # Groups:   assay [2]}
@@ -5081,7 +5081,9 @@ Some things, however, are missing from \texttt{ggplot2}. Fortunately, there are 
 \end{itemize}
 
 \hypertarget{regular-expressions-and-testthat}{%
-\chapter{\texorpdfstring{06. Regular expressions and \texttt{testthat}}{06. Regular expressions and testthat}}\label{regular-expressions-and-testthat}}
+\chapter{\texorpdfstring{Regular expressions and \texttt{testthat}}{Regular expressions and testthat}}\label{regular-expressions-and-testthat}}
+
+Richel Bilderbeek
 
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
@@ -5129,7 +5131,7 @@ Answer, for each line: (1) what is it? (2) why did you think to?
 Lithium-ion batteries play a central role in the world of technology.
 But would it be safe to simply orbit the planet?
 Your Next Samsung Phone May Not Come With a Charger in the Box
-The restrictions would end 90 days after Portland's state of emergency order lifts. 
+The restrictions would end 90 days after Portland's state of emergency order lifts.
 Those cities have limits at 15%.
 \end{verbatim}
 
@@ -5155,7 +5157,7 @@ Your Next Samsung Phone May Not Come With a Charger in the Box
 This is a title, because most words start with an uppercase character.
 
 \begin{verbatim}
-The restrictions would end 90 days after Portland's state of emergency order lifts. 
+The restrictions would end 90 days after Portland's state of emergency order lifts.
 \end{verbatim}
 
 This is a sentence with a decimal number, because there is a sequence of
@@ -5379,7 +5381,7 @@ expect_false(is_a_one(Inf))
 \begin{Highlighting}[]
 \NormalTok{is_a_one <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(text) \{}
   \KeywordTok{length}\NormalTok{(stringr}\OperatorTok{::}\KeywordTok{str_which}\NormalTok{(text, }\StringTok{"^1$"}\NormalTok{)) }\OperatorTok{==}\StringTok{ }\DecValTok{1}
-\NormalTok{\} }
+\NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5430,7 +5432,7 @@ expect_false(is_a_digit(Inf))
 \begin{Highlighting}[]
 \NormalTok{is_a_digit <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(text) \{}
   \KeywordTok{length}\NormalTok{(stringr}\OperatorTok{::}\KeywordTok{str_which}\NormalTok{(text, }\StringTok{"^[:digit:]$"}\NormalTok{)) }\OperatorTok{==}\StringTok{ }\DecValTok{1}
-\NormalTok{\} }
+\NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5498,7 +5500,7 @@ expect_false(is_a_word(Inf))
 \begin{Highlighting}[]
 \NormalTok{is_a_word <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(text) \{}
   \KeywordTok{length}\NormalTok{(stringr}\OperatorTok{::}\KeywordTok{str_which}\NormalTok{(text, }\StringTok{"^[:lower:]+$"}\NormalTok{)) }\OperatorTok{==}\StringTok{ }\DecValTok{1}
-\NormalTok{\} }
+\NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5570,7 +5572,7 @@ expect_false(is_dna_sequence(Inf))
 \begin{Highlighting}[]
 \NormalTok{is_dna_sequence <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(text) \{}
   \KeywordTok{length}\NormalTok{(stringr}\OperatorTok{::}\KeywordTok{str_which}\NormalTok{(text, }\StringTok{"^[ACGT]+$"}\NormalTok{)) }\OperatorTok{==}\StringTok{ }\DecValTok{1}
-\NormalTok{\} }
+\NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5762,7 +5764,7 @@ All of this in one go:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{matches <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{discard}\NormalTok{(}
-\NormalTok{  stringr}\OperatorTok{::}\KeywordTok{str_match}\NormalTok{(text, }\StringTok{">(.*)"}\NormalTok{)[, }\DecValTok{2}\NormalTok{], }
+\NormalTok{  stringr}\OperatorTok{::}\KeywordTok{str_match}\NormalTok{(text, }\StringTok{">(.*)"}\NormalTok{)[, }\DecValTok{2}\NormalTok{],}
 \NormalTok{  is.na}
 \NormalTok{)}
 \KeywordTok{expect_equal}\NormalTok{(}\KeywordTok{length}\NormalTok{(matches), }\DecValTok{30}\NormalTok{)}
@@ -5883,8 +5885,8 @@ From `Work with Strings Cheatsheet', \url{https://rstudio.com/resources/cheatshe
 \begin{Highlighting}[]
 \NormalTok{s <-}\StringTok{ "UnitedKingdom"}
 \NormalTok{t <-}\StringTok{ }\NormalTok{stringr}\OperatorTok{::}\KeywordTok{str_replace}\NormalTok{(}
-\NormalTok{  s, }
-  \StringTok{"([:upper:][:lower:]+)([:upper:][:lower:]+)"}\NormalTok{, }
+\NormalTok{  s,}
+  \StringTok{"([:upper:][:lower:]+)([:upper:][:lower:]+)"}\NormalTok{,}
   \StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{1 }\CharTok{\textbackslash{}\textbackslash{}}\StringTok{2"}
 \NormalTok{)}
 \KeywordTok{expect_equal}\NormalTok{(}\StringTok{"United Kingdom"}\NormalTok{, t)}
@@ -6032,7 +6034,7 @@ Get some data from \emph{Phylacine}, and attempt to select or filter.
 \NormalTok{data =}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/phylacine_traits.csv"}\NormalTok{)}
 
 \CommentTok{# regular filtering}
-\NormalTok{small_mammals =}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{small_mammals =}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(Mass.g }\OperatorTok{<}\StringTok{ }\DecValTok{1000}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -6040,7 +6042,7 @@ Get some data from \emph{Phylacine}, and attempt to select or filter.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# filtering on a string}
-\NormalTok{small_mammals_too =}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{small_mammals_too =}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{filter}\NormalTok{(}\StringTok{"Mass.g"} \OperatorTok{<}\StringTok{ }\DecValTok{1000}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -6096,10 +6098,10 @@ Consider an analysis pipeline as follows.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{select}\NormalTok{(Mass.g, Diet.Plant, Order.}\FloatTok{1.2}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(Order.}\FloatTok{1.2}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{summarise_all}\NormalTok{(}\DataTypeTok{.funs =}\NormalTok{ mean) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{data }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(Mass.g, Diet.Plant, Order.}\FloatTok{1.2}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Order.}\FloatTok{1.2}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise_all}\NormalTok{(}\DataTypeTok{.funs =}\NormalTok{ mean) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{head}\NormalTok{()}
 \CommentTok{#> # A tibble: 6 x 3}
 \CommentTok{#>   Order.1.2          Mass.g Diet.Plant}
@@ -6117,9 +6119,9 @@ Now consider that this analysis pipeline is repeated many times in your document
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{data <-}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  `}\DataTypeTok{colnames<-}\StringTok{`}\NormalTok{(}\KeywordTok{str_replace_all}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(data), }\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{."}\NormalTok{, }\StringTok{"_"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{                 }\NormalTok{str_to_lower }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{data <-}\StringTok{ }\NormalTok{data }\OperatorTok{%>%}
+\StringTok{  `}\DataTypeTok{colnames<-}\StringTok{`}\NormalTok{(}\KeywordTok{str_replace_all}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(data), }\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{."}\NormalTok{, }\StringTok{"_"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{                 }\NormalTok{str_to_lower }\OperatorTok{%>%}
 \StringTok{                 }\KeywordTok{str_remove}\NormalTok{(}\StringTok{"_1_2"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
@@ -6128,12 +6130,12 @@ The group-summarise code above will no longer work.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{try_this}\NormalTok{(}\DataTypeTok{ex =} 
-           
-\NormalTok{    data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{      }\KeywordTok{select}\NormalTok{(Mass.g, Diet.Plant, Order.}\FloatTok{1.2}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{      }\KeywordTok{group_by}\NormalTok{(Order.}\FloatTok{1.2}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{      }\KeywordTok{summarise_all}\NormalTok{(}\DataTypeTok{.funs =}\NormalTok{ mean) }\OperatorTok{%>%}\StringTok{ }
+\KeywordTok{try_this}\NormalTok{(}\DataTypeTok{ex =}
+
+\NormalTok{    data }\OperatorTok{%>%}
+\StringTok{      }\KeywordTok{select}\NormalTok{(Mass.g, Diet.Plant, Order.}\FloatTok{1.2}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{      }\KeywordTok{group_by}\NormalTok{(Order.}\FloatTok{1.2}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{      }\KeywordTok{summarise_all}\NormalTok{(}\DataTypeTok{.funs =}\NormalTok{ mean) }\OperatorTok{%>%}
 \StringTok{      }\KeywordTok{head}\NormalTok{()}
 \NormalTok{)}
 \CommentTok{#> Error: Can't subset columns that don't exist.}
@@ -6158,11 +6160,11 @@ This runs into the problem identified earlier.
 
 \CommentTok{# attempt to select and summarise on group}
 \CommentTok{# the tidyverse will not be pleased}
-\KeywordTok{try_this}\NormalTok{(}\DataTypeTok{ex =} 
-           
-\NormalTok{    data }\OperatorTok{%>%}\StringTok{ }
+\KeywordTok{try_this}\NormalTok{(}\DataTypeTok{ex =}
+
+\NormalTok{    data }\OperatorTok{%>%}
 \StringTok{      }\KeywordTok{select}\NormalTok{(vars_to_select) }\OperatorTok{%>%}\StringTok{ }\CommentTok{# this works with a warning}
-\StringTok{      }\KeywordTok{group_by}\NormalTok{(vars_to_group) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{group_by}\NormalTok{(vars_to_group) }\OperatorTok{%>%}
 \StringTok{      }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_mass =} \KeywordTok{mean}\NormalTok{(Mass.g),}
                 \DataTypeTok{mean_plant =} \KeywordTok{mean}\NormalTok{(Diet.Plant))}
 \NormalTok{)}
@@ -6197,13 +6199,13 @@ The attempt below to write such a function, which gives the mean and confidence 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{custom_summary <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, filters, grouping_vars, summary_vars) \{}
-  
-\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{filter}\NormalTok{(filters) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{group_by}\NormalTok{(grouping_vars) }\OperatorTok{%>%}\StringTok{ }
+
+\NormalTok{  data }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(filters) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(grouping_vars) }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean =} \KeywordTok{mean}\NormalTok{(summary_vars),}
               \DataTypeTok{ci =} \KeywordTok{ci}\NormalTok{(summary_vars))}
-  
+
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -6214,8 +6216,8 @@ The attempt below to write such a function, which gives the mean and confidence 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# this is going to fail, so look at the error message}
-\KeywordTok{try_this}\NormalTok{(}\DataTypeTok{ex =} \KeywordTok{custom_summary}\NormalTok{(data, }
-                   \DataTypeTok{filters =} \KeywordTok{list}\NormalTok{(mass_g }\OperatorTok{>}\StringTok{ }\DecValTok{1000}\NormalTok{), }
+\KeywordTok{try_this}\NormalTok{(}\DataTypeTok{ex =} \KeywordTok{custom_summary}\NormalTok{(data,}
+                   \DataTypeTok{filters =} \KeywordTok{list}\NormalTok{(mass_g }\OperatorTok{>}\StringTok{ }\DecValTok{1000}\NormalTok{),}
                    \DataTypeTok{grouping_vars =} \KeywordTok{list}\NormalTok{(order, family),}
                    \DataTypeTok{summary_vars =} \KeywordTok{list}\NormalTok{(diet_plant))}
 \NormalTok{         )}
@@ -6237,8 +6239,8 @@ The example below tries to get \texttt{filter} to work. What could be tried? One
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# it doesn't matter whether filters is a vector or list}
-\KeywordTok{try_this}\NormalTok{(}\DataTypeTok{ex =} \KeywordTok{custom_summary}\NormalTok{(data, }
-                   \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+\KeywordTok{try_this}\NormalTok{(}\DataTypeTok{ex =} \KeywordTok{custom_summary}\NormalTok{(data,}
+                   \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{),}
                    \DataTypeTok{grouping_vars =} \KeywordTok{list}\NormalTok{(order, family),}
                    \DataTypeTok{summary_vars =} \KeywordTok{list}\NormalTok{(diet_plant))}
 \NormalTok{         )}
@@ -6308,13 +6310,13 @@ This fixes both the variable to be filtered by, as well as the cut-off value. Th
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data,}
                           \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{)) \{}
-  
+
   \CommentTok{# THIS IS THE IMPORTANT BIT}
 \NormalTok{  filters =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)}
-  
-\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+
+\NormalTok{  data }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{filters)}
 \NormalTok{\}}
 \end{Highlighting}
@@ -6325,10 +6327,10 @@ Try this function with single and multiple filters.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# mammals above a kilo}
-\KeywordTok{custom_summary}\NormalTok{(data, }
-               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\KeywordTok{custom_summary}\NormalTok{(data,}
+               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{)) }\OperatorTok{%>%}
 
-\StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{head}\NormalTok{()}
 \CommentTok{#> # A tibble: 6 x 2}
 \CommentTok{#>   binomial                mass_g}
@@ -6345,12 +6347,12 @@ Try this function with single and multiple filters.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# mammals between 250 and 500 g and which are mostly carnivorous}
-\KeywordTok{custom_summary}\NormalTok{(data, }
+\KeywordTok{custom_summary}\NormalTok{(data,}
                \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"between(mass_g, 250, 500)"}\NormalTok{,}
-                           \StringTok{"diet_plant < 10"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+                           \StringTok{"diet_plant < 10"}\NormalTok{)) }\OperatorTok{%>%}
 
-\StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g, diet_plant) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }
+\StringTok{  }\KeywordTok{select}\NormalTok{(binomial, mass_g, diet_plant) }\OperatorTok{%>%}
+
 \StringTok{  }\KeywordTok{head}\NormalTok{()}
 \CommentTok{#> # A tibble: 6 x 3}
 \CommentTok{#>   binomial                mass_g diet_plant}
@@ -6377,15 +6379,15 @@ Here, they are used to accept the grouping variables.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data,}
                           \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{),}
 \NormalTok{                          ...) \{}
   \CommentTok{# deal with groups}
 \NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{enquos}\NormalTok{(...)}
-  
-\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+
+\NormalTok{  data }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
-\StringTok{    }
+
 \StringTok{    }\CommentTok{# this is the important bit}
 \StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars)}
 \NormalTok{\}}
@@ -6396,9 +6398,9 @@ Try the function again, and check the grouping variables.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{custom_summary}\NormalTok{(data, }
-               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
-\NormalTok{               order, family) }\OperatorTok{%>%}\StringTok{ }
+\KeywordTok{custom_summary}\NormalTok{(data,}
+               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{),}
+\NormalTok{               order, family) }\OperatorTok{%>%}
 
 \StringTok{  }\KeywordTok{group_vars}\NormalTok{()}
 \CommentTok{#> [1] "order"  "family"}
@@ -6418,15 +6420,15 @@ This can be done by interpreting the string vector as \texttt{R} symbols using \
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
-                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data,}
+                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{),}
 \NormalTok{                          grouping_vars) \{}
   \CommentTok{# deal with groups}
 \NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{syms}\NormalTok{(grouping_vars)}
-  
-\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+
+\NormalTok{  data }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
-\StringTok{    }
+
 \StringTok{    }\CommentTok{# this is the important bit}
 \StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars)}
 \NormalTok{\}}
@@ -6435,12 +6437,12 @@ This can be done by interpreting the string vector as \texttt{R} symbols using \
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{custom_summary}\NormalTok{(data, }
-               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+\KeywordTok{custom_summary}\NormalTok{(data,}
+               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{),}
                \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"order"}\NormalTok{, }\StringTok{"family"}\NormalTok{)}
-\NormalTok{              ) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }
-\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_mass =} \KeywordTok{mean}\NormalTok{(mass_g)) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{              ) }\OperatorTok{%>%}
+
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_mass =} \KeywordTok{mean}\NormalTok{(mass_g)) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{head}\NormalTok{()}
 \CommentTok{#> # A tibble: 6 x 3}
 \CommentTok{#> # Groups:   order [2]}
@@ -6460,15 +6462,15 @@ This can be done by interpreting the string vector as \texttt{R} symbols using \
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
-                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data,}
+                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{),}
 \NormalTok{                          grouping_vars) \{}
   \CommentTok{# deal with groups}
 \NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
-  
-\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+
+\NormalTok{  data }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
-\StringTok{    }
+
 \StringTok{    }\CommentTok{# this is the important bit}
 \StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars)}
 \NormalTok{\}}
@@ -6477,12 +6479,12 @@ This can be done by interpreting the string vector as \texttt{R} symbols using \
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{custom_summary}\NormalTok{(data, }
-               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+\KeywordTok{custom_summary}\NormalTok{(data,}
+               \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{),}
                \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"family"}\NormalTok{, }\StringTok{"iucn_status"}\NormalTok{)}
-\NormalTok{              ) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{              ) }\OperatorTok{%>%}
 
-\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_mass =} \KeywordTok{mean}\NormalTok{(mass_g)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_mass =} \KeywordTok{mean}\NormalTok{(mass_g)) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{head}\NormalTok{()}
 \CommentTok{#> # A tibble: 6 x 3}
 \CommentTok{#> # Groups:   family [5]}
@@ -6509,20 +6511,20 @@ Simply pass a string vector to the \texttt{.vars} argument of \texttt{summarise\
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
-                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data,}
+                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{),}
 \NormalTok{                          grouping_vars,}
 \NormalTok{                          summary_vars,}
 \NormalTok{                          summary_funs) \{}
   \CommentTok{# deal with groups}
 \NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
-  
-\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+
+\NormalTok{  data }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}
+
 \StringTok{    }\CommentTok{# important bit}
-\StringTok{    }\KeywordTok{summarise_at}\NormalTok{(}\DataTypeTok{.vars =}\NormalTok{ summary_vars, }
+\StringTok{    }\KeywordTok{summarise_at}\NormalTok{(}\DataTypeTok{.vars =}\NormalTok{ summary_vars,}
                  \DataTypeTok{.funs =}\NormalTok{ summary_funs)}
 \NormalTok{\}}
 \end{Highlighting}
@@ -6558,17 +6560,17 @@ This example makes use of embracing using \texttt{\{\{\ \}\}}, where the double 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
-                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{), }
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data,}
+                          \DataTypeTok{filters =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g > 1000"}\NormalTok{),}
 \NormalTok{                          grouping_vars,}
 \NormalTok{                          summary_vars) \{}
   \CommentTok{# deal with groups}
 \NormalTok{  grouping_vars =}\StringTok{ }\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
-  
-\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
+
+\NormalTok{  data }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}
+
 \StringTok{    }\CommentTok{# important bit}
 \StringTok{    }\KeywordTok{summarise}\NormalTok{(}\KeywordTok{across}\NormalTok{(\{\{ summary_vars \}\},}
               \OperatorTok{~}\StringTok{ }\KeywordTok{mean}\NormalTok{(.)))}
@@ -6580,8 +6582,8 @@ This example makes use of embracing using \texttt{\{\{\ \}\}}, where the double 
 \begin{Highlighting}[]
 \KeywordTok{custom_summary}\NormalTok{(data,}
                \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"order"}\NormalTok{, }\StringTok{"family"}\NormalTok{),}
-               \DataTypeTok{summary_vars =} \KeywordTok{c}\NormalTok{(mass_g, diet_plant)) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }
+               \DataTypeTok{summary_vars =} \KeywordTok{c}\NormalTok{(mass_g, diet_plant)) }\OperatorTok{%>%}
+
 \StringTok{  }\KeywordTok{head}\NormalTok{()}
 \CommentTok{#> # A tibble: 6 x 4}
 \CommentTok{#> # Groups:   order [2]}
@@ -6602,12 +6604,12 @@ This example makes use of embracing using \texttt{\{\{\ \}\}}, where the double 
 \begin{Highlighting}[]
 \CommentTok{# mean and sd}
 \NormalTok{data }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{group_by}\NormalTok{(order, family) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(order, family) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{summarise}\NormalTok{(}\KeywordTok{across}\NormalTok{(}\KeywordTok{c}\NormalTok{(mass_g, diet_plant),}
                    \KeywordTok{list}\NormalTok{(}\OperatorTok{~}\StringTok{ }\KeywordTok{mean}\NormalTok{(.),}
                         \OperatorTok{~}\StringTok{ }\KeywordTok{sd}\NormalTok{(.))}
 \NormalTok{                   )}
-\NormalTok{            ) }\OperatorTok{%>%}\StringTok{ }
+\NormalTok{            ) }\OperatorTok{%>%}
 \StringTok{  }\KeywordTok{head}\NormalTok{()}
 \CommentTok{#> # A tibble: 6 x 6}
 \CommentTok{#> # Groups:   order [2]}
@@ -6630,25 +6632,25 @@ Then the variables are forcibly evaluated within the \texttt{mean} function, and
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data,}
 \NormalTok{                          grouping_vars,}
 \NormalTok{                          filters,}
 \NormalTok{                          ...) \{}
   \CommentTok{# deal with groups}
 \NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
-  
+
   \CommentTok{# deal with summary variables}
 \NormalTok{  summary_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{enquos}\NormalTok{(...)}
-  
+
   \CommentTok{# apply the summary function to the variables}
 \NormalTok{  summary_vars <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map}\NormalTok{(summary_vars, }\ControlFlowTok{function}\NormalTok{(var) \{}
 \NormalTok{    rlang}\OperatorTok{::}\KeywordTok{expr}\NormalTok{(}\KeywordTok{mean}\NormalTok{(}\OperatorTok{!!}\NormalTok{var, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{))}
 \NormalTok{  \})}
-  
-\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }
+
+\NormalTok{  data }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}
+
 \StringTok{    }\CommentTok{# important bit}
 \StringTok{    }\KeywordTok{summarise}\NormalTok{(}\OperatorTok{!!!}\NormalTok{summary_vars)}
 \NormalTok{\}}
@@ -6660,8 +6662,8 @@ Then the variables are forcibly evaluated within the \texttt{mean} function, and
 \KeywordTok{custom_summary}\NormalTok{(data,}
                \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"order"}\NormalTok{, }\StringTok{"family"}\NormalTok{),}
                \DataTypeTok{filters =} \StringTok{"mass_g > 10"}\NormalTok{,}
-\NormalTok{               mass_g, diet_plant) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }
+\NormalTok{               mass_g, diet_plant) }\OperatorTok{%>%}
+
 \StringTok{  }\KeywordTok{head}\NormalTok{()}
 \CommentTok{#> # A tibble: 6 x 4}
 \CommentTok{#> # Groups:   order [2]}
@@ -6691,28 +6693,28 @@ Since it is useful to add a tag to make clear what the summary variable is (mean
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data,}
 \NormalTok{                          grouping_vars,}
 \NormalTok{                          filters,}
 \NormalTok{                          ...) \{}
   \CommentTok{# deal with groups}
 \NormalTok{  grouping_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
-  
+
   \CommentTok{# deal with summary variables}
 \NormalTok{  summary_vars =}\StringTok{ }\NormalTok{rlang}\OperatorTok{::}\KeywordTok{enquos}\NormalTok{(..., }\DataTypeTok{.named =} \OtherTok{TRUE}\NormalTok{)}
-  
+
   \CommentTok{# apply the summary function to the variables}
 \NormalTok{  summary_vars <-}\StringTok{ }\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map}\NormalTok{(summary_vars, }\ControlFlowTok{function}\NormalTok{(var) \{}
 \NormalTok{    rlang}\OperatorTok{::}\KeywordTok{expr}\NormalTok{(}\KeywordTok{mean}\NormalTok{(}\OperatorTok{!!}\NormalTok{var, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{))}
 \NormalTok{  \})}
-  
+
   \CommentTok{# add a prefix to the summary variables}
   \KeywordTok{names}\NormalTok{(summary_vars) <-}\StringTok{ }\NormalTok{glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\StringTok{'mean_\{names(summary_vars)\}'}\NormalTok{)}
-  
-\NormalTok{  data }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{    }
+
+\NormalTok{  data }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\NormalTok{rlang}\OperatorTok{::}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}
+
 \StringTok{    }\CommentTok{# important bit}
 \StringTok{    }\KeywordTok{summarise}\NormalTok{(}\OperatorTok{!!!}\NormalTok{summary_vars)}
 \NormalTok{\}}
@@ -6724,8 +6726,8 @@ Since it is useful to add a tag to make clear what the summary variable is (mean
 \KeywordTok{custom_summary}\NormalTok{(data,}
                \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"order"}\NormalTok{, }\StringTok{"family"}\NormalTok{),}
                \DataTypeTok{filters =} \StringTok{"mass_g > 10"}\NormalTok{,}
-\NormalTok{               mass_g, diet_plant) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }
+\NormalTok{               mass_g, diet_plant) }\OperatorTok{%>%}
+
 \StringTok{  }\KeywordTok{head}\NormalTok{()}
 \CommentTok{#> # A tibble: 6 x 4}
 \CommentTok{#> # Groups:   order [2]}
@@ -6750,23 +6752,23 @@ This is done by passing the functions and the variables on which they should ope
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data, }
+\NormalTok{custom_summary =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(data,}
 \NormalTok{                          grouping_vars,}
 \NormalTok{                          filters,}
 \NormalTok{                          functions,}
 \NormalTok{                          summary_vars) \{}
   \CommentTok{# deal with groups}
 \NormalTok{  grouping_vars =}\StringTok{ }\KeywordTok{parse_exprs}\NormalTok{(grouping_vars)}
-  
+
   \CommentTok{# deal with summary variables}
   \CommentTok{# summary_vars = # enquos(..., .named = TRUE)}
-  
+
   \CommentTok{# apply the summary function to the variables}
 \NormalTok{  summary_exprs <-}\StringTok{ }\KeywordTok{parse_exprs}\NormalTok{(glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\StringTok{'\{functions\}(\{summary_vars\}, na.rm = TRUE)'}\NormalTok{))}
-  
+
   \CommentTok{# add a prefix to the summary variables}
   \KeywordTok{names}\NormalTok{(summary_exprs) <-}\StringTok{ }\NormalTok{glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\StringTok{'\{functions\}_\{summary_vars\}'}\NormalTok{)}
-  
+
 \NormalTok{  data }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!!!}\KeywordTok{parse_exprs}\NormalTok{(filters)) }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{group_by}\NormalTok{(}\OperatorTok{!!!}\NormalTok{grouping_vars) }\OperatorTok{%>%}
@@ -6783,8 +6785,8 @@ This is done by passing the functions and the variables on which they should ope
                \DataTypeTok{grouping_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"order"}\NormalTok{, }\StringTok{"family"}\NormalTok{),}
                \DataTypeTok{filters =} \StringTok{"mass_g > 10"}\NormalTok{,}
                \DataTypeTok{functions =} \KeywordTok{c}\NormalTok{(}\StringTok{"mean"}\NormalTok{, }\StringTok{"var"}\NormalTok{),}
-               \DataTypeTok{summary_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g"}\NormalTok{, }\StringTok{"diet_plant"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }
+               \DataTypeTok{summary_vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"mass_g"}\NormalTok{, }\StringTok{"diet_plant"}\NormalTok{)) }\OperatorTok{%>%}
+
 \StringTok{  }\KeywordTok{head}\NormalTok{()}
 \CommentTok{#> # A tibble: 6 x 4}
 \CommentTok{#> # Groups:   order [2]}
