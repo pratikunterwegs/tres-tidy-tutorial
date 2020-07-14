@@ -633,7 +633,6 @@ Take a look at `?testthat::expect_match`:
 >
 > expect_match() is a wrapper around grepl().
 > See its documentation for more detail about the individual arguments.
-```
 
 Use the base R regex dialect:
 
