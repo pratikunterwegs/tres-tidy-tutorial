@@ -498,3 +498,4 @@ ggplot(mtcars,
 ```
 
 This is not a good looking plot, because it breaks other rules of plot design, such as whether this sort of plot should be made at all. Labels and text need to be applied sparingly, for example drawing attention or adding information to outliers.
+
