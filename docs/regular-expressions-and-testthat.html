@@ -907,14 +907,11 @@ a pattern:</p>
 <p>expect_match() is a wrapper around grepl().
 See its documentation for more detail about the individual arguments.</p>
 </blockquote>
-<pre><code>
-Use the base R regex dialect:
-</code></pre>
-<p>expect_match(
-get_version(),
-“1\.[[:digit:]]”
-)
-```</p>
+<p>Use the base R regex dialect:</p>
+<pre><code>expect_match(
+  get_version(),
+  &quot;1\\.[[:digit:]]&quot;
+)</code></pre>
 </div>
 </div>
 <div id="bigger-picture" class="section level2">

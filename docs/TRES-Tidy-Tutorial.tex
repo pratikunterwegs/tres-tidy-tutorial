@@ -185,7 +185,7 @@ Data and reshaping & \href{https://tibble.tidyverse.org/}{tibble}, \href{https:/
 Manipulating data & \href{https://dplyr.tidyverse.org/}{dplyr} & Theo & 12/06/20\tabularnewline
 Working with lists and iteration & \href{https://purrr.tidyverse.org/}{purrr} & Pratik & 19/06/20\tabularnewline
 Plotting & \href{https://ggplot2.tidyverse.org/}{ggplot2} & Raphael & 26/06/20\tabularnewline
-Regular expressions & \href{https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html}{regex} & Richel & 03/07/20\tabularnewline
+Regular expressions & \href{https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html}{regex} & Richel & 17/07/20\tabularnewline
 Programming with the tidyverse & \href{https://rlang.r-lib.org/}{rlang} & Pratik & 10/07/20\tabularnewline
 \bottomrule
 \end{longtable}
@@ -5930,16 +5930,14 @@ expect\_match() is a wrapper around grepl().
 See its documentation for more detail about the individual arguments.
 \end{quote}
 
-\begin{verbatim}
-
 Use the base R regex dialect:
-\end{verbatim}
 
-expect\_match(
-get\_version(),
-``1\textbackslash{}.{[}{[}:digit:{]}{]}''
+\begin{verbatim}
+expect_match(
+  get_version(),
+  "1\\.[[:digit:]]"
 )
-```
+\end{verbatim}
 
 \hypertarget{bigger-picture}{%
 \section{Bigger picture}\label{bigger-picture}}
