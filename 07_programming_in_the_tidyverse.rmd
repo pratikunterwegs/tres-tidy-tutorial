@@ -40,13 +40,13 @@ Get some data from _Phylacine_, and attempt to select or filter.
 data = read_csv("data/phylacine_traits.csv")
 
 # regular filtering
-small_mammals = data %>% 
+small_mammals = data %>%
   filter(Mass.g < 1000)
 ```
 
 ```{r}
 # filtering on a string
-small_mammals_too = data %>% 
+small_mammals_too = data %>%
   filter("Mass.g" < 1000)
 ```
 
@@ -83,31 +83,31 @@ Consider an analysis pipeline as follows.
 `data %>% select variables %>% summarise by groups`
 
 ```{r}
-data %>% 
-  select(Mass.g, Diet.Plant, Order.1.2) %>% 
-  group_by(Order.1.2) %>% 
-  summarise_all(.funs = mean) %>% 
+data %>%
+  select(Mass.g, Diet.Plant, Order.1.2) %>%
+  group_by(Order.1.2) %>%
+  summarise_all(.funs = mean) %>%
   head()
 ```
 
 Now consider that this analysis pipeline is repeated many times in your document. Consider also that a well intentioned person has renamed the dataframe columns.
 
 ```{r}
-data <- data %>% 
-  `colnames<-`(str_replace_all(colnames(data), "\\.", "_") %>% 
-                 str_to_lower %>% 
+data <- data %>%
+  `colnames<-`(str_replace_all(colnames(data), "\\.", "_") %>%
+                 str_to_lower %>%
                  str_remove("_1_2"))
 ```
 
 The group-summarise code above will no longer work.
 
 ```{r}
-try_this(ex = 
-           
-    data %>% 
-      select(Mass.g, Diet.Plant, Order.1.2) %>% 
-      group_by(Order.1.2) %>% 
-      summarise_all(.funs = mean) %>% 
+try_this(ex =
+
+    data %>%
+      select(Mass.g, Diet.Plant, Order.1.2) %>%
+      group_by(Order.1.2) %>%
+      summarise_all(.funs = mean) %>%
       head()
 )
 ```
@@ -127,11 +127,11 @@ vars_to_group = c("Order.1.2")
 
 # attempt to select and summarise on group
 # the tidyverse will not be pleased
-try_this(ex = 
-           
-    data %>% 
+try_this(ex =
+
+    data %>%
       select(vars_to_select) %>% # this works with a warning
-      group_by(vars_to_group) %>% 
+      group_by(vars_to_group) %>%
       summarise(mean_mass = mean(Mass.g),
                 mean_plant = mean(Diet.Plant))
 )
@@ -158,13 +158,13 @@ ci <- function(x, ci = 95) {
 
 ```{r}
 custom_summary <- function(data, filters, grouping_vars, summary_vars) {
-  
-  data %>% 
-    filter(filters) %>% 
-    group_by(grouping_vars) %>% 
+
+  data %>%
+    filter(filters) %>%
+    group_by(grouping_vars) %>%
     summarise(mean = mean(summary_vars),
               ci = ci(summary_vars))
-  
+
 }
 ```
 
@@ -172,8 +172,8 @@ custom_summary <- function(data, filters, grouping_vars, summary_vars) {
 
 ```{r}
 # this is going to fail, so look at the error message
-try_this(ex = custom_summary(data, 
-                   filters = list(mass_g > 1000), 
+try_this(ex = custom_summary(data,
+                   filters = list(mass_g > 1000),
                    grouping_vars = list(order, family),
                    summary_vars = list(diet_plant))
          )
@@ -189,8 +189,8 @@ The example below tries to get `filter` to work. What could be tried? One option
 
 ```{r}
 # it doesn't matter whether filters is a vector or list
-try_this(ex = custom_summary(data, 
-                   filters = c("mass_g > 1000"), 
+try_this(ex = custom_summary(data,
+                   filters = c("mass_g > 1000"),
                    grouping_vars = list(order, family),
                    summary_vars = list(diet_plant))
          )
@@ -213,7 +213,7 @@ The argument could be passed as a list, but the `rlang::parse_exprs` function wo
 
 A full explanation of `R` works under the hood would take a very long time. A working knowledge of how this working can be exploited is usually sufficient to use most of `R`'s functionality.
 
-`R` expressions are one such. They represent a promise of `R` code, but without being evaluated. Any string can be parsed (interpreted) as an `R` expression. 
+`R` expressions are one such. They represent a promise of `R` code, but without being evaluated. Any string can be parsed (interpreted) as an `R` expression.
 
 What does `rlang::parse_exprs` do? It interprets a string as an `R` command.
 This expression can then be evaluated later. Consider the following, where `a` is assigned the `numeric` value 3.
@@ -244,13 +244,13 @@ Consider the case where mammals below 1 kg body mass are to be excluded. The `dp
 This fixes both the variable to be filtered by, as well as the cut-off value. This can be made flexible for a custom function that allows any kind of filtering.
 
 ```{r}
-custom_summary = function(data, 
+custom_summary = function(data,
                           filters = c("mass_g > 1000")) {
-  
+
   # THIS IS THE IMPORTANT BIT
   filters = rlang::parse_exprs(filters)
-  
-  data %>% 
+
+  data %>%
     filter(!!!filters)
 }
 ```
@@ -259,21 +259,21 @@ Try this function with single and multiple filters.
 
 ```{r}
 # mammals above a kilo
-custom_summary(data, 
-               filters = c("mass_g > 1000")) %>% 
+custom_summary(data,
+               filters = c("mass_g > 1000")) %>%
 
-  select(binomial, mass_g) %>% 
+  select(binomial, mass_g) %>%
   head()
 ```
 
 ```{r}
 # mammals between 250 and 500 g and which are mostly carnivorous
-custom_summary(data, 
+custom_summary(data,
                filters = c("between(mass_g, 250, 500)",
-                           "diet_plant < 10")) %>% 
+                           "diet_plant < 10")) %>%
 
-  select(binomial, mass_g, diet_plant) %>% 
-  
+  select(binomial, mass_g, diet_plant) %>%
+
   head()
 
 ```
@@ -288,15 +288,15 @@ Here, they are used to accept the grouping variables.
 ### Using `...` and 'forwarding'
 
 ```{r}
-custom_summary = function(data, 
+custom_summary = function(data,
                           filters = c("mass_g > 1000"),
                           ...) {
   # deal with groups
   grouping_vars = rlang::enquos(...)
-  
-  data %>% 
+
+  data %>%
     filter(!!!rlang::parse_exprs(filters)) %>%
-    
+
     # this is the important bit
     group_by(!!!grouping_vars)
 }
@@ -305,9 +305,9 @@ custom_summary = function(data,
 Try the function again, and check the grouping variables.
 
 ```{r}
-custom_summary(data, 
-               filters = c("mass_g > 1000"), 
-               order, family) %>% 
+custom_summary(data,
+               filters = c("mass_g > 1000"),
+               order, family) %>%
 
   group_vars()
 ```
@@ -322,54 +322,54 @@ This can be done by interpreting the string vector as `R` symbols using `rlang::
 ### Using `rlang::syms`
 
 ```{r}
-custom_summary = function(data, 
-                          filters = c("mass_g > 1000"), 
+custom_summary = function(data,
+                          filters = c("mass_g > 1000"),
                           grouping_vars) {
   # deal with groups
   grouping_vars = rlang::syms(grouping_vars)
-  
-  data %>% 
+
+  data %>%
     filter(!!!rlang::parse_exprs(filters)) %>%
-    
+
     # this is the important bit
     group_by(!!!grouping_vars)
 }
 ```
 
 ```{r}
-custom_summary(data, 
-               filters = c("mass_g > 1000"), 
+custom_summary(data,
+               filters = c("mass_g > 1000"),
                grouping_vars = c("order", "family")
-              ) %>% 
-  
-  summarise(mean_mass = mean(mass_g)) %>% 
+              ) %>%
+
+  summarise(mean_mass = mean(mass_g)) %>%
   head()
 ```
 
 ### Using `rlang::parse_exprs`
 
 ```{r}
-custom_summary = function(data, 
-                          filters = c("mass_g > 1000"), 
+custom_summary = function(data,
+                          filters = c("mass_g > 1000"),
                           grouping_vars) {
   # deal with groups
   grouping_vars = rlang::parse_exprs(grouping_vars)
-  
-  data %>% 
+
+  data %>%
     filter(!!!rlang::parse_exprs(filters)) %>%
-    
+
     # this is the important bit
     group_by(!!!grouping_vars)
 }
 ```
 
 ```{r}
-custom_summary(data, 
-               filters = c("mass_g > 1000"), 
+custom_summary(data,
+               filters = c("mass_g > 1000"),
                grouping_vars = c("family", "iucn_status")
-              ) %>% 
+              ) %>%
 
-  summarise(mean_mass = mean(mass_g)) %>% 
+  summarise(mean_mass = mean(mass_g)) %>%
   head()
 ```
 
@@ -382,20 +382,20 @@ Summarising using string expressions has been around in the `tidyverse` for a ve
 Simply pass a string vector to the `.vars` argument of `summarise_at`, while passing a list, named or otherwise, of functions to the `.funs` argument.
 
 ```{r}
-custom_summary = function(data, 
-                          filters = c("mass_g > 1000"), 
+custom_summary = function(data,
+                          filters = c("mass_g > 1000"),
                           grouping_vars,
                           summary_vars,
                           summary_funs) {
   # deal with groups
   grouping_vars = rlang::parse_exprs(grouping_vars)
-  
-  data %>% 
+
+  data %>%
     filter(!!!parse_exprs(filters)) %>%
-    group_by(!!!grouping_vars) %>% 
-    
+    group_by(!!!grouping_vars) %>%
+
     # important bit
-    summarise_at(.vars = summary_vars, 
+    summarise_at(.vars = summary_vars,
                  .funs = summary_funs)
 }
 ```
@@ -415,17 +415,17 @@ The example below shows how the `mean` of a trait of mammal groups can be found.
 This example makes use of embracing using `{{ }}`, where the double curly braces indicate a [promise](https://adv-r.hadley.nz/functions.html#lazy-evaluation), i.e., an expectation that such a variable will exist in the function environment.
 
 ```{r}
-custom_summary = function(data, 
-                          filters = c("mass_g > 1000"), 
+custom_summary = function(data,
+                          filters = c("mass_g > 1000"),
                           grouping_vars,
                           summary_vars) {
   # deal with groups
   grouping_vars = parse_exprs(grouping_vars)
-  
-  data %>% 
+
+  data %>%
     filter(!!!parse_exprs(filters)) %>%
-    group_by(!!!grouping_vars) %>% 
-    
+    group_by(!!!grouping_vars) %>%
+
     # important bit
     summarise(across({{ summary_vars }},
               ~ mean(.)))
@@ -435,8 +435,8 @@ custom_summary = function(data,
 ```{r}
 custom_summary(data,
                grouping_vars = c("order", "family"),
-               summary_vars = c(mass_g, diet_plant)) %>% 
-  
+               summary_vars = c(mass_g, diet_plant)) %>%
+
   head()
 ```
 
@@ -445,12 +445,12 @@ custom_summary(data,
 ```{r}
 # mean and sd
 data %>%
-  group_by(order, family) %>% 
+  group_by(order, family) %>%
   summarise(across(c(mass_g, diet_plant),
                    list(~ mean(.),
                         ~ sd(.))
                    )
-            ) %>% 
+            ) %>%
   head()
 ```
 
@@ -460,25 +460,25 @@ Here, the unquoted and unnamed variables passed to the function are captured by 
 Then the variables are forcibly evaluated within the `mean` function, and this expression is captured using `expr`. Since there are multiple variables to summarise, these expressions are stored as a list.
 
 ```{r}
-custom_summary = function(data, 
+custom_summary = function(data,
                           grouping_vars,
                           filters,
                           ...) {
   # deal with groups
   grouping_vars = rlang::parse_exprs(grouping_vars)
-  
+
   # deal with summary variables
   summary_vars = rlang::enquos(...)
-  
+
   # apply the summary function to the variables
   summary_vars <- purrr::map(summary_vars, function(var) {
     rlang::expr(mean(!!var, na.rm = TRUE))
   })
-  
-  data %>% 
-    filter(!!!rlang::parse_exprs(filters)) %>% 
-    group_by(!!!grouping_vars) %>% 
-    
+
+  data %>%
+    filter(!!!rlang::parse_exprs(filters)) %>%
+    group_by(!!!grouping_vars) %>%
+
     # important bit
     summarise(!!!summary_vars)
 }
@@ -488,8 +488,8 @@ custom_summary = function(data,
 custom_summary(data,
                grouping_vars = c("order", "family"),
                filters = "mass_g > 10",
-               mass_g, diet_plant) %>% 
-  
+               mass_g, diet_plant) %>%
+
   head()
 ```
 
@@ -499,33 +499,33 @@ custom_summary(data,
 
 #### Correct the names of summary variables
 
-The example above returns summary variables that are not assigned a name. 
+The example above returns summary variables that are not assigned a name.
 The `enquos` function can assign the name from the variable names, so `mean(mass_g)` is returned as `mass_g`.
 Since it is useful to add a tag to make clear what the summary variable is (mean, variance etc.) an extra `glue` step is added to assign informative names to the summary variables.
 
 ```{r}
-custom_summary = function(data, 
+custom_summary = function(data,
                           grouping_vars,
                           filters,
                           ...) {
   # deal with groups
   grouping_vars = rlang::parse_exprs(grouping_vars)
-  
+
   # deal with summary variables
   summary_vars = rlang::enquos(..., .named = TRUE)
-  
+
   # apply the summary function to the variables
   summary_vars <- purrr::map(summary_vars, function(var) {
     rlang::expr(mean(!!var, na.rm = TRUE))
   })
-  
+
   # add a prefix to the summary variables
   names(summary_vars) <- glue::glue('mean_{names(summary_vars)}')
-  
-  data %>% 
-    filter(!!!rlang::parse_exprs(filters)) %>% 
-    group_by(!!!grouping_vars) %>% 
-    
+
+  data %>%
+    filter(!!!rlang::parse_exprs(filters)) %>%
+    group_by(!!!grouping_vars) %>%
+
     # important bit
     summarise(!!!summary_vars)
 }
@@ -535,8 +535,8 @@ custom_summary = function(data,
 custom_summary(data,
                grouping_vars = c("order", "family"),
                filters = "mass_g > 10",
-               mass_g, diet_plant) %>% 
-  
+               mass_g, diet_plant) %>%
+
   head()
 ```
 
@@ -548,23 +548,23 @@ Unlike the earlier example using `summarise(across(vars, funs))`, the goal here 
 This is done by passing the functions and the variables on which they should operate as strings, and using string interpolation via `glue` to construct a coherent `R` expression. This expression is then named and evaluated.
 
 ```{r}
-custom_summary = function(data, 
+custom_summary = function(data,
                           grouping_vars,
                           filters,
                           functions,
                           summary_vars) {
   # deal with groups
   grouping_vars = parse_exprs(grouping_vars)
-  
+
   # deal with summary variables
   # summary_vars = # enquos(..., .named = TRUE)
-  
+
   # apply the summary function to the variables
   summary_exprs <- parse_exprs(glue::glue('{functions}({summary_vars}, na.rm = TRUE)'))
-  
+
   # add a prefix to the summary variables
   names(summary_exprs) <- glue::glue('{functions}_{summary_vars}')
-  
+
   data %>%
     filter(!!!parse_exprs(filters)) %>%
     group_by(!!!grouping_vars) %>%
@@ -579,8 +579,8 @@ custom_summary(data,
                grouping_vars = c("order", "family"),
                filters = "mass_g > 10",
                functions = c("mean", "var"),
-               summary_vars = c("mass_g", "diet_plant")) %>% 
-  
+               summary_vars = c("mass_g", "diet_plant")) %>%
+
   head()
 ```
 

@@ -1,5 +1,5 @@
 ---
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 
@@ -25,13 +25,13 @@ to hand-craft functions to detect patterns in any text.
 
 Being able to verify your own assumptions allows you to speed
 up any development of any code. It is estimated that 80-90%
-of all the time, we are debugging our code. Being good at 
+of all the time, we are debugging our code. Being good at
 testing, is the way to become faster.
 
 ### Exercise: Spot the pattern
 
 Each line below is or contains a pattern. Observe what your brain does
-when interpreting a line. If it thinks: 'Hey, that's a [pattern], 
+when interpreting a line. If it thinks: 'Hey, that's a [pattern],
 because [regular expression]', you got your answer!
 
 Answer, for each line: (1) what is it? (2) why did you think to?
@@ -40,7 +40,7 @@ Answer, for each line: (1) what is it? (2) why did you think to?
 Lithium-ion batteries play a central role in the world of technology.
 But would it be safe to simply orbit the planet?
 Your Next Samsung Phone May Not Come With a Charger in the Box
-The restrictions would end 90 days after Portland's state of emergency order lifts. 
+The restrictions would end 90 days after Portland's state of emergency order lifts.
 Those cities have limits at 15%.
 ```
 
@@ -65,7 +65,7 @@ Your Next Samsung Phone May Not Come With a Charger in the Box
 This is a title, because most words start with an uppercase character.
 
 ```
-The restrictions would end 90 days after Portland's state of emergency order lifts. 
+The restrictions would end 90 days after Portland's state of emergency order lifts.
 ```
 
 This is a sentence with a decimal number, because there is a sequence of
@@ -83,13 +83,13 @@ to it.
 
 ### What are regular expressions?
 
-A regular expression 'is a sequence of characters that define a 
+A regular expression 'is a sequence of characters that define a
 search pattern'. Such a pattern may be a zip code, a date,
 or any other text of which you can say: 'this is not just text,
 it is a [something]'.
 
 For example, take a Dutch zip code: `9747 AG`. Dutch zip
-code have four digits, a space and then two uppercase 
+code have four digits, a space and then two uppercase
 alphabet characters.
 
 ### Applications
@@ -151,7 +151,7 @@ We'll have to test!
 
 ### Why test?
 
-> Testers don’t like to break things; 
+> Testers don’t like to break things;
 > they like to dispel the illusion that things work.
 >
 > Kaner, Bach, Pettichord
@@ -239,7 +239,7 @@ expect_false(is_a_one(Inf))
 ```{r}
 is_a_one <- function(text) {
   length(stringr::str_which(text, "^1$")) == 1
-} 
+}
 ```
 
 ```{r}
@@ -282,7 +282,7 @@ expect_false(is_a_digit(Inf))
 ```{r}
 is_a_digit <- function(text) {
   length(stringr::str_which(text, "^[:digit:]$")) == 1
-} 
+}
 ```
 
 ```{r}
@@ -338,7 +338,7 @@ expect_false(is_a_word(Inf))
 ```{r}
 is_a_word <- function(text) {
   length(stringr::str_which(text, "^[:lower:]+$")) == 1
-} 
+}
 ```
 
 ```{r}
@@ -397,7 +397,7 @@ expect_false(is_dna_sequence(Inf))
 ```{r}
 is_dna_sequence <- function(text) {
   length(stringr::str_which(text, "^[ACGT]+$")) == 1
-} 
+}
 ```
 
 ```{r}
@@ -444,7 +444,7 @@ The data encoded in this text:
 
 ### `str_match`
 
-`str_match` returns: 
+`str_match` returns:
 
  * a matrix
  * a row per line of text, containing the match or an NA
@@ -504,7 +504,7 @@ All of this in one go:
 
 ```{r str_match_all_at_once}
 matches <- purrr::discard(
-  stringr::str_match(text, ">(.*)")[, 2], 
+  stringr::str_match(text, ">(.*)")[, 2],
   is.na
 )
 expect_equal(length(matches), 30)
@@ -513,9 +513,9 @@ head(matches)
 
 ### Example exercise: `extract_dna_sequence_numbers`
 
-Extract the DNA sequence numbers. 
+Extract the DNA sequence numbers.
 
-Hint: 
+Hint:
 
  * it is the text between `>` and `|Felinecoronavirus`.
  * Use `\\|` in your regex to indicate you want the pipe character (
@@ -550,10 +550,10 @@ The regex `">(.*)\\|.*"` would not work, because the asterisk is *greedy*.
 
 ### Example exercise: `extract_year`
 
-Extract the year the DNA sequence has been obtained. 
+Extract the year the DNA sequence has been obtained.
 Convert the text to a number.
 
-Hint: the year is always 4 consecutive numbers, 
+Hint: the year is always 4 consecutive numbers,
 from 1993 to (and including) 2016.
 
 These tests must pass:
@@ -596,8 +596,8 @@ Here, the simple regex worked, *because* the asterisk is greedy.
 ```{r}
 s <- "UnitedKingdom"
 t <- stringr::str_replace(
-  s, 
-  "([:upper:][:lower:]+)([:upper:][:lower:]+)", 
+  s,
+  "([:upper:][:lower:]+)([:upper:][:lower:]+)",
   "\\1 \\2"
 )
 expect_equal("United Kingdom", t)
@@ -628,7 +628,7 @@ Take a look at `?testthat::expect_match`:
 
 > Details
 >
-> expect_match() is a wrapper around grepl(). 
+> expect_match() is a wrapper around grepl().
 > See its documentation for more detail about the individual arguments.
 ```
 
