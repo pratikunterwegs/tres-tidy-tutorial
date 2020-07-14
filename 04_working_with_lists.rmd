@@ -1,5 +1,5 @@
 ---
-editor_options: 
+editor_options:
   chunk_output_type: inline
 ---
 
@@ -25,9 +25,9 @@ The example below shows how _Phylacine_ data can be converted into a nested tibb
 ```{r}
 # get phylacine data
 data = read_csv("data/phylacine_traits.csv")
-data = data %>% 
-  `colnames<-`(str_to_lower(colnames(.))) %>% 
-  `colnames<-`(str_remove(colnames(.), "(.1.2)")) %>% 
+data = data %>%
+  `colnames<-`(str_to_lower(colnames(.))) %>%
+  `colnames<-`(str_remove(colnames(.), "(.1.2)")) %>%
   `colnames<-`(str_replace_all(colnames(.), "\\.", "_"))
 
 ```
@@ -35,8 +35,8 @@ data = data %>%
 
 ```{r}
 # nest phylacine by order
-nested_data = data %>% 
-  group_by(order) %>% 
+nested_data = data %>%
+  group_by(order) %>%
   nest()
 
 nested_data
@@ -55,7 +55,7 @@ A nested tibble can be converted back into the original, or into a processed for
 
 ```{r}
 # use unnest to recover the original data frame
-unnest(nested_data, cols = "data") %>% 
+unnest(nested_data, cols = "data") %>%
   head()
 
 # unnesting preserves groups
@@ -87,7 +87,7 @@ The second example uses `lapply`, and this is a _functional_. _Functionals_ are 
 
 ## Iteration with `map`
 
-The `tidyverse` replaces traditional loop-based iteration with _functionals_ from the `purrr` package. 
+The `tidyverse` replaces traditional loop-based iteration with _functionals_ from the `purrr` package.
 
 #### Why use `purrr` {-}
 
@@ -99,7 +99,7 @@ A good reason to use `purrr` functionals instead of base `R` functionals is thei
 
 ```{r}
 # get the number of rows in data
-map(.x = nested_data$data, .f = nrow) %>% 
+map(.x = nested_data$data, .f = nrow) %>%
   head()
 ```
 
@@ -113,7 +113,7 @@ map(some_numbers, sqrt)
 
 ### `map` variants returning vectors
 
-Though `map` always returns a list, it has variants named `map_*` where the suffix indicates the return type. 
+Though `map` always returns a list, it has variants named `map_*` where the suffix indicates the return type.
 `map_chr`, `map_dbl`, `map_int`, and `map_lgl` return character, double (numeric), integer, and logical vectors.
 
 ```{r}
@@ -125,10 +125,10 @@ map_dbl(nested_data$data, function(df){
 # map_chr will convert the output to a character
 # here we get the most common IUCN status of each order
 map_chr(nested_data$data, function(df){
-  
-  count(df, iucn_status) %>% 
-    arrange(-n) %>% 
-    summarise(common_status = first(iucn_status)) %>% 
+
+  count(df, iucn_status) %>%
+    arrange(-n) %>%
+    summarise(common_status = first(iucn_status)) %>%
     pull(common_status)
 })
 
@@ -152,7 +152,7 @@ map_df(nested_data$data[1:3], head, n = 2)
 
 ```{r}
 # the same as above but with a pipe
-nested_data$data[1:5] %>% 
+nested_data$data[1:5] %>%
   map_dfr(head, n = 2)
 ```
 
@@ -170,14 +170,14 @@ nested_data = nested_data %>%
   mutate(
     # use the int return to get the number of rows
     n_rows = map_int(data, nrow),
-    
+
     # double return for mean mileage
     mean_mass = map_dbl(data, function(df) {mean(df$mass_g)}),
-    
+
     # character return to get the heaviest member
     first_animal = map_chr(data, function(df) {
-      arrange(df, -mass_g) %>% 
-        .$binomial %>% 
+      arrange(df, -mass_g) %>%
+        .$binomial %>%
         first()}
     )
   )
@@ -198,13 +198,13 @@ nested_data = nest(data, data = -order)
 
 nested_data = mutate(nested_data,
               model = map_if(.x = data,
-                             
+
                              # this is the predicate
                              # which elements should be operated on?
                              .p = function(x){
                                nrow(x) > 100
                              },
-                             
+
                              # this is the function to use
                              # if the predicate is satisfied
                              .f = function(x){
@@ -216,19 +216,19 @@ nested_data %>% head()
 
 Some elements of the column `model` are tibbles, which have not been operated on because they have fewer than 100 rows (species). The remaining elements are `lm` objects.
 
-## More `map` variants 
+## More `map` variants
 
 `map` also has variants along the axis of how many elements are operated upon. `map2` operates on two vectors or list-like elements, and returns a single list as output, while `pmap` operates on a list of list-like elements.
 The output has as many elements as the input lists, which must be of the same length.
 
 ### Mapping over two inputs with map2
 
-`map2` has the same variants as `map`, allowing for different return types. 
+`map2` has the same variants as `map`, allowing for different return types.
 Here `map2_int` returns an integer vector.
 
 ```{r}
 # consider 2 vectors and replicate the simple vector addition using map2
-map2_int(.x = 1:5, 
+map2_int(.x = 1:5,
          .y = 6:10,
          .f = sum)
 ```
@@ -287,25 +287,25 @@ In the pipeline:
 
 ```{r message=FALSE, warning=FALSE}
 nested_data <-
-  data %>% 
-  tidyr::nest(data = -order) %>% 
+  data %>%
+  tidyr::nest(data = -order) %>%
   mutate(data,
          model = map_if(.x = data,
-                        
+
                         # this is the predicate
                         # which elements should be operated on?
                         .p = function(x){
                           nrow(x) > 100
                         },
-                        
+
                         # this is the function to use
                         # if the predicate is satisfied
                         .f = function(x){
                           lm(mass_g ~ diet_plant, data = x)
-                        })) %>% 
-  
+                        })) %>%
+
   mutate(m_coef = map(model,
-                      
+
                       # use case when to get model coefficients
                       function(x) {
                         dplyr::case_when(
@@ -315,19 +315,19 @@ nested_data <-
                           TRUE ~ {
                             list(c(NA,NA))
                           }
-                        )}), 
-         
+                        )}),
+
          # work on the two element double vector of coefficients
          m_coef = map(m_coef, function(x){
            tibble(coef = unlist(x),
-                  param = c("intercept", "diet_plant")) %>% 
+                  param = c("intercept", "diet_plant")) %>%
              pivot_wider(names_from = "param",
                          values_from = "coef")
          }),
-         
+
          # work on the raw data and the coefficients
          plot = pmap(list(order, data, m_coef), function(ord, x, y){
-           
+
            # pay no attention to the ggplot for now
            ggplot2::ggplot()+
              geom_point(data = x,
@@ -347,10 +347,10 @@ In the example, phylacine is split by order, and then by IUCN status, creating a
 
 ```{r}
 # use map to make a 2 level list
-this_list = split(data, data$order) %>% 
+this_list = split(data, data$order) %>%
   map(function(df){ split(df, df$iucn_status) })
 
-# map over the second level to count the number of 
+# map over the second level to count the number of
 # species in each order in each IUCN class
 # display only the first element
 map_depth(this_list[1], 2, nrow)
@@ -383,13 +383,13 @@ vec = as.integer(1:10)
 
 tryCatch(
   expr = {
-    
+
     # this is what we want you to look at
-    
+
     modify(vec, function(x) { (x + 2) })
-    
+
   },
-  
+
   # do not pay attention to this
   error = function(e){
     print(toString(e))
@@ -435,7 +435,7 @@ keep(this_list, .p = function(x){ x > 0 })
 `head_while` is bit of an odd case, which returns all elements of a list-like object in sequence until the first one fails to satisfy a predicate, specified by `.p`.
 
 ```{r}
-1:10 %>% 
+1:10 %>%
   head_while(.p = function(x) x < 5)
 ```
 
@@ -467,7 +467,7 @@ sampled_data = map(1:10, function(x){
   })
 
 # get cars which appear in all samples
-sampled_data = reduce(sampled_data, 
+sampled_data = reduce(sampled_data,
                       dplyr::inner_join)
 ```
 
@@ -501,13 +501,13 @@ flatten_chr(this_list)
 `transpose` shifts the index order in multi-level lists. This is seen in the example, where the `iucn_status` goes from being the index of the second level to the index of the first.
 
 ```{r}
-this_list = split(data, data$order) %>% 
+this_list = split(data, data$order) %>%
   map(function(df) {split(df, df$iucn_status)})
 ```
 
 ```{r eval=FALSE}
 # from a list of lists where species are divided by order and then
-# iucn_status, this is now a list of lists where species are 
+# iucn_status, this is now a list of lists where species are
 # divided by status and then order
 transpose(this_list[1])
 ```
