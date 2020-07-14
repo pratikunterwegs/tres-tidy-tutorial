@@ -7,9 +7,9 @@ r_packages:
   - tidyverse
   - bookdown
   - here
-
-#install:
-#  - ./travis-tool.sh install_aptget r-cran-tidyverse r-cran-bookdown r-cran-here
+  - lintr
 
 script:
   - ./render_books.sh
+  - ./check_style.sh
+
