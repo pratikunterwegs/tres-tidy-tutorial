@@ -132,6 +132,12 @@ expect_false("cat" == "dog")
 expect_equal(1 + 1, 2)
 ```
 
+If a test fails:
+
+```{r error=TRUE}
+expect_equal(1 + 1, 3)
+```
+
 ## Detect a full match
 
 Here, we will detect simple patterns using `str_which`.
@@ -147,38 +153,28 @@ Tip: run `?str_which` for its documentation.
 
 ```{r}
 fruit <- c("apple", "banana", "pinapple")
-
-expect_equal(
-  str_which(fruit, "banana"),
-  2
-)
-
-expect_equal(
-  str_which(fruit, "apple"),
-  c(1, 3)
-)
-
-expect_equal(
-  str_which(fruit, "submarine"),
-  integer(0)
-)
+expect_equal(str_which(fruit, "banana"), 2)
+expect_equal(str_which(fruit, "apple"), c(1, 3))
+expect_equal(str_which(fruit, "submarine"), integer(0))
 ```
 
-### Example exercise: `is_a_one`
+### Example exercise: `has_a_one` (anchors)
 
-Write a function called `is_a_one` that detects if a string is one one.
+Write a function called `has_a_one` that detects if a character
+vector contains at least one one.
 
-Here is a stub of the function, but feel free to use your own function body:
+These tests must pass:
 
-```{r}
-is_a_one <- function(text) {
-  length(text) == 1 &&
-  length(str_which(text, "your regex here")) == 1
-}
 ```
-
-Note that the function does not support vectorization, else it would
-have been called `are_ones`.
+expect_true(has_a_one("1"))
+expect_true(has_a_one(c("X", "1")))
+expect_true(has_a_one(c("1", "1")))
+expect_false(has_a_one("X"))
+expect_false(has_a_one("11"))
+expect_false(has_a_one(integer(0)))
+expect_false(has_a_one(NULL))
+expect_false(has_a_one(NA))
+```
 
 Use the anchors as shown on the cheatsheet to specify that
 the complete string, from begin to the end, must consist out of characters
@@ -187,26 +183,19 @@ the complete string, from begin to the end, must consist out of characters
 
 > From 'Work with Strings Cheatsheet', https://rstudio.com/resources/cheatsheets
 
-These tests must pass:
-
-```
-expect_true(is_a_one("1"))
-expect_false(is_a_one("X"))
-expect_false(is_a_one("11"))
-expect_false(is_a_one(c("1", "1")))
-expect_false(is_a_one(c("X", "1")))
-expect_false(is_a_one(integer(0)))
-expect_false(is_a_one(NULL))
-expect_false(is_a_one(NA))
-expect_false(is_a_one(Inf))
-```
-
-#### Answer `is_a_one`
+Here is a stub of the function, but feel free to use your own function body:
 
 ```{r}
-is_a_one <- function(text) {
-  length(text) == 1 &&
-  length(str_which(text, "^1$")) == 1
+has_a_one <- function(text) {
+  length(stringr::str_which(text, "your regex here")) >= 1
+}
+```
+
+#### Answer `has_a_one`
+
+```{r}
+has_a_one <- function(text) {
+  length(stringr::str_which(text, "^1$")) >= 1
 }
 ```
 
@@ -214,33 +203,38 @@ Note that you may have had a different regex.
 No worries: if all tests pass, you did a great job!
 
 ```{r}
-expect_true(is_a_one("1"))
-expect_false(is_a_one("X"))
-expect_false(is_a_one("11"))
-expect_false(is_a_one(c("1", "1")))
-expect_false(is_a_one(c("X", "1")))
-expect_false(is_a_one(integer(0)))
-expect_false(is_a_one(NULL))
-expect_false(is_a_one(NA))
-expect_false(is_a_one(Inf))
+expect_true(has_a_one("1"))
+expect_true(has_a_one(c("X", "1")))
+expect_true(has_a_one(c("1", "1")))
+expect_false(has_a_one("X"))
+expect_false(has_a_one("11"))
+expect_false(has_a_one(integer(0)))
+expect_false(has_a_one(NULL))
+expect_false(has_a_one(NA))
 ```
 
 Also, using another `stringr` function, such as `str_count`, `str_subset`
 or `str_match` are all valid as well. It just made the code longer.
 Also here: if all tests pass, you did a great job!
 
+### Exercise: `has_a_digit` (character group)
 
-### Exercise: `is_a_digit`
+Write a function called `has_a_digit` that detects if a 
+character vector contains at least one digit.
 
-Write a function called `is_a_digit` that detects if a string is one digit.
+These tests must pass:
 
-Here is a stub of the function, but feel free to use your own function body:
-
-```{r}
-is_a_digit <- function(text) {
-  length(text) == 1 &&
-  length(str_which(text, "your regex here")) == 1
-}
+```
+expect_true(has_a_digit("0"))
+expect_true(has_a_digit("1"))
+expect_true(has_a_digit(c("1", "2")))
+expect_true(has_a_digit(c("X", "1")))
+expect_false(has_a_digit(""))
+expect_false(has_a_digit("12"))
+expect_false(has_a_digit("X"))
+expect_false(has_a_digit(character(0)))
+expect_false(has_a_digit(NULL))
+expect_false(has_a_digit(NA))
 ```
 
 Use the regex pattern as shown on the cheatsheet to specify a digit:
@@ -249,60 +243,57 @@ Use the regex pattern as shown on the cheatsheet to specify a digit:
 
 > From 'Work with Strings Cheatsheet', https://rstudio.com/resources/cheatsheets
 
-These tests must pass:
-
-```
-expect_true(is_a_digit("0"))
-expect_true(is_a_digit("1"))
-expect_false(is_a_digit(""))
-expect_false(is_a_digit("X"))
-expect_false(is_a_digit("X", "1"))
-expect_false(is_a_digit(c("1", "2")))
-expect_false(is_a_digit(character(0)))
-expect_false(is_a_digit(NULL))
-expect_false(is_a_digit(NA))
-expect_false(is_a_digit(Inf))
-```
-
-#### Answer: `is_a_digit`
+Here is a stub of the function, but feel free to use your own function body:
 
 ```{r}
-is_a_digit <- function(text) {
-  length(text) == 1 &&
-  length(str_which(text, "^[:digit:]$")) == 1
+has_a_digit <- function(text) {
+  length(stringr::str_which(text, "your regex here")) >= 1
+}
+```
+
+#### Answer: `has_a_digit`
+
+```{r}
+has_a_digit <- function(text) {
+  length(stringr::str_which(text, "^[:digit:]$")) >= 1
 }
 ```
 
 ```{r}
-expect_true(is_a_digit("0"))
-expect_true(is_a_digit("1"))
-expect_false(is_a_digit(""))
-expect_false(is_a_digit("12"))
-expect_false(is_a_digit("X"))
-expect_false(is_a_digit(c("X", "1")))
-expect_false(is_a_digit(c("1", "2")))
-expect_false(is_a_digit(character(0)))
-expect_false(is_a_digit(NULL))
-expect_false(is_a_digit(NA))
-expect_false(is_a_digit(Inf))
+expect_true(has_a_digit("0"))
+expect_true(has_a_digit("1"))
+expect_true(has_a_digit(c("1", "2")))
+expect_true(has_a_digit(c("X", "1")))
+expect_false(has_a_digit(""))
+expect_false(has_a_digit("12"))
+expect_false(has_a_digit("X"))
+expect_false(has_a_digit(character(0)))
+expect_false(has_a_digit(NULL))
+expect_false(has_a_digit(NA))
 ```
 
-### Exercise: `is_a_word`
+### Exercise: `has_a_word`(quantifier)
 
-Write a function called `is_a_word` that detects if a string is a word.
+Write a function called `has_a_word` that detects if a string is a word.
 
 To simplify now, a word is defined as:
 
  * Having one or more lowercase characters
  * Having no dashes, nor numbers
 
-Here is a stub of the function, but feel free to use your own function body:
+These tests must pass:
 
-```{r}
-is_a_word <- function(text) {
-  length(text) == 1 &&
-    length(str_which(text, "your regex here")) == 1
-}
+```
+expect_true(has_a_word("a"))
+expect_true(has_a_word("an"))
+expect_true(has_a_word("apple"))
+expect_true(has_a_word(c("an", "apple")))
+expect_true(has_a_word(c("", "apple")))
+expect_false(has_a_word("X"))
+expect_false(has_a_word("hI"))
+expect_false(has_a_word(character(0)))
+expect_false(has_a_word(NULL))
+expect_false(has_a_word(NA))
 ```
 
 Use the quantifiers as shown on the cheatsheet to specify that one needs
@@ -312,70 +303,56 @@ one or more characters:
 
 > From 'Work with Strings Cheatsheet', https://rstudio.com/resources/cheatsheets
 
-
-These tests must pass:
-
-```
-expect_true(is_a_word("a"))
-expect_true(is_a_word("an"))
-expect_true(is_a_word("apple"))
-expect_false(is_a_word("X"))
-expect_false(is_a_word("XX"))
-expect_false(is_a_word("Hi"))
-expect_false(is_a_word("hI"))
-expect_false(is_a_word("hoWdy"))
-expect_false(is_a_word(c("an", "apple")))
-expect_false(is_a_word(c("", "apple")))
-expect_false(is_a_word(character(0)))
-expect_false(is_a_word(NULL))
-expect_false(is_a_word(NA))
-expect_false(is_a_word(Inf))
-```
-
-#### Answer: `is_a_word`
-
-```{r}
-is_a_word <- function(text) {
-  length(text) == 1 &&
-    length(str_which(text, "^[:lower:]+$")) == 1
-}
-```
-
-```{r}
-expect_true(is_a_word("a"))
-expect_true(is_a_word("an"))
-expect_true(is_a_word("apple"))
-expect_false(is_a_word("X"))
-expect_false(is_a_word("XX"))
-expect_false(is_a_word("Hi"))
-expect_false(is_a_word("hI"))
-expect_false(is_a_word("hoWdy"))
-expect_false(is_a_word(c("an", "apple")))
-expect_false(is_a_word(c("", "apple")))
-expect_false(is_a_word(character(0)))
-expect_false(is_a_word(NULL))
-expect_false(is_a_word(NA))
-expect_false(is_a_word(Inf))
-```
-
-### Exercise: `is_dna_sequence`
-
-Write a function called `is_dna_sequence` that detects if a string is
-a DNA sequence.
-
 Here is a stub of the function, but feel free to use your own function body:
 
 ```{r}
-is_dna_sequence <- function(text) {
-  length(text) == 1 &&
-    length(str_which(text, "your regex here")) == 1
+has_a_word <- function(text) {
+  length(stringr::str_which(text, "your regex here")) >= 1
 }
 ```
+
+#### Answer: `has_a_word`
+
+```{r}
+has_a_word <- function(text) {
+  length(stringr::str_which(text, "^[:lower:]+$")) >= 1
+}
+```
+
+```{r}
+expect_true(has_a_word("a"))
+expect_true(has_a_word("an"))
+expect_true(has_a_word("apple"))
+expect_true(has_a_word(c("an", "apple")))
+expect_true(has_a_word(c("", "apple")))
+expect_false(has_a_word("X"))
+expect_false(has_a_word("hI"))
+expect_false(has_a_word(character(0)))
+expect_false(has_a_word(NULL))
+expect_false(has_a_word(NA))
+```
+
+### Exercise: `has_dna_seq` (alternates)
+
+Write a function called `has_dna_seq` that detects if a character
+vector contains one or more DNA sequences.
 
 To simplify now, a DNA sequence is defined as:
 
  * There are four characters, one per nucleotides
  * These characters are uppercase (A, C, G and T)
+
+These tests must pass:
+
+```
+expect_true(has_dna_seq("A"))
+expect_true(has_dna_seq(c("A", "CGT")))
+expect_true(has_dna_seq(c("", "CGT")))
+expect_false(has_dna_seq("Ax"))
+expect_false(has_dna_seq(character(0)))
+expect_false(has_dna_seq(NULL))
+expect_false(has_dna_seq(NA))
+```
 
 Use the alternates as shown on the cheatsheet to specify that
 each character must be one of the four nucleotides:
@@ -384,51 +361,33 @@ each character must be one of the four nucleotides:
 
 > From 'Work with Strings Cheatsheet', https://rstudio.com/resources/cheatsheets
 
-These tests must pass:
-
-```
-expect_true(is_dna_sequence("A"))
-expect_true(is_dna_sequence("AC"))
-expect_true(is_dna_sequence("ACG"))
-expect_true(is_dna_sequence("ACGT"))
-expect_false(is_dna_sequence("a"))
-expect_false(is_dna_sequence("Ax"))
-expect_false(is_dna_sequence("xA"))
-expect_false(is_dna_sequence("AxA"))
-expect_false(is_dna_sequence(c("A", "CGT")))
-expect_false(is_dna_sequence(character(0)))
-expect_false(is_dna_sequence(NULL))
-expect_false(is_dna_sequence(NA))
-expect_false(is_dna_sequence(Inf))
-```
-
-#### Answer: `is_dna_sequence`
+Here is a stub of the function, but feel free to use your own function body:
 
 ```{r}
-is_dna_sequence <- function(text) {
-  length(text) == 1 &&
-    length(str_which(text, "^[ACGT]+$")) == 1
+has_dna_seq <- function(text) {
+  length(stringr::str_which(text, "your regex here")) >= 1
+}
+```
+
+#### Answer: `has_dna_seq`
+
+```{r}
+has_dna_seq <- function(text) {
+  length(stringr::str_which(text, "^[ACGT]+$")) >= 1
 }
 ```
 
 ```{r}
-expect_true(is_dna_sequence("A"))
-expect_true(is_dna_sequence("AC"))
-expect_true(is_dna_sequence("ACG"))
-expect_true(is_dna_sequence("ACGT"))
-expect_false(is_dna_sequence("a"))
-expect_false(is_dna_sequence("Ax"))
-expect_false(is_dna_sequence("xA"))
-expect_false(is_dna_sequence("AxA"))
-expect_false(is_dna_sequence(c("A", "CGT")))
-expect_false(is_dna_sequence(c("", "CGT")))
-expect_false(is_dna_sequence(character(0)))
-expect_false(is_dna_sequence(NULL))
-expect_false(is_dna_sequence(NA))
-expect_false(is_dna_sequence(Inf))
+expect_true(has_dna_seq("A"))
+expect_true(has_dna_seq(c("A", "CGT")))
+expect_true(has_dna_seq(c("", "CGT")))
+expect_false(has_dna_seq("Ax"))
+expect_false(has_dna_seq(character(0)))
+expect_false(has_dna_seq(NULL))
+expect_false(has_dna_seq(NA))
 ```
 
-## Extract a pattern
+## Extract a pattern for one submatch
 
 Here, we will extract a pattern using `str_match`.
 
@@ -437,6 +396,21 @@ Tip: run `?str_match` for its documentation.
 ![](data/06_subset.png)
 
 > From 'Work with Strings Cheatsheet', https://rstudio.com/resources/cheatsheets
+
+### `str_match`
+
+`str_match` allows to extract multiple matches at once:
+
+```{r}
+text <- c(
+  "2020/03/14",
+  "not a date",
+  "2020/07/22"
+)
+str_match(
+  text, "([:digit:]{4})/([:digit:]{2})/([:digit:]{2})"
+)
+```
 
 ### Context
 
@@ -455,33 +429,23 @@ The data encoded in this text:
 [DNA sequence]
 ```
 
-### `str_match`
+We know that there are 30 sequences and 180 lines in that file:
 
-`str_match` returns:
-
- * a matrix
- * a row per line of text, containing the match or an NA
- * a column per submatch (see later)
-
-For example, using a 'everything' pattern, we get:
-
-```{r str_match_pokemon}
-matches <- str_match(text, ".*")
-expect_is(matches, "matrix")
-expect_equal(nrow(matches), length(text))
-expect_equal(ncol(matches), 1)
-head(matches)
+```{r}
+n_sequences <- 30
+n_lines <- 180
 ```
 
-![](data/06_catch_em_all.jpg)
+
+### Extract a character vector from a submatch
 
 Using a pattern that is specific for the DNA sequence descriptors,
-we get NAs:
+we get matched strings and NAs:
 
 ```{r str_match_sequence_descriptor_lines}
 matches <- str_match(text, ">.*")
 expect_is(matches, "matrix")
-expect_equal(nrow(matches), length(text))
+expect_equal(nrow(matches), n_lines)
 expect_equal(ncol(matches), 1)
 head(matches, n = 8)
 ```
@@ -492,27 +456,18 @@ Here, we select for all info after the `>`:
 ```{r str_match_sequence_descriptor_as_column}
 matches <- str_match(text, ">(.*)")
 expect_is(matches, "matrix")
-expect_equal(nrow(matches), length(text))
+expect_equal(nrow(matches), n_lines)
 expect_equal(ncol(matches), 2)
 head(matches, n = 8)
 ```
 
-Select the second column:
-
-```{r str_match_select_col_with_sequence_descriptor}
-matches <- matches[, 2]
-expect_is(matches, "character")
-expect_equal(length(matches), 180)
-head(matches, n = 8)
-```
-
-Get rid of the `NAs` using `na.omit` and converting to a character
-vector:
+After select the second column, we ret rid of the `NAs` using `na.omit` 
+and converting to a character vector:
 
 ```{r str_match_remove_na}
-matches <- as.character(na.omit(matches))
+matches <- as.character(na.omit(matches[, 2]))
 expect_is(matches, "character")
-expect_equal(length(matches), 30)
+expect_equal(length(matches), n_sequences)
 head(matches)
 ```
 
@@ -524,11 +479,11 @@ matches <- as.character(
     str_match(text, ">(.*)")[, 2]
   )
 )
-expect_equal(length(matches), 30)
+expect_equal(length(matches), n_sequences)
 head(matches)
 ```
 
-### Example exercise: `extract_dna_sequence_numbers`
+### Example exercise: `extract_dna_seq_numbers` (1 submatch)
 
 Extract the DNA sequence numbers.
 
@@ -544,10 +499,7 @@ extract_dna_seq_numbers <- function(text) {
 }
 ```
 
-Note that:
-
- * this function works fine on vectors! That's why its name has a plural
- * The `[, 2]` denotes the second column. It can be another column as well
+Note that the `[, 2]` denotes the second column. It can be another column as well
 
 Hint:
 
@@ -583,68 +535,7 @@ expect_equal("KP143511.1", extract_dna_seq_numbers(text)[30])
 
 The regex `">(.*)\\|.*"` would not work, because the asterisk is *greedy*.
 
-### Exercise: `extract_year`
-
-Extract the year the DNA sequence has been obtained.
-Convert the text to a number.
-
-Here is a stub of the function, but feel free to use your own function body:
-
-```{r}
-extract_year <- function(text) {
-  as.numeric(
-    na.omit(
-      str_match(text, "your regex here")[, 2]
-    )
-  )
-}
-```
-
-Hint: the year is always 4 consecutive numbers,
-from 1993 to (and including) 2016.
-
-These tests must pass:
-
-```
-expect_equal(30, length(extract_year(text)))
-expect_equal(2015, extract_year(text)[1])
-expect_equal(2013, extract_year(text)[30])
-```
-
-### Answer: `extract_year`
-
-```{r}
-extract_year <- function(text) {
-  as.numeric(
-    na.omit(
-      str_match(text, ".*([:digit:]{4}).*")[, 2]
-    )
-  )
-}
-```
-
-```{r}
-expect_equal(30, length(extract_year(text)))
-expect_equal(2015, extract_year(text)[1])
-expect_equal(2013, extract_year(text)[30])
-```
-
-Here, the simple regex worked, *because* the asterisk is greedy.
-
-## Multiple matches
-
-`str_match` allows to extract multiple matches at once:
-
-```{r}
-text <- c(
-  "2020/03/14",
-  "not a date",
-  "2020/07/22"
-)
-str_match(
-  text, "([:digit:]{4})/([:digit:]{2})/([:digit:]{2})"
-)
-```
+## Extract a pattern for multiple submatches
 
 ### Context
 
@@ -683,7 +574,7 @@ extract_prot_and_seq_ids <- function(text) {
     )[, c(2, 3)]
   )
   colnames(matrix) <- c("seq_id", "prot_id")
-  as_tibble(matrix)
+  tibble::as_tibble(matrix)
 }
 ```
 
@@ -710,7 +601,7 @@ extract_prot_and_seq_ids <- function(text) {
       ">sp\\|([:graph:]+)\\|([:graph:]+) ")[, c(2, 3)]
   )
   colnames(matrix) <- c("seq_id", "prot_id")
-  as_tibble(matrix)
+  tibble::as_tibble(matrix)
 }
 ```
 
@@ -757,10 +648,7 @@ get_version <- function() {
 Using `testthat::expect_match` gives an unexpected result:
 
 ```{r error=TRUE}
-expect_match(
-  get_version(),
-  "1\\.[:digit:]"
-)
+expect_match(get_version(), "1\\.[:digit:]")
 ```
 
 Take a look at `?testthat::expect_match`:
@@ -773,10 +661,7 @@ Take a look at `?testthat::expect_match`:
 Use the base R regex dialect:
 
 ```{r}
-expect_match(
-  get_version(),
-  "1\\.[[:digit:]]"
-)
+expect_match(get_version(), "1\\.[[:digit:]]")
 ```
 
 ## Bigger picture
