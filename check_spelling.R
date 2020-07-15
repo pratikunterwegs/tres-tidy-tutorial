@@ -19,7 +19,7 @@ spelling::spell_check_files(
     "proteome",
     "regexes",
     "Regexes",
-    "Richel",
+    "Richèl",
     "RStudio",
     "slashdot",
     "stringr",
