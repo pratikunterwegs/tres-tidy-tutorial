@@ -1,4 +1,6 @@
+#
 # Spellcheck the Rmd files
+#
 rmd_filenames <- sort(list.files(pattern = "*.(Rmd|rmd)"))
 spelling::spell_check_files(
   rmd_filenames,
