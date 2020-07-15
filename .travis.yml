@@ -8,8 +8,10 @@ r_packages:
   - bookdown
   - here
   - lintr
+  - spelling
 
 script:
   - ./render_books.sh
   - ./check_style.sh
+  - ./check_spelling.sh
 
