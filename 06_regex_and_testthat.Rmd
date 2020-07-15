@@ -95,6 +95,8 @@ For example, take a Dutch zip code: `9747 AG`. Dutch zip
 code have four digits, a space and then two uppercase
 alphabet characters.
 
+A regex for this is `[:digit:]{4} [:upper:]{2}`.
+
 ### Applications
 
 DNA data:
@@ -114,6 +116,8 @@ MFVFLVLLPLVSSQCVNLTTRTQLPPAYTNSFTRGVYYPDKVFRSSVLHSTQDLFLPFFS
 >sp|P0DTC5|VME1_SARS2 Membrane protein OS=Severe acute respiratory syndrome coronavirus 2 OX=2697049 PE=3 SV=1
 MADSNGTITVEELKKLLEQWNLVIGFLFLTWICLLQFAYANRNRFLYIIKLIFLWLLWPV
 ```
+
+Most messy Excel sheets :-)
 
 ### Multiple in R
 
@@ -244,6 +248,9 @@ is_a_one <- function(text) {
   length(stringr::str_which(text, "^1$")) == 1
 }
 ```
+
+Note that you may have had a differet regex.
+No worries: if all tests pass, you did a great job!
 
 ```{r}
 expect_true(is_a_one("1"))
@@ -463,6 +470,8 @@ expect_equal(ncol(matches), 1)
 head(matches)
 ```
 
+![](data/06_catch_em_all.jpg)
+
 Using a pattern that is specific for the DNA sequence descriptors,
 we get NAs:
 
@@ -497,7 +506,7 @@ head(matches, n = 8)
 Get rid of the `NAs` using `purrr`:
 
 ```{r str_match_remove_na}
-matches <- purrr::discard(matches, is.na)
+matches <- as.character(na.omit(matches))
 expect_is(matches, "character")
 expect_equal(length(matches), 30)
 head(matches)
@@ -506,9 +515,10 @@ head(matches)
 All of this in one go:
 
 ```{r str_match_all_at_once}
-matches <- purrr::discard(
-  stringr::str_match(text, ">(.*)")[, 2],
-  is.na
+matches <- as.character(
+  na.omit(
+    stringr::str_match(text, ">(.*)")[, 2]
+  )
 )
 expect_equal(length(matches), 30)
 head(matches)
@@ -588,7 +598,7 @@ expect_equal(2013, extract_year(text)[30])
 
 Here, the simple regex worked, *because* the asterisk is greedy.
 
-## Multiple matches: `str_match`
+## Multiple matches: `str_match` again
 
 `str_match` allows to extract multiple matches at once:
 
@@ -599,7 +609,7 @@ text <- c(
   "2020/07/22"
 )
 stringr::str_match(
-  text, "([:digit:]{4})/([:digit:]{2})/([:digit:]{2})"  
+  text, "([:digit:]{4})/([:digit:]{2})/([:digit:]{2})"
 )
 ```
 
@@ -610,6 +620,62 @@ Here we will work on a proteome:
 ```{r}
 text <- readr::read_lines("data/UP000464024.fasta")
 head(text, n = 7)
+```
+
+The data encoded in this text:
+
+```
+>sp|[Sequence ID]|[Protein ID] [Protein description] OS=[Virus name] OX=[OX] GN=[GN] PE=[PE] SV=[SV]
+[Peptide sequence]
+```
+
+We will only look at `[Sequence ID]` and `[Protein ID]`.
+
+### Exercise: `extract_prot_and_seq_ids`
+
+Extract all proteins' ID and sequence ID, in a tibble.
+
+```{r}
+library(tibble)
+```
+
+These tests must pass:
+
+```
+t <- extract_prot_and_seq_ids(text)
+expect_true(is_tibble(t))
+expect_equal(13, nrow(t))
+expect_equal(2, ncol(t))
+expect_equal(colnames(t), c("seq_id", "prot_id"))
+expect_equal(t$seq_id[1], "P0DTC7")
+expect_equal(t$prot_id[1], "NS7A_SARS2")
+expect_equal(t$seq_id[13], "P0DTC5")
+expect_equal(t$prot_id[13], "VME1_SARS2")
+```
+
+### Answer: `extract_prot_and_seq_ids`
+
+```{r}
+extract_prot_and_seq_ids <- function(text) {
+  matrix <- na.omit(
+    stringr::str_match(text,
+      ">sp\\|([:graph:]+)\\|([:graph:]+) ")[, c(2, 3)]
+  )
+  colnames(matrix) <- c("seq_id", "prot_id")
+  tibble::as_tibble(matrix)
+}
+```
+
+```{r}
+t <- extract_prot_and_seq_ids(text)
+expect_true(is_tibble(t))
+expect_equal(13, nrow(t))
+expect_equal(2, ncol(t))
+expect_equal(colnames(t), c("seq_id", "prot_id"))
+expect_equal(t$seq_id[1], "P0DTC7")
+expect_equal(t$prot_id[1], "NS7A_SARS2")
+expect_equal(t$seq_id[13], "P0DTC5")
+expect_equal(t$prot_id[13], "VME1_SARS2")
 ```
 
 
