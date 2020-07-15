@@ -6,7 +6,7 @@ editor_options:
 
 # Regular expressions and `testthat`
 
-Richel Bilderbeek
+Richèl J.C. Bilderbeek
 
 ## Introduction
 
@@ -27,62 +27,9 @@ Knowing the basics of regular expressions, prevents you having
 to hand-craft functions to detect patterns in any text.
 
 Being able to verify your own assumptions allows you to speed
-up any development of any code. It is estimated that 80-90%
+up any development of any code. It is estimated that 50-90%
 of all the time, we are debugging our code. Being good at
 testing, is the way to become faster.
-
-### Exercise: Spot the pattern
-
-Each line below is or contains a pattern. Observe what your brain does
-when interpreting a line. If it thinks: 'Hey, that's a [pattern],
-because [regular expression]', you got your answer!
-
-Answer, for each line: (1) what is it? (2) why did you think to?
-
-```
-Lithium-ion batteries play a central role in the world of technology.
-But would it be safe to simply orbit the planet?
-Your Next Samsung Phone May Not Come With a Charger in the Box
-The restrictions would end 90 days after Portland's state of emergency order lifts.
-Those cities have limits at 15%.
-```
-
-### Answers: Spot the pattern
-
-```
-Lithium-ion batteries play a central role in the world of technology.
-```
-
-This is a sentence, because it ends with a dot.
-
-```
-But would it be safe to simply orbit the planet?
-```
-
-This is a question, because it ends with a question mark.
-
-```
-Your Next Samsung Phone May Not Come With a Charger in the Box
-```
-
-This is a title, because most words start with an uppercase character.
-
-```
-The restrictions would end 90 days after Portland's state of emergency order lifts.
-```
-
-This is a sentence with a decimal number, because there is a sequence of
-characters that consists out of numbers only.
-
-```
-Those cities have limits at 15%.
-```
-
-This is a sentence with a percentage, because there is a sequence of
-characters that consists out of numbers only, with a percentage sign connected
-to it.
-
- * Texts from [https://slashdot.org](https://slashdot.org).
 
 ### What are regular expressions?
 
@@ -119,17 +66,18 @@ MADSNGTITVEELKKLLEQWNLVIGFLFLTWICLLQFAYANRNRFLYIIKLIFLWLLWPV
 
 Most messy Excel sheets :-)
 
-### Multiple in R
+![](data/06_messy_excel.png)
+
+### Using regexes in R
 
 ![](data/06_stringr.png)
 
 > The 'stringr' logo. 'stringr' is part of the Tidyverse
 
-R functions to work with regular expressions:
+Multiple R functions to work with regular expressions:
 
- * `stringr::string_`
- * `egrep`
- * `gsub`
+ * `stringr::str_`
+ * `egrep`, `grepl`, `gsub`
 
 ```{r}
 library(stringr)
@@ -225,16 +173,12 @@ Here is a stub of the function, but feel free to use your own function body:
 ```{r}
 is_a_one <- function(text) {
   length(text) == 1 &&
-  length(stringr::str_which(text, "your regex here")) == 1
+  length(str_which(text, "your regex here")) == 1
 }
 ```
 
-Note that
-
- * one needs to specify the namespace (`stringr::`) 
-   for a function that is not part of base R
- * the function does not support vectorization, else it would
-   have been called `are_ones`
+Note that the function does not support vectorization, else it would
+have been called `are_ones`.
 
 Use the anchors as shown on the cheatsheet to specify that
 the complete string, from begin to the end, must consist out of characters
@@ -262,7 +206,7 @@ expect_false(is_a_one(Inf))
 ```{r}
 is_a_one <- function(text) {
   length(text) == 1 &&
-  length(stringr::str_which(text, "^1$")) == 1
+  length(str_which(text, "^1$")) == 1
 }
 ```
 
@@ -295,7 +239,7 @@ Here is a stub of the function, but feel free to use your own function body:
 ```{r}
 is_a_digit <- function(text) {
   length(text) == 1 &&
-  length(stringr::str_which(text, "your regex here")) == 1
+  length(str_which(text, "your regex here")) == 1
 }
 ```
 
@@ -325,7 +269,7 @@ expect_false(is_a_digit(Inf))
 ```{r}
 is_a_digit <- function(text) {
   length(text) == 1 &&
-  length(stringr::str_which(text, "^[:digit:]$")) == 1
+  length(str_which(text, "^[:digit:]$")) == 1
 }
 ```
 
@@ -357,7 +301,7 @@ Here is a stub of the function, but feel free to use your own function body:
 ```{r}
 is_a_word <- function(text) {
   length(text) == 1 &&
-    length(stringr::str_which(text, "your regex here")) == 1
+    length(str_which(text, "your regex here")) == 1
 }
 ```
 
@@ -393,7 +337,7 @@ expect_false(is_a_word(Inf))
 ```{r}
 is_a_word <- function(text) {
   length(text) == 1 &&
-    length(stringr::str_which(text, "^[:lower:]+$")) == 1
+    length(str_which(text, "^[:lower:]+$")) == 1
 }
 ```
 
@@ -424,7 +368,7 @@ Here is a stub of the function, but feel free to use your own function body:
 ```{r}
 is_dna_sequence <- function(text) {
   length(text) == 1 &&
-    length(stringr::str_which(text, "your regex here")) == 1
+    length(str_which(text, "your regex here")) == 1
 }
 ```
 
@@ -463,7 +407,7 @@ expect_false(is_dna_sequence(Inf))
 ```{r}
 is_dna_sequence <- function(text) {
   length(text) == 1 &&
-    length(stringr::str_which(text, "^[ACGT]+$")) == 1
+    length(str_which(text, "^[ACGT]+$")) == 1
 }
 ```
 
@@ -499,7 +443,8 @@ Tip: run `?str_match` for its documentation.
 Here we will work on a DNA sequence:
 
 ```{r}
-text <- readr::read_lines("data/virus.fas")
+library(readr)
+text <- read_lines("data/virus.fas")
 head(text, n = 10)
 ```
 
@@ -521,7 +466,7 @@ The data encoded in this text:
 For example, using a 'everything' pattern, we get:
 
 ```{r str_match_pokemon}
-matches <- stringr::str_match(text, ".*")
+matches <- str_match(text, ".*")
 expect_is(matches, "matrix")
 expect_equal(nrow(matches), length(text))
 expect_equal(ncol(matches), 1)
@@ -534,7 +479,7 @@ Using a pattern that is specific for the DNA sequence descriptors,
 we get NAs:
 
 ```{r str_match_sequence_descriptor_lines}
-matches <- stringr::str_match(text, ">.*")
+matches <- str_match(text, ">.*")
 expect_is(matches, "matrix")
 expect_equal(nrow(matches), length(text))
 expect_equal(ncol(matches), 1)
@@ -545,7 +490,7 @@ Using round brackets, the matrix gives one extra column per sub-match.
 Here, we select for all info after the `>`:
 
 ```{r str_match_sequence_descriptor_as_column}
-matches <- stringr::str_match(text, ">(.*)")
+matches <- str_match(text, ">(.*)")
 expect_is(matches, "matrix")
 expect_equal(nrow(matches), length(text))
 expect_equal(ncol(matches), 2)
@@ -561,11 +506,11 @@ expect_equal(length(matches), 180)
 head(matches, n = 8)
 ```
 
-Get rid of the `NAs` using `stats::na.omit` and converting to a character
+Get rid of the `NAs` using `na.omit` and converting to a character
 vector:
 
 ```{r str_match_remove_na}
-matches <- as.character(stats::na.omit(matches))
+matches <- as.character(na.omit(matches))
 expect_is(matches, "character")
 expect_equal(length(matches), 30)
 head(matches)
@@ -575,8 +520,8 @@ All of this in one go:
 
 ```{r str_match_all_at_once}
 matches <- as.character(
-  stats::na.omit(
-    stringr::str_match(text, ">(.*)")[, 2]
+  na.omit(
+    str_match(text, ">(.*)")[, 2]
   )
 )
 expect_equal(length(matches), 30)
@@ -592,8 +537,8 @@ Here is a stub of the function, but feel free to use your own function body:
 ```{r}
 extract_dna_seq_numbers <- function(text) {
   as.character(
-    stats::na.omit(
-      stringr::str_match(text, "your regex here")[, 2]
+    na.omit(
+      str_match(text, "your regex here")[, 2]
     )
   )
 }
@@ -623,8 +568,8 @@ expect_equal("KP143511.1", extract_dna_seq_numbers(text)[30])
 ```{r}
 extract_dna_seq_numbers <- function(text) {
   as.character(
-    stats::na.omit(
-      stringr::str_match(text, ">(.*)\\|Felinecoronavirus.*")[, 2]
+    na.omit(
+      str_match(text, ">(.*)\\|Felinecoronavirus.*")[, 2]
     )
   )
 }
@@ -648,8 +593,8 @@ Here is a stub of the function, but feel free to use your own function body:
 ```{r}
 extract_year <- function(text) {
   as.numeric(
-    stats::na.omit(
-      stringr::str_match(text, "your regex here")[, 2]
+    na.omit(
+      str_match(text, "your regex here")[, 2]
     )
   )
 }
@@ -671,8 +616,8 @@ expect_equal(2013, extract_year(text)[30])
 ```{r}
 extract_year <- function(text) {
   as.numeric(
-    stats::na.omit(
-      stringr::str_match(text, ".*([:digit:]{4}).*")[, 2]
+    na.omit(
+      str_match(text, ".*([:digit:]{4}).*")[, 2]
     )
   )
 }
@@ -686,7 +631,7 @@ expect_equal(2013, extract_year(text)[30])
 
 Here, the simple regex worked, *because* the asterisk is greedy.
 
-## Multiple matches: `str_match` again
+## Multiple matches
 
 `str_match` allows to extract multiple matches at once:
 
@@ -696,7 +641,7 @@ text <- c(
   "not a date",
   "2020/07/22"
 )
-stringr::str_match(
+str_match(
   text, "([:digit:]{4})/([:digit:]{2})/([:digit:]{2})"
 )
 ```
@@ -706,7 +651,7 @@ stringr::str_match(
 Here we will work on a proteome:
 
 ```{r}
-text <- readr::read_lines("data/UP000464024.fasta")
+text <- read_lines("data/UP000464024.fasta")
 head(text, n = 7)
 ```
 
@@ -731,14 +676,14 @@ Here is a stub of the function, but feel free to use your own function body:
 
 ```{r}
 extract_prot_and_seq_ids <- function(text) {
-  matrix <- stats::na.omit(
-    stringr::str_match(
+  matrix <- na.omit(
+    str_match(
       text,
       "your regex here"
     )[, c(2, 3)]
   )
   colnames(matrix) <- c("seq_id", "prot_id")
-  tibble::as_tibble(matrix)
+  as_tibble(matrix)
 }
 ```
 
@@ -760,12 +705,12 @@ expect_equal(t$prot_id[13], "VME1_SARS2")
 
 ```{r}
 extract_prot_and_seq_ids <- function(text) {
-  matrix <- stats::na.omit(
-    stringr::str_match(text,
+  matrix <- na.omit(
+    str_match(text,
       ">sp\\|([:graph:]+)\\|([:graph:]+) ")[, c(2, 3)]
   )
   colnames(matrix) <- c("seq_id", "prot_id")
-  tibble::as_tibble(matrix)
+  as_tibble(matrix)
 }
 ```
 
@@ -781,10 +726,7 @@ expect_equal(t$seq_id[13], "P0DTC5")
 expect_equal(t$prot_id[13], "VME1_SARS2")
 ```
 
-
-## Other functions
-
-### Mutate
+## Mutate
 
 ![](data/06_mutate.png)
 
@@ -792,7 +734,7 @@ expect_equal(t$prot_id[13], "VME1_SARS2")
 
 ```{r}
 s <- "UnitedKingdom"
-t <- stringr::str_replace(
+t <- str_replace(
   s,
   "([:upper:][:lower:]+)([:upper:][:lower:]+)",
   "\\1 \\2"
@@ -800,7 +742,7 @@ t <- stringr::str_replace(
 expect_equal("United Kingdom", t)
 ```
 
-### `testthat::expect_match`
+## Test for match
 
 You may want to test if a function's output matches
 a pattern:
@@ -830,7 +772,7 @@ Take a look at `?testthat::expect_match`:
 
 Use the base R regex dialect:
 
-```
+```{r}
 expect_match(
   get_version(),
   "1\\.[[:digit:]]"
@@ -842,24 +784,28 @@ expect_match(
 ### Develop in packages
 
  * Also when 'just' doing data analysis
+ * Cleanly read files
+ * Test you regexes
+ * Many more advantages ...
 
-## Regex usage beyond R is common
+### Regex usage outside R
 
-Command-line tools with regular expressions:
+There are plenty of tools that allow to use regular expressions:
 
  * `grep`, `egrep`
  * `sed`
  * `dir`/`ls`
 
-### Don't overdo it
+### Warning
 
 ![](data/06_regex_golf.png)
 
 > 'Regex Golf', from https://xkcd.com/1313/
 
-Regex golf is a challenge to create the shortest regexes possible.
+Don't overthink your regexes! If all tests pass, you did a good job
 
 ## Resources
 
+ * [My R video's on YouTube](https://www.youtube.com/playlist?list=PLu8_ZyzXyRDH2iTiBxg6zJ0CZnxNEYMp-)
  * [RStudio cheatsheets](https://rstudio.com/resources/cheatsheets/),
    including the 'Work with Strings Cheatsheet'
