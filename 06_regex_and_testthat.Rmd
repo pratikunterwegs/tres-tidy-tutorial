@@ -59,7 +59,7 @@ This is a sentence, because it ends with a dot.
 But would it be safe to simply orbit the planet?
 ```
 
-This is a question, becase it ends with a question mark.
+This is a question, because it ends with a question mark.
 
 ```
 Your Next Samsung Phone May Not Come With a Charger in the Box
@@ -249,7 +249,7 @@ is_a_one <- function(text) {
 }
 ```
 
-Note that you may have had a differet regex.
+Note that you may have had a different regex.
 No worries: if all tests pass, you did a great job!
 
 ```{r}
