@@ -487,6 +487,15 @@ head(matches)
 
 Extract the DNA sequence numbers.
 
+These tests must pass:
+
+```
+dna_seq_numbers <- extract_dna_seq_numbers(text)
+expect_equal(n_sequences, length(dna_seq_numbers))
+expect_equal("KX722530.1", dna_seq_numbers[1])
+expect_equal("KP143511.1", dna_seq_numbers[30])
+```
+
 Here is a stub of the function, but feel free to use your own function body:
 
 ```{r}
@@ -507,14 +516,6 @@ Hint:
  * Use `\\|` in your regex to indicate you want the pipe character (
    as `a|b` is the regex for 'a or b')
 
-These tests must pass:
-
-```
-expect_equal(30, length(extract_dna_seq_numbers(text)))
-expect_equal("KX722530.1", extract_dna_seq_numbers(text)[1])
-expect_equal("KP143511.1", extract_dna_seq_numbers(text)[30])
-```
-
 ### Answer: `extract_dna_seq_numbers`
 
 ```{r}
@@ -528,9 +529,10 @@ extract_dna_seq_numbers <- function(text) {
 ```
 
 ```{r}
-expect_equal(30, length(extract_dna_seq_numbers(text)))
-expect_equal("KX722530.1", extract_dna_seq_numbers(text)[1])
-expect_equal("KP143511.1", extract_dna_seq_numbers(text)[30])
+dna_seq_numbers <- extract_dna_seq_numbers(text)
+expect_equal(n_sequences, length(dna_seq_numbers))
+expect_equal("KX722530.1", dna_seq_numbers[1])
+expect_equal("KP143511.1", dna_seq_numbers[30])
 ```
 
 The regex `">(.*)\\|.*"` would not work, because the asterisk is *greedy*.
@@ -555,12 +557,33 @@ The data encoded in this text:
 
 We will only look at `[Sequence ID]` and `[Protein ID]`.
 
+We know that:
+
+```{r}
+n_proteins <- 13
+```
+
+
 ### Exercise: `extract_prot_and_seq_ids`
 
 Extract all proteins' ID and sequence ID, in a tibble.
 
 ```{r}
 library(tibble)
+```
+
+These tests must pass:
+
+```
+t <- extract_prot_and_seq_ids(text)
+expect_true(is_tibble(t))
+expect_equal(n_proteins, nrow(t))
+expect_equal(2, ncol(t))
+expect_equal(colnames(t), c("seq_id", "prot_id"))
+expect_equal(t$seq_id[1], "P0DTC7")
+expect_equal(t$prot_id[1], "NS7A_SARS2")
+expect_equal(t$seq_id[13], "P0DTC5")
+expect_equal(t$prot_id[13], "VME1_SARS2")
 ```
 
 Here is a stub of the function, but feel free to use your own function body:
@@ -576,20 +599,6 @@ extract_prot_and_seq_ids <- function(text) {
   colnames(matrix) <- c("seq_id", "prot_id")
   tibble::as_tibble(matrix)
 }
-```
-
-These tests must pass:
-
-```
-t <- extract_prot_and_seq_ids(text)
-expect_true(is_tibble(t))
-expect_equal(13, nrow(t))
-expect_equal(2, ncol(t))
-expect_equal(colnames(t), c("seq_id", "prot_id"))
-expect_equal(t$seq_id[1], "P0DTC7")
-expect_equal(t$prot_id[1], "NS7A_SARS2")
-expect_equal(t$seq_id[13], "P0DTC5")
-expect_equal(t$prot_id[13], "VME1_SARS2")
 ```
 
 ### Answer: `extract_prot_and_seq_ids`
@@ -608,7 +617,7 @@ extract_prot_and_seq_ids <- function(text) {
 ```{r}
 t <- extract_prot_and_seq_ids(text)
 expect_true(is_tibble(t))
-expect_equal(13, nrow(t))
+expect_equal(n_proteins, nrow(t))
 expect_equal(2, ncol(t))
 expect_equal(colnames(t), c("seq_id", "prot_id"))
 expect_equal(t$seq_id[1], "P0DTC7")
@@ -671,7 +680,6 @@ expect_match(get_version(), "1\\.[[:digit:]]")
  * Also when 'just' doing data analysis
  * Cleanly read files
  * Test you regexes
- * Many more advantages ...
 
 ### Regex usage outside R
 
@@ -691,6 +699,6 @@ Don't overthink your regexes! If all tests pass, you did a good job
 
 ## Resources
 
- * [My R video's on YouTube](https://www.youtube.com/playlist?list=PLu8_ZyzXyRDH2iTiBxg6zJ0CZnxNEYMp-)
+ * YouTube video about this talk: [https://youtu.be/qKXl2gk_Z7U](https://youtu.be/qKXl2gk_Z7U)
  * [RStudio cheatsheets](https://rstudio.com/resources/cheatsheets/),
    including the 'Work with Strings Cheatsheet'
