@@ -551,7 +551,7 @@ expect_equal("KP143511.1", extract_dna_sequence_numbers(text)[30])
 
 The regex `">(.*)\\|.*"` would not work, because the asterisk is *greedy*.
 
-### Example exercise: `extract_year`
+### Exercise: `extract_year`
 
 Extract the year the DNA sequence has been obtained.
 Convert the text to a number.
@@ -587,6 +587,31 @@ expect_equal(2013, extract_year(text)[30])
 ```
 
 Here, the simple regex worked, *because* the asterisk is greedy.
+
+## Multiple matches: `str_match`
+
+`str_match` allows to extract multiple matches at once:
+
+```{r}
+text <- c(
+  "2020/03/14",
+  "not a date",
+  "2020/07/22"
+)
+stringr::str_match(
+  text, "([:digit:]{4})/([:digit:]{2})/([:digit:]{2})"  
+)
+```
+
+### Context
+
+Here we will work on a proteome:
+
+```{r}
+text <- readr::read_lines("data/UP000464024.fasta")
+head(text, n = 7)
+```
+
 
 ## Other functions
 
