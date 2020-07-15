@@ -218,8 +218,23 @@ expect_equal(
 
 ### Example exercise: `is_a_one`
 
-Write a function called `is_a_one` that detects if a string is one one,
-using `str_subset`.
+Write a function called `is_a_one` that detects if a string is one one.
+
+Here is a stub of the function, but feel free to use your own function body:
+
+```{r}
+is_a_one <- function(text) {
+  length(text) == 1 &&
+  length(stringr::str_which(text, "your regex here")) == 1
+}
+```
+
+Note that
+
+ * one needs to specify the namespace (`stringr::`) 
+   for a function that is not part of base R
+ * the function does not support vectorization, else it would
+   have been called `are_ones`
 
 Use the anchors as shown on the cheatsheet to specify that
 the complete string, from begin to the end, must consist out of characters
@@ -235,6 +250,7 @@ expect_true(is_a_one("1"))
 expect_false(is_a_one("X"))
 expect_false(is_a_one("11"))
 expect_false(is_a_one(c("1", "1")))
+expect_false(is_a_one(c("X", "1")))
 expect_false(is_a_one(integer(0)))
 expect_false(is_a_one(NULL))
 expect_false(is_a_one(NA))
@@ -245,6 +261,7 @@ expect_false(is_a_one(Inf))
 
 ```{r}
 is_a_one <- function(text) {
+  length(text) == 1 &&
   length(stringr::str_which(text, "^1$")) == 1
 }
 ```
@@ -257,15 +274,30 @@ expect_true(is_a_one("1"))
 expect_false(is_a_one("X"))
 expect_false(is_a_one("11"))
 expect_false(is_a_one(c("1", "1")))
+expect_false(is_a_one(c("X", "1")))
 expect_false(is_a_one(integer(0)))
 expect_false(is_a_one(NULL))
 expect_false(is_a_one(NA))
 expect_false(is_a_one(Inf))
 ```
 
+Also, using another `stringr` function, such as `str_count`, `str_subset`
+or `str_match` are all valid as well. It just made the code longer.
+Also here: if all tests pass, you did a great job!
+
+
 ### Exercise: `is_a_digit`
 
 Write a function called `is_a_digit` that detects if a string is one digit.
+
+Here is a stub of the function, but feel free to use your own function body:
+
+```{r}
+is_a_digit <- function(text) {
+  length(text) == 1 &&
+  length(stringr::str_which(text, "your regex here")) == 1
+}
+```
 
 Use the regex pattern as shown on the cheatsheet to specify a digit:
 
@@ -280,6 +312,7 @@ expect_true(is_a_digit("0"))
 expect_true(is_a_digit("1"))
 expect_false(is_a_digit(""))
 expect_false(is_a_digit("X"))
+expect_false(is_a_digit("X", "1"))
 expect_false(is_a_digit(c("1", "2")))
 expect_false(is_a_digit(character(0)))
 expect_false(is_a_digit(NULL))
@@ -291,6 +324,7 @@ expect_false(is_a_digit(Inf))
 
 ```{r}
 is_a_digit <- function(text) {
+  length(text) == 1 &&
   length(stringr::str_which(text, "^[:digit:]$")) == 1
 }
 ```
@@ -301,6 +335,7 @@ expect_true(is_a_digit("1"))
 expect_false(is_a_digit(""))
 expect_false(is_a_digit("12"))
 expect_false(is_a_digit("X"))
+expect_false(is_a_digit(c("X", "1")))
 expect_false(is_a_digit(c("1", "2")))
 expect_false(is_a_digit(character(0)))
 expect_false(is_a_digit(NULL))
@@ -316,6 +351,15 @@ To simplify now, a word is defined as:
 
  * Having one or more lowercase characters
  * Having no dashes, nor numbers
+
+Here is a stub of the function, but feel free to use your own function body:
+
+```{r}
+is_a_word <- function(text) {
+  length(text) == 1 &&
+    length(stringr::str_which(text, "your regex here")) == 1
+}
+```
 
 Use the quantifiers as shown on the cheatsheet to specify that one needs
 one or more characters:
@@ -337,6 +381,7 @@ expect_false(is_a_word("Hi"))
 expect_false(is_a_word("hI"))
 expect_false(is_a_word("hoWdy"))
 expect_false(is_a_word(c("an", "apple")))
+expect_false(is_a_word(c("", "apple")))
 expect_false(is_a_word(character(0)))
 expect_false(is_a_word(NULL))
 expect_false(is_a_word(NA))
@@ -347,7 +392,8 @@ expect_false(is_a_word(Inf))
 
 ```{r}
 is_a_word <- function(text) {
-  length(stringr::str_which(text, "^[:lower:]+$")) == 1
+  length(text) == 1 &&
+    length(stringr::str_which(text, "^[:lower:]+$")) == 1
 }
 ```
 
@@ -361,6 +407,7 @@ expect_false(is_a_word("Hi"))
 expect_false(is_a_word("hI"))
 expect_false(is_a_word("hoWdy"))
 expect_false(is_a_word(c("an", "apple")))
+expect_false(is_a_word(c("", "apple")))
 expect_false(is_a_word(character(0)))
 expect_false(is_a_word(NULL))
 expect_false(is_a_word(NA))
@@ -371,6 +418,15 @@ expect_false(is_a_word(Inf))
 
 Write a function called `is_dna_sequence` that detects if a string is
 a DNA sequence.
+
+Here is a stub of the function, but feel free to use your own function body:
+
+```{r}
+is_dna_sequence <- function(text) {
+  length(text) == 1 &&
+    length(stringr::str_which(text, "your regex here")) == 1
+}
+```
 
 To simplify now, a DNA sequence is defined as:
 
@@ -406,7 +462,8 @@ expect_false(is_dna_sequence(Inf))
 
 ```{r}
 is_dna_sequence <- function(text) {
-  length(stringr::str_which(text, "^[ACGT]+$")) == 1
+  length(text) == 1 &&
+    length(stringr::str_which(text, "^[ACGT]+$")) == 1
 }
 ```
 
@@ -420,6 +477,7 @@ expect_false(is_dna_sequence("Ax"))
 expect_false(is_dna_sequence("xA"))
 expect_false(is_dna_sequence("AxA"))
 expect_false(is_dna_sequence(c("A", "CGT")))
+expect_false(is_dna_sequence(c("", "CGT")))
 expect_false(is_dna_sequence(character(0)))
 expect_false(is_dna_sequence(NULL))
 expect_false(is_dna_sequence(NA))
@@ -503,10 +561,11 @@ expect_equal(length(matches), 180)
 head(matches, n = 8)
 ```
 
-Get rid of the `NAs` using `purrr`:
+Get rid of the `NAs` using `stats::na.omit` and converting to a character
+vector:
 
 ```{r str_match_remove_na}
-matches <- as.character(na.omit(matches))
+matches <- as.character(stats::na.omit(matches))
 expect_is(matches, "character")
 expect_equal(length(matches), 30)
 head(matches)
@@ -516,7 +575,7 @@ All of this in one go:
 
 ```{r str_match_all_at_once}
 matches <- as.character(
-  na.omit(
+  stats::na.omit(
     stringr::str_match(text, ">(.*)")[, 2]
   )
 )
@@ -528,6 +587,23 @@ head(matches)
 
 Extract the DNA sequence numbers.
 
+Here is a stub of the function, but feel free to use your own function body:
+
+```{r}
+extract_dna_seq_numbers <- function(text) {
+  as.character(
+    stats::na.omit(
+      stringr::str_match(text, "your regex here")[, 2]
+    )
+  )
+}
+```
+
+Note that:
+
+ * this function works fine on vectors! That's why its name has a plural
+ * The `[, 2]` denotes the second column. It can be another column as well
+
 Hint:
 
  * it is the text between `>` and `|Felinecoronavirus`.
@@ -537,26 +613,27 @@ Hint:
 These tests must pass:
 
 ```
-expect_equal(30, length(extract_dna_sequence_numbers(text)))
-expect_equal("KX722530.1", extract_dna_sequence_numbers(text)[1])
-expect_equal("KP143511.1", extract_dna_sequence_numbers(text)[30])
+expect_equal(30, length(extract_dna_seq_numbers(text)))
+expect_equal("KX722530.1", extract_dna_seq_numbers(text)[1])
+expect_equal("KP143511.1", extract_dna_seq_numbers(text)[30])
 ```
 
-### Answer: `extract_dna_sequence_numbers`
+### Answer: `extract_dna_seq_numbers`
 
 ```{r}
-extract_dna_sequence_numbers <- function(text) {
-  purrr::discard(
-    stringr::str_match(text, ">(.*)\\|Felinecoronavirus.*")[, 2],
-    is.na
+extract_dna_seq_numbers <- function(text) {
+  as.character(
+    stats::na.omit(
+      stringr::str_match(text, ">(.*)\\|Felinecoronavirus.*")[, 2]
+    )
   )
 }
 ```
 
 ```{r}
-expect_equal(30, length(extract_dna_sequence_numbers(text)))
-expect_equal("KX722530.1", extract_dna_sequence_numbers(text)[1])
-expect_equal("KP143511.1", extract_dna_sequence_numbers(text)[30])
+expect_equal(30, length(extract_dna_seq_numbers(text)))
+expect_equal("KX722530.1", extract_dna_seq_numbers(text)[1])
+expect_equal("KP143511.1", extract_dna_seq_numbers(text)[30])
 ```
 
 The regex `">(.*)\\|.*"` would not work, because the asterisk is *greedy*.
@@ -565,6 +642,18 @@ The regex `">(.*)\\|.*"` would not work, because the asterisk is *greedy*.
 
 Extract the year the DNA sequence has been obtained.
 Convert the text to a number.
+
+Here is a stub of the function, but feel free to use your own function body:
+
+```{r}
+extract_year <- function(text) {
+  as.numeric(
+    stats::na.omit(
+      stringr::str_match(text, "your regex here")[, 2]
+    )
+  )
+}
+```
 
 Hint: the year is always 4 consecutive numbers,
 from 1993 to (and including) 2016.
@@ -582,9 +671,8 @@ expect_equal(2013, extract_year(text)[30])
 ```{r}
 extract_year <- function(text) {
   as.numeric(
-    purrr::discard(
-      stringr::str_match(text, ".*([:digit:]{4}).*")[, 2],
-      is.na
+    stats::na.omit(
+      stringr::str_match(text, ".*([:digit:]{4}).*")[, 2]
     )
   )
 }
@@ -639,6 +727,21 @@ Extract all proteins' ID and sequence ID, in a tibble.
 library(tibble)
 ```
 
+Here is a stub of the function, but feel free to use your own function body:
+
+```{r}
+extract_prot_and_seq_ids <- function(text) {
+  matrix <- stats::na.omit(
+    stringr::str_match(
+      text,
+      "your regex here"
+    )[, c(2, 3)]
+  )
+  colnames(matrix) <- c("seq_id", "prot_id")
+  tibble::as_tibble(matrix)
+}
+```
+
 These tests must pass:
 
 ```
@@ -657,7 +760,7 @@ expect_equal(t$prot_id[13], "VME1_SARS2")
 
 ```{r}
 extract_prot_and_seq_ids <- function(text) {
-  matrix <- na.omit(
+  matrix <- stats::na.omit(
     stringr::str_match(text,
       ">sp\\|([:graph:]+)\\|([:graph:]+) ")[, c(2, 3)]
   )
