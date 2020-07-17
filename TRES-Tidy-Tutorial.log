@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.6.26)  16 JUL 2020 07:43
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.6.26)  17 JUL 2020 09:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1363,16 +1363,13 @@ File: data/06_perl_problems.png Graphic file (type bmp)
 File: data/06_george_dinwiddie.jpg Graphic file (type bmp)
 <data/06_george_dinwiddie.jpg>
 
-Underfull \vbox (badness 2698) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[132]
-Underfull \vbox (badness 3826) has occurred while \output is active []
-
-[133]
+[132] [133]
 File: data/06_detect.png Graphic file (type bmp)
 <data/06_detect.png>
 
-Underfull \hbox (badness 6188) in paragraph at lines 5278--5279
+Underfull \hbox (badness 6188) in paragraph at lines 5265--5266
 []\TU/lmr/m/n/10 From ‘Work with Strings Cheatsheet’, []$[][][][][] [] [] [] []
 [][][][][][] [] [][][] []
  []
@@ -1381,7 +1378,7 @@ Underfull \hbox (badness 6188) in paragraph at lines 5278--5279
 File: data/06_anchors.png Graphic file (type bmp)
 <data/06_anchors.png>
 
-Underfull \hbox (badness 6188) in paragraph at lines 5318--5319
+Underfull \hbox (badness 6188) in paragraph at lines 5308--5309
 []\TU/lmr/m/n/10 From ‘Work with Strings Cheatsheet’, []$[][][][][] [] [] [] []
 [][][][][][] [] [][][] []
  []
@@ -1393,7 +1390,7 @@ File: data/06_character_sets.png Graphic file (type bmp)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [136]
-Underfull \hbox (badness 6188) in paragraph at lines 5388--5389
+Underfull \hbox (badness 6188) in paragraph at lines 5380--5381
 []\TU/lmr/m/n/10 From ‘Work with Strings Cheatsheet’, []$[][][][][] [] [] [] []
 [][][][][][] [] [][][] []
  []
@@ -1405,19 +1402,16 @@ File: data/06_quantifiers.png Graphic file (type bmp)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [138]
-Underfull \hbox (badness 6188) in paragraph at lines 5463--5464
+Underfull \hbox (badness 6188) in paragraph at lines 5448--5449
 []\TU/lmr/m/n/10 From ‘Work with Strings Cheatsheet’, []$[][][][][] [] [] [] []
 [][][][][][] [] [][][] []
  []
-
-
-Underfull \vbox (badness 1466) has occurred while \output is active []
 
 [139]
 File: data/06_alternates.png Graphic file (type bmp)
 <data/06_alternates.png>
 
-Underfull \hbox (badness 6188) in paragraph at lines 5536--5537
+Underfull \hbox (badness 6188) in paragraph at lines 5516--5517
 []\TU/lmr/m/n/10 From ‘Work with Strings Cheatsheet’, []$[][][][][] [] [] [] []
 [][][][][][] [] [][][] []
  []
@@ -1426,19 +1420,19 @@ Underfull \hbox (badness 6188) in paragraph at lines 5536--5537
 File: data/06_subset.png Graphic file (type bmp)
 <data/06_subset.png>
 
-Underfull \hbox (badness 6188) in paragraph at lines 5582--5583
+Underfull \hbox (badness 6188) in paragraph at lines 5563--5564
 []\TU/lmr/m/n/10 From ‘Work with Strings Cheatsheet’, []$[][][][][] [] [] [] []
 [][][][][][] [] [][][] []
  []
 
 [141]
-Overfull \hbox (159.0pt too wide) in paragraph at lines 5635--5635
+Overfull \hbox (159.0pt too wide) in paragraph at lines 5616--5616
 []\TU/lmtt/m/n/10 >[DNA sequence number]|[virus name]|[host species name]|[coun
 try of host]|[year]|[protein name]"[] 
  []
 
 [142] [143] [144]
-Overfull \hbox (180.0pt too wide) in paragraph at lines 5834--5834
+Overfull \hbox (180.0pt too wide) in paragraph at lines 5815--5815
 []\TU/lmtt/m/n/10 >sp|[Sequence ID]|[Protein ID] [Protein description] OS=[Viru
 s name] OX=[OX] GN=[GN] PE=[PE] SV=[SV][] 
  []
@@ -1450,7 +1444,7 @@ File: data/06_mutate.png Graphic file (type bmp)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [146]
-Underfull \hbox (badness 6188) in paragraph at lines 5924--5925
+Underfull \hbox (badness 6188) in paragraph at lines 5905--5906
 []\TU/lmr/m/n/10 From ‘Work with Strings Cheatsheet’, []$[][][][][] [] [] [] []
 [][][][][][] [] [][][] []
  []
@@ -1465,7 +1459,7 @@ File: opening-image.png Graphic file (type bmp)
 [149
 
 ]
-Underfull \hbox (badness 2573) in paragraph at lines 6111--6112
+Underfull \hbox (badness 2573) in paragraph at lines 6090--6091
 []\TU/lmr/m/n/10 The same issue arises with functions such as \TU/lmtt/m/n/10 d
 plyr::summarise \TU/lmr/m/n/10 and
  []
@@ -1477,7 +1471,7 @@ Underfull \vbox (badness 2617) has occurred while \output is active []
 Underfull \vbox (badness 6808) has occurred while \output is active []
 
 [158]
-Underfull \hbox (badness 1496) in paragraph at lines 6599--6601
+Underfull \hbox (badness 1496) in paragraph at lines 6578--6580
 \TU/lmtt/m/n/10 dplyr 1.0.0 \TU/lmr/m/n/10 had \TU/lmtt/m/n/10 summarise_* \TU/
 lmr/m/n/10 superseded by the \TU/lmtt/m/n/10 across \TU/lmr/m/n/10 argument to
  []
@@ -1486,17 +1480,17 @@ lmr/m/n/10 superseded by the \TU/lmtt/m/n/10 across \TU/lmr/m/n/10 argument to
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [159] [160] [161] [162] [163]
-Underfull \hbox (badness 1565) in paragraph at lines 6855--6857
+Underfull \hbox (badness 1565) in paragraph at lines 6834--6836
 []\TU/lmr/m/n/10 Tidy evaluation: Superseded and archived, but still useful []$
 [][][][][] []
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 6860.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 6839.
 [164]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 6860.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 6839.
 (./TRES-Tidy-Tutorial.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 6860.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 6860.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 6839.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 6839.
 
 Package rerunfilecheck Info: File `TRES-Tidy-Tutorial.out' has not changed.
 (rerunfilecheck)             Checksum: FE80F0171864155E5CFE8DFDCE0D339C;10912.
@@ -1506,8 +1500,8 @@ LaTeX Warning: There were multiply-defined labels.
  ) 
 Here is how much of TeX's memory you used:
  18879 strings out of 481228
- 354490 string characters out of 5923157
- 774527 words of memory out of 5000000
+ 354456 string characters out of 5923157
+ 774447 words of memory out of 5000000
  35550 multiletter control sequences out of 15000+600000
  538877 words of font info for 88 fonts, out of 8000000 for 9000
  350 hyphenation exceptions out of 8191

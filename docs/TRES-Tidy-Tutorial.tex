@@ -143,7 +143,7 @@
 
 \title{TRES Tidyverse Tutorial}
 \author{Raphael, Pratik, Theo and Richèl}
-\date{2020-07-16}
+\date{2020-07-17}
 
 \begin{document}
 \maketitle
@@ -5194,12 +5194,6 @@ Multiple R functions to work with regular expressions:
 Regexes have different dialects, such as POSIX and perl.
 Within R, there are the base R dialect and the Tidyverse dialect.
 
-\begin{quote}
-I define UNIX as 30 definitions of regular expressions living under one roof.
-
-Donald Knuth. Digital Typography, ch.~33, p.~649 (1999)
-\end{quote}
-
 We'll have to test!
 
 \hypertarget{testing}{%
@@ -5213,13 +5207,6 @@ From George Dinwiddie's blog, \url{http://blog.gdinwiddie.com/2012/12/26/tdd-hat
 
 \hypertarget{why-test}{%
 \subsection{Why test?}\label{why-test}}
-
-\begin{quote}
-Testers don't like to break things;
-they like to dispel the illusion that things work.
-
-Kaner, Bach, Pettichord
-\end{quote}
 
 \begin{itemize}
 \tightlist
@@ -5290,11 +5277,13 @@ From `Work with Strings Cheatsheet', \url{https://rstudio.com/resources/cheatshe
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{example-exercise-has_a_one-anchors}{%
-\subsection{\texorpdfstring{Example exercise: \texttt{has\_a\_one} (anchors)}{Example exercise: has\_a\_one (anchors)}}\label{example-exercise-has_a_one-anchors}}
+\hypertarget{example-exercise-has_a_one}{%
+\subsection{\texorpdfstring{Example exercise: \texttt{has\_a\_one}}{Example exercise: has\_a\_one}}\label{example-exercise-has_a_one}}
 
 Write a function called \texttt{has\_a\_one} that detects if a character
 vector contains at least one one.
+
+To be precise: `a one' is a string that starts with a \texttt{1}, then ends directly.
 
 These tests must pass:
 
@@ -5304,6 +5293,7 @@ expect_true(has_a_one(c("X", "1")))
 expect_true(has_a_one(c("1", "1")))
 expect_false(has_a_one("X"))
 expect_false(has_a_one("11"))
+expect_false(has_a_one("1 1"))
 expect_false(has_a_one(integer(0)))
 expect_false(has_a_one(NULL))
 expect_false(has_a_one(NA))
@@ -5349,6 +5339,7 @@ No worries: if all tests pass, you did a great job!
 \KeywordTok{expect_true}\NormalTok{(}\KeywordTok{has_a_one}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"1"}\NormalTok{, }\StringTok{"1"}\NormalTok{)))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_one}\NormalTok{(}\StringTok{"X"}\NormalTok{))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_one}\NormalTok{(}\StringTok{"11"}\NormalTok{))}
+\KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_one}\NormalTok{(}\StringTok{"1 1"}\NormalTok{))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_one}\NormalTok{(}\KeywordTok{integer}\NormalTok{(}\DecValTok{0}\NormalTok{)))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_one}\NormalTok{(}\OtherTok{NULL}\NormalTok{))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_one}\NormalTok{(}\OtherTok{NA}\NormalTok{))}
@@ -5359,11 +5350,11 @@ Also, using another \texttt{stringr} function, such as \texttt{str\_count}, \tex
 or \texttt{str\_match} are all valid as well. It just made the code longer.
 Also here: if all tests pass, you did a great job!
 
-\hypertarget{exercise-has_a_digit-character-group}{%
-\subsection{\texorpdfstring{Exercise: \texttt{has\_a\_digit} (character group)}{Exercise: has\_a\_digit (character group)}}\label{exercise-has_a_digit-character-group}}
+\hypertarget{exercise-has_a_digit}{%
+\subsection{\texorpdfstring{Exercise: \texttt{has\_a\_digit}}{Exercise: has\_a\_digit}}\label{exercise-has_a_digit}}
 
 Write a function called \texttt{has\_a\_digit} that detects if a
-character vector contains at least one digit.
+character vector contains at least one digit. To be precise, `a digit' is a string that starts with a (decimal) digit, the ends directly.
 
 These tests must pass:
 
@@ -5374,6 +5365,7 @@ expect_true(has_a_digit(c("1", "2")))
 expect_true(has_a_digit(c("X", "1")))
 expect_false(has_a_digit(""))
 expect_false(has_a_digit("12"))
+expect_false(has_a_digit("1 2"))
 expect_false(has_a_digit("X"))
 expect_false(has_a_digit(character(0)))
 expect_false(has_a_digit(NULL))
@@ -5417,6 +5409,7 @@ Here is a stub of the function, but feel free to use your own function body:
 \KeywordTok{expect_true}\NormalTok{(}\KeywordTok{has_a_digit}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"X"}\NormalTok{, }\StringTok{"1"}\NormalTok{)))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_digit}\NormalTok{(}\StringTok{""}\NormalTok{))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_digit}\NormalTok{(}\StringTok{"12"}\NormalTok{))}
+\KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_digit}\NormalTok{(}\StringTok{"1 2"}\NormalTok{))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_digit}\NormalTok{(}\StringTok{"X"}\NormalTok{))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_digit}\NormalTok{(}\KeywordTok{character}\NormalTok{(}\DecValTok{0}\NormalTok{)))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_digit}\NormalTok{(}\OtherTok{NULL}\NormalTok{))}
@@ -5424,20 +5417,10 @@ Here is a stub of the function, but feel free to use your own function body:
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{exercise-has_a_wordquantifier}{%
-\subsection{\texorpdfstring{Exercise: \texttt{has\_a\_word}(quantifier)}{Exercise: has\_a\_word(quantifier)}}\label{exercise-has_a_wordquantifier}}
+\hypertarget{exercise-has_a_word}{%
+\subsection{\texorpdfstring{Exercise: \texttt{has\_a\_word}}{Exercise: has\_a\_word}}\label{exercise-has_a_word}}
 
-Write a function called \texttt{has\_a\_word} that detects if a string is a word.
-
-To simplify now, a word is defined as:
-
-\begin{itemize}
-\tightlist
-\item
-  Having one or more lowercase characters
-\item
-  Having no dashes, nor numbers
-\end{itemize}
+Write a function called \texttt{has\_a\_word} that detects if a string is a word. To be precise (and to simplify), `a word' starts with one or more lowercase characters, then ends directly.
 
 These tests must pass:
 
@@ -5447,8 +5430,10 @@ expect_true(has_a_word("an"))
 expect_true(has_a_word("apple"))
 expect_true(has_a_word(c("an", "apple")))
 expect_true(has_a_word(c("", "apple")))
+expect_false(has_a_word("."))
 expect_false(has_a_word("X"))
 expect_false(has_a_word("hI"))
+expect_false(has_a_word("an apple"))
 expect_false(has_a_word(character(0)))
 expect_false(has_a_word(NULL))
 expect_false(has_a_word(NA))
@@ -5491,8 +5476,10 @@ Here is a stub of the function, but feel free to use your own function body:
 \KeywordTok{expect_true}\NormalTok{(}\KeywordTok{has_a_word}\NormalTok{(}\StringTok{"apple"}\NormalTok{))}
 \KeywordTok{expect_true}\NormalTok{(}\KeywordTok{has_a_word}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"an"}\NormalTok{, }\StringTok{"apple"}\NormalTok{)))}
 \KeywordTok{expect_true}\NormalTok{(}\KeywordTok{has_a_word}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{""}\NormalTok{, }\StringTok{"apple"}\NormalTok{)))}
+\KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_word}\NormalTok{(}\StringTok{"."}\NormalTok{))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_word}\NormalTok{(}\StringTok{"X"}\NormalTok{))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_word}\NormalTok{(}\StringTok{"hI"}\NormalTok{))}
+\KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_word}\NormalTok{(}\StringTok{"an apple"}\NormalTok{))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_word}\NormalTok{(}\KeywordTok{character}\NormalTok{(}\DecValTok{0}\NormalTok{)))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_word}\NormalTok{(}\OtherTok{NULL}\NormalTok{))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_a_word}\NormalTok{(}\OtherTok{NA}\NormalTok{))}
@@ -5504,16 +5491,8 @@ Here is a stub of the function, but feel free to use your own function body:
 
 Write a function called \texttt{has\_dna\_seq} that detects if a character
 vector contains one or more DNA sequences.
-
-To simplify now, a DNA sequence is defined as:
-
-\begin{itemize}
-\tightlist
-\item
-  There are four characters, one per nucleotides
-\item
-  These characters are uppercase (A, C, G and T)
-\end{itemize}
+To be precise, `a DNA sequence' starts with one or more
+nucleotides (an `A', `C', `G' or `T'), then ends directly.
 
 These tests must pass:
 
@@ -5522,6 +5501,7 @@ expect_true(has_dna_seq("A"))
 expect_true(has_dna_seq(c("A", "CGT")))
 expect_true(has_dna_seq(c("", "CGT")))
 expect_false(has_dna_seq("Ax"))
+expect_false(has_dna_seq("A C"))
 expect_false(has_dna_seq(character(0)))
 expect_false(has_dna_seq(NULL))
 expect_false(has_dna_seq(NA))
@@ -5563,6 +5543,7 @@ Here is a stub of the function, but feel free to use your own function body:
 \KeywordTok{expect_true}\NormalTok{(}\KeywordTok{has_dna_seq}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"CGT"}\NormalTok{)))}
 \KeywordTok{expect_true}\NormalTok{(}\KeywordTok{has_dna_seq}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{""}\NormalTok{, }\StringTok{"CGT"}\NormalTok{)))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_dna_seq}\NormalTok{(}\StringTok{"Ax"}\NormalTok{))}
+\KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_dna_seq}\NormalTok{(}\StringTok{"A C"}\NormalTok{))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_dna_seq}\NormalTok{(}\KeywordTok{character}\NormalTok{(}\DecValTok{0}\NormalTok{)))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_dna_seq}\NormalTok{(}\OtherTok{NULL}\NormalTok{))}
 \KeywordTok{expect_false}\NormalTok{(}\KeywordTok{has_dna_seq}\NormalTok{(}\OtherTok{NA}\NormalTok{))}
@@ -5699,7 +5680,7 @@ Here, we select for all info after the \texttt{\textgreater{}}:
 \end{Highlighting}
 \end{Shaded}
 
-After select the second column, we ret rid of the \texttt{NAs} using \texttt{na.omit}
+After select the second column, we get rid of the \texttt{NAs} using \texttt{na.omit}
 and converting to a character vector:
 
 \begin{Shaded}
@@ -6025,8 +6006,6 @@ Don't overthink your regexes! If all tests pass, you did a good job
 
 \begin{itemize}
 \tightlist
-\item
-  YouTube video about this talk: \url{https://youtu.be/qKXl2gk_Z7U}
 \item
   \href{https://rstudio.com/resources/cheatsheets/}{RStudio cheatsheets},
   including the `Work with Strings Cheatsheet'

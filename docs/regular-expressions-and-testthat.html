@@ -24,7 +24,7 @@
 <meta name="author" content="Raphael, Pratik, Theo and Richèl" />
 
 
-<meta name="date" content="2020-07-16" />
+<meta name="date" content="2020-07-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -283,9 +283,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#detect-a-full-match"><i class="fa fa-check"></i><b>6.3</b> Detect a full match</a><ul>
 <li class="chapter" data-level="6.3.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#str_which-demo"><i class="fa fa-check"></i><b>6.3.1</b> <code>str_which</code> demo</a></li>
-<li class="chapter" data-level="6.3.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#example-exercise-has_a_one-anchors"><i class="fa fa-check"></i><b>6.3.2</b> Example exercise: <code>has_a_one</code> (anchors)</a></li>
-<li class="chapter" data-level="6.3.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#exercise-has_a_digit-character-group"><i class="fa fa-check"></i><b>6.3.3</b> Exercise: <code>has_a_digit</code> (character group)</a></li>
-<li class="chapter" data-level="6.3.4" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#exercise-has_a_wordquantifier"><i class="fa fa-check"></i><b>6.3.4</b> Exercise: <code>has_a_word</code>(quantifier)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#example-exercise-has_a_one"><i class="fa fa-check"></i><b>6.3.2</b> Example exercise: <code>has_a_one</code></a></li>
+<li class="chapter" data-level="6.3.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#exercise-has_a_digit"><i class="fa fa-check"></i><b>6.3.3</b> Exercise: <code>has_a_digit</code></a></li>
+<li class="chapter" data-level="6.3.4" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#exercise-has_a_word"><i class="fa fa-check"></i><b>6.3.4</b> Exercise: <code>has_a_word</code></a></li>
 <li class="chapter" data-level="6.3.5" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#exercise-has_dna_seq-alternates"><i class="fa fa-check"></i><b>6.3.5</b> Exercise: <code>has_dna_seq</code> (alternates)</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#extract-a-pattern-for-one-submatch"><i class="fa fa-check"></i><b>6.4</b> Extract a pattern for one submatch</a><ul>
@@ -428,10 +428,6 @@ MADSNGTITVEELKKLLEQWNLVIGFLFLTWICLLQFAYANRNRFLYIIKLIFLWLLWPV</code></pre>
 </blockquote>
 <p>Regexes have different dialects, such as POSIX and perl.
 Within R, there are the base R dialect and the Tidyverse dialect.</p>
-<blockquote>
-<p>I define UNIX as 30 definitions of regular expressions living under one roof.</p>
-<p>Donald Knuth. Digital Typography, ch. 33, p. 649 (1999)</p>
-</blockquote>
 <p>We’ll have to test!</p>
 </div>
 </div>
@@ -443,11 +439,6 @@ Within R, there are the base R dialect and the Tidyverse dialect.</p>
 </blockquote>
 <div id="why-test" class="section level3">
 <h3><span class="header-section-number">6.2.1</span> Why test?</h3>
-<blockquote>
-<p>Testers don’t like to break things;
-they like to dispel the illusion that things work.</p>
-<p>Kaner, Bach, Pettichord</p>
-</blockquote>
 <ul>
 <li>To be sure your code is correct</li>
 <li>Spend less time fixing bugs</li>
@@ -485,16 +476,18 @@ they like to dispel the illusion that things work.</p>
 <a class="sourceLine" id="cb212-3" title="3"><span class="kw">expect_equal</span>(<span class="kw">str_which</span>(fruit, <span class="st">&quot;apple&quot;</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</a>
 <a class="sourceLine" id="cb212-4" title="4"><span class="kw">expect_equal</span>(<span class="kw">str_which</span>(fruit, <span class="st">&quot;submarine&quot;</span>), <span class="kw">integer</span>(<span class="dv">0</span>))</a></code></pre></div>
 </div>
-<div id="example-exercise-has_a_one-anchors" class="section level3">
-<h3><span class="header-section-number">6.3.2</span> Example exercise: <code>has_a_one</code> (anchors)</h3>
+<div id="example-exercise-has_a_one" class="section level3">
+<h3><span class="header-section-number">6.3.2</span> Example exercise: <code>has_a_one</code></h3>
 <p>Write a function called <code>has_a_one</code> that detects if a character
 vector contains at least one one.</p>
+<p>To be precise: ‘a one’ is a string that starts with a <code>1</code>, then ends directly.</p>
 <p>These tests must pass:</p>
 <pre><code>expect_true(has_a_one(&quot;1&quot;))
 expect_true(has_a_one(c(&quot;X&quot;, &quot;1&quot;)))
 expect_true(has_a_one(c(&quot;1&quot;, &quot;1&quot;)))
 expect_false(has_a_one(&quot;X&quot;))
 expect_false(has_a_one(&quot;11&quot;))
+expect_false(has_a_one(&quot;1 1&quot;))
 expect_false(has_a_one(integer(0)))
 expect_false(has_a_one(NULL))
 expect_false(has_a_one(NA))</code></pre>
@@ -520,18 +513,19 @@ No worries: if all tests pass, you did a great job!</p>
 <a class="sourceLine" id="cb216-3" title="3"><span class="kw">expect_true</span>(<span class="kw">has_a_one</span>(<span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;1&quot;</span>)))</a>
 <a class="sourceLine" id="cb216-4" title="4"><span class="kw">expect_false</span>(<span class="kw">has_a_one</span>(<span class="st">&quot;X&quot;</span>))</a>
 <a class="sourceLine" id="cb216-5" title="5"><span class="kw">expect_false</span>(<span class="kw">has_a_one</span>(<span class="st">&quot;11&quot;</span>))</a>
-<a class="sourceLine" id="cb216-6" title="6"><span class="kw">expect_false</span>(<span class="kw">has_a_one</span>(<span class="kw">integer</span>(<span class="dv">0</span>)))</a>
-<a class="sourceLine" id="cb216-7" title="7"><span class="kw">expect_false</span>(<span class="kw">has_a_one</span>(<span class="ot">NULL</span>))</a>
-<a class="sourceLine" id="cb216-8" title="8"><span class="kw">expect_false</span>(<span class="kw">has_a_one</span>(<span class="ot">NA</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb216-6" title="6"><span class="kw">expect_false</span>(<span class="kw">has_a_one</span>(<span class="st">&quot;1 1&quot;</span>))</a>
+<a class="sourceLine" id="cb216-7" title="7"><span class="kw">expect_false</span>(<span class="kw">has_a_one</span>(<span class="kw">integer</span>(<span class="dv">0</span>)))</a>
+<a class="sourceLine" id="cb216-8" title="8"><span class="kw">expect_false</span>(<span class="kw">has_a_one</span>(<span class="ot">NULL</span>))</a>
+<a class="sourceLine" id="cb216-9" title="9"><span class="kw">expect_false</span>(<span class="kw">has_a_one</span>(<span class="ot">NA</span>))</a></code></pre></div>
 <p>Also, using another <code>stringr</code> function, such as <code>str_count</code>, <code>str_subset</code>
 or <code>str_match</code> are all valid as well. It just made the code longer.
 Also here: if all tests pass, you did a great job!</p>
 </div>
 </div>
-<div id="exercise-has_a_digit-character-group" class="section level3">
-<h3><span class="header-section-number">6.3.3</span> Exercise: <code>has_a_digit</code> (character group)</h3>
+<div id="exercise-has_a_digit" class="section level3">
+<h3><span class="header-section-number">6.3.3</span> Exercise: <code>has_a_digit</code></h3>
 <p>Write a function called <code>has_a_digit</code> that detects if a
-character vector contains at least one digit.</p>
+character vector contains at least one digit. To be precise, ‘a digit’ is a string that starts with a (decimal) digit, the ends directly.</p>
 <p>These tests must pass:</p>
 <pre><code>expect_true(has_a_digit(&quot;0&quot;))
 expect_true(has_a_digit(&quot;1&quot;))
@@ -539,6 +533,7 @@ expect_true(has_a_digit(c(&quot;1&quot;, &quot;2&quot;)))
 expect_true(has_a_digit(c(&quot;X&quot;, &quot;1&quot;)))
 expect_false(has_a_digit(&quot;&quot;))
 expect_false(has_a_digit(&quot;12&quot;))
+expect_false(has_a_digit(&quot;1 2&quot;))
 expect_false(has_a_digit(&quot;X&quot;))
 expect_false(has_a_digit(character(0)))
 expect_false(has_a_digit(NULL))
@@ -563,28 +558,26 @@ expect_false(has_a_digit(NA))</code></pre>
 <a class="sourceLine" id="cb220-4" title="4"><span class="kw">expect_true</span>(<span class="kw">has_a_digit</span>(<span class="kw">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;1&quot;</span>)))</a>
 <a class="sourceLine" id="cb220-5" title="5"><span class="kw">expect_false</span>(<span class="kw">has_a_digit</span>(<span class="st">&quot;&quot;</span>))</a>
 <a class="sourceLine" id="cb220-6" title="6"><span class="kw">expect_false</span>(<span class="kw">has_a_digit</span>(<span class="st">&quot;12&quot;</span>))</a>
-<a class="sourceLine" id="cb220-7" title="7"><span class="kw">expect_false</span>(<span class="kw">has_a_digit</span>(<span class="st">&quot;X&quot;</span>))</a>
-<a class="sourceLine" id="cb220-8" title="8"><span class="kw">expect_false</span>(<span class="kw">has_a_digit</span>(<span class="kw">character</span>(<span class="dv">0</span>)))</a>
-<a class="sourceLine" id="cb220-9" title="9"><span class="kw">expect_false</span>(<span class="kw">has_a_digit</span>(<span class="ot">NULL</span>))</a>
-<a class="sourceLine" id="cb220-10" title="10"><span class="kw">expect_false</span>(<span class="kw">has_a_digit</span>(<span class="ot">NA</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb220-7" title="7"><span class="kw">expect_false</span>(<span class="kw">has_a_digit</span>(<span class="st">&quot;1 2&quot;</span>))</a>
+<a class="sourceLine" id="cb220-8" title="8"><span class="kw">expect_false</span>(<span class="kw">has_a_digit</span>(<span class="st">&quot;X&quot;</span>))</a>
+<a class="sourceLine" id="cb220-9" title="9"><span class="kw">expect_false</span>(<span class="kw">has_a_digit</span>(<span class="kw">character</span>(<span class="dv">0</span>)))</a>
+<a class="sourceLine" id="cb220-10" title="10"><span class="kw">expect_false</span>(<span class="kw">has_a_digit</span>(<span class="ot">NULL</span>))</a>
+<a class="sourceLine" id="cb220-11" title="11"><span class="kw">expect_false</span>(<span class="kw">has_a_digit</span>(<span class="ot">NA</span>))</a></code></pre></div>
 </div>
 </div>
-<div id="exercise-has_a_wordquantifier" class="section level3">
-<h3><span class="header-section-number">6.3.4</span> Exercise: <code>has_a_word</code>(quantifier)</h3>
-<p>Write a function called <code>has_a_word</code> that detects if a string is a word.</p>
-<p>To simplify now, a word is defined as:</p>
-<ul>
-<li>Having one or more lowercase characters</li>
-<li>Having no dashes, nor numbers</li>
-</ul>
+<div id="exercise-has_a_word" class="section level3">
+<h3><span class="header-section-number">6.3.4</span> Exercise: <code>has_a_word</code></h3>
+<p>Write a function called <code>has_a_word</code> that detects if a string is a word. To be precise (and to simplify), ‘a word’ starts with one or more lowercase characters, then ends directly.</p>
 <p>These tests must pass:</p>
 <pre><code>expect_true(has_a_word(&quot;a&quot;))
 expect_true(has_a_word(&quot;an&quot;))
 expect_true(has_a_word(&quot;apple&quot;))
 expect_true(has_a_word(c(&quot;an&quot;, &quot;apple&quot;)))
 expect_true(has_a_word(c(&quot;&quot;, &quot;apple&quot;)))
+expect_false(has_a_word(&quot;.&quot;))
 expect_false(has_a_word(&quot;X&quot;))
 expect_false(has_a_word(&quot;hI&quot;))
+expect_false(has_a_word(&quot;an apple&quot;))
 expect_false(has_a_word(character(0)))
 expect_false(has_a_word(NULL))
 expect_false(has_a_word(NA))</code></pre>
@@ -608,27 +601,27 @@ one or more characters:</p>
 <a class="sourceLine" id="cb224-3" title="3"><span class="kw">expect_true</span>(<span class="kw">has_a_word</span>(<span class="st">&quot;apple&quot;</span>))</a>
 <a class="sourceLine" id="cb224-4" title="4"><span class="kw">expect_true</span>(<span class="kw">has_a_word</span>(<span class="kw">c</span>(<span class="st">&quot;an&quot;</span>, <span class="st">&quot;apple&quot;</span>)))</a>
 <a class="sourceLine" id="cb224-5" title="5"><span class="kw">expect_true</span>(<span class="kw">has_a_word</span>(<span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;apple&quot;</span>)))</a>
-<a class="sourceLine" id="cb224-6" title="6"><span class="kw">expect_false</span>(<span class="kw">has_a_word</span>(<span class="st">&quot;X&quot;</span>))</a>
-<a class="sourceLine" id="cb224-7" title="7"><span class="kw">expect_false</span>(<span class="kw">has_a_word</span>(<span class="st">&quot;hI&quot;</span>))</a>
-<a class="sourceLine" id="cb224-8" title="8"><span class="kw">expect_false</span>(<span class="kw">has_a_word</span>(<span class="kw">character</span>(<span class="dv">0</span>)))</a>
-<a class="sourceLine" id="cb224-9" title="9"><span class="kw">expect_false</span>(<span class="kw">has_a_word</span>(<span class="ot">NULL</span>))</a>
-<a class="sourceLine" id="cb224-10" title="10"><span class="kw">expect_false</span>(<span class="kw">has_a_word</span>(<span class="ot">NA</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb224-6" title="6"><span class="kw">expect_false</span>(<span class="kw">has_a_word</span>(<span class="st">&quot;.&quot;</span>))</a>
+<a class="sourceLine" id="cb224-7" title="7"><span class="kw">expect_false</span>(<span class="kw">has_a_word</span>(<span class="st">&quot;X&quot;</span>))</a>
+<a class="sourceLine" id="cb224-8" title="8"><span class="kw">expect_false</span>(<span class="kw">has_a_word</span>(<span class="st">&quot;hI&quot;</span>))</a>
+<a class="sourceLine" id="cb224-9" title="9"><span class="kw">expect_false</span>(<span class="kw">has_a_word</span>(<span class="st">&quot;an apple&quot;</span>))</a>
+<a class="sourceLine" id="cb224-10" title="10"><span class="kw">expect_false</span>(<span class="kw">has_a_word</span>(<span class="kw">character</span>(<span class="dv">0</span>)))</a>
+<a class="sourceLine" id="cb224-11" title="11"><span class="kw">expect_false</span>(<span class="kw">has_a_word</span>(<span class="ot">NULL</span>))</a>
+<a class="sourceLine" id="cb224-12" title="12"><span class="kw">expect_false</span>(<span class="kw">has_a_word</span>(<span class="ot">NA</span>))</a></code></pre></div>
 </div>
 </div>
 <div id="exercise-has_dna_seq-alternates" class="section level3">
 <h3><span class="header-section-number">6.3.5</span> Exercise: <code>has_dna_seq</code> (alternates)</h3>
 <p>Write a function called <code>has_dna_seq</code> that detects if a character
-vector contains one or more DNA sequences.</p>
-<p>To simplify now, a DNA sequence is defined as:</p>
-<ul>
-<li>There are four characters, one per nucleotides</li>
-<li>These characters are uppercase (A, C, G and T)</li>
-</ul>
+vector contains one or more DNA sequences.
+To be precise, ‘a DNA sequence’ starts with one or more
+nucleotides (an ‘A’, ‘C’, ‘G’ or ‘T’), then ends directly.</p>
 <p>These tests must pass:</p>
 <pre><code>expect_true(has_dna_seq(&quot;A&quot;))
 expect_true(has_dna_seq(c(&quot;A&quot;, &quot;CGT&quot;)))
 expect_true(has_dna_seq(c(&quot;&quot;, &quot;CGT&quot;)))
 expect_false(has_dna_seq(&quot;Ax&quot;))
+expect_false(has_dna_seq(&quot;A C&quot;))
 expect_false(has_dna_seq(character(0)))
 expect_false(has_dna_seq(NULL))
 expect_false(has_dna_seq(NA))</code></pre>
@@ -651,9 +644,10 @@ each character must be one of the four nucleotides:</p>
 <a class="sourceLine" id="cb228-2" title="2"><span class="kw">expect_true</span>(<span class="kw">has_dna_seq</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;CGT&quot;</span>)))</a>
 <a class="sourceLine" id="cb228-3" title="3"><span class="kw">expect_true</span>(<span class="kw">has_dna_seq</span>(<span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;CGT&quot;</span>)))</a>
 <a class="sourceLine" id="cb228-4" title="4"><span class="kw">expect_false</span>(<span class="kw">has_dna_seq</span>(<span class="st">&quot;Ax&quot;</span>))</a>
-<a class="sourceLine" id="cb228-5" title="5"><span class="kw">expect_false</span>(<span class="kw">has_dna_seq</span>(<span class="kw">character</span>(<span class="dv">0</span>)))</a>
-<a class="sourceLine" id="cb228-6" title="6"><span class="kw">expect_false</span>(<span class="kw">has_dna_seq</span>(<span class="ot">NULL</span>))</a>
-<a class="sourceLine" id="cb228-7" title="7"><span class="kw">expect_false</span>(<span class="kw">has_dna_seq</span>(<span class="ot">NA</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb228-5" title="5"><span class="kw">expect_false</span>(<span class="kw">has_dna_seq</span>(<span class="st">&quot;A C&quot;</span>))</a>
+<a class="sourceLine" id="cb228-6" title="6"><span class="kw">expect_false</span>(<span class="kw">has_dna_seq</span>(<span class="kw">character</span>(<span class="dv">0</span>)))</a>
+<a class="sourceLine" id="cb228-7" title="7"><span class="kw">expect_false</span>(<span class="kw">has_dna_seq</span>(<span class="ot">NULL</span>))</a>
+<a class="sourceLine" id="cb228-8" title="8"><span class="kw">expect_false</span>(<span class="kw">has_dna_seq</span>(<span class="ot">NA</span>))</a></code></pre></div>
 </div>
 </div>
 </div>
@@ -747,7 +741,7 @@ Here, we select for all info after the <code>&gt;</code>:</p>
 <a class="sourceLine" id="cb234-21" title="21"><span class="co">#&gt; [6,] NA                                                                 </span></a>
 <a class="sourceLine" id="cb234-22" title="22"><span class="co">#&gt; [7,] &quot;FJ938053.1|Felinecoronavirus|cat|NetherlandsUtrecht|2007|Envelope&quot;</span></a>
 <a class="sourceLine" id="cb234-23" title="23"><span class="co">#&gt; [8,] NA</span></a></code></pre></div>
-<p>After select the second column, we ret rid of the <code>NAs</code> using <code>na.omit</code>
+<p>After select the second column, we get rid of the <code>NAs</code> using <code>na.omit</code>
 and converting to a character vector:</p>
 <div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" title="1">matches &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">na.omit</span>(matches[, <span class="dv">2</span>]))</a>
 <a class="sourceLine" id="cb235-2" title="2"><span class="kw">expect_is</span>(matches, <span class="st">&quot;character&quot;</span>)</a>
@@ -948,7 +942,6 @@ See its documentation for more detail about the individual arguments.</p>
 <div id="resources" class="section level2">
 <h2><span class="header-section-number">6.9</span> Resources</h2>
 <ul>
-<li>YouTube video about this talk: <a href="https://youtu.be/qKXl2gk_Z7U">https://youtu.be/qKXl2gk_Z7U</a></li>
 <li><a href="https://rstudio.com/resources/cheatsheets/">RStudio cheatsheets</a>,
 including the ‘Work with Strings Cheatsheet’</li>
 </ul>
