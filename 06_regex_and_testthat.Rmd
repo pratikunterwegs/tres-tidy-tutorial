@@ -92,10 +92,6 @@ library(stringr)
 Regexes have different dialects, such as POSIX and perl.
 Within R, there are the base R dialect and the Tidyverse dialect.
 
-> I define UNIX as 30 definitions of regular expressions living under one roof.
->
-> Donald Knuth. Digital Typography, ch. 33, p. 649 (1999)
-
 We'll have to test!
 
 ## Testing
@@ -105,11 +101,6 @@ We'll have to test!
 > From George Dinwiddie's blog, http://blog.gdinwiddie.com/2012/12/26/tdd-hat/
 
 ### Why test?
-
-> Testers don’t like to break things;
-> they like to dispel the illusion that things work.
->
-> Kaner, Bach, Pettichord
 
  * To be sure your code is correct
  * Spend less time fixing bugs
@@ -158,10 +149,12 @@ expect_equal(str_which(fruit, "apple"), c(1, 3))
 expect_equal(str_which(fruit, "submarine"), integer(0))
 ```
 
-### Example exercise: `has_a_one` (anchors)
+### Example exercise: `has_a_one`
 
 Write a function called `has_a_one` that detects if a character
 vector contains at least one one.
+
+To be precise: 'a one' is a string that starts with a `1`, then ends directly.
 
 These tests must pass:
 
@@ -219,10 +212,10 @@ Also, using another `stringr` function, such as `str_count`, `str_subset`
 or `str_match` are all valid as well. It just made the code longer.
 Also here: if all tests pass, you did a great job!
 
-### Exercise: `has_a_digit` (character group)
+### Exercise: `has_a_digit`
 
 Write a function called `has_a_digit` that detects if a 
-character vector contains at least one digit.
+character vector contains at least one digit. To be precise, 'a digit' is a string that starts with a (decimal) digit, the ends directly.
 
 These tests must pass:
 
@@ -276,14 +269,9 @@ expect_false(has_a_digit(NULL))
 expect_false(has_a_digit(NA))
 ```
 
-### Exercise: `has_a_word`(quantifier)
+### Exercise: `has_a_word`
 
-Write a function called `has_a_word` that detects if a string is a word.
-
-To simplify now, a word is defined as:
-
- * Having one or more lowercase characters
- * Having no dashes, nor numbers
+Write a function called `has_a_word` that detects if a string is a word. To be precise (and to simplify), 'a word' starts with one or more lowercase characters, then ends directly.
 
 These tests must pass:
 
@@ -293,6 +281,7 @@ expect_true(has_a_word("an"))
 expect_true(has_a_word("apple"))
 expect_true(has_a_word(c("an", "apple")))
 expect_true(has_a_word(c("", "apple")))
+expect_false(has_a_word("."))
 expect_false(has_a_word("X"))
 expect_false(has_a_word("hI"))
 expect_false(has_a_word("an apple"))
@@ -330,6 +319,7 @@ expect_true(has_a_word("an"))
 expect_true(has_a_word("apple"))
 expect_true(has_a_word(c("an", "apple")))
 expect_true(has_a_word(c("", "apple")))
+expect_false(has_a_word("."))
 expect_false(has_a_word("X"))
 expect_false(has_a_word("hI"))
 expect_false(has_a_word("an apple"))
@@ -341,12 +331,9 @@ expect_false(has_a_word(NA))
 ### Exercise: `has_dna_seq` (alternates)
 
 Write a function called `has_dna_seq` that detects if a character
-vector contains one or more DNA sequences.
-
-To simplify now, a DNA sequence is defined as:
-
- * There are four characters, one per nucleotides
- * These characters are uppercase (A, C, G and T)
+vector contains one or more DNA sequences. 
+To be precise, 'a DNA sequence' starts with one or more
+nucleotides (an 'A', 'C', 'G' or 'T'), then ends directly. 
 
 These tests must pass:
 
