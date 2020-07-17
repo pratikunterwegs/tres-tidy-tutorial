@@ -1,0 +1,25 @@
+---
+editor_options:
+  chunk_output_type: console
+---
+
+# Developing R packages
+
+Raphael Scherrer
+
+![](opening-image.png)
+
+By now you know what R packages are and you have been using many of them, some of them part of the tidyverse and others not. R packages are modules, or coherent libraries of functions, designed at specific sets of tasks. Packages, or libraries, are common to many programming languages, the philosophy behind them being: pick only the tools you need for your task, without having to download all the possible toolboxes. Currently CRAN (the Comprehensive R Archive Network) is host to more than 16,000 packages ([link](https://cran.r-project.org/web/packages/)), and that is not counting R packages hosted by other platforms such as [GitHub](https://github.com), [Bioconductor](https://www.bioconductor.org/) or [rOpenSci](https://ropensci.org/). This is what makes R such a powerful and popular language, capable of doing pretty much everything you can think of, except making coffee. Why there are so many packages is because *anyone* can write their own package and make it available to others, so the growth of the R universe if very much community-driven. Here we will show you how to write your own package. Most of the content of this tutorial follows what can be found in Hadley Wickham's exhaustive [book](http://r-pkgs.had.co.nz/) on R packages.
+
+## Why writing packages?
+
+You may very well have written many analysis pipelines in R for various projects and never felt the need to make packages for them. So "Why bother?", you may ask. Main reasons:
+
+* deployment -- packages make it easier for people to use your code
+* reproducibility -- packages can be a convenient way to make a study fully reproducible
+* consistency -- there is a common set of rules on how packages should be organized, which makes your code understandable to everyone
+* security -- the common conventions around package syntax make it possible for third-party tools to check your code for bugs or style, which also means you can often trust packages hosted at some platforms when you know they run those tests
+
+## References
+
+* Hadley's [book](http://r-pkgs.had.co.nz/) on developing R packages
