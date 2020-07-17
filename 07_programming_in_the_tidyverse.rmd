@@ -1,0 +1,591 @@
+---
+editor_options:
+  chunk_output_type: console
+---
+
+# Programming in the *tidyverse*
+
+![](opening-image.png)
+
+
+Load the packages for the day.
+
+```{r}
+library(tidyverse)
+library(rlang)
+```
+A function to look at errors.
+
+```{r}
+try_this <- function(ex) {
+  tryCatch(
+    expr = {
+      ex
+    },
+    error = function(e) {
+      print(glue::glue(as.character(e), "\n"))
+    }
+  )
+}
+```
+
+## An exlanation of the problem
+
+### What the issue is
+
+Get some data from _Phylacine_, and attempt to select or filter.
+
+```{r}
+# read in phylacine data
+data = read_csv("data/phylacine_traits.csv")
+
+# regular filtering
+small_mammals = data %>%
+  filter(Mass.g < 1000)
+```
+
+```{r}
+# filtering on a string
+small_mammals_too = data %>%
+  filter("Mass.g" < 1000)
+```
+
+Examine `small_mammals` and `small_mammals_too` to check whether they are as expected.
+
+```{r}
+# count rows
+map_int(list(sm_1 = small_mammals, sm2 = small_mammals_too),
+        nrow)
+```
+
+The difference in the number of rows is because `dplyr::filter` could not understand the string `"Mass.g"` as a variable in the dataframe.
+
+This is because the `tidyverse`, through its `tidyselect` package, makes a distinction between `"Mass.g"`, and `Mass.g`.
+
+A better explanation of (some of) the theory behind this can be found here: [Programming with dplyr](https://dplyr.tidyverse.org/articles/programming.html#setting-variable-names).
+
+The same issue arises with functions such as `dplyr::summarise` and `dplyr::group_by`.
+
+```{r warning=TRUE}
+# summarise using an unquoted variable
+summarise(data,
+          mean_mass = mean(Mass.g))
+
+# this will print a warning
+summarise(data,
+          mean_mass = mean("Mass.g"))
+```
+
+### Why the issue is a problem
+
+Consider an analysis pipeline as follows.
+
+`data %>% select variables %>% summarise by groups`
+
+```{r}
+data %>%
+  select(Mass.g, Diet.Plant, Order.1.2) %>%
+  group_by(Order.1.2) %>%
+  summarise_all(.funs = mean) %>%
+  head()
+```
+
+Now consider that this analysis pipeline is repeated many times in your document. Consider also that a well intentioned person has renamed the dataframe columns.
+
+```{r}
+data <- data %>%
+  `colnames<-`(str_replace_all(colnames(data), "\\.", "_") %>%
+                 str_to_lower %>%
+                 str_remove("_1_2"))
+```
+
+The group-summarise code above will no longer work.
+
+```{r}
+try_this(ex =
+
+    data %>%
+      select(Mass.g, Diet.Plant, Order.1.2) %>%
+      group_by(Order.1.2) %>%
+      summarise_all(.funs = mean) %>%
+      head()
+)
+```
+
+This illustrates the problem in part: when the columns to be operated upon are _unknown to the programmer_, much of basic `tidyverse` code cannot be generalised to be used with any dataframe.
+
+### Passing variables as strings is (also) an issue
+
+The variables to be operated on could be given as strings, perhaps as the argument to a function, or as a global variable. This way, a single global vector could contain the grouping variables for all further `summarise` procedures.
+
+This runs into the problem identified earlier.
+
+```{r}
+# choose some variables
+vars_to_select = c("Mass.g", "Diet.Plant")
+vars_to_group = c("Order.1.2")
+
+# attempt to select and summarise on group
+# the tidyverse will not be pleased
+try_this(ex =
+
+    data %>%
+      select(vars_to_select) %>% # this works with a warning
+      group_by(vars_to_group) %>%
+      summarise(mean_mass = mean(Mass.g),
+                mean_plant = mean(Diet.Plant))
+)
+```
+
+In the case of a standard `filter %>% group %>% summarise` pipeline, the function's operations are evident. It must filter a dataframe based on a/some column(s), and then summarise by groups. The filter to be applied, the variables to group by, and the variables to be summarised should be passed as function arguments --- just how this is to be done is not immediately obvious.
+
+## Flexible selection is easy
+
+Selection often precedes data operations, but is not part of the pipeline dealt with further.
+
+This is because `dplyr::select` appears to work on both quoted and unquoted variables, but in general some useful `select` helpers such as `dplyr::all_of` should be used. These straightforward helper functions significantly expand `select`'s flexibility and ease of use, and are not covered here. See the `select` help for more information.
+
+## A first attempt at a flexible function
+
+The attempt below to write such a function, which gives the mean and confidence intervals of groups is likely to fail.
+
+```{r}
+# define a ci function
+ci <- function(x, ci = 95) {
+  qnorm(1 - (1 - ci / 100)/2) * sd(x, na.rm = TRUE) / sqrt(length(x))
+}
+```
+
+```{r}
+custom_summary <- function(data, filters, grouping_vars, summary_vars) {
+
+  data %>%
+    filter(filters) %>%
+    group_by(grouping_vars) %>%
+    summarise(mean = mean(summary_vars),
+              ci = ci(summary_vars))
+
+}
+```
+
+### Failure of the first attempt
+
+```{r}
+# this is going to fail, so look at the error message
+try_this(ex = custom_summary(data,
+                   filters = list(mass_g > 1000),
+                   grouping_vars = list(order, family),
+                   summary_vars = list(diet_plant))
+         )
+```
+
+This function initially failed because `filter` could not find `mass_g` in the dataframe. This is because `mass_g` is treated as an independent `R` object, while the function should instead treat it as a variable in a dataframe.
+
+The difference between so-called `data` and `environment` variables is explained better at the `rlang` and `tidyeval` websites and tutorials linked at the end of this chapter. It is this difference that prevents filter from correctly interpreting `mass_g`.
+
+### Passing arguments as strings doesn't help
+
+The example below tries to get `filter` to work. What could be tried? One option is to attempt passing the filtering process as a string argument, i.e., `"mass_g > 1000"`.
+
+```{r}
+# it doesn't matter whether filters is a vector or list
+try_this(ex = custom_summary(data,
+                   filters = c("mass_g > 1000"),
+                   grouping_vars = list(order, family),
+                   summary_vars = list(diet_plant))
+         )
+```
+
+While this doesn't work, it is on the right track, which is that the `filters` argument needs some extra work beyond changing the type.
+
+### None of the other arguments will be successful
+
+`filter` was the first failure, after which it stopped further evaluation, but none of the steps of the custom function would have worked, for the same reason filter would not have worked: all the arguments need some work before they can be passed to their respective functions.
+
+## Flexible filtering in a function
+
+The first thing to try is to change how `filter` uses the argument passed to it.
+Here, the argument `filters` is passed as a character vector, and is set by default to filter out mammals with masses below 1 kg.
+
+The argument could be passed as a list, but the `rlang::parse_exprs` function works on vectors, not lists. The conversion between them is trivial for single level lists with atomic types (`purrr::as_vector`).
+
+#### A brief detour: Expressions in R {-}
+
+A full explanation of `R` works under the hood would take a very long time. A working knowledge of how this working can be exploited is usually sufficient to use most of `R`'s functionality.
+
+`R` expressions are one such. They represent a promise of `R` code, but without being evaluated. Any string can be parsed (interpreted) as an `R` expression.
+
+What does `rlang::parse_exprs` do? It interprets a string as an `R` command.
+This expression can then be evaluated later. Consider the following, where `a` is assigned the `numeric` value 3.
+
+```{r}
+# a is assigned
+a = 3
+
+# parsed but not evaluated
+rlang::parse_expr("a + 3")
+
+# evaluated
+rlang::parse_expr("a + 3") %>% eval
+```
+
+Here, `a + 3` was converted to an expression in the second command, and only evaluated in the third.
+
+#### Unquoting with `!!!` {-}
+
+`R` expressions underlie `R` code. Their evaluation can be forced inside another function using the special operators `!!` and `!!!`, for single and multiple `R` expressions respectively.
+
+### Flexible filtering using expressions
+
+Consider the case where mammals below 1 kg body mass are to be excluded. The `dplyr` code would look like this:
+
+`filter(data, mass_g > 1000)`
+
+This fixes both the variable to be filtered by, as well as the cut-off value. This can be made flexible for a custom function that allows any kind of filtering.
+
+```{r}
+custom_summary = function(data,
+                          filters = c("mass_g > 1000")) {
+
+  # THIS IS THE IMPORTANT BIT
+  filters = rlang::parse_exprs(filters)
+
+  data %>%
+    filter(!!!filters)
+}
+```
+
+Try this function with single and multiple filters.
+
+```{r}
+# mammals above a kilo
+custom_summary(data,
+               filters = c("mass_g > 1000")) %>%
+
+  select(binomial, mass_g) %>%
+  head()
+```
+
+```{r}
+# mammals between 250 and 500 g and which are mostly carnivorous
+custom_summary(data,
+               filters = c("between(mass_g, 250, 500)",
+                           "diet_plant < 10")) %>%
+
+  select(binomial, mass_g, diet_plant) %>%
+
+  head()
+
+```
+
+The function `filter` correctly processes the string passed to filter the data.
+
+## Flexible grouping in a function
+
+Just as the exact filtering approach can be controlled from a single string vector in the example above, the grouping variables can also be stored and passed as arguments using the `...` (dots) argument. Dots are a convenient way of referring to all unnamed arguments of a function.
+Here, they are used to accept the grouping variables.
+
+### Using `...` and 'forwarding'
+
+```{r}
+custom_summary = function(data,
+                          filters = c("mass_g > 1000"),
+                          ...) {
+  # deal with groups
+  grouping_vars = rlang::enquos(...)
+
+  data %>%
+    filter(!!!rlang::parse_exprs(filters)) %>%
+
+    # this is the important bit
+    group_by(!!!grouping_vars)
+}
+```
+
+Try the function again, and check the grouping variables.
+
+```{r}
+custom_summary(data,
+               filters = c("mass_g > 1000"),
+               order, family) %>%
+
+  group_vars()
+```
+
+### Passing grouping variables as strings
+
+In the previous example, the grouping variables were passed as unquoted variables, then `enquo`-ted and parsed, after which they were applied.
+An alternative way of passing arguments to a function is as a string vector, i.e, `grouping_vars = c("var_a", "var_b)`.
+
+This can be done by interpreting the string vector as `R` symbols using `rlang::syms`. It could also be done by treating them as a full expression using the previously covered `rlang::parse_exprs`. However, both methods must use an unquoting-splice (`!!!`), i.e., force the evaluation of a list of `R` expressions.
+
+### Using `rlang::syms`
+
+```{r}
+custom_summary = function(data,
+                          filters = c("mass_g > 1000"),
+                          grouping_vars) {
+  # deal with groups
+  grouping_vars = rlang::syms(grouping_vars)
+
+  data %>%
+    filter(!!!rlang::parse_exprs(filters)) %>%
+
+    # this is the important bit
+    group_by(!!!grouping_vars)
+}
+```
+
+```{r}
+custom_summary(data,
+               filters = c("mass_g > 1000"),
+               grouping_vars = c("order", "family")
+              ) %>%
+
+  summarise(mean_mass = mean(mass_g)) %>%
+  head()
+```
+
+### Using `rlang::parse_exprs`
+
+```{r}
+custom_summary = function(data,
+                          filters = c("mass_g > 1000"),
+                          grouping_vars) {
+  # deal with groups
+  grouping_vars = rlang::parse_exprs(grouping_vars)
+
+  data %>%
+    filter(!!!rlang::parse_exprs(filters)) %>%
+
+    # this is the important bit
+    group_by(!!!grouping_vars)
+}
+```
+
+```{r}
+custom_summary(data,
+               filters = c("mass_g > 1000"),
+               grouping_vars = c("family", "iucn_status")
+              ) %>%
+
+  summarise(mean_mass = mean(mass_g)) %>%
+  head()
+```
+
+## Flexible summarising in a function
+
+Summarising using string expressions has been around in the `tidyverse` for a very long time, and `summarise_at` is a function most users are familiar with, along with its variants `summarise_if`, `summarise_all`
+
+### Using `dplyr::summarise_at`
+
+Simply pass a string vector to the `.vars` argument of `summarise_at`, while passing a list, named or otherwise, of functions to the `.funs` argument.
+
+```{r}
+custom_summary = function(data,
+                          filters = c("mass_g > 1000"),
+                          grouping_vars,
+                          summary_vars,
+                          summary_funs) {
+  # deal with groups
+  grouping_vars = rlang::parse_exprs(grouping_vars)
+
+  data %>%
+    filter(!!!parse_exprs(filters)) %>%
+    group_by(!!!grouping_vars) %>%
+
+    # important bit
+    summarise_at(.vars = summary_vars,
+                 .funs = summary_funs)
+}
+```
+
+```{r}
+custom_summary(data,
+               grouping_vars = c("order", "family"),
+               summary_vars = "mass_g",
+               summary_funs = list(this_is_a_mean = mean, sd))
+```
+
+### Using the `across` argument for summary variables
+
+`dplyr 1.0.0` had `summarise_*` superseded by the `across` argument to `summarise`. This works somewhat differently.
+The example below shows how the `mean` of a trait of mammal groups can be found.
+
+This example makes use of embracing using `{{ }}`, where the double curly braces indicate a [promise](https://adv-r.hadley.nz/functions.html#lazy-evaluation), i.e., an expectation that such a variable will exist in the function environment.
+
+```{r}
+custom_summary = function(data,
+                          filters = c("mass_g > 1000"),
+                          grouping_vars,
+                          summary_vars) {
+  # deal with groups
+  grouping_vars = parse_exprs(grouping_vars)
+
+  data %>%
+    filter(!!!parse_exprs(filters)) %>%
+    group_by(!!!grouping_vars) %>%
+
+    # important bit
+    summarise(across({{ summary_vars }},
+              ~ mean(.)))
+}
+```
+
+```{r}
+custom_summary(data,
+               grouping_vars = c("order", "family"),
+               summary_vars = c(mass_g, diet_plant)) %>%
+
+  head()
+```
+
+`across` also accepts multiple functions just as `summarise_` did. This works as follows.
+
+```{r}
+# mean and sd
+data %>%
+  group_by(order, family) %>%
+  summarise(across(c(mass_g, diet_plant),
+                   list(~ mean(.),
+                        ~ sd(.))
+                   )
+            ) %>%
+  head()
+```
+
+### Summarise multiple variables using `...`
+
+Here, the unquoted and unnamed variables passed to the function are captured by `...` and `enquos`-ed, i.e, their evaluation is delayed.
+Then the variables are forcibly evaluated within the `mean` function, and this expression is captured using `expr`. Since there are multiple variables to summarise, these expressions are stored as a list.
+
+```{r}
+custom_summary = function(data,
+                          grouping_vars,
+                          filters,
+                          ...) {
+  # deal with groups
+  grouping_vars = rlang::parse_exprs(grouping_vars)
+
+  # deal with summary variables
+  summary_vars = rlang::enquos(...)
+
+  # apply the summary function to the variables
+  summary_vars <- purrr::map(summary_vars, function(var) {
+    rlang::expr(mean(!!var, na.rm = TRUE))
+  })
+
+  data %>%
+    filter(!!!rlang::parse_exprs(filters)) %>%
+    group_by(!!!grouping_vars) %>%
+
+    # important bit
+    summarise(!!!summary_vars)
+}
+```
+
+```{r}
+custom_summary(data,
+               grouping_vars = c("order", "family"),
+               filters = "mass_g > 10",
+               mass_g, diet_plant) %>%
+
+  head()
+```
+
+#### `expr` and `enquo` {-}
+
+`expr` and `enquo` are essentially the same, defusing/quoting (delaying evaluation) of `R` code. `expr` works on expressions supplied by the primary user, while `enquo` works on arguments passed to a function. When in doubt, ask whether the expression to be quoted has entered the function environment as an argument. If yes, use `enquo`, and if not `expr`. The plural forms `enquos` and `exprs` exist for multiple arguments.
+
+#### Correct the names of summary variables
+
+The example above returns summary variables that are not assigned a name.
+The `enquos` function can assign the name from the variable names, so `mean(mass_g)` is returned as `mass_g`.
+Since it is useful to add a tag to make clear what the summary variable is (mean, variance etc.) an extra `glue` step is added to assign informative names to the summary variables.
+
+```{r}
+custom_summary = function(data,
+                          grouping_vars,
+                          filters,
+                          ...) {
+  # deal with groups
+  grouping_vars = rlang::parse_exprs(grouping_vars)
+
+  # deal with summary variables
+  summary_vars = rlang::enquos(..., .named = TRUE)
+
+  # apply the summary function to the variables
+  summary_vars <- purrr::map(summary_vars, function(var) {
+    rlang::expr(mean(!!var, na.rm = TRUE))
+  })
+
+  # add a prefix to the summary variables
+  names(summary_vars) <- glue::glue('mean_{names(summary_vars)}')
+
+  data %>%
+    filter(!!!rlang::parse_exprs(filters)) %>%
+    group_by(!!!grouping_vars) %>%
+
+    # important bit
+    summarise(!!!summary_vars)
+}
+```
+
+```{r}
+custom_summary(data,
+               grouping_vars = c("order", "family"),
+               filters = "mass_g > 10",
+               mass_g, diet_plant) %>%
+
+  head()
+```
+
+### Summarise with multiple functions
+
+The final step is to pass multiple summary functions to the summary variables.
+Unlike the earlier example using `summarise(across(vars, funs))`, the goal here is to apply one function to each variable.
+
+This is done by passing the functions and the variables on which they should operate as strings, and using string interpolation via `glue` to construct a coherent `R` expression. This expression is then named and evaluated.
+
+```{r}
+custom_summary = function(data,
+                          grouping_vars,
+                          filters,
+                          functions,
+                          summary_vars) {
+  # deal with groups
+  grouping_vars = parse_exprs(grouping_vars)
+
+  # deal with summary variables
+  # summary_vars = # enquos(..., .named = TRUE)
+
+  # apply the summary function to the variables
+  summary_exprs <- parse_exprs(glue::glue('{functions}({summary_vars}, na.rm = TRUE)'))
+
+  # add a prefix to the summary variables
+  names(summary_exprs) <- glue::glue('{functions}_{summary_vars}')
+
+  data %>%
+    filter(!!!parse_exprs(filters)) %>%
+    group_by(!!!grouping_vars) %>%
+
+    # important bit
+    summarise(!!!summary_exprs)
+}
+```
+
+```{r}
+custom_summary(data,
+               grouping_vars = c("order", "family"),
+               filters = "mass_g > 10",
+               functions = c("mean", "var"),
+               summary_vars = c("mass_g", "diet_plant")) %>%
+
+  head()
+```
+
+## Further resources
+
+- `dplyr`: https://dplyr.tidyverse.org/index.html
+- Tidy evaluation: Superseded and archived, but still useful https://tidyeval.tidyverse.org/
+- `rlang`: https://rlang.r-lib.org/

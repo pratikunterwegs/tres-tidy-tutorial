@@ -1,0 +1,17 @@
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+
+language: R
+cache: packages
+
+r_packages:
+  - tidyverse
+  - bookdown
+  - here
+  - lintr
+  - spelling
+
+script:
+  - ./render_books.sh
+  - ./check_style.sh
+  - ./check_spelling.sh
+

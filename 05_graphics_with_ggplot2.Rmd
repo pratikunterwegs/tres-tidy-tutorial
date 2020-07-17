@@ -24,10 +24,10 @@ The grammar of graphics is a system of rules on how to structure plots such that
 Here is the backbone of a ggplot statement (I will from now on use "ggplot" to refer to an object of class `ggplot`, the output of the `ggplot` function and the object that contains our graphic), taken from the book [R for Data Science](https://r4ds.had.co.nz/):
 
 ```
-ggplot(data = <DATA>) + 
+ggplot(data = <DATA>) +
   <GEOM_FUNCTION>(
      mapping = aes(<MAPPINGS>),
-     stat = <STAT>, 
+     stat = <STAT>,
      position = <POSITION>
   ) +
   <COORDINATE_FUNCTION> +
@@ -58,14 +58,14 @@ Note that the `qplot` function, which stands for "quick plot", will show a plot 
 
 ## But first, the data
 
-In this chapter we will use the data from `bacterial_experiment.csv`, forged by Annie for us to use. This dataset resembles Annie's experiment where she created mutator strains of bacteria (that is, bacteria that mutate at a much higher rate than usual) and tracked their growth through time and at different concentrations of an agent supposed to activate the full "mutation potential"  of those strains. 
+In this chapter we will use the data from `bacterial_experiment.csv`, forged by Annie for us to use. This dataset resembles Annie's experiment where she created mutator strains of bacteria (that is, bacteria that mutate at a much higher rate than usual) and tracked their growth through time and at different concentrations of an agent supposed to activate the full "mutation potential"  of those strains.
 
 ```{r}
 data <- read_csv("data/bacterial_experiment.csv")
 data
 ```
 
-The different strains of bacteria were grown in two different `assay`s, whose details are irrelevant for the purpose of this tutorial. `cfu` is the number of colony forming units while `OD600` is the optical density at 600nm wavelength; both are estimates of bacterial population density. `ratio` represents the ratio in mutants between two time points, T0 and T1 (encoded in `time`). 
+The different strains of bacteria were grown in two different `assay`s, whose details are irrelevant for the purpose of this tutorial. `cfu` is the number of colony forming units while `OD600` is the optical density at 600nm wavelength; both are estimates of bacterial population density. `ratio` represents the ratio in mutants between two time points, T0 and T1 (encoded in `time`).
 
 In this table, the unit of observation is the time point (T0 and T1 are on different rows), therefore the values of `ratio`, which are attributed to each T0-T1 pair, are duplicated to yield one value per time point. To make our life easier with later plotting and to stay within the *tidy* spirit of the tidyverse (where one table should have one unit of observation), we use the tools we have already learnt to make a ratio-wise table:
 
@@ -83,7 +83,7 @@ All geoms have aesthetics, or graphical parameters, that may be specified. Those
 
 Aesthetics are specified in two ways: (1) variables from the `data` can be mapped to them using the `aes` function, or (2) they can take fixed values.
 
-Some of the main aesthetics to know, besides geom-specific coordinates (e.g. `x`, `y`), include: `color`, `fill` (color used to fill surfaces), `group` (used e.g. to plot multiple lines with similar aspect on the same plot), `alpha` (transparency), `size`, `linetype`, `shape`, and `label` (for showing text). 
+Some of the main aesthetics to know, besides geom-specific coordinates (e.g. `x`, `y`), include: `color`, `fill` (color used to fill surfaces), `group` (used e.g. to plot multiple lines with similar aspect on the same plot), `alpha` (transparency), `size`, `linetype`, `shape`, and `label` (for showing text).
 
 Note that in most functions across the tidyverse both US and UK English can be used, e.g. `colour` is also a valid aesthetics, and `dplyr::summarize` is equivalent to `dplyr::summarise`.
 
@@ -135,7 +135,7 @@ ggplot(data2) +
 
 Here, the `density` axis is not part of the original dataset `data2`; it was computed from the data, for each value of `ratio`, by using a density-estimation algorithm. This shows that `stat_density` (and not `stat_identity`) is the default `stat` used in `geom_density`. Every `geom` comes with its default `stat`.
 
-Similarly, `stat` functions can be used in place of `geom` because every `stat` has a default `geom` associated to it. So, we can call: 
+Similarly, `stat` functions can be used in place of `geom` because every `stat` has a default `geom` associated to it. So, we can call:
 
 ```{r, fig.align="center", fig.height=2, fig.width=4}
 ggplot(data2) +
@@ -278,12 +278,12 @@ where `geom_line` inherits the same aesthetic mapping as `geom_point`. But then,
 The default way that the plotting window is organized is an orthogonal space with a horizontal x-axis and a vertical y-axis. Use the `coord` commands to deviate from this. For example, `coord_flip` will flip the axes:
 
 ```{r, fig.align="center", fig.height=2, fig.width=3}
-ggplot(data2, aes(x = factor(conc), y = ratio)) + 
+ggplot(data2, aes(x = factor(conc), y = ratio)) +
   geom_violin() +
   coord_flip()
 ```
 
-while `coord_fixed` will fix the aspect ratio between the axes, thus showing them on the same scale. For example, the following plot of the optical density between two time points, 
+while `coord_fixed` will fix the aspect ratio between the axes, thus showing them on the same scale. For example, the following plot of the optical density between two time points,
 
 ```{r, fig.align="center", fig.height=2, fig.width=3}
 ggplot(data2, aes(x = OD600_T0, y = OD600_T1)) +
@@ -379,7 +379,7 @@ data %>%
   geom_point()
 ```
 
-Notice the use of the pipe `%>%` to pass the resulting data frame on to the `ggplot` command. Because `ggplot` is called with a pipe, its first argument is already passed (it is the data frame coming through the pipe), so we only need to pass the second argument, i.e. the aesthetics mapping, to the `ggplot` function. 
+Notice the use of the pipe `%>%` to pass the resulting data frame on to the `ggplot` command. Because `ggplot` is called with a pipe, its first argument is already passed (it is the data frame coming through the pipe), so we only need to pass the second argument, i.e. the aesthetics mapping, to the `ggplot` function.
 
 ## Customization
 
@@ -450,7 +450,7 @@ p <- ggplot(data2, aes(x = conc, y = ratio, color = cfu_T1)) +
   ylab("Mutational ratio") +
   labs(color = parse(text = "'CFU at '~T[1]")) + # plotmath expression
   ggtitle(
-    "A very important experiment", 
+    "A very important experiment",
     "So important it deserves a subtitle"
   )
 p
@@ -472,10 +472,10 @@ p + theme_bw()
 The individual elements of the theme, e.g. the background grid or the color of the panel, can be customized using the arguments in the `theme` function. The `theme` function can also be used to modify stuff related to the legend or the axes of the plots. For example:
 
 ```{r, fig.align="center", fig.height=4, fig.width=6}
-p <- p + 
+p <- p +
   theme_bw() +
   theme(
-    legend.position = "left", 
+    legend.position = "left",
     axis.text.x = element_text(angle = 60, hjust = 1)
   )
 p
@@ -517,7 +517,7 @@ ggplot(data2, aes(x = conc, y = ratio, color = strain, shape = strain)) +
     "color legend", values = c("forestgreen", "goldenrod", "mediumseagreen")
   ) +
   scale_shape_manual(
-    "shape legend", values = c(16, 17, 18), 
+    "shape legend", values = c(16, 17, 18),
     labels = c("Control", "Strain 1", "Strain 2")
   )
 ```
@@ -526,11 +526,11 @@ Note that you can also use this trick to combine different legends together, by 
 
 ## Combining plots
 
-This was more or less what you need to know to be operational when plotting *single* ggplots. But what if the facetting option is not enough, and you want to combine multiple plots into a single figure? `ggplot2` itself does not do that, but the good news is, there are many packages that do. Those include `patchwork`, `cowplot`, `grid`, `gridExtra`, `egg` or `aplot` (and probably more). 
+This was more or less what you need to know to be operational when plotting *single* ggplots. But what if the facetting option is not enough, and you want to combine multiple plots into a single figure? `ggplot2` itself does not do that, but the good news is, there are many packages that do. Those include `patchwork`, `cowplot`, `grid`, `gridExtra`, `egg` or `aplot` (and probably more).
 
 One term that these packages often use is `grob`. A `grob` is a ggplot-like object, such as a `ggplot` but could also be a single text label in the middle of a plotting window. These packages essentially assemble grobs together.
 
-`patchwork` is personally my favorite so I will focus on this one here. It has the advantage to automatically align the frames of the different plots across the different subplots (I found that this is not entirely true when combining `ggtree` objects with other plots, `aplot` is better for this specific case). It also has an excellent, succinct [documentation](https://patchwork.data-imaginist.com/). 
+`patchwork` is personally my favorite so I will focus on this one here. It has the advantage to automatically align the frames of the different plots across the different subplots (I found that this is not entirely true when combining `ggtree` objects with other plots, `aplot` is better for this specific case). It also has an excellent, succinct [documentation](https://patchwork.data-imaginist.com/).
 
 Let us look at an example, where we assign the previous plot to `p1` and make a new plot to combine it with, called `p2`:
 
@@ -614,7 +614,7 @@ newdata$fig[[1]]
 
 Looks `purrr`fect.
 
-If you ask yourself why going through this hassle whith only two assays and three strains, just think about a case where you would have hundreds of e.g. simulations, sequences, field sites or study species. 
+If you ask yourself why going through this hassle whith only two assays and three strains, just think about a case where you would have hundreds of e.g. simulations, sequences, field sites or study species.
 
 Let us go a bit further. Now we want to combine plots for each `strain` into one figure per `assay`. We also want to give the resulting combined plot a figure file name, and save all the figures. There we go:
 
@@ -623,7 +623,7 @@ newdata <- newdata %>%
   select(-data) %>% # just to clean up a bit
   group_by(assay) %>%
   nest() %>%
-  mutate(combifig = map(data, ~ wrap_plots(.x$fig))) 
+  mutate(combifig = map(data, ~ wrap_plots(.x$fig)))
 newdata
 ```
 
@@ -635,7 +635,7 @@ As we can see, we have created a new list-column `combifig`, filled with `patchw
 newdata$combifig[[1]]
 ```
 
-We could of course further customize the assembly of plots, but we refer the reader to the `patchwork` documentation for this. 
+We could of course further customize the assembly of plots, but we refer the reader to the `patchwork` documentation for this.
 
 Last step, preparing file names and saving the figures, using old friends from the tidyverse:
 
@@ -648,7 +648,7 @@ newdata %>%
 
 ## Want more?
 
-`ggplot2` is undoubtedly one of the largest chunks of the tidyverse. Here we tried to provide a global understanding of how it works, but we could not dig into all possible functions it has (this would take us days). Hopefully now you are armed with the necessary knowledge to be able to find the missing pieces you need. 
+`ggplot2` is undoubtedly one of the largest chunks of the tidyverse. Here we tried to provide a global understanding of how it works, but we could not dig into all possible functions it has (this would take us days). Hopefully now you are armed with the necessary knowledge to be able to find the missing pieces you need.
 
 Some things, however, are missing from `ggplot2`. Fortunately, there are many of extensions building on `ggplot2` that respect the same grammar. Some of them implement new geoms (e.g. such as `ggridges` for ridge-density plots, `ggradar` for radial plots, or `gghalves` for mixes of geoms), others combine plots together (examples cited above), offer more complex themes (e.g. `ggnewscale` for multiple scales of the same type to coexist, or `ggdark` for a dark background), deal with complicated objects that are not trivial to fit in data frames (e.g. `ggtree` for tree-like objects or `ggraph` for networks), or provide shortcuts to quickly produce publication-ready figures for common plot layouts and their corresponding statistical analyses (e.g. `ggpubr`, `ggrapid` or `GGally`). There are even packages for animated graphics (`gganimate`), interactive plot building (`esquisse`) or 3D surface plotting (`rayshader`). See the links below!
 
@@ -658,7 +658,7 @@ Some things, however, are missing from `ggplot2`. Fortunately, there are many of
 * The `ggplot2` [cheatsheet](https://rstudio.com/resources/cheatsheets/)
 * The [dedicated chapter](https://r4ds.had.co.nz/data-visualisation.html) in R for Data Science
 * A non-exhaustive list of extensions at this [link](https://exts.ggplot2.tidyverse.org/gallery/)
-* The [R graph gallery](https://www.r-graph-gallery.com/) for inspiration 
+* The [R graph gallery](https://www.r-graph-gallery.com/) for inspiration
 * Hadley's [article](https://vita.had.co.nz/papers/layered-grammar.html) explaining the grammar of graphics
 * The `patchwork` [documentation](https://patchwork.data-imaginist.com/)
 * The [`ggtree`](https://guangchuangyu.github.io/ggtree-book/chapter-ggtree.html) and [`ggraph`](https://www.data-imaginist.com/2017/ggraph-introduction-layouts/) packages

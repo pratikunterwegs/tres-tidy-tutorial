@@ -42,3 +42,5 @@ vignettes/*.pdf
 # Figures saved during the tutorial
 data/figure_test_1.png
 data/figure_test_2.png
+*.html
+libs/
