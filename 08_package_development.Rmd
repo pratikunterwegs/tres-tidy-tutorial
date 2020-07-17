@@ -13,12 +13,42 @@ By now you know what R packages are and you have been using many of them, some o
 
 ## Why writing packages?
 
-You may very well have written many analysis pipelines in R for various projects and never felt the need to make packages for them. So "Why bother?", you may ask. Main reasons:
+You may very well have written many analysis pipelines in R for various projects and never felt the need to make packages for them. So "Why bother?", you may ask. The main reasons are:
 
-* deployment -- packages make it easier for people to use your code
-* reproducibility -- packages can be a convenient way to make a study fully reproducible
-* consistency -- there is a common set of rules on how packages should be organized, which makes your code understandable to everyone
-* security -- the common conventions around package syntax make it possible for third-party tools to check your code for bugs or style, which also means you can often trust packages hosted at some platforms when you know they run those tests
+* *deployment*: packages make it easier for people to use your code
+* *reproducibility*: packages can be a convenient way to make your study fully reproducible
+* *consistency*: there is a common set of rules on how packages should be organized, which forces you to make your code understandable to everyone
+* *security*: the common conventions around package syntax make it possible for third-party tools to check your code for bugs or style, which also means you can trust packages hosted at some platforms when you know they run tests, for example
+
+## Hands-on workflow
+
+1. Create a new project (small box on what is an R project?), but a package, from within RStudio. It creates all the files that are needed, in particular a DESCRIPTION, a NAMESPACE, a .Rbuildignore, a man/ and R/ folders. Use the .Rproj file to develop the package. You can create an R package by assembling all those files together by yourself, but RStudio really does everything for you. If hosting the package under development on GitHub, don't forget to link it to en empty online repo (give a link here).
+
+2. Write your functions, or your tests first if you go test-driven. Save function in the R/ folder. 
+
+3. Document your functions. Here show the roxygen syntax and how to use roxygen to produce the Rd files in the man/ folder. Erase NAMESPACE if needed, it will be automatically re-generated.
+
+4. Build your package by running Build. Your package is now installed and loaded. You can also build from the command line by running R BUILD. Alternatively, if your package is on GitHub, push it and then use devtools to install it from GitHub (or whatever online platform hosts it).
+
+## Good practices
+
+The above steps should ensure that your package builds and can be used just like any other package after you load it (using `library` or `require`). But that does not mean that your package follows the good-practice guidelines that are recommended for packages, especially those that are required to submit your package to, say, CRAN or rOpenSci. Even if you don't plan to submit your package to these platforms, it may be useful to step up your game and follow these recommendations, to run your tests using R CHECK for example (R CHECK will run tests and examples, but also check for CRAN requirements). In other words, R BUILD builds your package without checking if it works properly, the latter is a job for R CHECK.
+
+What are the good practices?
+
+1. Do not call library within a function, use an explicit call to the package's namespace with `::`
+2. Add dependencies and suggestions to the DESCRIPTION (talk about the special case of operators such as the pipe, and non-CRAN dependencies e.g. ggtree) -- usethis
+3. Make sure there are examples for your functions in the documentation. Use `\dontrun` or friends to not run the examples if they require some specific data or just take too long
+4. Do you need extra folders to store some data or scripts? Add those folders to the .Rbuildignore, so CHECK will not complain (it really likes when there is just a man/ and an R/ folder
+5. Having tests is always good.
+6. Make a vignette. A vignette is a more in-depth overview of your package. In contrast to the individual documentation of each function, the vignette takes the user for a tour of the package to show use-cases of the functions *in context*. Use devtools to generate the vignette. Be familiar with Rmd! (not the topic of this tutorial though). pkgdown is something you may want to look into, to generate a website that hosts your vignette but also all of the functions' documentations.
+7. Increase the code coverage through tests. rOpenSci will, for example, only take packages with 100\% code coverage.
+
+What can you use to check that you followed the good practices?
+
+1. R CHECK is one. As mentioned previously, it checks for the above and will return errors, warnings and notes. If R CHECK is happy, in theory your package can be hosted on CRAN.
+2. lintr is another one: this package is a style-checker. It checks that you follow the recommended tidyverse (tadaaa) syntax. Typically CRAN does not require you to follow the tidyverse style syntax, but rOpenSci will. Again, the spirit is to have a unified set of conventions that everybody follows. One of the main advantages of this is when collaborating: you end up spending more time on constructively building a package than on arguing about style: the convention is already established for you. Elements of the tidyverse style include, using spaces after every comma, or using arrows (`<-`) instead of equal signs (`=`) when assigning to variables, among others.
+3. To go even further, if your package is hosted on GitHub, or any version control platform such as GitLab or BitBucket, it is possible to link this repository to a third-party continuous integration client, such as Travis or AppVeyor. This is something that is not only possible for R packages but really any repository with any content. A continuous integration client takes your code, runs a series of commands that you have specified on remote server, and tells you whether any of those commands crashed. This is done automatically every time you upload your code (i.e. when you push). For an R package hosted on GitHub and tracked by Travis CI, for example, you can set up Travis to run R CHECK automatically every time your code is uploaded. This way, you are always sure that your package is working without having to constantly re-run R CHECK locally yourself every time you change something. This is especially time-saving if you have tests implemented, as Travis will have R CHECK run your tests very often for you. You can also use Travis to run lintr on your code or codecov, which calculates your code coverage and tells you which parts of the code have not been tested.
 
 ## References
 
