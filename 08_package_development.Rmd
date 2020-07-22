@@ -5,7 +5,7 @@ editor_options:
 
 # Developing R packages
 
-Raphael Scherrer
+Raphael Scherrer (thanks to Pedro Neves for guiding me through these steps)
 
 ![](opening-image.png)
 
@@ -13,42 +13,208 @@ By now you know what R packages are and you have been using many of them, some o
 
 ## Why writing packages?
 
-You may very well have written many analysis pipelines in R for various projects and never felt the need to make packages for them. So "Why bother?", you may ask. The main reasons are:
+You may very well have written many analysis pipelines in R for various projects and never felt the need to make packages for them. So why bother? you may ask. The main reasons are:
 
 * *deployment*: packages make it easier for people to use your code
 * *reproducibility*: packages can be a convenient way to make your study fully reproducible
 * *consistency*: there is a common set of rules on how packages should be organized, which forces you to make your code understandable to everyone
-* *security*: the common conventions around package syntax make it possible for third-party tools to check your code for bugs or style, which also means you can trust packages hosted at some platforms when you know they run tests, for example
+* *security*: the common conventions around package syntax make it possible for third-party tools to check your code for bugs or style, which also means you can trust packages hosted at some platforms when you know they run these tests, for example
 
 ## Hands-on workflow
 
-1. Create a new project (small box on what is an R project?), but a package, from within RStudio. It creates all the files that are needed, in particular a DESCRIPTION, a NAMESPACE, a .Rbuildignore, a man/ and R/ folders. Use the .Rproj file to develop the package. You can create an R package by assembling all those files together by yourself, but RStudio really does everything for you. If hosting the package under development on GitHub, don't forget to link it to en empty online repo (give a link here).
+### Primer: what is an RStudio project?
 
-2. Write your functions, or your tests first if you go test-driven. Save function in the R/ folder. 
+An RStudio project is a virtual context associated with a specific working directory on your computer. A project is the recommended unit of work for a given analysis. This is because it keeps track of the R workspace and history for that analysis, together with the working directory, meaning you never have to use `setwd` anymore. A project has the extension .Rproj. See this [page](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) for more information. As we shall see, developing a package requires creating a project for it.
 
-3. Document your functions. Here show the roxygen syntax and how to use roxygen to produce the Rd files in the man/ folder. Erase NAMESPACE if needed, it will be automatically re-generated.
+### Create a project for your package
 
-4. Build your package by running Build. Your package is now installed and loaded. You can also build from the command line by running R BUILD. Alternatively, if your package is on GitHub, push it and then use devtools to install it from GitHub (or whatever online platform hosts it).
+In RStudio, click on File, then New Project. There, you have the option to create a new package. This will create all the files that are needed, in particular a DESCRIPTION, a NAMESPACE, a .Rbuildignore, and a man/ and R/ folders. Use the .Rproj file to develop the package (launching it will open RStudio and place you in the right directory). It is possible to create an R package by assembling all those files together by yourself, but RStudio really makes it painless. 
 
-## Good practices
+### Link to GitHub?
 
-The above steps should ensure that your package builds and can be used just like any other package after you load it (using `library` or `require`). But that does not mean that your package follows the good-practice guidelines that are recommended for packages, especially those that are required to submit your package to, say, CRAN or rOpenSci. Even if you don't plan to submit your package to these platforms, it may be useful to step up your game and follow these recommendations, to run your tests using R CHECK for example (R CHECK will run tests and examples, but also check for CRAN requirements). In other words, R BUILD builds your package without checking if it works properly, the latter is a job for R CHECK.
+At this stage you may want to host your package on an online version control platform such as GitHub. One way to do this is the following. Assuming that git is already installed on your machine and linked to your GitHub account, you need to:
 
-What are the good practices?
+1. Create a project for your package locally (the step above)
+2. Create an empty repository on GitHub for your package
+3. Initialize git in the local copy by running `git init` from within
+4. Stage and commit (`git add .` and `git commit -m "some commit message"`)
+5. Link the local copy to the remote one with `git remote add origin https://github.com/username/reponame`
+6. Push using `git push -u origin master`
 
-1. Do not call library within a function, use an explicit call to the package's namespace with `::`
-2. Add dependencies and suggestions to the DESCRIPTION (talk about the special case of operators such as the pipe, and non-CRAN dependencies e.g. ggtree) -- usethis
-3. Make sure there are examples for your functions in the documentation. Use `\dontrun` or friends to not run the examples if they require some specific data or just take too long
-4. Do you need extra folders to store some data or scripts? Add those folders to the .Rbuildignore, so CHECK will not complain (it really likes when there is just a man/ and an R/ folder
-5. Having tests is always good.
-6. Make a vignette. A vignette is a more in-depth overview of your package. In contrast to the individual documentation of each function, the vignette takes the user for a tour of the package to show use-cases of the functions *in context*. Use devtools to generate the vignette. Be familiar with Rmd! (not the topic of this tutorial though). pkgdown is something you may want to look into, to generate a website that hosts your vignette but also all of the functions' documentations.
-7. Increase the code coverage through tests. rOpenSci will, for example, only take packages with 100\% code coverage.
+You should be all set. Useful links include this [page](https://kbroman.org/pkg_primer/pages/github.html), this [one](http://r-pkgs.had.co.nz/git.html) and also the instructions given by GitHub upon creation of an empty online repository.
 
-What can you use to check that you followed the good practices?
+### Write your functions
 
-1. R CHECK is one. As mentioned previously, it checks for the above and will return errors, warnings and notes. If R CHECK is happy, in theory your package can be hosted on CRAN.
-2. lintr is another one: this package is a style-checker. It checks that you follow the recommended tidyverse (tadaaa) syntax. Typically CRAN does not require you to follow the tidyverse style syntax, but rOpenSci will. Again, the spirit is to have a unified set of conventions that everybody follows. One of the main advantages of this is when collaborating: you end up spending more time on constructively building a package than on arguing about style: the convention is already established for you. Elements of the tidyverse style include, using spaces after every comma, or using arrows (`<-`) instead of equal signs (`=`) when assigning to variables, among others.
-3. To go even further, if your package is hosted on GitHub, or any version control platform such as GitLab or BitBucket, it is possible to link this repository to a third-party continuous integration client, such as Travis or AppVeyor. This is something that is not only possible for R packages but really any repository with any content. A continuous integration client takes your code, runs a series of commands that you have specified on remote server, and tells you whether any of those commands crashed. This is done automatically every time you upload your code (i.e. when you push). For an R package hosted on GitHub and tracked by Travis CI, for example, you can set up Travis to run R CHECK automatically every time your code is uploaded. This way, you are always sure that your package is working without having to constantly re-run R CHECK locally yourself every time you change something. This is especially time-saving if you have tests implemented, as Travis will have R CHECK run your tests very often for you. You can also use Travis to run lintr on your code or codecov, which calculates your code coverage and tells you which parts of the code have not been tested.
+A package is nothing much more than a convenient collection of functions that one may want to use from outside. Here we assume that you are comfortable with writing R functions. Prefer saving each function as its own R script (.R) and save them in the dedicated R/ folder. Here is an example function that repeats multiple elements, multiple times and returns a vector of those.
+
+```{r}
+mrep <- function(x, n) {
+  
+  assertthat::are_equal(length(x), length(n)) # security check
+  purrr::reduce(purrr::map2(x, n, ~ rep(.x, .y)), c)
+  
+}
+```
+
+We can use this function, for example, to repeat the number 1 one time, 2 two times and 3 three times:
+
+```{r}
+mrep(seq(3), seq(3))
+```
+
+*Note* that when calling functions from other packages (here `purrr` and `asserthat`) we do not use `library` or `require`, as this would make all the functions of these packages available. Instead we use the namespace of the respective package, separated from the function name with a `::`. Although a package that uses `library` will typically build just fine, it is considered bad practice and will not pass CRAN's requirements, which are implemented in the R CHECK command (more on this later).
+
+Do you want to go test-driven? Then write your tests first, and follow those [guidelines](http://r-pkgs.had.co.nz/tests.html). Although tests are out of the scope of this tutorial, they are a vital part of package development, so we highly recommend this read as your next step to go further.
+
+### Document your functions
+
+The documentation of a function is what shows up when you type `?function-name` for example (e.g. `?purrr::reduce`). When writing your package, you must provide a documentation for each of your functions so your user knows what the function does, what arguments it takes, what it returns and has examples of the function being used. Each function documentation goes in its respective .Rd file, stored in the man/ folder.
+
+`roxygen2` is an R package that makes documentation very easy. It allows you to write the documentation as a header of a function's R script, and save this header into its own .Rd file in man/. All the lines that go into the documentation must start with the special comment characters `#'`. If we take our previous example:
+
+```{r}
+#' Repeat multiple things multiple times
+#' 
+#' A function to repeat multiple things multiple times.
+#' 
+#' @param x A vector of things
+#' @param n A vector of numbers times each thing must be repeated
+#' 
+#' @details The function can take a vector of any atomic type
+#' 
+#' @return A vector of the same type as `x`
+#'
+#' @examples
+#'
+#' mrep(seq(3), seq(3))
+#'
+#' @export
+
+mrep <- function(x, n) {
+  
+  assertthat::are_equal(length(x), length(n)) # security check
+  purrr::reduce(purrr::map2(x, n, ~ rep(.x, .y)), c)
+  
+}
+```
+
+Here, everything starting with `#'` will be interpreted by `roxygen2` as part of the documentation. Different fields can be present:
+
+* The first line is the title of the documentation page
+* The second line is the description
+* `@param` goes for each of the parameters, with their description
+* `@details` if you want to be more specific on what happens backstage
+* `@return` tells the user what the function returns
+* `@examples` shows some use-cases
+* `@export` indicates that this function can be called explicitly by the user (i.e. it is not an internal function of the package that is only meant to be used by other functions of the package)
+
+Other fields such as `@note` can be specified, but these are the main ones. A package with incomplete documentation will build fine, but again this will not pass R CHECK for CRAN's requirements, which require you, for example, to always have examples for exported functions.
+
+To effectively produce the documentation, run `roxygen2::roxygenize()` (or `roxygenise`) from within the working directory of the package. `roxyygen2` may not update the NAMESPACE file if it has not been created by `roxygen2` in the first place, so you may have to erase NAMESPACE before running `roxygenize()` (then it will automatically create a new NAMESPACE). We do not describe here what the NAMESPACE is, as it is a bit too advanced for this tutorial, just remember that you may have to erase it before documenting if you see a warning.
+
+### Build the package
+
+Once some functions are added and their documentation is ready, the package should be able to build. Use the Install and Restard button under the Build tab in RStudio for that. Your package is now installed and loaded. Alternatively you can build your package from the command line by running R CMD INSTALL. If your package is on GitHub (or another remote server), you can also build it with `devtools`, for example  with `devtools::install_github("username/reponame")`.
+
+## Write a vignette
+
+A vignette is a more user-oriented overview of your package. In contrast to the individual documentation of each function, the vignette takes the user for a tour of the package to show use-cases of the functions *in context*. 
+
+`usethis` is a great package to set up everything we need for our package, including vignettes. Using `usethis::use_vignette` will create a `vignettes/` folder that contains the source file of your vignette, in the Rmarkdown (Rmd) format. 
+
+A vignette is written in Rmarkdown. The Rmarkdown language is out of the scope of this tutorial, but is a great way to combine textual information (it inherits from markdown) with embedded chunks of R code and their output (this tutorial is written in R markdown). See this [link](https://rmarkdown.rstudio.com/), or this [cheatsheet](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf), or inspire yourself from the source code of this tutorial to get more familiar with Rmarkdown.
+
+We use the `usethis` package to set up everything we need to get our vignette ready. Running `usethis::use_vignette` will create a `vignettes/` folder with the vignette Rmd file in it, that you can edit from RStudio.
+
+The vignette can be rendered in multiple output formats,, such as an HTML web page or a LaTeX-looking PDF. RStudio does this through the Knit button, which calls the `knitr` package in the background. By default, upon creation of the vignette only the HTML output is supported. To change the possible outputs (e.g. allow both HTML and PDF), change the `output` part of the header with:
+
+```{Rmd}
+output:
+  pdf_document: default
+  html_document:
+    keep_md: yes
+```
+
+Now the drop-down menu of the Knit button will offer the possibility to render the vignette as PDF as well as HTML.
+
+The Knit button renders a vignette, but does not save it. You could of course save it manually, but `devtools` offers the `build_vignettes` function to automatize this task. Running it will create two new folders, `doc/` and `Meta/`. The former contains the rendered vignette (in the first format specified in the `output` header, so PDF in the above example) while the latter contains some data used to render that vignette. It is best to not touch those, and stick to editing the vignette file located in the `vignettes/` folder. One exception: one can render a vignette manually with the Knit button and save the rendered output into the `doc/` folder.
+
+Do you want to host the vignette on a web page dedicated to your package, also with an overview of all the functions as well as their documentation? Then [`pkgdown`](https://pkgdown.r-lib.org/) is your friend, but this is out of the scope of this tutorial (yes, the web page for the `pkgdown` package is built using `pkgdown`).
+
+## Update the description
+
+In the top folder of your package is a DESCRIPTION file. This contains some important information, as one can imagine. Make sure that you update the Title, Author, Maintainer, Description and License fields. The Imports field requires you to supply the names of the dependencies of your package: what packages *need* to be installed for your functions to work? In our example, `mrep` calls functions from `assertthat` and `purrr`, so our Imports field will look something like:
+
+```
+Imports:
+  asserthat,
+  purrr
+```
+
+These dependencies will be downloaded and installed automatically as soon as your package is installed. You can specify version requirements for the packages you load (see Hadley's book). The Suggests field is for packages that are not required but recommended.
+
+Dependencies will be downloaded from CRAN by default. In order to add packages from other platforms, you may have to add some keywords to your DESCRIPTION file. For example, the [`ggtree`](https://bioconductor.org/packages/release/bioc/html/ggtree.html) package is hosted by Bioconductor. You can add it with the other packages in Imports, but you need to add "biocViews:" before Imports, e.g.
+
+```
+biocViews:
+Imports:
+  asserthat,
+  purrr
+```
+
+A special case of dependencies is operators from other packages, such as the famous pipe (`%>%`) from `magrittr`, because you cannot just write `magrittr::%>%`  in your functions. Again, `usethis` is our friend here, and you can run `usethis::use_pipe()` to make the pipe operator fully available to your functions without having to use `library`. (This command will update the NAMESPACE.)
+
+As a minor note, you can also use the DESCRIPTION file to give extra options to the build of your documentation. For example, to allow Roxygen to understand the markdown syntax when rendering the help pages of your functions, use 
+
+```
+Roxygen: list(markdown = TRUE)
+```
+
+## Check the package
+
+### Good practices
+
+As mentioned before, CRAN has specific requirements that are implemented in the R CMD CHECK command. Running this command, or clicking on Check within the Build tab, will run a series of quality controls on your code, and will indicate what does not meet the requirements. A package is CRAN-compatible if no errors and no warnings are issued (notes are fine).
+
+Generally, CHECK will make sure all the things we talked about above are done. It will look at the functions, the documentation, run your examples (and your tests if you have some) make sure that the vignette renders, and that all dependencies are accessible. If anything is wrong, it will tell you what.
+
+One thing to keep in mind is that CHECK will run your examples (in the documentation files), *unless* these are surrounded with `\dontrun{` and `}`. This can be used for examples that, e.g., would require some specific data that you do not make available with the package, or just because the example takes too long or is too computation-heavy.
+
+CHECK also dislikes files and folders that are not absolutely necessary to the package. It will complain if, say, you have a `scripts/` folder with extra draft scripts you used to develop and try your functions, or a `data/` folder containing some example data. You can add the names of these folders to `.Rbuildignore` to tell CHECK to ignore those when checking your package (`.Rbuildignore` works in many respects just like a `.gitignore` file). 
+
+### Better practices
+
+If all the above are met, CHECK should be happy and in theory your package should be CRAN-compatible. Some platforms, such as rOpenSci, have stricter standards, however, and those requirements come from a good place. We will highlight two things here.
+
+First, rOpenSci will require 100\% code coverage in your package. This means that during the execution of the CHECK command, every single line of code must be run. This is often impossible to achieve without having tests, and thus strongly encourages test-driven development. The `testthat` package can be used to write tests that check for the outcomes of your functions under different circumstances, or scenarios. See the section on `regex` for examples. In a package, `test` will be stored in a `tests/` folder, which can be set-up by our old friend `usethis`, by running `usethis::use_testthat()`. Having tests is always good!
+
+Second, rOpenSci will also check your coding *style*. In R, it is possible to write the same code in different ways, for example:
+
+```{r}
+library(tidyverse)
+x <- mrep(seq(3), seq(3))
+y <- rep(1, 6)
+tibble(
+  V1 = x,
+  V2 = y
+)
+```
+
+versus
+
+```{r}
+x = mrep(seq(3), seq(3))
+y = rep(1, 6)
+tibble(V1 =x,
+       V2 =y
+)
+```
+
+Both styles will run, and CHECK will not complain. However, `lintr` will. `lintr` is a style checker that makes sure that you follow the *tidyverse* recommended style. This style includes things such as: no use of `=` as an assignment operator (only use `<-`), always put a space after an equal sign or a comma among others. `lintr` will be run on all of your R code if you submit your package to rOpenSci. The reason behing using a style checker is similar to the basic philosophy of the tidyverse: make things follow a *convention*, so that pieces of code speak the same language (so to speak, pun intended) and integrate nicely with each other. 
+
+### Even better practices
+
+Git and GitHub (or other version control platforms) are your friends when it comes to developing packages or software in general. You may want to check out how to use them. One strength of these platforms is that they allow you to give access to third-party platforms to your package, that can be used to quality-control your code. These are known as *continuous integration* tools, Travis CI and AppVeyor being two famous examples. By activating these tools on your repository (hosted, say, on GitHub), these platforms can access your package and remotely run all kinds of things for you: run R CMD CHECK, make sure that the code coverage is 100\%, or run `lintr` for you, every time you upload an edited version of your code. This gives you an extra safety net to make sure that your package (or at least the version hosted online and available to people) is always working, and it may even give you a hint if, for example, one dependency of your package breaks (due to errors independent of you). If you want to know more, you can for example check the R package [`babette`](https://github.com/ropensci/babette), which makes use of these tools and is hosted at rOpenSci. 
 
 ## References
 
