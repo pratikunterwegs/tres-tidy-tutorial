@@ -9,11 +9,11 @@ Raphael Scherrer (thanks to Pedro Neves for guiding me through these steps)
 
 ![](opening-image.png)
 
-By now you know what R packages are and you have been using many of them, some of them part of the tidyverse and others not. R packages are modules, or coherent libraries of functions, designed at specific sets of tasks. Packages, or libraries, are common to many programming languages, the philosophy behind them being: pick only the tools you need for your task, without having to download all the possible toolboxes. Currently CRAN (the Comprehensive R Archive Network) is host to more than 16,000 packages ([link](https://cran.r-project.org/web/packages/)), and that is not counting R packages hosted by other platforms such as [GitHub](https://github.com), [Bioconductor](https://www.bioconductor.org/) or [rOpenSci](https://ropensci.org/). This is what makes R such a powerful and popular language, capable of doing pretty much everything you can think of, except making coffee. Why there are so many packages is because *anyone* can write their own package and make it available to others, so the growth of the R universe if very much community-driven. Here we will show you how to write your own package. Most of the content of this tutorial follows what can be found in Hadley Wickham's exhaustive [book](http://r-pkgs.had.co.nz/) on R packages.
+By now you know what R packages are and you have been using many of them, some of them part of the tidyverse and others not. R packages are modules, or coherent libraries of functions, designed at specific sets of tasks. Packages, or libraries, are common to many programming languages, the philosophy behind them being: pick only the tools you need for your task, without having to download all the possible toolboxes. Currently CRAN (the Comprehensive R Archive Network) is host to more than 16,000 packages ([link](https://cran.r-project.org/web/packages/)), and that is not counting R packages hosted by other platforms such as [GitHub](https://github.com), [Bioconductor](https://www.bioconductor.org/) or [rOpenSci](https://ropensci.org/). This is what makes R such a powerful and popular language. Why there are so many packages is because *anyone* can write their own package and make it available to others, so the growth of the R universe if very much community-driven. Here we will show you how to write your own package. Most of the content of this tutorial follows Hadley Wickham's exhaustive [book](http://r-pkgs.had.co.nz/) on R packages.
 
 ## Why writing packages?
 
-You may very well have written many analysis pipelines in R for various projects and never felt the need to make packages for them. So why bother? you may ask. The main reasons are:
+You may very well have written analysis pipelines in R for various projects and never felt the need to make packages for them. So why bother? you may ask. The main reasons are:
 
 * *deployment*: packages make it easier for people to use your code
 * *reproducibility*: packages can be a convenient way to make your study fully reproducible
@@ -24,7 +24,7 @@ You may very well have written many analysis pipelines in R for various projects
 
 ### Primer: what is an RStudio project?
 
-An RStudio project is a virtual context associated with a specific working directory on your computer. A project is the recommended unit of work for a given analysis. This is because it keeps track of the R workspace and history for that analysis, together with the working directory, meaning you never have to use `setwd` anymore. A project has the extension .Rproj. See this [page](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) for more information. As we shall see, developing a package requires creating a project for it.
+An RStudio project is a virtual context associated with a specific working directory on your computer. A project is the recommended unit of work for a given analysis. This is because it keeps track of the R workspace and history for that analysis, together with the working directory (meaning you never have to use `setwd` anymore). A project has the extension .Rproj. See this [page](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) for more information. As we shall see, developing a package requires creating a project for it.
 
 ### Create a project for your package
 
@@ -45,7 +45,7 @@ You should be all set. Useful links include this [page](https://kbroman.org/pkg_
 
 ### Write your functions
 
-A package is nothing much more than a convenient collection of functions that one may want to use from outside. Here we assume that you are comfortable with writing R functions. Prefer saving each function as its own R script (.R) and save them in the dedicated R/ folder. Here is an example function that repeats multiple elements, multiple times and returns a vector of those.
+A package is nothing much more than a convenient collection of functions that one may want to use repeatedly. Here we assume that you are comfortable with writing R functions. Prefer saving each function as its own R script (.R) and save them in the dedicated `R/` folder. Here is an example function that repeats multiple elements, multiple times and returns a vector of those.
 
 ```{r}
 mrep <- function(x, n) {
@@ -56,21 +56,23 @@ mrep <- function(x, n) {
 }
 ```
 
-We can use this function, for example, to repeat the number 1 one time, 2 two times and 3 three times:
+We can use this function, for example, to repeat the number 1 once, number 2 twice and number 3 three times:
 
 ```{r}
 mrep(seq(3), seq(3))
 ```
 
-*Note* that when calling functions from other packages (here `purrr` and `asserthat`) we do not use `library` or `require`, as this would make all the functions of these packages available. Instead we use the namespace of the respective package, separated from the function name with a `::`. Although a package that uses `library` will typically build just fine, it is considered bad practice and will not pass CRAN's requirements, which are implemented in the R CHECK command (more on this later).
+*Note* that when calling functions from other packages (here `purrr` and `asserthat`) we do not use `library` or `require`, as this would make all the functions of these packages available. Instead we use the namespace of the respective package, separated from the function name with a `::`. Although a package that uses `library` will typically build just fine, it is considered bad practice and will not pass CRAN's requirements, which are implemented in the R CMD CHECK command (more on this later).
+
+### Tests
 
 Do you want to go test-driven? Then write your tests first, and follow those [guidelines](http://r-pkgs.had.co.nz/tests.html). Although tests are out of the scope of this tutorial, they are a vital part of package development, so we highly recommend this read as your next step to go further.
 
 ### Document your functions
 
-The documentation of a function is what shows up when you type `?function-name` for example (e.g. `?purrr::reduce`). When writing your package, you must provide a documentation for each of your functions so your user knows what the function does, what arguments it takes, what it returns and has examples of the function being used. Each function documentation goes in its respective .Rd file, stored in the man/ folder.
+The documentation of a function is what shows up when you type `?function-name` for example (e.g. `?purrr::reduce`). When writing your package, you must provide a documentation for each of your functions so your user knows what the function does, what arguments it takes, what it returns and has examples of the function being used. Each function documentation goes in its own .Rd file, stored in the `man/` folder.
 
-`roxygen2` is an R package that makes documentation very easy. It allows you to write the documentation as a header of a function's R script, and save this header into its own .Rd file in man/. All the lines that go into the documentation must start with the special comment characters `#'`. If we take our previous example:
+`roxygen2` is an R package that makes documentation very easy. It allows you to write the documentation as a header of a function's R script, and save this header into its own .Rd file in `man/`. All the lines that go into the documentation must start with the special comment characters `#'`. If we take our previous example:
 
 ```{r}
 #' Repeat multiple things multiple times
@@ -98,7 +100,7 @@ mrep <- function(x, n) {
 }
 ```
 
-Here, everything starting with `#'` will be interpreted by `roxygen2` as part of the documentation. Different fields can be present:
+Here, everything starting with `#'` will be interpreted by `roxygen2` as part of the documentation. Different fields can be supplied:
 
 * The first line is the title of the documentation page
 * The second line is the description
@@ -106,9 +108,9 @@ Here, everything starting with `#'` will be interpreted by `roxygen2` as part of
 * `@details` if you want to be more specific on what happens backstage
 * `@return` tells the user what the function returns
 * `@examples` shows some use-cases
-* `@export` indicates that this function can be called explicitly by the user (i.e. it is not an internal function of the package that is only meant to be used by other functions of the package)
+* `@export` indicates that this function can be called explicitly by the user (as opposed to an internal function of the package that is only meant to be used by other functions of the package)
 
-Other fields such as `@note` can be specified, but these are the main ones. A package with incomplete documentation will build fine, but again this will not pass R CHECK for CRAN's requirements, which require you, for example, to always have examples for exported functions.
+Other fields such as `@note` can be specified, but these are the main ones. A package with incomplete documentation will build fine, but again this will not pass R CMD CHECK for CRAN's requirements, which require you, for example, to always have examples for exported functions.
 
 To effectively produce the documentation, run `roxygen2::roxygenize()` (or `roxygenise`) from within the working directory of the package. `roxyygen2` may not update the NAMESPACE file if it has not been created by `roxygen2` in the first place, so you may have to erase NAMESPACE before running `roxygenize()` (then it will automatically create a new NAMESPACE). We do not describe here what the NAMESPACE is, as it is a bit too advanced for this tutorial, just remember that you may have to erase it before documenting if you see a warning.
 
@@ -120,13 +122,11 @@ Once some functions are added and their documentation is ready, the package shou
 
 A vignette is a more user-oriented overview of your package. In contrast to the individual documentation of each function, the vignette takes the user for a tour of the package to show use-cases of the functions *in context*. 
 
-`usethis` is a great package to set up everything we need for our package, including vignettes. Using `usethis::use_vignette` will create a `vignettes/` folder that contains the source file of your vignette, in the Rmarkdown (Rmd) format. 
+A vignette is written in Rmarkdown. The Rmarkdown language is out of the scope of this tutorial, but is a great way to combine textual information (it inherits from markdown) with embedded chunks of R code and their output (this tutorial is written in Rmarkdown). See this [link](https://rmarkdown.rstudio.com/), or this [cheatsheet](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf), or inspire yourself from the source code of this tutorial to get more familiar with Rmarkdown.
 
-A vignette is written in Rmarkdown. The Rmarkdown language is out of the scope of this tutorial, but is a great way to combine textual information (it inherits from markdown) with embedded chunks of R code and their output (this tutorial is written in R markdown). See this [link](https://rmarkdown.rstudio.com/), or this [cheatsheet](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf), or inspire yourself from the source code of this tutorial to get more familiar with Rmarkdown.
+We use the `usethis` package to set up everything we need to get our vignette ready. Running `usethis::use_vignette` will create a `vignettes/` folder with the vignette .Rmd file in it, that you can then edit.
 
-We use the `usethis` package to set up everything we need to get our vignette ready. Running `usethis::use_vignette` will create a `vignettes/` folder with the vignette Rmd file in it, that you can edit from RStudio.
-
-The vignette can be rendered in multiple output formats,, such as an HTML web page or a LaTeX-looking PDF. RStudio does this through the Knit button, which calls the `knitr` package in the background. By default, upon creation of the vignette only the HTML output is supported. To change the possible outputs (e.g. allow both HTML and PDF), change the `output` part of the header with:
+The vignette can be rendered in multiple output formats,, such as an HTML web page or a LaTeX-looking PDF. RStudio does this through the Knit button, which calls the `knitr` package in the background. By default, upon creation of the vignette only the HTML output is supported. To change the possible outputs (e.g. allow both HTML and PDF), change the `output` part of the header of the .Rmd file with:
 
 ```{Rmd}
 output:
@@ -137,13 +137,13 @@ output:
 
 Now the drop-down menu of the Knit button will offer the possibility to render the vignette as PDF as well as HTML.
 
-The Knit button renders a vignette, but does not save it. You could of course save it manually, but `devtools` offers the `build_vignettes` function to automatize this task. Running it will create two new folders, `doc/` and `Meta/`. The former contains the rendered vignette (in the first format specified in the `output` header, so PDF in the above example) while the latter contains some data used to render that vignette. It is best to not touch those, and stick to editing the vignette file located in the `vignettes/` folder. One exception: one can render a vignette manually with the Knit button and save the rendered output into the `doc/` folder.
+The Knit button renders a vignette, but does not save it. You could of course save it manually, but `devtools` offers the `build_vignettes` function to automatize this task. Running it will create two new folders, `doc/` and `Meta/`. The former contains the rendered vignette, in the first format specified in the `output` header (so PDF in the above example) while the latter contains some data used to render that vignette. It is best to not touch those, and stick to editing the vignette file located in the `vignettes/` folder. One exception: one can render a vignette manually with the Knit button and save the rendered output into the `doc/` folder.
 
-Do you want to host the vignette on a web page dedicated to your package, also with an overview of all the functions as well as their documentation? Then [`pkgdown`](https://pkgdown.r-lib.org/) is your friend, but this is out of the scope of this tutorial (yes, the web page for the `pkgdown` package is built using `pkgdown`).
+Do you want to host the vignette on a web page dedicated to your package, also with an overview of all the functions as well as their documentation? Then [`pkgdown`](https://pkgdown.r-lib.org/) is your friend, but this is out of the scope of this tutorial (yes, the web page for the `pkgdown` package is built with `pkgdown`).
 
 ## Update the description
 
-In the top folder of your package is a DESCRIPTION file. This contains some important information, as one can imagine. Make sure that you update the Title, Author, Maintainer, Description and License fields. The Imports field requires you to supply the names of the dependencies of your package: what packages *need* to be installed for your functions to work? In our example, `mrep` calls functions from `assertthat` and `purrr`, so our Imports field will look something like:
+In the top folder of your package is a DESCRIPTION file. This contains some important information. Make sure that you update the Title, Author, Maintainer, Description and License fields. The Imports field requires you to supply the names of the dependencies of your package: what packages *need* to be installed for your functions to work? In our example, `mrep` calls functions from `assertthat` and `purrr`, so our Imports field will look something like:
 
 ```
 Imports:
@@ -151,7 +151,7 @@ Imports:
   purrr
 ```
 
-These dependencies will be downloaded and installed automatically as soon as your package is installed. You can specify version requirements for the packages you load (see Hadley's book). The Suggests field is for packages that are not required but recommended.
+These dependencies will be downloaded and installed automatically upon installation of your package. You can specify version requirements for the packages you load (see Hadley's book). The Suggests field is for packages that are not required but recommended (e.g. `knitr` to build the vignette locally).
 
 Dependencies will be downloaded from CRAN by default. In order to add packages from other platforms, you may have to add some keywords to your DESCRIPTION file. For example, the [`ggtree`](https://bioconductor.org/packages/release/bioc/html/ggtree.html) package is hosted by Bioconductor. You can add it with the other packages in Imports, but you need to add "biocViews:" before Imports, e.g.
 
@@ -159,12 +159,13 @@ Dependencies will be downloaded from CRAN by default. In order to add packages f
 biocViews:
 Imports:
   asserthat,
-  purrr
+  purrr,
+  ggtree
 ```
 
 A special case of dependencies is operators from other packages, such as the famous pipe (`%>%`) from `magrittr`, because you cannot just write `magrittr::%>%`  in your functions. Again, `usethis` is our friend here, and you can run `usethis::use_pipe()` to make the pipe operator fully available to your functions without having to use `library`. (This command will update the NAMESPACE.)
 
-As a minor note, you can also use the DESCRIPTION file to give extra options to the build of your documentation. For example, to allow Roxygen to understand the markdown syntax when rendering the help pages of your functions, use 
+As a minor note, you can also use the DESCRIPTION file to give extra options to the build of your documentation. For example, to allow `roxygen2` to understand the markdown syntax when rendering the help pages of your functions, use 
 
 ```
 Roxygen: list(markdown = TRUE)
