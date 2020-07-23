@@ -22,11 +22,7 @@ Working with lists and iteration    |[purrr](https://purrr.tidyverse.org/)|Prati
 Plotting                            |[ggplot2](https://ggplot2.tidyverse.org/)|Raphael|26/06/20
 Programming with the tidyverse      |[rlang](https://rlang.r-lib.org/)|Pratik|10/07/20
 Regular expressions                 |[stringr](https://stringr.tidyverse.org)|Richel|17/07/20
-
-## Possible extras
-
-- Reproducibility and package-making (with e.g. [usethis](https://usethis.r-lib.org/))  
-- Embedding C++ code with [Rcpp](http://adv-r.had.co.nz/Rcpp.html)
+Package development                 |[devtools, usethis, roxygen2](http://r-pkgs.had.co.nz/)|Raphael|24/07/20
 
 Branch   |[Travis CI build status](https://travis-ci.org)                                                                                          
 ---------|-------------------------------------------------------------------------------------------------------------------------------------------------------
