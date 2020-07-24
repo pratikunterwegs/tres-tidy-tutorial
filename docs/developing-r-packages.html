@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Section 8 Developing R packages | TRES Tidyverse Tutorial</title>
+  <meta name="description" content="Section 8 Developing R packages | TRES Tidyverse Tutorial" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Section 8 Developing R packages | TRES Tidyverse Tutorial" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Section 8 Developing R packages | TRES Tidyverse Tutorial" />
+  <meta name="github-repo" content="pratikunterwegs/tres-tidy-tutorial" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Section 8 Developing R packages | TRES Tidyverse Tutorial" />
+  
+  <meta name="twitter:description" content="Section 8 Developing R packages | TRES Tidyverse Tutorial" />
+  
+
+<meta name="author" content="Raphael, Pratik, Theo and Richèl" />
+
+
+<meta name="date" content="2020-07-24" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="programming-in-the-tidyverse.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Outline</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about"><i class="fa fa-check"></i>About</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#schedule"><i class="fa fa-check"></i>Schedule</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#possible-extras"><i class="fa fa-check"></i>Possible extras</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#join"><i class="fa fa-check"></i>Join</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html"><i class="fa fa-check"></i><b>1</b> Reading files and string manipulation</a><ul>
+<li class="chapter" data-level="1.1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#data-import-and-export-with-readr"><i class="fa fa-check"></i><b>1.1</b> Data import and export with <code>readr</code></a><ul>
+<li class="chapter" data-level="1.1.1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#reading-data"><i class="fa fa-check"></i><b>1.1.1</b> Reading data</a></li>
+<li class="chapter" data-level="1.1.2" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#writing-data"><i class="fa fa-check"></i><b>1.1.2</b> Writing data</a></li>
+<li class="chapter" data-level="1.1.3" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#reading-and-writing-lines"><i class="fa fa-check"></i><b>1.1.3</b> Reading and writing lines</a></li>
+<li class="chapter" data-level="" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#excel-files"><i class="fa fa-check"></i>Excel files</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#string-manipulation-with-stringr"><i class="fa fa-check"></i><b>1.2</b> String manipulation with <code>stringr</code></a><ul>
+<li class="chapter" data-level="1.2.1" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#putting-strings-together"><i class="fa fa-check"></i><b>1.2.1</b> Putting strings together</a></li>
+<li class="chapter" data-level="1.2.2" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#detecting-strings"><i class="fa fa-check"></i><b>1.2.2</b> Detecting strings</a></li>
+<li class="chapter" data-level="1.2.3" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#matching-strings"><i class="fa fa-check"></i><b>1.2.3</b> Matching strings</a></li>
+<li class="chapter" data-level="1.2.4" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#simpler-pattern-extraction"><i class="fa fa-check"></i><b>1.2.4</b> Simpler pattern extraction</a></li>
+<li class="chapter" data-level="1.2.5" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#breaking-strings-apart"><i class="fa fa-check"></i><b>1.2.5</b> Breaking strings apart</a></li>
+<li class="chapter" data-level="1.2.6" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#replacing-string-elements"><i class="fa fa-check"></i><b>1.2.6</b> Replacing string elements</a></li>
+<li class="chapter" data-level="1.2.7" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#subsetting-within-strings"><i class="fa fa-check"></i><b>1.2.7</b> Subsetting within strings</a></li>
+<li class="chapter" data-level="1.2.8" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#padding-and-truncating-strings"><i class="fa fa-check"></i><b>1.2.8</b> Padding and truncating strings</a></li>
+<li class="chapter" data-level="1.2.9" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#stringr-aspects-not-covered-here"><i class="fa fa-check"></i><b>1.2.9</b> Stringr aspects not covered here</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#string-interpolation-with-glue"><i class="fa fa-check"></i><b>1.3</b> String interpolation with <code>glue</code></a></li>
+<li class="chapter" data-level="1.4" data-path="reading-files-and-string-manipulation.html"><a href="reading-files-and-string-manipulation.html#strings-in-ggplot"><i class="fa fa-check"></i><b>1.4</b> Strings in <code>ggplot</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><i class="fa fa-check"></i><b>2</b> Reshaping data tables in the tidyverse, and other things</a><ul>
+<li class="chapter" data-level="2.1" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#the-new-data-frame-tibble"><i class="fa fa-check"></i><b>2.1</b> The new data frame: tibble</a></li>
+<li class="chapter" data-level="2.2" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#the-concept-of-tidy-data"><i class="fa fa-check"></i><b>2.2</b> The concept of tidy data</a></li>
+<li class="chapter" data-level="2.3" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#reshaping-with-tidyr"><i class="fa fa-check"></i><b>2.3</b> Reshaping with <code>tidyr</code></a><ul>
+<li class="chapter" data-level="2.3.1" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#pivoting"><i class="fa fa-check"></i><b>2.3.1</b> Pivoting</a></li>
+<li class="chapter" data-level="2.3.2" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#handling-missing-values"><i class="fa fa-check"></i><b>2.3.2</b> Handling missing values</a></li>
+<li class="chapter" data-level="2.3.3" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#splitting-and-combining-cells"><i class="fa fa-check"></i><b>2.3.3</b> Splitting and combining cells</a></li>
+<li class="chapter" data-level="2.3.4" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#expanding-tables-using-combinations"><i class="fa fa-check"></i><b>2.3.4</b> Expanding tables using combinations</a></li>
+<li class="chapter" data-level="2.3.5" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#nesting"><i class="fa fa-check"></i><b>2.3.5</b> Nesting</a></li>
+<li class="chapter" data-level="2.3.6" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#what-else-can-be-tidied-up"><i class="fa fa-check"></i><b>2.3.6</b> What else can be tidied up?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#extra-factors-and-the-forcats-package"><i class="fa fa-check"></i><b>2.4</b> Extra: factors and the <code>forcats</code> package</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#change-the-order-of-the-levels"><i class="fa fa-check"></i><b>2.4.1</b> Change the order of the levels</a></li>
+<li class="chapter" data-level="2.4.2" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#change-the-levels-themselves"><i class="fa fa-check"></i><b>2.4.2</b> Change the levels themselves</a></li>
+<li class="chapter" data-level="2.4.3" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#dropping-levels"><i class="fa fa-check"></i><b>2.4.3</b> Dropping levels</a></li>
+<li class="chapter" data-level="2.4.4" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#other-things"><i class="fa fa-check"></i><b>2.4.4</b> Other things</a></li>
+<li class="chapter" data-level="2.4.5" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#take-home-message-for-forcats"><i class="fa fa-check"></i><b>2.4.5</b> Take home message for forcats</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="reshaping-data-tables-in-the-tidyverse-and-other-things.html"><a href="reshaping-data-tables-in-the-tidyverse-and-other-things.html#external-resources"><i class="fa fa-check"></i><b>2.5</b> External resources</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html"><i class="fa fa-check"></i><b>3</b> Data manipulation with <code>dplyr</code></a><ul>
+<li class="chapter" data-level="3.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#foreword-on-dplyr"><i class="fa fa-check"></i><b>3.1.1</b> Foreword on <code>dplyr</code></a></li>
+<li class="chapter" data-level="3.1.2" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#example-data"><i class="fa fa-check"></i><b>3.1.2</b> Example data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#working-with-existing-variables"><i class="fa fa-check"></i><b>3.2</b> Working with existing variables</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#renaming-variables-with-rename"><i class="fa fa-check"></i><b>3.2.1</b> Renaming variables with <code>rename()</code></a></li>
+<li class="chapter" data-level="3.2.2" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#the-pipe-operator"><i class="fa fa-check"></i><b>3.2.2</b> The pipe operator <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="3.2.3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#select-variables-with-select"><i class="fa fa-check"></i><b>3.2.3</b> Select variables with <code>select()</code></a></li>
+<li class="chapter" data-level="3.2.4" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#select-variables-with-helpers"><i class="fa fa-check"></i><b>3.2.4</b> Select variables with helpers</a></li>
+<li class="chapter" data-level="3.2.5" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#rearranging-variable-order-with-relocate"><i class="fa fa-check"></i><b>3.2.5</b> Rearranging variable order with <code>relocate()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#working-with-observations"><i class="fa fa-check"></i><b>3.3</b> Working with observations</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#ordering-rows-by-value---arrange"><i class="fa fa-check"></i><b>3.3.1</b> Ordering rows by value - <code>arrange()</code></a></li>
+<li class="chapter" data-level="3.3.2" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#subset-rows-by-position---slice"><i class="fa fa-check"></i><b>3.3.2</b> Subset rows by position - <code>slice()</code></a></li>
+<li class="chapter" data-level="3.3.3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#subsetting-rows-by-value-with-filter"><i class="fa fa-check"></i><b>3.3.3</b> Subsetting rows by value with <code>filter()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#making-new-variables"><i class="fa fa-check"></i><b>3.4</b> Making new variables</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#create-new-variables-with-mutate"><i class="fa fa-check"></i><b>3.4.1</b> Create new variables with <code>mutate()</code></a></li>
+<li class="chapter" data-level="3.4.2" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#summarise-observations-with-summarise"><i class="fa fa-check"></i><b>3.4.2</b> Summarise observations with <code>summarise()</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#grouping-observations-by-variables"><i class="fa fa-check"></i><b>3.4.3</b> Grouping observations by variables</a></li>
+<li class="chapter" data-level="3.4.4" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#grouped-data-and-other-dplyr-verbs"><i class="fa fa-check"></i><b>3.4.4</b> Grouped data and other <code>dplyr</code> verbs</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#working-with-multiple-tables"><i class="fa fa-check"></i><b>3.5</b> Working with multiple tables</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#binding-tables"><i class="fa fa-check"></i><b>3.5.1</b> Binding tables</a></li>
+<li class="chapter" data-level="3.5.2" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#combining-variables-of-two-tables-with-mutating-joins"><i class="fa fa-check"></i><b>3.5.2</b> Combining variables of two tables with mutating joins</a></li>
+<li class="chapter" data-level="3.5.3" data-path="data-manipulation-with-dplyr.html"><a href="data-manipulation-with-dplyr.html#filtering-matching-observations-between-two-tables-wiht-filtering-joins"><i class="fa fa-check"></i><b>3.5.3</b> Filtering matching observations between two tables wiht filtering joins</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html"><i class="fa fa-check"></i><b>4</b> Working with lists and iteration</a><ul>
+<li class="chapter" data-level="4.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#list-columns-with-tidyr"><i class="fa fa-check"></i><b>4.1</b> List columns with <code>tidyr</code></a><ul>
+<li class="chapter" data-level="4.1.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#nesting-data"><i class="fa fa-check"></i><b>4.1.1</b> Nesting data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#unnesting-data"><i class="fa fa-check"></i><b>4.1.2</b> Unnesting data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#working-with-list-columns"><i class="fa fa-check"></i><b>4.1.3</b> Working with list columns</a></li>
+<li class="chapter" data-level="" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#functionals"><i class="fa fa-check"></i>Functionals</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#iteration-with-map"><i class="fa fa-check"></i><b>4.2</b> Iteration with <code>map</code></a><ul>
+<li class="chapter" data-level="4.2.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#basic-use-of-map"><i class="fa fa-check"></i><b>4.2.1</b> Basic use of <code>map</code></a></li>
+<li class="chapter" data-level="4.2.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-vectors"><i class="fa fa-check"></i><b>4.2.2</b> <code>map</code> variants returning vectors</a></li>
+<li class="chapter" data-level="4.2.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#map-variants-returning-data-frames"><i class="fa fa-check"></i><b>4.2.3</b> <code>map</code> variants returning data frames</a></li>
+<li class="chapter" data-level="4.2.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#working-with-list-columns-using-map"><i class="fa fa-check"></i><b>4.2.4</b> Working with list columns using <code>map</code></a></li>
+<li class="chapter" data-level="4.2.5" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#selective-mapping-using-map-variants"><i class="fa fa-check"></i><b>4.2.5</b> Selective mapping using <code>map</code> variants</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#more-map-variants"><i class="fa fa-check"></i><b>4.3</b> More <code>map</code> variants</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#mapping-over-two-inputs-with-map2"><i class="fa fa-check"></i><b>4.3.1</b> Mapping over two inputs with map2</a></li>
+<li class="chapter" data-level="4.3.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#mapping-over-multiple-inputs-with-pmap"><i class="fa fa-check"></i><b>4.3.2</b> Mapping over multiple inputs with pmap</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#combining-map-variants-and-tidyverse-functions"><i class="fa fa-check"></i><b>4.4</b> Combining map variants and tidyverse functions</a></li>
+<li class="chapter" data-level="4.5" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#a-return-to-map-variants"><i class="fa fa-check"></i><b>4.5</b> A return to map variants</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#iteration-without-a-return"><i class="fa fa-check"></i><b>4.5.1</b> Iteration without a return</a></li>
+<li class="chapter" data-level="4.5.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#modify-rather-than-map"><i class="fa fa-check"></i><b>4.5.2</b> Modify rather than map</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#other-functions-for-working-with-lists"><i class="fa fa-check"></i><b>4.6</b> Other functions for working with lists</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#filtering-lists"><i class="fa fa-check"></i><b>4.6.1</b> Filtering lists</a></li>
+<li class="chapter" data-level="4.6.2" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#summarising-lists"><i class="fa fa-check"></i><b>4.6.2</b> Summarising lists</a></li>
+<li class="chapter" data-level="4.6.3" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#reduction-and-accumulation"><i class="fa fa-check"></i><b>4.6.3</b> Reduction and accumulation</a></li>
+<li class="chapter" data-level="4.6.4" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#miscellaneous-operation"><i class="fa fa-check"></i><b>4.6.4</b> Miscellaneous operation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="working-with-lists-and-iteration.html"><a href="working-with-lists-and-iteration.html#lists-of-ggplots-with-patchwork"><i class="fa fa-check"></i><b>4.7</b> Lists of <code>ggplots</code> with <code>patchwork</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html"><i class="fa fa-check"></i><b>5</b> <code>ggplot2</code> and the grammar of graphics</a><ul>
+<li class="chapter" data-level="5.1" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#what-is-ggplot2-and-why-use-it"><i class="fa fa-check"></i><b>5.1.1</b> What is <code>ggplot2</code> and why use it?</a></li>
+<li class="chapter" data-level="5.1.2" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#what-is-the-grammar-of-graphics"><i class="fa fa-check"></i><b>5.1.2</b> What is the grammar of graphics?</a></li>
+<li class="chapter" data-level="5.1.3" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#quick-plot"><i class="fa fa-check"></i><b>5.1.3</b> Quick plot</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#but-first-the-data"><i class="fa fa-check"></i><b>5.2</b> But first, the data</a></li>
+<li class="chapter" data-level="5.3" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#geom-layers"><i class="fa fa-check"></i><b>5.3</b> Geom layers</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#mapping-variables-to-aesthetics"><i class="fa fa-check"></i><b>5.3.1</b> Mapping variables to aesthetics</a></li>
+<li class="chapter" data-level="5.3.2" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#fixed-aesthetics"><i class="fa fa-check"></i><b>5.3.2</b> Fixed aesthetics</a></li>
+<li class="chapter" data-level="5.3.3" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#statistical-transformation"><i class="fa fa-check"></i><b>5.3.3</b> Statistical transformation</a></li>
+<li class="chapter" data-level="5.3.4" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#position"><i class="fa fa-check"></i><b>5.3.4</b> Position</a></li>
+<li class="chapter" data-level="5.3.5" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#other-geoms"><i class="fa fa-check"></i><b>5.3.5</b> Other geoms</a></li>
+<li class="chapter" data-level="5.3.6" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#extra-on-aesthetics"><i class="fa fa-check"></i><b>5.3.6</b> Extra on aesthetics</a></li>
+<li class="chapter" data-level="5.3.7" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#plot-wide-aesthetics-and-multiple-geoms"><i class="fa fa-check"></i><b>5.3.7</b> Plot-wide aesthetics and multiple geoms</a></li>
+<li class="chapter" data-level="5.3.8" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#multiple-geoms-with-different-datasets"><i class="fa fa-check"></i><b>5.3.8</b> Multiple geoms with different datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#coordinate-system"><i class="fa fa-check"></i><b>5.4</b> Coordinate-system</a></li>
+<li class="chapter" data-level="5.5" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#facetting"><i class="fa fa-check"></i><b>5.5</b> Facetting</a></li>
+<li class="chapter" data-level="5.6" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#the-right-format-for-the-dataset"><i class="fa fa-check"></i><b>5.6</b> The right format for the dataset</a></li>
+<li class="chapter" data-level="5.7" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#plotting-as-part-of-a-pipeline"><i class="fa fa-check"></i><b>5.7</b> Plotting as part of a pipeline</a></li>
+<li class="chapter" data-level="5.8" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#customization"><i class="fa fa-check"></i><b>5.8</b> Customization</a><ul>
+<li class="chapter" data-level="5.8.1" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#scales"><i class="fa fa-check"></i><b>5.8.1</b> Scales</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#labels"><i class="fa fa-check"></i><b>5.8.2</b> Labels</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#themes"><i class="fa fa-check"></i><b>5.8.3</b> Themes</a></li>
+<li class="chapter" data-level="5.8.4" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#legend"><i class="fa fa-check"></i><b>5.8.4</b> Legend</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#combining-plots"><i class="fa fa-check"></i><b>5.9</b> Combining plots</a></li>
+<li class="chapter" data-level="5.10" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#saving-a-plot"><i class="fa fa-check"></i><b>5.10</b> Saving a plot</a></li>
+<li class="chapter" data-level="5.11" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#high-throughput-plotting-workflow"><i class="fa fa-check"></i><b>5.11</b> High throughput plotting workflow</a></li>
+<li class="chapter" data-level="5.12" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#want-more"><i class="fa fa-check"></i><b>5.12</b> Want more?</a></li>
+<li class="chapter" data-level="5.13" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#references"><i class="fa fa-check"></i><b>5.13</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html"><i class="fa fa-check"></i><b>6</b> Regular expressions and <code>testthat</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#introduction-2"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#goal"><i class="fa fa-check"></i><b>6.1.1</b> Goal</a></li>
+<li class="chapter" data-level="6.1.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#why-is-this-important"><i class="fa fa-check"></i><b>6.1.2</b> Why is this important?</a></li>
+<li class="chapter" data-level="6.1.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#what-are-regular-expressions"><i class="fa fa-check"></i><b>6.1.3</b> What are regular expressions?</a></li>
+<li class="chapter" data-level="6.1.4" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#applications"><i class="fa fa-check"></i><b>6.1.4</b> Applications</a></li>
+<li class="chapter" data-level="6.1.5" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#using-regexes-in-r"><i class="fa fa-check"></i><b>6.1.5</b> Using regexes in R</a></li>
+<li class="chapter" data-level="6.1.6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#dangers-of-regexes"><i class="fa fa-check"></i><b>6.1.6</b> Dangers of regexes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#testing"><i class="fa fa-check"></i><b>6.2</b> Testing</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#why-test"><i class="fa fa-check"></i><b>6.2.1</b> Why test?</a></li>
+<li class="chapter" data-level="6.2.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#our-first-test"><i class="fa fa-check"></i><b>6.2.2</b> Our first test</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#detect-a-full-match"><i class="fa fa-check"></i><b>6.3</b> Detect a full match</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#str_which-demo"><i class="fa fa-check"></i><b>6.3.1</b> <code>str_which</code> demo</a></li>
+<li class="chapter" data-level="6.3.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#example-exercise-has_a_one"><i class="fa fa-check"></i><b>6.3.2</b> Example exercise: <code>has_a_one</code></a></li>
+<li class="chapter" data-level="6.3.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#exercise-has_a_digit"><i class="fa fa-check"></i><b>6.3.3</b> Exercise: <code>has_a_digit</code></a></li>
+<li class="chapter" data-level="6.3.4" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#exercise-has_a_word"><i class="fa fa-check"></i><b>6.3.4</b> Exercise: <code>has_a_word</code></a></li>
+<li class="chapter" data-level="6.3.5" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#exercise-has_dna_seq-alternates"><i class="fa fa-check"></i><b>6.3.5</b> Exercise: <code>has_dna_seq</code> (alternates)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#extract-a-pattern-for-one-submatch"><i class="fa fa-check"></i><b>6.4</b> Extract a pattern for one submatch</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#str_match"><i class="fa fa-check"></i><b>6.4.1</b> <code>str_match</code></a></li>
+<li class="chapter" data-level="6.4.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#context"><i class="fa fa-check"></i><b>6.4.2</b> Context</a></li>
+<li class="chapter" data-level="6.4.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#extract-a-character-vector-from-a-submatch"><i class="fa fa-check"></i><b>6.4.3</b> Extract a character vector from a submatch</a></li>
+<li class="chapter" data-level="6.4.4" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#example-exercise-extract_dna_seq_numbers-1-submatch"><i class="fa fa-check"></i><b>6.4.4</b> Example exercise: <code>extract_dna_seq_numbers</code> (1 submatch)</a></li>
+<li class="chapter" data-level="6.4.5" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#answer-extract_dna_seq_numbers"><i class="fa fa-check"></i><b>6.4.5</b> Answer: <code>extract_dna_seq_numbers</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#extract-a-pattern-for-multiple-submatches"><i class="fa fa-check"></i><b>6.5</b> Extract a pattern for multiple submatches</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#context-1"><i class="fa fa-check"></i><b>6.5.1</b> Context</a></li>
+<li class="chapter" data-level="6.5.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#exercise-extract_prot_and_seq_ids"><i class="fa fa-check"></i><b>6.5.2</b> Exercise: <code>extract_prot_and_seq_ids</code></a></li>
+<li class="chapter" data-level="6.5.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#answer-extract_prot_and_seq_ids"><i class="fa fa-check"></i><b>6.5.3</b> Answer: <code>extract_prot_and_seq_ids</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#mutate"><i class="fa fa-check"></i><b>6.6</b> Mutate</a></li>
+<li class="chapter" data-level="6.7" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#test-for-match"><i class="fa fa-check"></i><b>6.7</b> Test for match</a></li>
+<li class="chapter" data-level="6.8" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#bigger-picture"><i class="fa fa-check"></i><b>6.8</b> Bigger picture</a><ul>
+<li class="chapter" data-level="6.8.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#develop-in-packages"><i class="fa fa-check"></i><b>6.8.1</b> Develop in packages</a></li>
+<li class="chapter" data-level="6.8.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#regex-usage-outside-r"><i class="fa fa-check"></i><b>6.8.2</b> Regex usage outside R</a></li>
+<li class="chapter" data-level="6.8.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#warning"><i class="fa fa-check"></i><b>6.8.3</b> Warning</a></li>
+</ul></li>
+<li class="chapter" data-level="6.9" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#resources"><i class="fa fa-check"></i><b>6.9</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html"><i class="fa fa-check"></i><b>7</b> Programming in the <em>tidyverse</em></a><ul>
+<li class="chapter" data-level="7.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#an-exlanation-of-the-problem"><i class="fa fa-check"></i><b>7.1</b> An exlanation of the problem</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#what-the-issue-is"><i class="fa fa-check"></i><b>7.1.1</b> What the issue is</a></li>
+<li class="chapter" data-level="7.1.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#why-the-issue-is-a-problem"><i class="fa fa-check"></i><b>7.1.2</b> Why the issue is a problem</a></li>
+<li class="chapter" data-level="7.1.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-variables-as-strings-is-also-an-issue"><i class="fa fa-check"></i><b>7.1.3</b> Passing variables as strings is (also) an issue</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-selection-is-easy"><i class="fa fa-check"></i><b>7.2</b> Flexible selection is easy</a></li>
+<li class="chapter" data-level="7.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#a-first-attempt-at-a-flexible-function"><i class="fa fa-check"></i><b>7.3</b> A first attempt at a flexible function</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#failure-of-the-first-attempt"><i class="fa fa-check"></i><b>7.3.1</b> Failure of the first attempt</a></li>
+<li class="chapter" data-level="7.3.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-arguments-as-strings-doesnt-help"><i class="fa fa-check"></i><b>7.3.2</b> Passing arguments as strings doesn’t help</a></li>
+<li class="chapter" data-level="7.3.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#none-of-the-other-arguments-will-be-successful"><i class="fa fa-check"></i><b>7.3.3</b> None of the other arguments will be successful</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-filtering-in-a-function"><i class="fa fa-check"></i><b>7.4</b> Flexible filtering in a function</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-filtering-using-expressions"><i class="fa fa-check"></i><b>7.4.1</b> Flexible filtering using expressions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-grouping-in-a-function"><i class="fa fa-check"></i><b>7.5</b> Flexible grouping in a function</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-...-and-forwarding"><i class="fa fa-check"></i><b>7.5.1</b> Using <code>...</code> and ‘forwarding’</a></li>
+<li class="chapter" data-level="7.5.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-grouping-variables-as-strings"><i class="fa fa-check"></i><b>7.5.2</b> Passing grouping variables as strings</a></li>
+<li class="chapter" data-level="7.5.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-rlangsyms"><i class="fa fa-check"></i><b>7.5.3</b> Using <code>rlang::syms</code></a></li>
+<li class="chapter" data-level="7.5.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-rlangparse_exprs"><i class="fa fa-check"></i><b>7.5.4</b> Using <code>rlang::parse_exprs</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-summarising-in-a-function"><i class="fa fa-check"></i><b>7.6</b> Flexible summarising in a function</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-dplyrsummarise_at"><i class="fa fa-check"></i><b>7.6.1</b> Using <code>dplyr::summarise_at</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-the-across-argument-for-summary-variables"><i class="fa fa-check"></i><b>7.6.2</b> Using the <code>across</code> argument for summary variables</a></li>
+<li class="chapter" data-level="7.6.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#summarise-multiple-variables-using-..."><i class="fa fa-check"></i><b>7.6.3</b> Summarise multiple variables using <code>...</code></a></li>
+<li class="chapter" data-level="7.6.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#summarise-with-multiple-functions"><i class="fa fa-check"></i><b>7.6.4</b> Summarise with multiple functions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#further-resources"><i class="fa fa-check"></i><b>7.7</b> Further resources</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="developing-r-packages.html"><a href="developing-r-packages.html"><i class="fa fa-check"></i><b>8</b> Developing R packages</a><ul>
+<li class="chapter" data-level="8.1" data-path="developing-r-packages.html"><a href="developing-r-packages.html#why-writing-packages"><i class="fa fa-check"></i><b>8.1</b> Why writing packages?</a></li>
+<li class="chapter" data-level="8.2" data-path="developing-r-packages.html"><a href="developing-r-packages.html#hands-on-workflow"><i class="fa fa-check"></i><b>8.2</b> Hands-on workflow</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="developing-r-packages.html"><a href="developing-r-packages.html#primer-what-is-an-rstudio-project"><i class="fa fa-check"></i><b>8.2.1</b> Primer: what is an RStudio project?</a></li>
+<li class="chapter" data-level="8.2.2" data-path="developing-r-packages.html"><a href="developing-r-packages.html#create-a-project-for-your-package"><i class="fa fa-check"></i><b>8.2.2</b> Create a project for your package</a></li>
+<li class="chapter" data-level="8.2.3" data-path="developing-r-packages.html"><a href="developing-r-packages.html#link-to-github"><i class="fa fa-check"></i><b>8.2.3</b> Link to GitHub?</a></li>
+<li class="chapter" data-level="8.2.4" data-path="developing-r-packages.html"><a href="developing-r-packages.html#write-your-functions"><i class="fa fa-check"></i><b>8.2.4</b> Write your functions</a></li>
+<li class="chapter" data-level="8.2.5" data-path="developing-r-packages.html"><a href="developing-r-packages.html#tests"><i class="fa fa-check"></i><b>8.2.5</b> Tests</a></li>
+<li class="chapter" data-level="8.2.6" data-path="developing-r-packages.html"><a href="developing-r-packages.html#document-your-functions"><i class="fa fa-check"></i><b>8.2.6</b> Document your functions</a></li>
+<li class="chapter" data-level="8.2.7" data-path="developing-r-packages.html"><a href="developing-r-packages.html#build-the-package"><i class="fa fa-check"></i><b>8.2.7</b> Build the package</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="developing-r-packages.html"><a href="developing-r-packages.html#write-a-vignette"><i class="fa fa-check"></i><b>8.3</b> Write a vignette</a></li>
+<li class="chapter" data-level="8.4" data-path="developing-r-packages.html"><a href="developing-r-packages.html#update-the-description"><i class="fa fa-check"></i><b>8.4</b> Update the description</a></li>
+<li class="chapter" data-level="8.5" data-path="developing-r-packages.html"><a href="developing-r-packages.html#check-the-package"><i class="fa fa-check"></i><b>8.5</b> Check the package</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="developing-r-packages.html"><a href="developing-r-packages.html#good-practices"><i class="fa fa-check"></i><b>8.5.1</b> Good practices</a></li>
+<li class="chapter" data-level="8.5.2" data-path="developing-r-packages.html"><a href="developing-r-packages.html#better-practices"><i class="fa fa-check"></i><b>8.5.2</b> Better practices</a></li>
+<li class="chapter" data-level="8.5.3" data-path="developing-r-packages.html"><a href="developing-r-packages.html#even-better-practices"><i class="fa fa-check"></i><b>8.5.3</b> Even better practices</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="developing-r-packages.html"><a href="developing-r-packages.html#references-1"><i class="fa fa-check"></i><b>8.6</b> References</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">TRES Tidyverse Tutorial</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="developing-r-packages" class="section level1">
+<h1><span class="header-section-number">Section 8</span> Developing R packages</h1>
+<p>Raphael Scherrer (thanks to Pedro Neves for guiding me through these steps)</p>
+<p><img src="opening-image.png" /></p>
+<p>By now you know what R packages are and you have been using many of them, some of them part of the tidyverse and others not. R packages are modules, or coherent libraries of functions, designed at specific sets of tasks. Packages, or libraries, are common to many programming languages, the philosophy behind them being: pick only the tools you need for your task, without having to download all the possible toolboxes. Currently CRAN (the Comprehensive R Archive Network) is host to more than 16,000 packages (<a href="https://cran.r-project.org/web/packages/">link</a>), and that is not counting R packages hosted by other platforms such as <a href="https://github.com">GitHub</a>, <a href="https://www.bioconductor.org/">Bioconductor</a> or <a href="https://ropensci.org/">rOpenSci</a>. This is what makes R such a powerful and popular language. Why there are so many packages is because <em>anyone</em> can write their own package and make it available to others, so the growth of the R universe if very much community-driven. Here we will show you how to write your own package. Most of the content of this tutorial follows Hadley Wickham’s exhaustive <a href="http://r-pkgs.had.co.nz/">book</a> on R packages.</p>
+<div id="why-writing-packages" class="section level2">
+<h2><span class="header-section-number">8.1</span> Why writing packages?</h2>
+<p>You may very well have written analysis pipelines in R for various projects and never felt the need to make packages for them. So why bother? you may ask. The main reasons are:</p>
+<ul>
+<li><em>deployment</em>: packages make it easier for people to use your code</li>
+<li><em>reproducibility</em>: packages can be a convenient way to make your study fully reproducible</li>
+<li><em>consistency</em>: there is a common set of rules on how packages should be organized, which forces you to make your code understandable to everyone</li>
+<li><em>security</em>: the common conventions around package syntax make it possible for third-party tools to check your code for bugs or style, which also means you can trust packages hosted at some platforms when you know they run these tests, for example</li>
+</ul>
+</div>
+<div id="hands-on-workflow" class="section level2">
+<h2><span class="header-section-number">8.2</span> Hands-on workflow</h2>
+<div id="primer-what-is-an-rstudio-project" class="section level3">
+<h3><span class="header-section-number">8.2.1</span> Primer: what is an RStudio project?</h3>
+<p>An RStudio project is a virtual context associated with a specific working directory on your computer. A project is the recommended unit of work for a given analysis. This is because it keeps track of the R workspace and history for that analysis, together with the working directory (meaning you never have to use <code>setwd</code> anymore). A project has the extension .Rproj. See this <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">page</a> for more information. As we shall see, developing a package requires creating a project for it.</p>
+</div>
+<div id="create-a-project-for-your-package" class="section level3">
+<h3><span class="header-section-number">8.2.2</span> Create a project for your package</h3>
+<p>In RStudio, click on File, then New Project. There, you have the option to create a new package. This will create all the files that are needed, in particular a DESCRIPTION, a NAMESPACE, a .Rbuildignore, and a man/ and R/ folders. Use the .Rproj file to develop the package (launching it will open RStudio and place you in the right directory). It is possible to create an R package by assembling all those files together by yourself, but RStudio really makes it painless.</p>
+</div>
+<div id="link-to-github" class="section level3">
+<h3><span class="header-section-number">8.2.3</span> Link to GitHub?</h3>
+<p>At this stage you may want to host your package on an online version control platform such as GitHub. One way to do this is the following. Assuming that git is already installed on your machine and linked to your GitHub account, you need to:</p>
+<ol style="list-style-type: decimal">
+<li>Create a project for your package locally (the step above)</li>
+<li>Create an empty repository on GitHub for your package</li>
+<li>Initialize git in the local copy by running <code>git init</code> from within</li>
+<li>Stage and commit (<code>git add .</code> and <code>git commit -m "some commit message"</code>)</li>
+<li>Link the local copy to the remote one with <code>git remote add origin https://github.com/username/reponame</code></li>
+<li>Push using <code>git push -u origin master</code></li>
+</ol>
+<p>You should be all set. Useful links include this <a href="https://kbroman.org/pkg_primer/pages/github.html">page</a>, this <a href="http://r-pkgs.had.co.nz/git.html">one</a> and also the instructions given by GitHub upon creation of an empty online repository.</p>
+</div>
+<div id="write-your-functions" class="section level3">
+<h3><span class="header-section-number">8.2.4</span> Write your functions</h3>
+<p>A package is nothing much more than a convenient collection of functions that one may want to use repeatedly. Here we assume that you are comfortable with writing R functions. Prefer saving each function as its own R script (.R) and save them in the dedicated <code>R/</code> folder. Here is an example function that repeats multiple elements, multiple times and returns a vector of those.</p>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb288-1" title="1">mrep &lt;-<span class="st"> </span><span class="cf">function</span>(x, n) {</a>
+<a class="sourceLine" id="cb288-2" title="2">  </a>
+<a class="sourceLine" id="cb288-3" title="3">  assertthat<span class="op">::</span><span class="kw">are_equal</span>(<span class="kw">length</span>(x), <span class="kw">length</span>(n)) <span class="co"># security check</span></a>
+<a class="sourceLine" id="cb288-4" title="4">  purrr<span class="op">::</span><span class="kw">reduce</span>(purrr<span class="op">::</span><span class="kw">map2</span>(x, n, <span class="op">~</span><span class="st"> </span><span class="kw">rep</span>(.x, .y)), c)</a>
+<a class="sourceLine" id="cb288-5" title="5">  </a>
+<a class="sourceLine" id="cb288-6" title="6">}</a></code></pre></div>
+<p>We can use this function, for example, to repeat the number 1 once, number 2 twice and number 3 three times:</p>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" title="1"><span class="kw">mrep</span>(<span class="kw">seq</span>(<span class="dv">3</span>), <span class="kw">seq</span>(<span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb289-2" title="2"><span class="co">#&gt; [1] 1 2 2 3 3 3</span></a></code></pre></div>
+<p><em>Note</em> that when calling functions from other packages (here <code>purrr</code> and <code>asserthat</code>) we do not use <code>library</code> or <code>require</code>, as this would make all the functions of these packages available. Instead we use the namespace of the respective package, separated from the function name with a <code>::</code>. Although a package that uses <code>library</code> will typically build just fine, it is considered bad practice and will not pass CRAN’s requirements, which are implemented in the R CMD CHECK command (more on this later).</p>
+</div>
+<div id="tests" class="section level3">
+<h3><span class="header-section-number">8.2.5</span> Tests</h3>
+<p>Do you want to go test-driven? Then write your tests first, and follow those <a href="http://r-pkgs.had.co.nz/tests.html">guidelines</a>. Although tests are out of the scope of this tutorial, they are a vital part of package development, so we highly recommend this read as your next step to go further.</p>
+</div>
+<div id="document-your-functions" class="section level3">
+<h3><span class="header-section-number">8.2.6</span> Document your functions</h3>
+<p>The documentation of a function is what shows up when you type <code>?function-name</code> for example (e.g. <code>?purrr::reduce</code>). When writing your package, you must provide a documentation for each of your functions so your user knows what the function does, what arguments it takes, what it returns and has examples of the function being used. Each function documentation goes in its own .Rd file, stored in the <code>man/</code> folder.</p>
+<p><code>roxygen2</code> is an R package that makes documentation very easy. It allows you to write the documentation as a header of a function’s R script, and save this header into its own .Rd file in <code>man/</code>. All the lines that go into the documentation must start with the special comment characters <code>#'</code>. If we take our previous example:</p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" title="1"><span class="co">#&#39; Repeat multiple things multiple times</span></a>
+<a class="sourceLine" id="cb290-2" title="2"><span class="co">#&#39; </span></a>
+<a class="sourceLine" id="cb290-3" title="3"><span class="co">#&#39; A function to repeat multiple things multiple times.</span></a>
+<a class="sourceLine" id="cb290-4" title="4"><span class="co">#&#39; </span></a>
+<a class="sourceLine" id="cb290-5" title="5"><span class="co">#&#39; @param x A vector of things</span></a>
+<a class="sourceLine" id="cb290-6" title="6"><span class="co">#&#39; @param n A vector of numbers times each thing must be repeated</span></a>
+<a class="sourceLine" id="cb290-7" title="7"><span class="co">#&#39; </span></a>
+<a class="sourceLine" id="cb290-8" title="8"><span class="co">#&#39; @details The function can take a vector of any atomic type</span></a>
+<a class="sourceLine" id="cb290-9" title="9"><span class="co">#&#39; </span></a>
+<a class="sourceLine" id="cb290-10" title="10"><span class="co">#&#39; @return A vector of the same type as `x`</span></a>
+<a class="sourceLine" id="cb290-11" title="11"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb290-12" title="12"><span class="co">#&#39; @examples</span></a>
+<a class="sourceLine" id="cb290-13" title="13"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb290-14" title="14"><span class="co">#&#39; mrep(seq(3), seq(3))</span></a>
+<a class="sourceLine" id="cb290-15" title="15"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb290-16" title="16"><span class="co">#&#39; @export</span></a>
+<a class="sourceLine" id="cb290-17" title="17"></a>
+<a class="sourceLine" id="cb290-18" title="18">mrep &lt;-<span class="st"> </span><span class="cf">function</span>(x, n) {</a>
+<a class="sourceLine" id="cb290-19" title="19">  </a>
+<a class="sourceLine" id="cb290-20" title="20">  assertthat<span class="op">::</span><span class="kw">are_equal</span>(<span class="kw">length</span>(x), <span class="kw">length</span>(n)) <span class="co"># security check</span></a>
+<a class="sourceLine" id="cb290-21" title="21">  purrr<span class="op">::</span><span class="kw">reduce</span>(purrr<span class="op">::</span><span class="kw">map2</span>(x, n, <span class="op">~</span><span class="st"> </span><span class="kw">rep</span>(.x, .y)), c)</a>
+<a class="sourceLine" id="cb290-22" title="22">  </a>
+<a class="sourceLine" id="cb290-23" title="23">}</a></code></pre></div>
+<p>Here, everything starting with <code>#'</code> will be interpreted by <code>roxygen2</code> as part of the documentation. Different fields can be supplied:</p>
+<ul>
+<li>The first line is the title of the documentation page</li>
+<li>The second line is the description</li>
+<li><code>@param</code> goes for each of the parameters, with their description</li>
+<li><code>@details</code> if you want to be more specific on what happens backstage</li>
+<li><code>@return</code> tells the user what the function returns</li>
+<li><code>@examples</code> shows some use-cases</li>
+<li><code>@export</code> indicates that this function can be called explicitly by the user (as opposed to an internal function of the package that is only meant to be used by other functions of the package)</li>
+</ul>
+<p>Other fields such as <code>@note</code> can be specified, but these are the main ones. A package with incomplete documentation will build fine, but again this will not pass R CMD CHECK for CRAN’s requirements, which require you, for example, to always have examples for exported functions.</p>
+<p>To effectively produce the documentation, run <code>roxygen2::roxygenize()</code> (or <code>roxygenise</code>) from within the working directory of the package. <code>roxyygen2</code> may not update the NAMESPACE file if it has not been created by <code>roxygen2</code> in the first place, so you may have to erase NAMESPACE before running <code>roxygenize()</code> (then it will automatically create a new NAMESPACE). We do not describe here what the NAMESPACE is, as it is a bit too advanced for this tutorial, just remember that you may have to erase it before documenting if you see a warning.</p>
+</div>
+<div id="build-the-package" class="section level3">
+<h3><span class="header-section-number">8.2.7</span> Build the package</h3>
+<p>Once some functions are added and their documentation is ready, the package should be able to build. Use the Install and Restard button under the Build tab in RStudio for that. Your package is now installed and loaded. Alternatively you can build your package from the command line by running R CMD INSTALL. If your package is on GitHub (or another remote server), you can also build it with <code>devtools</code>, for example with <code>devtools::install_github("username/reponame")</code>.</p>
+</div>
+</div>
+<div id="write-a-vignette" class="section level2">
+<h2><span class="header-section-number">8.3</span> Write a vignette</h2>
+<p>A vignette is a more user-oriented overview of your package. In contrast to the individual documentation of each function, the vignette takes the user for a tour of the package to show use-cases of the functions <em>in context</em>.</p>
+<p>A vignette is written in Rmarkdown. The Rmarkdown language is out of the scope of this tutorial, but is a great way to combine textual information (it inherits from markdown) with embedded chunks of R code and their output (this tutorial is written in Rmarkdown). See this <a href="https://rmarkdown.rstudio.com/">link</a>, or this <a href="https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">cheatsheet</a>, or inspire yourself from the source code of this tutorial to get more familiar with Rmarkdown.</p>
+<p>We use the <code>usethis</code> package to set up everything we need to get our vignette ready. Running <code>usethis::use_vignette</code> will create a <code>vignettes/</code> folder with the vignette .Rmd file in it, that you can then edit.</p>
+<p>The vignette can be rendered in multiple output formats,, such as an HTML web page or a LaTeX-looking PDF. RStudio does this through the Knit button, which calls the <code>knitr</code> package in the background. By default, upon creation of the vignette only the HTML output is supported. To change the possible outputs (e.g. allow both HTML and PDF), change the <code>output</code> part of the header of the .Rmd file with:</p>
+<pre class="rmd"><code>output:
+  pdf_document: default
+  html_document:
+    keep_md: yes</code></pre>
+<p>Now the drop-down menu of the Knit button will offer the possibility to render the vignette as PDF as well as HTML.</p>
+<p>The Knit button renders a vignette, but does not save it. You could of course save it manually, but <code>devtools</code> offers the <code>build_vignettes</code> function to automatize this task. Running it will create two new folders, <code>doc/</code> and <code>Meta/</code>. The former contains the rendered vignette, in the first format specified in the <code>output</code> header (so PDF in the above example) while the latter contains some data used to render that vignette. It is best to not touch those, and stick to editing the vignette file located in the <code>vignettes/</code> folder. One exception: one can render a vignette manually with the Knit button and save the rendered output into the <code>doc/</code> folder.</p>
+<p>Do you want to host the vignette on a web page dedicated to your package, also with an overview of all the functions as well as their documentation? Then <a href="https://pkgdown.r-lib.org/"><code>pkgdown</code></a> is your friend, but this is out of the scope of this tutorial (yes, the web page for the <code>pkgdown</code> package is built with <code>pkgdown</code>).</p>
+</div>
+<div id="update-the-description" class="section level2">
+<h2><span class="header-section-number">8.4</span> Update the description</h2>
+<p>In the top folder of your package is a DESCRIPTION file. This contains some important information. Make sure that you update the Title, Author, Maintainer, Description and License fields. The Imports field requires you to supply the names of the dependencies of your package: what packages <em>need</em> to be installed for your functions to work? In our example, <code>mrep</code> calls functions from <code>assertthat</code> and <code>purrr</code>, so our Imports field will look something like:</p>
+<pre><code>Imports:
+  asserthat,
+  purrr</code></pre>
+<p>These dependencies will be downloaded and installed automatically upon installation of your package. You can specify version requirements for the packages you load (see Hadley’s book). The Suggests field is for packages that are not required but recommended (e.g. <code>knitr</code> to build the vignette locally).</p>
+<p>Dependencies will be downloaded from CRAN by default. In order to add packages from other platforms, you may have to add some keywords to your DESCRIPTION file. For example, the <a href="https://bioconductor.org/packages/release/bioc/html/ggtree.html"><code>ggtree</code></a> package is hosted by Bioconductor. You can add it with the other packages in Imports, but you need to add “biocViews:” before Imports, e.g.</p>
+<pre><code>biocViews:
+Imports:
+  asserthat,
+  purrr,
+  ggtree</code></pre>
+<p>A special case of dependencies is operators from other packages, such as the famous pipe (<code>%&gt;%</code>) from <code>magrittr</code>, because you cannot just write <code>magrittr::%&gt;%</code> in your functions. Again, <code>usethis</code> is our friend here, and you can run <code>usethis::use_pipe()</code> to make the pipe operator fully available to your functions without having to use <code>library</code>. (This command will update the NAMESPACE.)</p>
+<p>As a minor note, you can also use the DESCRIPTION file to give extra options to the build of your documentation. For example, to allow <code>roxygen2</code> to understand the markdown syntax when rendering the help pages of your functions, use</p>
+<pre><code>Roxygen: list(markdown = TRUE)</code></pre>
+</div>
+<div id="check-the-package" class="section level2">
+<h2><span class="header-section-number">8.5</span> Check the package</h2>
+<div id="good-practices" class="section level3">
+<h3><span class="header-section-number">8.5.1</span> Good practices</h3>
+<p>As mentioned before, CRAN has specific requirements that are implemented in the R CMD CHECK command. Running this command, or clicking on Check within the Build tab, will run a series of quality controls on your code, and will indicate what does not meet the requirements. A package is CRAN-compatible if no errors and no warnings are issued (notes are fine).</p>
+<p>Generally, CHECK will make sure all the things we talked about above are done. It will look at the functions, the documentation, run your examples (and your tests if you have some) make sure that the vignette renders, and that all dependencies are accessible. If anything is wrong, it will tell you what.</p>
+<p>One thing to keep in mind is that CHECK will run your examples (in the documentation files), <em>unless</em> these are surrounded with <code>\dontrun{</code> and <code>}</code>. This can be used for examples that, e.g., would require some specific data that you do not make available with the package, or just because the example takes too long or is too computation-heavy.</p>
+<p>CHECK also dislikes files and folders that are not absolutely necessary to the package. It will complain if, say, you have a <code>scripts/</code> folder with extra draft scripts you used to develop and try your functions, or a <code>data/</code> folder containing some example data. You can add the names of these folders to <code>.Rbuildignore</code> to tell CHECK to ignore those when checking your package (<code>.Rbuildignore</code> works in many respects just like a <code>.gitignore</code> file).</p>
+</div>
+<div id="better-practices" class="section level3">
+<h3><span class="header-section-number">8.5.2</span> Better practices</h3>
+<p>If all the above are met, CHECK should be happy and in theory your package should be CRAN-compatible. Some platforms, such as rOpenSci, have stricter standards, however, and those requirements come from a good place. We will highlight two things here.</p>
+<p>First, rOpenSci will require 100% code coverage in your package. This means that during the execution of the CHECK command, every single line of code must be run. This is often impossible to achieve without having tests, and thus strongly encourages test-driven development. The <code>testthat</code> package can be used to write tests that check for the outcomes of your functions under different circumstances, or scenarios. See the section on <code>regex</code> for examples. In a package, <code>test</code> will be stored in a <code>tests/</code> folder, which can be set-up by our old friend <code>usethis</code>, by running <code>usethis::use_testthat()</code>. Having tests is always good!</p>
+<p>Second, rOpenSci will also check your coding <em>style</em>. In R, it is possible to write the same code in different ways, for example:</p>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb295-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb295-2" title="2">x &lt;-<span class="st"> </span><span class="kw">mrep</span>(<span class="kw">seq</span>(<span class="dv">3</span>), <span class="kw">seq</span>(<span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb295-3" title="3">y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb295-4" title="4"><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb295-5" title="5">  <span class="dt">V1 =</span> x,</a>
+<a class="sourceLine" id="cb295-6" title="6">  <span class="dt">V2 =</span> y</a>
+<a class="sourceLine" id="cb295-7" title="7">)</a>
+<a class="sourceLine" id="cb295-8" title="8"><span class="co">#&gt; # A tibble: 6 x 2</span></a>
+<a class="sourceLine" id="cb295-9" title="9"><span class="co">#&gt;      V1    V2</span></a>
+<a class="sourceLine" id="cb295-10" title="10"><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb295-11" title="11"><span class="co">#&gt; 1     1     1</span></a>
+<a class="sourceLine" id="cb295-12" title="12"><span class="co">#&gt; 2     2     1</span></a>
+<a class="sourceLine" id="cb295-13" title="13"><span class="co">#&gt; 3     2     1</span></a>
+<a class="sourceLine" id="cb295-14" title="14"><span class="co">#&gt; 4     3     1</span></a>
+<a class="sourceLine" id="cb295-15" title="15"><span class="co">#&gt; 5     3     1</span></a>
+<a class="sourceLine" id="cb295-16" title="16"><span class="co">#&gt; 6     3     1</span></a></code></pre></div>
+<p>versus</p>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" title="1">x =<span class="st"> </span><span class="kw">mrep</span>(<span class="kw">seq</span>(<span class="dv">3</span>), <span class="kw">seq</span>(<span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb296-2" title="2">y =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb296-3" title="3"><span class="kw">tibble</span>(<span class="dt">V1 =</span>x,</a>
+<a class="sourceLine" id="cb296-4" title="4">       <span class="dt">V2 =</span>y</a>
+<a class="sourceLine" id="cb296-5" title="5">)</a>
+<a class="sourceLine" id="cb296-6" title="6"><span class="co">#&gt; # A tibble: 6 x 2</span></a>
+<a class="sourceLine" id="cb296-7" title="7"><span class="co">#&gt;      V1    V2</span></a>
+<a class="sourceLine" id="cb296-8" title="8"><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb296-9" title="9"><span class="co">#&gt; 1     1     1</span></a>
+<a class="sourceLine" id="cb296-10" title="10"><span class="co">#&gt; 2     2     1</span></a>
+<a class="sourceLine" id="cb296-11" title="11"><span class="co">#&gt; 3     2     1</span></a>
+<a class="sourceLine" id="cb296-12" title="12"><span class="co">#&gt; 4     3     1</span></a>
+<a class="sourceLine" id="cb296-13" title="13"><span class="co">#&gt; 5     3     1</span></a>
+<a class="sourceLine" id="cb296-14" title="14"><span class="co">#&gt; 6     3     1</span></a></code></pre></div>
+<p>Both styles will run, and CHECK will not complain. However, <code>lintr</code> will. <code>lintr</code> is a style checker that makes sure that you follow the <em>tidyverse</em> recommended style. This style includes things such as: no use of <code>=</code> as an assignment operator (only use <code>&lt;-</code>), always put a space after an equal sign or a comma among others. <code>lintr</code> will be run on all of your R code if you submit your package to rOpenSci. The reason behing using a style checker is similar to the basic philosophy of the tidyverse: make things follow a <em>convention</em>, so that pieces of code speak the same language (so to speak, pun intended) and integrate nicely with each other.</p>
+</div>
+<div id="even-better-practices" class="section level3">
+<h3><span class="header-section-number">8.5.3</span> Even better practices</h3>
+<p>Git and GitHub (or other version control platforms) are your friends when it comes to developing packages or software in general. You may want to check out how to use them. One strength of these platforms is that they allow you to give access to third-party platforms to your package, that can be used to quality-control your code. These are known as <em>continuous integration</em> tools, Travis CI and AppVeyor being two famous examples. By activating these tools on your repository (hosted, say, on GitHub), these platforms can access your package and remotely run all kinds of things for you: run R CMD CHECK, make sure that the code coverage is 100%, or run <code>lintr</code> for you, every time you upload an edited version of your code. This gives you an extra safety net to make sure that your package (or at least the version hosted online and available to people) is always working, and it may even give you a hint if, for example, one dependency of your package breaks (due to errors independent of you). If you want to know more, you can for example check the R package <a href="https://github.com/ropensci/babette"><code>babette</code></a>, which makes use of these tools and is hosted at rOpenSci.</p>
+</div>
+</div>
+<div id="references-1" class="section level2">
+<h2><span class="header-section-number">8.6</span> References</h2>
+<ul>
+<li>Hadley’s <a href="http://r-pkgs.had.co.nz/">book</a> on developing R packages</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="programming-in-the-tidyverse.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pratikunterwegs/tres-tidy-tutorial/edit/master/08_package_development.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["TRES-Tidy-Tutorial.pdf"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
