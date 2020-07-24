@@ -143,7 +143,7 @@
 
 \title{TRES Tidyverse Tutorial}
 \author{Raphael, Pratik, Theo and Richèl}
-\date{2020-07-17}
+\date{2020-07-24}
 
 \begin{document}
 \maketitle
@@ -333,7 +333,7 @@ This model output can be read back in for display, and each line of the model ou
 \CommentTok{#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1}
 \CommentTok{#> }
 \CommentTok{#> Residual standard error: 3.05 on 30 degrees of freedom}
-\CommentTok{#> Multiple R-squared:  0.753,	Adjusted R-squared:  0.745 }
+\CommentTok{#> Multiple R-squared:  0.753,  Adjusted R-squared:  0.745 }
 \CommentTok{#> F-statistic: 91.4 on 1 and 30 DF,  p-value: 1.29e-10}
 \end{Highlighting}
 \end{Shaded}
@@ -1498,7 +1498,7 @@ Check out the \href{https://cran.r-project.org/web/packages/broom/vignettes/broo
 \CommentTok{#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1}
 \CommentTok{#> }
 \CommentTok{#> Residual standard error: 3.21 on 30 degrees of freedom}
-\CommentTok{#> Multiple R-squared:  0.726,	Adjusted R-squared:  0.717 }
+\CommentTok{#> Multiple R-squared:  0.726,  Adjusted R-squared:  0.717 }
 \CommentTok{#> F-statistic: 79.6 on 1 and 30 DF,  p-value: 6.11e-10}
 \KeywordTok{tidy}\NormalTok{(fit) }\CommentTok{# returns a tibble}
 \CommentTok{#> # A tibble: 2 x 5}
@@ -4122,8 +4122,8 @@ By Raphael Scherrer, data from Anne-Marie Veenstra-Skirl
 
 In this tutorial we will learn how to make nice graphics using \texttt{ggplot2}, perhaps the most well-known member of the tidyverse. So well-known, in fact, that people often know \texttt{ggplot2} before they get to know about the tidyverse. We will first learn about the philosophy behind \texttt{ggplot2} and then follow that recipe to build more complex customized plots through some examples.
 
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
+\hypertarget{introduction-1}{%
+\section{Introduction}\label{introduction-1}}
 
 \hypertarget{what-is-ggplot2-and-why-use-it}{%
 \subsection{\texorpdfstring{What is \texttt{ggplot2} and why use it?}{What is ggplot2 and why use it?}}\label{what-is-ggplot2-and-why-use-it}}
@@ -5085,8 +5085,8 @@ Some things, however, are missing from \texttt{ggplot2}. Fortunately, there are 
 
 Richèl J.C. Bilderbeek
 
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
+\hypertarget{introduction-2}{%
+\section{Introduction}\label{introduction-2}}
 
 \includegraphics{data/06_regular_expressions.png}
 
@@ -6834,6 +6834,301 @@ This is done by passing the functions and the variables on which they should ope
   Tidy evaluation: Superseded and archived, but still useful \url{https://tidyeval.tidyverse.org/}
 \item
   \texttt{rlang}: \url{https://rlang.r-lib.org/}
+\end{itemize}
+
+\hypertarget{developing-r-packages}{%
+\chapter{Developing R packages}\label{developing-r-packages}}
+
+Raphael Scherrer (thanks to Pedro Neves for guiding me through these steps)
+
+\includegraphics{opening-image.png}
+
+By now you know what R packages are and you have been using many of them, some of them part of the tidyverse and others not. R packages are modules, or coherent libraries of functions, designed at specific sets of tasks. Packages, or libraries, are common to many programming languages, the philosophy behind them being: pick only the tools you need for your task, without having to download all the possible toolboxes. Currently CRAN (the Comprehensive R Archive Network) is host to more than 16,000 packages (\href{https://cran.r-project.org/web/packages/}{link}), and that is not counting R packages hosted by other platforms such as \href{https://github.com}{GitHub}, \href{https://www.bioconductor.org/}{Bioconductor} or \href{https://ropensci.org/}{rOpenSci}. This is what makes R such a powerful and popular language. Why there are so many packages is because \emph{anyone} can write their own package and make it available to others, so the growth of the R universe if very much community-driven. Here we will show you how to write your own package. Most of the content of this tutorial follows Hadley Wickham's exhaustive \href{http://r-pkgs.had.co.nz/}{book} on R packages.
+
+\hypertarget{why-writing-packages}{%
+\section{Why writing packages?}\label{why-writing-packages}}
+
+You may very well have written analysis pipelines in R for various projects and never felt the need to make packages for them. So why bother? you may ask. The main reasons are:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{deployment}: packages make it easier for people to use your code
+\item
+  \emph{reproducibility}: packages can be a convenient way to make your study fully reproducible
+\item
+  \emph{consistency}: there is a common set of rules on how packages should be organized, which forces you to make your code understandable to everyone
+\item
+  \emph{security}: the common conventions around package syntax make it possible for third-party tools to check your code for bugs or style, which also means you can trust packages hosted at some platforms when you know they run these tests, for example
+\end{itemize}
+
+\hypertarget{hands-on-workflow}{%
+\section{Hands-on workflow}\label{hands-on-workflow}}
+
+\hypertarget{primer-what-is-an-rstudio-project}{%
+\subsection{Primer: what is an RStudio project?}\label{primer-what-is-an-rstudio-project}}
+
+An RStudio project is a virtual context associated with a specific working directory on your computer. A project is the recommended unit of work for a given analysis. This is because it keeps track of the R workspace and history for that analysis, together with the working directory (meaning you never have to use \texttt{setwd} anymore). A project has the extension .Rproj. See this \href{https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects}{page} for more information. As we shall see, developing a package requires creating a project for it.
+
+\hypertarget{create-a-project-for-your-package}{%
+\subsection{Create a project for your package}\label{create-a-project-for-your-package}}
+
+In RStudio, click on File, then New Project. There, you have the option to create a new package. This will create all the files that are needed, in particular a DESCRIPTION, a NAMESPACE, a .Rbuildignore, and a man/ and R/ folders. Use the .Rproj file to develop the package (launching it will open RStudio and place you in the right directory). It is possible to create an R package by assembling all those files together by yourself, but RStudio really makes it painless.
+
+\hypertarget{link-to-github}{%
+\subsection{Link to GitHub?}\label{link-to-github}}
+
+At this stage you may want to host your package on an online version control platform such as GitHub. One way to do this is the following. Assuming that git is already installed on your machine and linked to your GitHub account, you need to:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a project for your package locally (the step above)
+\item
+  Create an empty repository on GitHub for your package
+\item
+  Initialize git in the local copy by running \texttt{git\ init} from within
+\item
+  Stage and commit (\texttt{git\ add\ .} and \texttt{git\ commit\ -m\ "some\ commit\ message"})
+\item
+  Link the local copy to the remote one with \texttt{git\ remote\ add\ origin\ https://github.com/username/reponame}
+\item
+  Push using \texttt{git\ push\ -u\ origin\ master}
+\end{enumerate}
+
+You should be all set. Useful links include this \href{https://kbroman.org/pkg_primer/pages/github.html}{page}, this \href{http://r-pkgs.had.co.nz/git.html}{one} and also the instructions given by GitHub upon creation of an empty online repository.
+
+\hypertarget{write-your-functions}{%
+\subsection{Write your functions}\label{write-your-functions}}
+
+A package is nothing much more than a convenient collection of functions that one may want to use repeatedly. Here we assume that you are comfortable with writing R functions. Prefer saving each function as its own R script (.R) and save them in the dedicated \texttt{R/} folder. Here is an example function that repeats multiple elements, multiple times and returns a vector of those.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mrep <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, n) \{}
+  
+\NormalTok{  assertthat}\OperatorTok{::}\KeywordTok{are_equal}\NormalTok{(}\KeywordTok{length}\NormalTok{(x), }\KeywordTok{length}\NormalTok{(n)) }\CommentTok{# security check}
+\NormalTok{  purrr}\OperatorTok{::}\KeywordTok{reduce}\NormalTok{(purrr}\OperatorTok{::}\KeywordTok{map2}\NormalTok{(x, n, }\OperatorTok{~}\StringTok{ }\KeywordTok{rep}\NormalTok{(.x, .y)), c)}
+  
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+We can use this function, for example, to repeat the number 1 once, number 2 twice and number 3 three times:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mrep}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\DecValTok{3}\NormalTok{), }\KeywordTok{seq}\NormalTok{(}\DecValTok{3}\NormalTok{))}
+\CommentTok{#> [1] 1 2 2 3 3 3}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Note} that when calling functions from other packages (here \texttt{purrr} and \texttt{asserthat}) we do not use \texttt{library} or \texttt{require}, as this would make all the functions of these packages available. Instead we use the namespace of the respective package, separated from the function name with a \texttt{::}. Although a package that uses \texttt{library} will typically build just fine, it is considered bad practice and will not pass CRAN's requirements, which are implemented in the R CMD CHECK command (more on this later).
+
+\hypertarget{tests}{%
+\subsection{Tests}\label{tests}}
+
+Do you want to go test-driven? Then write your tests first, and follow those \href{http://r-pkgs.had.co.nz/tests.html}{guidelines}. Although tests are out of the scope of this tutorial, they are a vital part of package development, so we highly recommend this read as your next step to go further.
+
+\hypertarget{document-your-functions}{%
+\subsection{Document your functions}\label{document-your-functions}}
+
+The documentation of a function is what shows up when you type \texttt{?function-name} for example (e.g.~\texttt{?purrr::reduce}). When writing your package, you must provide a documentation for each of your functions so your user knows what the function does, what arguments it takes, what it returns and has examples of the function being used. Each function documentation goes in its own .Rd file, stored in the \texttt{man/} folder.
+
+\texttt{roxygen2} is an R package that makes documentation very easy. It allows you to write the documentation as a header of a function's R script, and save this header into its own .Rd file in \texttt{man/}. All the lines that go into the documentation must start with the special comment characters \texttt{\#\textquotesingle{}}. If we take our previous example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#' Repeat multiple things multiple times}
+\CommentTok{#' }
+\CommentTok{#' A function to repeat multiple things multiple times.}
+\CommentTok{#' }
+\CommentTok{#' @param x A vector of things}
+\CommentTok{#' @param n A vector of numbers times each thing must be repeated}
+\CommentTok{#' }
+\CommentTok{#' @details The function can take a vector of any atomic type}
+\CommentTok{#' }
+\CommentTok{#' @return A vector of the same type as `x`}
+\CommentTok{#'}
+\CommentTok{#' @examples}
+\CommentTok{#'}
+\CommentTok{#' mrep(seq(3), seq(3))}
+\CommentTok{#'}
+\CommentTok{#' @export}
+
+\NormalTok{mrep <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, n) \{}
+  
+\NormalTok{  assertthat}\OperatorTok{::}\KeywordTok{are_equal}\NormalTok{(}\KeywordTok{length}\NormalTok{(x), }\KeywordTok{length}\NormalTok{(n)) }\CommentTok{# security check}
+\NormalTok{  purrr}\OperatorTok{::}\KeywordTok{reduce}\NormalTok{(purrr}\OperatorTok{::}\KeywordTok{map2}\NormalTok{(x, n, }\OperatorTok{~}\StringTok{ }\KeywordTok{rep}\NormalTok{(.x, .y)), c)}
+  
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Here, everything starting with \texttt{\#\textquotesingle{}} will be interpreted by \texttt{roxygen2} as part of the documentation. Different fields can be supplied:
+
+\begin{itemize}
+\tightlist
+\item
+  The first line is the title of the documentation page
+\item
+  The second line is the description
+\item
+  \texttt{@param} goes for each of the parameters, with their description
+\item
+  \texttt{@details} if you want to be more specific on what happens backstage
+\item
+  \texttt{@return} tells the user what the function returns
+\item
+  \texttt{@examples} shows some use-cases
+\item
+  \texttt{@export} indicates that this function can be called explicitly by the user (as opposed to an internal function of the package that is only meant to be used by other functions of the package)
+\end{itemize}
+
+Other fields such as \texttt{@note} can be specified, but these are the main ones. A package with incomplete documentation will build fine, but again this will not pass R CMD CHECK for CRAN's requirements, which require you, for example, to always have examples for exported functions.
+
+To effectively produce the documentation, run \texttt{roxygen2::roxygenize()} (or \texttt{roxygenise}) from within the working directory of the package. \texttt{roxyygen2} may not update the NAMESPACE file if it has not been created by \texttt{roxygen2} in the first place, so you may have to erase NAMESPACE before running \texttt{roxygenize()} (then it will automatically create a new NAMESPACE). We do not describe here what the NAMESPACE is, as it is a bit too advanced for this tutorial, just remember that you may have to erase it before documenting if you see a warning.
+
+\hypertarget{build-the-package}{%
+\subsection{Build the package}\label{build-the-package}}
+
+Once some functions are added and their documentation is ready, the package should be able to build. Use the Install and Restard button under the Build tab in RStudio for that. Your package is now installed and loaded. Alternatively you can build your package from the command line by running R CMD INSTALL. If your package is on GitHub (or another remote server), you can also build it with \texttt{devtools}, for example with \texttt{devtools::install\_github("username/reponame")}.
+
+\hypertarget{write-a-vignette}{%
+\section{Write a vignette}\label{write-a-vignette}}
+
+A vignette is a more user-oriented overview of your package. In contrast to the individual documentation of each function, the vignette takes the user for a tour of the package to show use-cases of the functions \emph{in context}.
+
+A vignette is written in Rmarkdown. The Rmarkdown language is out of the scope of this tutorial, but is a great way to combine textual information (it inherits from markdown) with embedded chunks of R code and their output (this tutorial is written in Rmarkdown). See this \href{https://rmarkdown.rstudio.com/}{link}, or this \href{https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf}{cheatsheet}, or inspire yourself from the source code of this tutorial to get more familiar with Rmarkdown.
+
+We use the \texttt{usethis} package to set up everything we need to get our vignette ready. Running \texttt{usethis::use\_vignette} will create a \texttt{vignettes/} folder with the vignette .Rmd file in it, that you can then edit.
+
+The vignette can be rendered in multiple output formats,, such as an HTML web page or a LaTeX-looking PDF. RStudio does this through the Knit button, which calls the \texttt{knitr} package in the background. By default, upon creation of the vignette only the HTML output is supported. To change the possible outputs (e.g.~allow both HTML and PDF), change the \texttt{output} part of the header of the .Rmd file with:
+
+\begin{verbatim}
+output:
+  pdf_document: default
+  html_document:
+    keep_md: yes
+\end{verbatim}
+
+Now the drop-down menu of the Knit button will offer the possibility to render the vignette as PDF as well as HTML.
+
+The Knit button renders a vignette, but does not save it. You could of course save it manually, but \texttt{devtools} offers the \texttt{build\_vignettes} function to automatize this task. Running it will create two new folders, \texttt{doc/} and \texttt{Meta/}. The former contains the rendered vignette, in the first format specified in the \texttt{output} header (so PDF in the above example) while the latter contains some data used to render that vignette. It is best to not touch those, and stick to editing the vignette file located in the \texttt{vignettes/} folder. One exception: one can render a vignette manually with the Knit button and save the rendered output into the \texttt{doc/} folder.
+
+Do you want to host the vignette on a web page dedicated to your package, also with an overview of all the functions as well as their documentation? Then \href{https://pkgdown.r-lib.org/}{\texttt{pkgdown}} is your friend, but this is out of the scope of this tutorial (yes, the web page for the \texttt{pkgdown} package is built with \texttt{pkgdown}).
+
+\hypertarget{update-the-description}{%
+\section{Update the description}\label{update-the-description}}
+
+In the top folder of your package is a DESCRIPTION file. This contains some important information. Make sure that you update the Title, Author, Maintainer, Description and License fields. The Imports field requires you to supply the names of the dependencies of your package: what packages \emph{need} to be installed for your functions to work? In our example, \texttt{mrep} calls functions from \texttt{assertthat} and \texttt{purrr}, so our Imports field will look something like:
+
+\begin{verbatim}
+Imports:
+  asserthat,
+  purrr
+\end{verbatim}
+
+These dependencies will be downloaded and installed automatically upon installation of your package. You can specify version requirements for the packages you load (see Hadley's book). The Suggests field is for packages that are not required but recommended (e.g.~\texttt{knitr} to build the vignette locally).
+
+Dependencies will be downloaded from CRAN by default. In order to add packages from other platforms, you may have to add some keywords to your DESCRIPTION file. For example, the \href{https://bioconductor.org/packages/release/bioc/html/ggtree.html}{\texttt{ggtree}} package is hosted by Bioconductor. You can add it with the other packages in Imports, but you need to add ``biocViews:'' before Imports, e.g.
+
+\begin{verbatim}
+biocViews:
+Imports:
+  asserthat,
+  purrr,
+  ggtree
+\end{verbatim}
+
+A special case of dependencies is operators from other packages, such as the famous pipe (\texttt{\%\textgreater{}\%}) from \texttt{magrittr}, because you cannot just write \texttt{magrittr::\%\textgreater{}\%} in your functions. Again, \texttt{usethis} is our friend here, and you can run \texttt{usethis::use\_pipe()} to make the pipe operator fully available to your functions without having to use \texttt{library}. (This command will update the NAMESPACE.)
+
+As a minor note, you can also use the DESCRIPTION file to give extra options to the build of your documentation. For example, to allow \texttt{roxygen2} to understand the markdown syntax when rendering the help pages of your functions, use
+
+\begin{verbatim}
+Roxygen: list(markdown = TRUE)
+\end{verbatim}
+
+\hypertarget{check-the-package}{%
+\section{Check the package}\label{check-the-package}}
+
+\hypertarget{good-practices}{%
+\subsection{Good practices}\label{good-practices}}
+
+As mentioned before, CRAN has specific requirements that are implemented in the R CMD CHECK command. Running this command, or clicking on Check within the Build tab, will run a series of quality controls on your code, and will indicate what does not meet the requirements. A package is CRAN-compatible if no errors and no warnings are issued (notes are fine).
+
+Generally, CHECK will make sure all the things we talked about above are done. It will look at the functions, the documentation, run your examples (and your tests if you have some) make sure that the vignette renders, and that all dependencies are accessible. If anything is wrong, it will tell you what.
+
+One thing to keep in mind is that CHECK will run your examples (in the documentation files), \emph{unless} these are surrounded with \texttt{\textbackslash{}dontrun\{} and \texttt{\}}. This can be used for examples that, e.g., would require some specific data that you do not make available with the package, or just because the example takes too long or is too computation-heavy.
+
+CHECK also dislikes files and folders that are not absolutely necessary to the package. It will complain if, say, you have a \texttt{scripts/} folder with extra draft scripts you used to develop and try your functions, or a \texttt{data/} folder containing some example data. You can add the names of these folders to \texttt{.Rbuildignore} to tell CHECK to ignore those when checking your package (\texttt{.Rbuildignore} works in many respects just like a \texttt{.gitignore} file).
+
+\hypertarget{better-practices}{%
+\subsection{Better practices}\label{better-practices}}
+
+If all the above are met, CHECK should be happy and in theory your package should be CRAN-compatible. Some platforms, such as rOpenSci, have stricter standards, however, and those requirements come from a good place. We will highlight two things here.
+
+First, rOpenSci will require 100\% code coverage in your package. This means that during the execution of the CHECK command, every single line of code must be run. This is often impossible to achieve without having tests, and thus strongly encourages test-driven development. The \texttt{testthat} package can be used to write tests that check for the outcomes of your functions under different circumstances, or scenarios. See the section on \texttt{regex} for examples. In a package, \texttt{test} will be stored in a \texttt{tests/} folder, which can be set-up by our old friend \texttt{usethis}, by running \texttt{usethis::use\_testthat()}. Having tests is always good!
+
+Second, rOpenSci will also check your coding \emph{style}. In R, it is possible to write the same code in different ways, for example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{mrep}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\DecValTok{3}\NormalTok{), }\KeywordTok{seq}\NormalTok{(}\DecValTok{3}\NormalTok{))}
+\NormalTok{y <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{6}\NormalTok{)}
+\KeywordTok{tibble}\NormalTok{(}
+  \DataTypeTok{V1 =}\NormalTok{ x,}
+  \DataTypeTok{V2 =}\NormalTok{ y}
+\NormalTok{)}
+\CommentTok{#> # A tibble: 6 x 2}
+\CommentTok{#>      V1    V2}
+\CommentTok{#>   <int> <dbl>}
+\CommentTok{#> 1     1     1}
+\CommentTok{#> 2     2     1}
+\CommentTok{#> 3     2     1}
+\CommentTok{#> 4     3     1}
+\CommentTok{#> 5     3     1}
+\CommentTok{#> 6     3     1}
+\end{Highlighting}
+\end{Shaded}
+
+versus
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x =}\StringTok{ }\KeywordTok{mrep}\NormalTok{(}\KeywordTok{seq}\NormalTok{(}\DecValTok{3}\NormalTok{), }\KeywordTok{seq}\NormalTok{(}\DecValTok{3}\NormalTok{))}
+\NormalTok{y =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{6}\NormalTok{)}
+\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{V1 =}\NormalTok{x,}
+       \DataTypeTok{V2 =}\NormalTok{y}
+\NormalTok{)}
+\CommentTok{#> # A tibble: 6 x 2}
+\CommentTok{#>      V1    V2}
+\CommentTok{#>   <int> <dbl>}
+\CommentTok{#> 1     1     1}
+\CommentTok{#> 2     2     1}
+\CommentTok{#> 3     2     1}
+\CommentTok{#> 4     3     1}
+\CommentTok{#> 5     3     1}
+\CommentTok{#> 6     3     1}
+\end{Highlighting}
+\end{Shaded}
+
+Both styles will run, and CHECK will not complain. However, \texttt{lintr} will. \texttt{lintr} is a style checker that makes sure that you follow the \emph{tidyverse} recommended style. This style includes things such as: no use of \texttt{=} as an assignment operator (only use \texttt{\textless{}-}), always put a space after an equal sign or a comma among others. \texttt{lintr} will be run on all of your R code if you submit your package to rOpenSci. The reason behing using a style checker is similar to the basic philosophy of the tidyverse: make things follow a \emph{convention}, so that pieces of code speak the same language (so to speak, pun intended) and integrate nicely with each other.
+
+\hypertarget{even-better-practices}{%
+\subsection{Even better practices}\label{even-better-practices}}
+
+Git and GitHub (or other version control platforms) are your friends when it comes to developing packages or software in general. You may want to check out how to use them. One strength of these platforms is that they allow you to give access to third-party platforms to your package, that can be used to quality-control your code. These are known as \emph{continuous integration} tools, Travis CI and AppVeyor being two famous examples. By activating these tools on your repository (hosted, say, on GitHub), these platforms can access your package and remotely run all kinds of things for you: run R CMD CHECK, make sure that the code coverage is 100\%, or run \texttt{lintr} for you, every time you upload an edited version of your code. This gives you an extra safety net to make sure that your package (or at least the version hosted online and available to people) is always working, and it may even give you a hint if, for example, one dependency of your package breaks (due to errors independent of you). If you want to know more, you can for example check the R package \href{https://github.com/ropensci/babette}{\texttt{babette}}, which makes use of these tools and is hosted at rOpenSci.
+
+\hypertarget{references-1}{%
+\section{References}\label{references-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  Hadley's \href{http://r-pkgs.had.co.nz/}{book} on developing R packages
 \end{itemize}
 
 \end{document}
