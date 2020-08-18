@@ -21,10 +21,10 @@
   <meta name="twitter:description" content="Section 5 ggplot2 and the grammar of graphics | TRES Tidyverse Tutorial" />
   
 
-<meta name="author" content="Raphael, Pratik and Theo" />
+<meta name="author" content="Raphael, Pratik, Theo and Richèl" />
 
 
-<meta name="date" content="2020-07-09" />
+<meta name="date" content="2020-07-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="working-with-lists-and-iteration.html"/>
-<link rel="next" href="programming-in-the-tidyverse.html"/>
+<link rel="next" href="regular-expressions-and-testthat.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -268,34 +268,95 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.12" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#want-more"><i class="fa fa-check"></i><b>5.12</b> Want more?</a></li>
 <li class="chapter" data-level="5.13" data-path="ggplot2-and-the-grammar-of-graphics.html"><a href="ggplot2-and-the-grammar-of-graphics.html#references"><i class="fa fa-check"></i><b>5.13</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html"><i class="fa fa-check"></i><b>6</b> Programming in the <em>tidyverse</em></a><ul>
-<li class="chapter" data-level="6.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#an-exlanation-of-the-problem"><i class="fa fa-check"></i><b>6.1</b> An exlanation of the problem</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#what-the-issue-is"><i class="fa fa-check"></i><b>6.1.1</b> What the issue is</a></li>
-<li class="chapter" data-level="6.1.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#why-the-issue-is-a-problem"><i class="fa fa-check"></i><b>6.1.2</b> Why the issue is a problem</a></li>
-<li class="chapter" data-level="6.1.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-variables-as-strings-is-also-an-issue"><i class="fa fa-check"></i><b>6.1.3</b> Passing variables as strings is (also) an issue</a></li>
+<li class="chapter" data-level="6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html"><i class="fa fa-check"></i><b>6</b> Regular expressions and <code>testthat</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#introduction-2"><i class="fa fa-check"></i><b>6.1</b> Introduction</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#goal"><i class="fa fa-check"></i><b>6.1.1</b> Goal</a></li>
+<li class="chapter" data-level="6.1.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#why-is-this-important"><i class="fa fa-check"></i><b>6.1.2</b> Why is this important?</a></li>
+<li class="chapter" data-level="6.1.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#what-are-regular-expressions"><i class="fa fa-check"></i><b>6.1.3</b> What are regular expressions?</a></li>
+<li class="chapter" data-level="6.1.4" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#applications"><i class="fa fa-check"></i><b>6.1.4</b> Applications</a></li>
+<li class="chapter" data-level="6.1.5" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#using-regexes-in-r"><i class="fa fa-check"></i><b>6.1.5</b> Using regexes in R</a></li>
+<li class="chapter" data-level="6.1.6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#dangers-of-regexes"><i class="fa fa-check"></i><b>6.1.6</b> Dangers of regexes</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-selection-is-easy"><i class="fa fa-check"></i><b>6.2</b> Flexible selection is easy</a></li>
-<li class="chapter" data-level="6.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#a-first-attempt-at-a-flexible-function"><i class="fa fa-check"></i><b>6.3</b> A first attempt at a flexible function</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#failure-of-the-first-attempt"><i class="fa fa-check"></i><b>6.3.1</b> Failure of the first attempt</a></li>
-<li class="chapter" data-level="6.3.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-arguments-as-strings-doesnt-help"><i class="fa fa-check"></i><b>6.3.2</b> Passing arguments as strings doesn’t help</a></li>
-<li class="chapter" data-level="6.3.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#none-of-the-other-arguments-will-be-successful"><i class="fa fa-check"></i><b>6.3.3</b> None of the other arguments will be successful</a></li>
+<li class="chapter" data-level="6.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#testing"><i class="fa fa-check"></i><b>6.2</b> Testing</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#why-test"><i class="fa fa-check"></i><b>6.2.1</b> Why test?</a></li>
+<li class="chapter" data-level="6.2.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#our-first-test"><i class="fa fa-check"></i><b>6.2.2</b> Our first test</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-filtering-in-a-function"><i class="fa fa-check"></i><b>6.4</b> Flexible filtering in a function</a><ul>
-<li class="chapter" data-level="6.4.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-filtering-using-expressions"><i class="fa fa-check"></i><b>6.4.1</b> Flexible filtering using expressions</a></li>
+<li class="chapter" data-level="6.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#detect-a-full-match"><i class="fa fa-check"></i><b>6.3</b> Detect a full match</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#str_which-demo"><i class="fa fa-check"></i><b>6.3.1</b> <code>str_which</code> demo</a></li>
+<li class="chapter" data-level="6.3.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#example-exercise-has_a_one"><i class="fa fa-check"></i><b>6.3.2</b> Example exercise: <code>has_a_one</code></a></li>
+<li class="chapter" data-level="6.3.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#exercise-has_a_digit"><i class="fa fa-check"></i><b>6.3.3</b> Exercise: <code>has_a_digit</code></a></li>
+<li class="chapter" data-level="6.3.4" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#exercise-has_a_word"><i class="fa fa-check"></i><b>6.3.4</b> Exercise: <code>has_a_word</code></a></li>
+<li class="chapter" data-level="6.3.5" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#exercise-has_dna_seq-alternates"><i class="fa fa-check"></i><b>6.3.5</b> Exercise: <code>has_dna_seq</code> (alternates)</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-grouping-in-a-function"><i class="fa fa-check"></i><b>6.5</b> Flexible grouping in a function</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-...-and-forwarding"><i class="fa fa-check"></i><b>6.5.1</b> Using <code>...</code> and ‘forwarding’</a></li>
-<li class="chapter" data-level="6.5.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-grouping-variables-as-strings"><i class="fa fa-check"></i><b>6.5.2</b> Passing grouping variables as strings</a></li>
-<li class="chapter" data-level="6.5.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-rlangsyms"><i class="fa fa-check"></i><b>6.5.3</b> Using <code>rlang::syms</code></a></li>
-<li class="chapter" data-level="6.5.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-rlangparse_exprs"><i class="fa fa-check"></i><b>6.5.4</b> Using <code>rlang::parse_exprs</code></a></li>
+<li class="chapter" data-level="6.4" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#extract-a-pattern-for-one-submatch"><i class="fa fa-check"></i><b>6.4</b> Extract a pattern for one submatch</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#str_match"><i class="fa fa-check"></i><b>6.4.1</b> <code>str_match</code></a></li>
+<li class="chapter" data-level="6.4.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#context"><i class="fa fa-check"></i><b>6.4.2</b> Context</a></li>
+<li class="chapter" data-level="6.4.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#extract-a-character-vector-from-a-submatch"><i class="fa fa-check"></i><b>6.4.3</b> Extract a character vector from a submatch</a></li>
+<li class="chapter" data-level="6.4.4" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#example-exercise-extract_dna_seq_numbers-1-submatch"><i class="fa fa-check"></i><b>6.4.4</b> Example exercise: <code>extract_dna_seq_numbers</code> (1 submatch)</a></li>
+<li class="chapter" data-level="6.4.5" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#answer-extract_dna_seq_numbers"><i class="fa fa-check"></i><b>6.4.5</b> Answer: <code>extract_dna_seq_numbers</code></a></li>
 </ul></li>
-<li class="chapter" data-level="6.6" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-summarising-in-a-function"><i class="fa fa-check"></i><b>6.6</b> Flexible summarising in a function</a><ul>
-<li class="chapter" data-level="6.6.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-dplyrsummarise_at"><i class="fa fa-check"></i><b>6.6.1</b> Using <code>dplyr::summarise_at</code></a></li>
-<li class="chapter" data-level="6.6.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-the-across-argument-for-summary-variables"><i class="fa fa-check"></i><b>6.6.2</b> Using the <code>across</code> argument for summary variables</a></li>
-<li class="chapter" data-level="6.6.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#summarise-multiple-variables-using-..."><i class="fa fa-check"></i><b>6.6.3</b> Summarise multiple variables using <code>...</code></a></li>
-<li class="chapter" data-level="6.6.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#summarise-with-multiple-functions"><i class="fa fa-check"></i><b>6.6.4</b> Summarise with multiple functions</a></li>
+<li class="chapter" data-level="6.5" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#extract-a-pattern-for-multiple-submatches"><i class="fa fa-check"></i><b>6.5</b> Extract a pattern for multiple submatches</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#context-1"><i class="fa fa-check"></i><b>6.5.1</b> Context</a></li>
+<li class="chapter" data-level="6.5.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#exercise-extract_prot_and_seq_ids"><i class="fa fa-check"></i><b>6.5.2</b> Exercise: <code>extract_prot_and_seq_ids</code></a></li>
+<li class="chapter" data-level="6.5.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#answer-extract_prot_and_seq_ids"><i class="fa fa-check"></i><b>6.5.3</b> Answer: <code>extract_prot_and_seq_ids</code></a></li>
 </ul></li>
-<li class="chapter" data-level="6.7" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#further-resources"><i class="fa fa-check"></i><b>6.7</b> Further resources</a></li>
+<li class="chapter" data-level="6.6" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#mutate"><i class="fa fa-check"></i><b>6.6</b> Mutate</a></li>
+<li class="chapter" data-level="6.7" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#test-for-match"><i class="fa fa-check"></i><b>6.7</b> Test for match</a></li>
+<li class="chapter" data-level="6.8" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#bigger-picture"><i class="fa fa-check"></i><b>6.8</b> Bigger picture</a><ul>
+<li class="chapter" data-level="6.8.1" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#develop-in-packages"><i class="fa fa-check"></i><b>6.8.1</b> Develop in packages</a></li>
+<li class="chapter" data-level="6.8.2" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#regex-usage-outside-r"><i class="fa fa-check"></i><b>6.8.2</b> Regex usage outside R</a></li>
+<li class="chapter" data-level="6.8.3" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#warning"><i class="fa fa-check"></i><b>6.8.3</b> Warning</a></li>
+</ul></li>
+<li class="chapter" data-level="6.9" data-path="regular-expressions-and-testthat.html"><a href="regular-expressions-and-testthat.html#resources"><i class="fa fa-check"></i><b>6.9</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html"><i class="fa fa-check"></i><b>7</b> Programming in the <em>tidyverse</em></a><ul>
+<li class="chapter" data-level="7.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#an-exlanation-of-the-problem"><i class="fa fa-check"></i><b>7.1</b> An exlanation of the problem</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#what-the-issue-is"><i class="fa fa-check"></i><b>7.1.1</b> What the issue is</a></li>
+<li class="chapter" data-level="7.1.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#why-the-issue-is-a-problem"><i class="fa fa-check"></i><b>7.1.2</b> Why the issue is a problem</a></li>
+<li class="chapter" data-level="7.1.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-variables-as-strings-is-also-an-issue"><i class="fa fa-check"></i><b>7.1.3</b> Passing variables as strings is (also) an issue</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-selection-is-easy"><i class="fa fa-check"></i><b>7.2</b> Flexible selection is easy</a></li>
+<li class="chapter" data-level="7.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#a-first-attempt-at-a-flexible-function"><i class="fa fa-check"></i><b>7.3</b> A first attempt at a flexible function</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#failure-of-the-first-attempt"><i class="fa fa-check"></i><b>7.3.1</b> Failure of the first attempt</a></li>
+<li class="chapter" data-level="7.3.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-arguments-as-strings-doesnt-help"><i class="fa fa-check"></i><b>7.3.2</b> Passing arguments as strings doesn’t help</a></li>
+<li class="chapter" data-level="7.3.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#none-of-the-other-arguments-will-be-successful"><i class="fa fa-check"></i><b>7.3.3</b> None of the other arguments will be successful</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-filtering-in-a-function"><i class="fa fa-check"></i><b>7.4</b> Flexible filtering in a function</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-filtering-using-expressions"><i class="fa fa-check"></i><b>7.4.1</b> Flexible filtering using expressions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-grouping-in-a-function"><i class="fa fa-check"></i><b>7.5</b> Flexible grouping in a function</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-...-and-forwarding"><i class="fa fa-check"></i><b>7.5.1</b> Using <code>...</code> and ‘forwarding’</a></li>
+<li class="chapter" data-level="7.5.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#passing-grouping-variables-as-strings"><i class="fa fa-check"></i><b>7.5.2</b> Passing grouping variables as strings</a></li>
+<li class="chapter" data-level="7.5.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-rlangsyms"><i class="fa fa-check"></i><b>7.5.3</b> Using <code>rlang::syms</code></a></li>
+<li class="chapter" data-level="7.5.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-rlangparse_exprs"><i class="fa fa-check"></i><b>7.5.4</b> Using <code>rlang::parse_exprs</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#flexible-summarising-in-a-function"><i class="fa fa-check"></i><b>7.6</b> Flexible summarising in a function</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-dplyrsummarise_at"><i class="fa fa-check"></i><b>7.6.1</b> Using <code>dplyr::summarise_at</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#using-the-across-argument-for-summary-variables"><i class="fa fa-check"></i><b>7.6.2</b> Using the <code>across</code> argument for summary variables</a></li>
+<li class="chapter" data-level="7.6.3" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#summarise-multiple-variables-using-..."><i class="fa fa-check"></i><b>7.6.3</b> Summarise multiple variables using <code>...</code></a></li>
+<li class="chapter" data-level="7.6.4" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#summarise-with-multiple-functions"><i class="fa fa-check"></i><b>7.6.4</b> Summarise with multiple functions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="programming-in-the-tidyverse.html"><a href="programming-in-the-tidyverse.html#further-resources"><i class="fa fa-check"></i><b>7.7</b> Further resources</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="developing-r-packages.html"><a href="developing-r-packages.html"><i class="fa fa-check"></i><b>8</b> Developing R packages</a><ul>
+<li class="chapter" data-level="8.1" data-path="developing-r-packages.html"><a href="developing-r-packages.html#why-writing-packages"><i class="fa fa-check"></i><b>8.1</b> Why writing packages?</a></li>
+<li class="chapter" data-level="8.2" data-path="developing-r-packages.html"><a href="developing-r-packages.html#hands-on-workflow"><i class="fa fa-check"></i><b>8.2</b> Hands-on workflow</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="developing-r-packages.html"><a href="developing-r-packages.html#primer-what-is-an-rstudio-project"><i class="fa fa-check"></i><b>8.2.1</b> Primer: what is an RStudio project?</a></li>
+<li class="chapter" data-level="8.2.2" data-path="developing-r-packages.html"><a href="developing-r-packages.html#create-a-project-for-your-package"><i class="fa fa-check"></i><b>8.2.2</b> Create a project for your package</a></li>
+<li class="chapter" data-level="8.2.3" data-path="developing-r-packages.html"><a href="developing-r-packages.html#link-to-github"><i class="fa fa-check"></i><b>8.2.3</b> Link to GitHub?</a></li>
+<li class="chapter" data-level="8.2.4" data-path="developing-r-packages.html"><a href="developing-r-packages.html#write-your-functions"><i class="fa fa-check"></i><b>8.2.4</b> Write your functions</a></li>
+<li class="chapter" data-level="8.2.5" data-path="developing-r-packages.html"><a href="developing-r-packages.html#tests"><i class="fa fa-check"></i><b>8.2.5</b> Tests</a></li>
+<li class="chapter" data-level="8.2.6" data-path="developing-r-packages.html"><a href="developing-r-packages.html#document-your-functions"><i class="fa fa-check"></i><b>8.2.6</b> Document your functions</a></li>
+<li class="chapter" data-level="8.2.7" data-path="developing-r-packages.html"><a href="developing-r-packages.html#build-the-package"><i class="fa fa-check"></i><b>8.2.7</b> Build the package</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="developing-r-packages.html"><a href="developing-r-packages.html#write-a-vignette"><i class="fa fa-check"></i><b>8.3</b> Write a vignette</a></li>
+<li class="chapter" data-level="8.4" data-path="developing-r-packages.html"><a href="developing-r-packages.html#update-the-description"><i class="fa fa-check"></i><b>8.4</b> Update the description</a></li>
+<li class="chapter" data-level="8.5" data-path="developing-r-packages.html"><a href="developing-r-packages.html#check-the-package"><i class="fa fa-check"></i><b>8.5</b> Check the package</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="developing-r-packages.html"><a href="developing-r-packages.html#good-practices"><i class="fa fa-check"></i><b>8.5.1</b> Good practices</a></li>
+<li class="chapter" data-level="8.5.2" data-path="developing-r-packages.html"><a href="developing-r-packages.html#better-practices"><i class="fa fa-check"></i><b>8.5.2</b> Better practices</a></li>
+<li class="chapter" data-level="8.5.3" data-path="developing-r-packages.html"><a href="developing-r-packages.html#even-better-practices"><i class="fa fa-check"></i><b>8.5.3</b> Even better practices</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="developing-r-packages.html"><a href="developing-r-packages.html#references-1"><i class="fa fa-check"></i><b>8.6</b> References</a></li>
 </ul></li>
 </ul>
 
@@ -329,10 +390,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">5.1.2</span> What is the grammar of graphics?</h3>
 <p>The grammar of graphics is a system of rules on how to structure plots such that almost any graph can be made through combinations of a limited set of simpler elements, just as you can make any sentence by combining together letters from an alphabet. <code>ggplot2</code> is the implementation of this philosophy in R, and comes with a limited set of <em>layers</em>, that you can pick and combine into an impressive variety of graphics, all based on the same syntax. But what are those elements?</p>
 <p>Here is the backbone of a ggplot statement (I will from now on use “ggplot” to refer to an object of class <code>ggplot</code>, the output of the <code>ggplot</code> function and the object that contains our graphic), taken from the book <a href="https://r4ds.had.co.nz/">R for Data Science</a>:</p>
-<pre><code>ggplot(data = &lt;DATA&gt;) + 
+<pre><code>ggplot(data = &lt;DATA&gt;) +
   &lt;GEOM_FUNCTION&gt;(
      mapping = aes(&lt;MAPPINGS&gt;),
-     stat = &lt;STAT&gt;, 
+     stat = &lt;STAT&gt;,
      position = &lt;POSITION&gt;
   ) +
   &lt;COORDINATE_FUNCTION&gt; +
@@ -536,7 +597,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="coordinate-system" class="section level2">
 <h2><span class="header-section-number">5.4</span> Coordinate-system</h2>
 <p>The default way that the plotting window is organized is an orthogonal space with a horizontal x-axis and a vertical y-axis. Use the <code>coord</code> commands to deviate from this. For example, <code>coord_flip</code> will flip the axes:</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(conc), <span class="dt">y =</span> ratio)) <span class="op">+</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1"><span class="kw">ggplot</span>(data2, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(conc), <span class="dt">y =</span> ratio)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb173-2" title="2"><span class="st">  </span><span class="kw">geom_violin</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb173-3" title="3"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-128-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
@@ -651,7 +712,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb189-7" title="7"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Mutational ratio&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb189-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color =</span> <span class="kw">parse</span>(<span class="dt">text =</span> <span class="st">&quot;&#39;CFU at &#39;~T[1]&quot;</span>)) <span class="op">+</span><span class="st"> </span><span class="co"># plotmath expression</span></a>
 <a class="sourceLine" id="cb189-9" title="9"><span class="st">  </span><span class="kw">ggtitle</span>(</a>
-<a class="sourceLine" id="cb189-10" title="10">    <span class="st">&quot;A very important experiment&quot;</span>, </a>
+<a class="sourceLine" id="cb189-10" title="10">    <span class="st">&quot;A very important experiment&quot;</span>,</a>
 <a class="sourceLine" id="cb189-11" title="11">    <span class="st">&quot;So important it deserves a subtitle&quot;</span></a>
 <a class="sourceLine" id="cb189-12" title="12">  )</a>
 <a class="sourceLine" id="cb189-13" title="13">p</a></code></pre></div>
@@ -666,10 +727,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb190-2" title="2">p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-144-1.png" width="\textwidth" style="display: block; margin: auto;" /><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-144-2.png" width="\textwidth" style="display: block; margin: auto;" /></p>
 <p>The individual elements of the theme, e.g. the background grid or the color of the panel, can be customized using the arguments in the <code>theme</code> function. The <code>theme</code> function can also be used to modify stuff related to the legend or the axes of the plots. For example:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1">p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1">p &lt;-<span class="st"> </span>p <span class="op">+</span></a>
 <a class="sourceLine" id="cb191-2" title="2"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb191-3" title="3"><span class="st">  </span><span class="kw">theme</span>(</a>
-<a class="sourceLine" id="cb191-4" title="4">    <span class="dt">legend.position =</span> <span class="st">&quot;left&quot;</span>, </a>
+<a class="sourceLine" id="cb191-4" title="4">    <span class="dt">legend.position =</span> <span class="st">&quot;left&quot;</span>,</a>
 <a class="sourceLine" id="cb191-5" title="5">    <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">60</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb191-6" title="6">  )</a>
 <a class="sourceLine" id="cb191-7" title="7">p</a></code></pre></div>
@@ -699,7 +760,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb195-6" title="6">    <span class="st">&quot;color legend&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;forestgreen&quot;</span>, <span class="st">&quot;goldenrod&quot;</span>, <span class="st">&quot;mediumseagreen&quot;</span>)</a>
 <a class="sourceLine" id="cb195-7" title="7">  ) <span class="op">+</span></a>
 <a class="sourceLine" id="cb195-8" title="8"><span class="st">  </span><span class="kw">scale_shape_manual</span>(</a>
-<a class="sourceLine" id="cb195-9" title="9">    <span class="st">&quot;shape legend&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>), </a>
+<a class="sourceLine" id="cb195-9" title="9">    <span class="st">&quot;shape legend&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>),</a>
 <a class="sourceLine" id="cb195-10" title="10">    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Control&quot;</span>, <span class="st">&quot;Strain 1&quot;</span>, <span class="st">&quot;Strain 2&quot;</span>)</a>
 <a class="sourceLine" id="cb195-11" title="11">  )</a></code></pre></div>
 <p><img src="TRES-Tidy-Tutorial_files/figure-html/unnamed-chunk-149-1.png" width="\textwidth" style="display: block; margin: auto;" /></p>
@@ -782,7 +843,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb203-2" title="2"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>data) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># just to clean up a bit</span></a>
 <a class="sourceLine" id="cb203-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(assay) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb203-4" title="4"><span class="st">  </span><span class="kw">nest</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb203-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">combifig =</span> <span class="kw">map</span>(data, <span class="op">~</span><span class="st"> </span><span class="kw">wrap_plots</span>(.x<span class="op">$</span>fig))) </a>
+<a class="sourceLine" id="cb203-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">combifig =</span> <span class="kw">map</span>(data, <span class="op">~</span><span class="st"> </span><span class="kw">wrap_plots</span>(.x<span class="op">$</span>fig)))</a>
 <a class="sourceLine" id="cb203-6" title="6">newdata</a>
 <a class="sourceLine" id="cb203-7" title="7"><span class="co">#&gt; # A tibble: 2 x 3</span></a>
 <a class="sourceLine" id="cb203-8" title="8"><span class="co">#&gt; # Groups:   assay [2]</span></a>
@@ -833,7 +894,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="working-with-lists-and-iteration.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="programming-in-the-tidyverse.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="regular-expressions-and-testthat.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

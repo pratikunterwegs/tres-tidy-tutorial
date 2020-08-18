@@ -13,20 +13,21 @@ This tutorial will take the form of a one hour per week video stream via Google 
 
 ## Schedule
 
-Topic|Package|Instructor|Date*
----|---|---|---
+Topic                               |Package|Instructor|Date*
+------------------------------------|---|---|---
 Reading data and string manipulation|[readr](https://readr.tidyverse.org/), [stringr](https://stringr.tidyverse.org/), [glue](https://github.com/tidyverse/glue)|Pratik|29/05/20
-Data and reshaping|[tibble](https://tibble.tidyverse.org/), [tidyr](https://tidyr.tidyverse.org/), [forcats](https://forcats.tidyverse.org/)|Raphael|05/06/20
-Manipulating data|[dplyr](https://dplyr.tidyverse.org/)|Theo|12/06/20
-Working with lists and iteration|[purrr](https://purrr.tidyverse.org/)|Pratik|19/06/20
-Plotting|[ggplot2](https://ggplot2.tidyverse.org/)|Raphael|26/06/20
-Programming with the tidyverse|[rlang](https://rlang.r-lib.org/)|Pratik|10/07/20
-Regular expressions|[regex](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html)|_to be decided_|17/07/20
+Data and reshaping                  |[tibble](https://tibble.tidyverse.org/), [tidyr](https://tidyr.tidyverse.org/), [forcats](https://forcats.tidyverse.org/)|Raphael|05/06/20
+Manipulating data                   |[dplyr](https://dplyr.tidyverse.org/)|Theo|12/06/20
+Working with lists and iteration    |[purrr](https://purrr.tidyverse.org/)|Pratik|19/06/20
+Plotting                            |[ggplot2](https://ggplot2.tidyverse.org/)|Raphael|26/06/20
+Programming with the tidyverse      |[rlang](https://rlang.r-lib.org/)|Pratik|10/07/20
+Regular expressions                 |[stringr](https://stringr.tidyverse.org)|Richel|17/07/20
+Package development                 |[devtools, usethis, roxygen2](http://r-pkgs.had.co.nz/)|Raphael|24/07/20
 
-## Possible extras
-
-- Reproducibility and package-making (with e.g. [usethis](https://usethis.r-lib.org/))  
-- Embedding C++ code with [Rcpp](http://adv-r.had.co.nz/Rcpp.html)
+Branch   |[Travis CI build status](https://travis-ci.org)                                                                                          
+---------|-------------------------------------------------------------------------------------------------------------------------------------------------------
+`master` |[![Build Status](https://travis-ci.org/pratikunterwegs/tres-tidy-tutorial.svg?branch=master)](https://travis-ci.org/pratikunterwegs/tres-tidy-tutorial)
+`richel` |[![Build Status](https://travis-ci.org/pratikunterwegs/tres-tidy-tutorial.svg?branch=richel)](https://travis-ci.org/pratikunterwegs/tres-tidy-tutorial)
 
 ## Join
 
