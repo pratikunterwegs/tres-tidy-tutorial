@@ -6,5 +6,5 @@ for (rmd_filename in rmd_filenames) {
   message(paste0(rep("*", times = 80), collapse = ""))
   message(rmd_filename)
   message(paste0(rep("*", times = 80), collapse = ""))
-  print(lintr::lint(rmd_filename), sep = "\n")
+  message(lintr::lint(rmd_filename), sep = "\n")
 }
