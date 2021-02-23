@@ -14,8 +14,8 @@ script:
   - ./check_spelling.sh
 
 after_success:
-  - Rscript -e 'download.file("https://www.rug.nl/research/portal/files/132028374/Complete_thesis.pdf", tempfile())'
+  - Rscript -e 'download.file("https://pure.rug.nl/ws/files/132028374/Complete_thesis.pdf", tempfile())'
 
 after_failure:
-  - Rscript -e 'download.file("https://www.rug.nl/research/portal/files/132028374/Complete_thesis.pdf", tempfile())'
+  - Rscript -e 'download.file("https://pure.rug.nl/ws/files/132028374/Complete_thesis.pdf", tempfile())'
 
