@@ -28,10 +28,10 @@ Regular expressions                 |[stringr](https://stringr.tidyverse.org)|Ri
 - Reproducibility and package-making (with e.g. [usethis](https://usethis.r-lib.org/))  
 - Embedding C++ code with [Rcpp](http://adv-r.had.co.nz/Rcpp.html)
 
-Branch   |[Travis CI build status](https://travis-ci.org)                                                                                          
+Branch   |[Travis CI build status](https://travis-ci.com)                                                                                          
 ---------|-------------------------------------------------------------------------------------------------------------------------------------------------------
-`master` |[![Build Status](https://travis-ci.org/pratikunterwegs/tres-tidy-tutorial.svg?branch=master)](https://travis-ci.org/pratikunterwegs/tres-tidy-tutorial)
-`richel` |[![Build Status](https://travis-ci.org/pratikunterwegs/tres-tidy-tutorial.svg?branch=richel)](https://travis-ci.org/pratikunterwegs/tres-tidy-tutorial)
+`master` |[![Build Status](https://travis-ci.com/pratikunterwegs/tres-tidy-tutorial.svg?branch=master)](https://travis-ci.com/pratikunterwegs/tres-tidy-tutorial)
+`richel` |[![Build Status](https://travis-ci.com/pratikunterwegs/tres-tidy-tutorial.svg?branch=richel)](https://travis-ci.com/pratikunterwegs/tres-tidy-tutorial)
 
 ## Join
 
